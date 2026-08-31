@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="es" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<!-- Maqueta de propuesta. No es el sitio público de la empresa. -->
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tres Direcciones de Marca</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,300;6..72,400;6..72,500&family=Inter+Tight:wght@300;400;500&family=Noto+Kufi+Arabic:wght@400;500;700&family=Noto+Sans+Arabic:wght@300;400&display=swap">
+
+<style>
+/* Documento de presentación, no una marca. Deliberadamente neutro: si
+   esta página tuviera personalidad propia competiría con las tres
+   propuestas que tiene que dejar hablar. */
+:root{
+  --f:#f4f4f2; --f2:#eaeae6; --t:#1b1c1a; --t2:#5f625d; --t3:#8f938c;
+  --l:rgba(27,28,26,.13);
+  --a:#2f6d5e;
+  --disp:"Newsreader",Georgia,serif;
+  --cuerpo:"Inter Tight",system-ui,sans-serif;
+  --marco:min(1080px,100% - 2.75rem);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --f:#101110; --f2:#191a18; --t:#e9eae6; --t2:#a0a49c; --t3:#6e726a;
+  --l:rgba(233,234,230,.15); --a:#6fb3a0;
+}}
+:root[data-theme="dark"]{
+  --f:#101110; --f2:#191a18; --t:#e9eae6; --t2:#a0a49c; --t3:#6e726a;
+  --l:rgba(233,234,230,.15); --a:#6fb3a0;
+}
+html[dir="rtl"]{ --disp:"Noto Kufi Arabic",sans-serif; --cuerpo:"Noto Sans Arabic",sans-serif; }
+
+*,*::before,*::after{box-sizing:border-box;}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;}}
+body{margin:0;background:var(--f);color:var(--t);font-family:var(--cuerpo);
+  font-weight:300;font-size:clamp(15px,1.02vw,16.5px);line-height:1.68;-webkit-font-smoothing:antialiased;}
+html[dir="rtl"] body{line-height:2;}
+h1,h2,h3{font-family:var(--disp);font-weight:400;margin:0;line-height:1.12;text-wrap:balance;}
+html[dir="rtl"] h1,html[dir="rtl"] h2,html[dir="rtl"] h3{line-height:1.5;font-weight:500;}
+p{margin:0 0 .9em;max-width:64ch;} p:last-child{margin-bottom:0;}
+a{color:inherit;} :focus-visible{outline:2px solid var(--a);outline-offset:3px;}
+.marco{width:var(--marco);margin-inline:auto;}
+
+.cab{padding-block:1.3rem;border-bottom:1px solid var(--l);display:flex;gap:1.2rem;align-items:baseline;flex-wrap:wrap;}
+.cab .quien{font-family:var(--disp);font-size:1.05rem;}
+.idi{display:flex;gap:.5rem;margin-inline-start:auto;font-size:.78rem;}
+.idi button{background:none;border:0;cursor:pointer;font:inherit;font-family:var(--cuerpo);color:var(--t3);padding:0;}
+.idi button[aria-pressed="true"]{color:var(--t);text-decoration:underline;text-underline-offset:3px;}
+.idi button:hover{color:var(--a);}
+
+.intro{padding-block:clamp(2.8rem,6vw,4.5rem);border-bottom:1px solid var(--l);}
+.intro h1{font-size:clamp(2rem,4.6vw,3.3rem);max-width:20ch;}
+.intro .p{color:var(--t2);margin-top:1.3rem;}
+.rot{font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--a);margin:0 0 1rem;font-weight:500;}
+html[dir="rtl"] .rot{letter-spacing:0;text-transform:none;font-size:.86rem;}
+
+.prop{padding-block:clamp(2.4rem,5vw,3.6rem);border-bottom:1px solid var(--l);
+  display:grid;gap:1.5rem;}
+@media(min-width:860px){.prop{grid-template-columns:13rem 1fr;gap:3rem;align-items:start;}}
+.prop .marca{font-family:var(--disp);font-size:clamp(1.7rem,3vw,2.3rem);line-height:1;}
+.prop .lema{color:var(--t3);font-size:.86rem;margin-top:.5rem;}
+.prop h3{font-size:1.15rem;margin:1.4rem 0 .4rem;}
+.prop h3:first-of-type{margin-top:0;}
+.prop p{color:var(--t2);}
+.tiras{display:flex;gap:0;margin-top:1rem;border:1px solid var(--l);width:max-content;}
+.tiras i{width:2.1rem;height:2.1rem;display:block;background:var(--c);}
+.tipos{font-size:.82rem;color:var(--t3);margin-top:.7rem;}
+.ver{display:inline-block;margin-top:1.5rem;font-size:.76rem;letter-spacing:.14em;
+  text-transform:uppercase;text-decoration:none;border:1px solid var(--t);padding:.8rem 1.9rem;transition:.2s;}
+html[dir="rtl"] .ver{letter-spacing:0;text-transform:none;font-size:.92rem;}
+.ver:hover{background:var(--t);color:var(--f);}
+.riesgo{border-inline-start:2px solid var(--a);padding-inline-start:1rem;margin-top:1.2rem;font-size:.92rem;color:var(--t3);}
+
+.pie{padding-block:2rem 3rem;font-size:.8rem;color:var(--t3);}
+.ltr{direction:ltr;unicode-bidi:isolate;display:inline-block;}
+</style>
+</head>
+<body>
+<div class="marco cab">
+  <span class="quien" data-t="quien">Propuesta de identidad</span>
+  <span style="color:var(--t3);font-size:.82rem" data-t="paraQuien">Para HARUNANA TRAVEL AND CONSULTING — FZCO</span>
+  <div class="idi" role="group" data-t-attr="aria-label:ariaLengua" aria-label="Idioma">
+    <button type="button" data-lang="es" aria-pressed="true">ES</button>
+    <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    <button type="button" data-lang="ar" aria-pressed="false" lang="ar">العربية</button>
+  </div>
+</div>
+
+<main class="marco">
+
+  <section class="intro">
+    <p class="rot" data-t="rIntro">Cuatro caminos</p>
+    <h1 data-t="h1">Cuatro propuestas distintas para la misma casa.</h1>
+    <p class="p" data-t="intro1">No son tres versiones de la misma idea con otro color: son tres maneras de entender qué clase de empresa es esta. Cada una está construida entera y funcionando, en español, inglés y árabe, con la maquetación invertida de verdad en la versión árabe.</p>
+    <p class="p" data-t="intro2">Lo razonable es elegir una y desarrollarla. Las otras quedan descartadas, y no pasa nada: para eso se hacen cuatro.</p>
+  </section>
+
+  <section class="prop">
+    <div>
+      <div class="marca" data-t="dMarca">MARSA</div>
+      <div class="lema" data-t="dLema">مَرْسى · «fondeadero»</div>
+      <div class="tiras" aria-hidden="true">
+        <i style="--c:#e8ebea"></i><i style="--c:#0e1a24"></i><i style="--c:#2f6d5e"></i><i style="--c:#c8641a"></i>
+      </div>
+      <div class="tipos ltr">Bodoni Moda · Karla · Reem Kufi · IBM Plex Sans Arabic</div>
+    </div>
+    <div>
+      <h3 data-t="hQue">Qué es</h3>
+      <p data-t="dQue">La más desarrollada de las cuatro: diez páginas, no una. Además del sitio corriente lleva tres herramientas que funcionan de verdad — un calendario hiyrí calculado en el navegador que enseña cómo se desplaza la demanda del Golfo cada año, la misma jornada en Kioto montada de dos maneras, y los tres niveles distintos que se anuncian como «halal».</p>
+      <h3 data-t="hPara">Para quién funciona</h3>
+      <p data-t="dPara">Para cuando la web no sólo tiene que gustar, sino demostrar que sabemos algo que la competencia no sabe. Es la que convierte una visita en una conversación, porque el visitante se lleva un dato que no tenía.</p>
+      <p class="riesgo" data-t="dRiesgo">El riesgo: es la más ambiciosa y la más cara de mantener. Las herramientas hay que revisarlas cada temporada, y una web que enseña datos obliga a que los datos estén al día.</p>
+      <a class="ver" href="marsa.html" data-t="bVer">Ver la propuesta</a>
+    </div>
+  </section>
+
+  <section class="prop">
+    <div>
+      <div class="marca" data-t="aMarca">DIWAN</div>
+      <div class="lema" data-t="aLema">الديوان · «la sala donde se recibe»</div>
+      <div class="tiras" aria-hidden="true">
+        <i style="--c:#e4e3de"></i><i style="--c:#23262b"></i><i style="--c:#7a2b2b"></i><i style="--c:#8a6a2c"></i>
+      </div>
+      <div class="tipos ltr">Spectral · Amiri</div>
+    </div>
+    <div>
+      <h3 data-t="hQue">Qué es</h3>
+      <p data-t="aQue">La página compuesta como una página de manuscrito: caja de texto centrada, márgenes anchos, epígrafes rubricados en rojo —que es como se marcaban las secciones antes de que existiera la negrita— y un friso de estrellas de ocho puntas generado por trigonometría, no una imagen.</p>
+      <h3 data-t="hPara">Para quién funciona</h3>
+      <p data-t="aPara">Para el cliente del Golfo de más edad y más patrimonio, el que asocia el lujo a la hospitalidad y no a la novedad. Es la única de las tres en la que el árabe manda: la caja centrada se lee igual en los dos sentidos, así que la versión árabe no es una adaptación.</p>
+      <p class="riesgo" data-t="aRiesgo">El riesgo: puede leerse como una casa antigua. Si el objetivo es un cliente global y joven, quizá diga «tradición» más de lo que conviene.</p>
+      <a class="ver" href="diwan.html" data-t="bVer">Ver la propuesta</a>
+    </div>
+  </section>
+
+  <section class="prop">
+    <div>
+      <div class="marca" data-t="bMarca">MERIDIANO</div>
+      <div class="lema" data-t="bLema">خط الطول · «el meridiano»</div>
+      <div class="tiras" aria-hidden="true">
+        <i style="--c:#f1f2ef"></i><i style="--c:#121412"></i><i style="--c:#1e3fd8"></i><i style="--c:#6a6f6a"></i>
+      </div>
+      <div class="tipos ltr">Archivo · IBM Plex Mono · IBM Plex Sans Arabic</div>
+    </div>
+    <div>
+      <h3 data-t="hQue">Qué es</h3>
+      <p data-t="bQue">Lo contrario de una web de viajes: ni una fotografía, ni un adjetivo de más. Rejilla de doce columnas a la vista, etiquetas en monoespaciada, cifras tabulares y un único color de señal. Lleva un reloj en vivo con la hora de Dubái, Madrid, Ciudad de México y Tokio, más la del propio visitante.</p>
+      <h3 data-t="hPara">Para quién funciona</h3>
+      <p data-t="bPara">Para el cliente que decide con la cabeza y desconfía del brillo: empresario, family office, alguien acostumbrado a la banca privada. Vende rigor, no sueño. Y en árabe aguanta perfectamente porque el sistema es la retícula, no la dirección de lectura.</p>
+      <p class="riesgo" data-t="bRiesgo">El riesgo: es frío. Al cliente que compra un viaje por ilusión puede dejarle indiferente.</p>
+      <a class="ver" href="meridiano.html" data-t="bVer">Ver la propuesta</a>
+    </div>
+  </section>
+
+  <section class="prop">
+    <div>
+      <div class="marca" data-t="cMarca">NAWA</div>
+      <div class="lema" data-t="cLema">نَوى · «proponerse ir»</div>
+      <div class="tiras" aria-hidden="true">
+        <i style="--c:#070b14"></i><i style="--c:#141c2e"></i><i style="--c:#e0b872"></i><i style="--c:#eef1f7"></i>
+      </div>
+      <div class="tipos ltr">Fraunces · Manrope · Aref Ruqaa · Tajawal</div>
+    </div>
+    <div>
+      <h3 data-t="hQue">Qué es</h3>
+      <p data-t="cQue">Nocturna y de un solo tema, a propósito. La portada la ocupa un mapa de estrellas calculado en el navegador: posiciones fijas, brillos por magnitud, líneas de constelación y un giro lentísimo. Antes de que hubiera mapas se viajaba leyendo el cielo. Los titulares árabes van en ruqʿa caligráfica.</p>
+      <h3 data-t="hPara">Para quién funciona</h3>
+      <p data-t="cPara">Para vender deseo. Es la que mejor funciona en redes y la que más se recuerda de una sola visita. La palabra «nawà» —proponerse ir a un sitio— resume el negocio entero: la intención antes que el trayecto.</p>
+      <p class="riesgo" data-t="cRiesgo">El riesgo: lo oscuro envejece antes y perdona menos. Exige fotografía buena de verdad desde el primer día.</p>
+      <a class="ver" href="nawa.html" data-t="bVer">Ver la propuesta</a>
+    </div>
+  </section>
+
+  <section class="prop" style="border-bottom:0">
+    <div><div class="marca" style="font-size:1.4rem" data-t="siguienteM">Y ahora</div></div>
+    <div>
+      <p data-t="siguiente1">Elija una y le desarrollo el sitio completo sobre esa base: páginas interiores, gestor de contenidos, formulario real, SEO por idioma y avisos legales.</p>
+      <p data-t="siguiente2">Si prefiere mezclar —la retícula de MERIDIANO con la tipografía de DIWAN, por ejemplo— también se puede. Dígamelo y hago una cuarta con esa mezcla antes de empezar a construir.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="marco pie">
+  <span data-t="pie">Propuesta de identidad · HARUNANA TRAVEL AND CONSULTING — FZCO</span>
+</footer>
+
+<script>
+var T = {
+es:{
+  _dir:"ltr", _lang:"es",
+  dMarca:"MARSA", dLema:"مَرْسى · «fondeadero»",
+  dQue:"La más desarrollada de las cuatro: diez páginas, no una. Además del sitio corriente lleva tres herramientas que funcionan de verdad — un calendario hiyrí calculado en el navegador que enseña cómo se desplaza la demanda del Golfo cada año, la misma jornada en Kioto montada de dos maneras, y los tres niveles distintos que se anuncian como «halal».",
+  dPara:"Para cuando la web no sólo tiene que gustar, sino demostrar que sabemos algo que la competencia no sabe. Es la que convierte una visita en una conversación, porque el visitante se lleva un dato que no tenía.",
+  dRiesgo:"El riesgo: es la más ambiciosa y la más cara de mantener. Las herramientas hay que revisarlas cada temporada, y una web que enseña datos obliga a que los datos estén al día.",
+
+  titulo:"Cuatro propuestas de marca",
+  quien:"Propuesta de identidad", ariaLengua:"Idioma",
+  paraQuien:"Para HARUNANA TRAVEL AND CONSULTING — FZCO",
+  rIntro:"Cuatro caminos",
+  h1:"Cuatro propuestas distintas para la misma casa.",
+  intro1:"No son tres versiones de la misma idea con otro color: son tres maneras de entender qué clase de empresa es esta. Cada una está construida entera y funcionando, en español, inglés y árabe, con la maquetación invertida de verdad en la versión árabe.",
+  intro2:"Lo razonable es elegir una y desarrollarla. Las otras quedan descartadas, y no pasa nada: para eso se hacen cuatro.",
+  hQue:"Qué es", hPara:"Para quién funciona", bVer:"Ver la propuesta",
+  aMarca:"DIWAN", aLema:"الديوان · «la sala donde se recibe»",
+  aQue:"La página compuesta como una página de manuscrito: caja de texto centrada, márgenes anchos, epígrafes rubricados en rojo —que es como se marcaban las secciones antes de que existiera la negrita— y un friso de estrellas de ocho puntas generado por trigonometría, no una imagen.",
+  aPara:"Para el cliente del Golfo de más edad y más patrimonio, el que asocia el lujo a la hospitalidad y no a la novedad. Es la única de las tres en la que el árabe manda: la caja centrada se lee igual en los dos sentidos, así que la versión árabe no es una adaptación.",
+  aRiesgo:"El riesgo: puede leerse como una casa antigua. Si el objetivo es un cliente global y joven, quizá diga «tradición» más de lo que conviene.",
+  bMarca:"MERIDIANO", bLema:"خط الطول · «el meridiano»",
+  bQue:"Lo contrario de una web de viajes: ni una fotografía, ni un adjetivo de más. Rejilla de doce columnas a la vista, etiquetas en monoespaciada, cifras tabulares y un único color de señal. Lleva un reloj en vivo con la hora de Dubái, Madrid, Ciudad de México y Tokio, más la del propio visitante.",
+  bPara:"Para el cliente que decide con la cabeza y desconfía del brillo: empresario, family office, alguien acostumbrado a la banca privada. Vende rigor, no sueño. Y en árabe aguanta perfectamente porque el sistema es la retícula, no la dirección de lectura.",
+  bRiesgo:"El riesgo: es frío. Al cliente que compra un viaje por ilusión puede dejarle indiferente.",
+  cMarca:"NAWA", cLema:"نَوى · «proponerse ir»",
+  cQue:"Nocturna y de un solo tema, a propósito. La portada la ocupa un mapa de estrellas calculado en el navegador: posiciones fijas, brillos por magnitud, líneas de constelación y un giro lentísimo. Antes de que hubiera mapas se viajaba leyendo el cielo. Los titulares árabes van en ruqʿa caligráfica.",
+  cPara:"Para vender deseo. Es la que mejor funciona en redes y la que más se recuerda de una sola visita. La palabra «nawà» —proponerse ir a un sitio— resume el negocio entero: la intención antes que el trayecto.",
+  cRiesgo:"El riesgo: lo oscuro envejece antes y perdona menos. Exige fotografía buena de verdad desde el primer día.",
+  siguienteM:"Y ahora",
+  siguiente1:"Elija una y le desarrollo el sitio completo sobre esa base: páginas interiores, gestor de contenidos, formulario real, SEO por idioma y avisos legales.",
+  siguiente2:"Si prefiere mezclar —la retícula de MERIDIANO con la tipografía de DIWAN, por ejemplo— también se puede. Dígamelo y hago una cuarta con esa mezcla antes de empezar a construir.",
+  pie:"Propuesta de identidad · HARUNANA TRAVEL AND CONSULTING — FZCO"
+},
+en:{
+  _dir:"ltr", _lang:"en",
+  dMarca:"MARSA", dLema:"مَرْسى · “a mooring”",
+  dQue:"The most developed of the four: ten pages, not one. Alongside the ordinary site it carries three tools that genuinely work — a Hijri calendar computed in the browser showing how Gulf demand shifts each year, the same day in Kyoto built two ways, and the three different things advertised as “halal”.",
+  dPara:"For when the site must not merely please, but prove we know something the competition does not. It is the one that turns a visit into a conversation, because the visitor leaves with a fact they did not have.",
+  dRiesgo:"The risk: it is the most ambitious and the most expensive to maintain. The tools need reviewing every season, and a site that shows data obliges the data to stay current.",
+
+  titulo:"Four brand proposals",
+  quien:"Identity proposal", ariaLengua:"Language",
+  paraQuien:"For HARUNANA TRAVEL AND CONSULTING — FZCO",
+  rIntro:"Four routes",
+  h1:"Four different proposals for the same house.",
+  intro1:"These are not three versions of one idea in different colours: they are three readings of what kind of company this is. Each is built in full and working, in Spanish, English and Arabic, with genuinely mirrored layout in the Arabic version.",
+  intro2:"The sensible thing is to choose one and develop it. The others are discarded, and that is fine: it is why four are made.",
+  hQue:"What it is", hPara:"Who it works for", bVer:"View the proposal",
+  aMarca:"DIWAN", aLema:"الديوان · “the room where guests are received”",
+  aQue:"The page composed as a manuscript page: a centred text block, wide margins, headings rubricated in red — which is how sections were marked before bold type existed — and a frieze of eight-pointed stars generated by trigonometry, not an image.",
+  aPara:"For the older, wealthier Gulf client, the one who associates luxury with hospitality rather than novelty. It is the only one of the three in which Arabic leads: a centred block reads the same in both directions, so the Arabic version is not an adaptation.",
+  aRiesgo:"The risk: it can read as an old house. If the target is a young global client, it may say “tradition” more loudly than is useful.",
+  bMarca:"MERIDIANO", bLema:"خط الطول · “the meridian”",
+  bQue:"The opposite of a travel website: not one photograph, not one surplus adjective. A visible twelve-column grid, monospaced labels, tabular figures and a single signal colour. It carries a live clock with the time in Dubai, Madrid, Mexico City and Tokyo, plus the visitor's own.",
+  bPara:"For the client who decides with their head and distrusts gloss: a business owner, a family office, someone used to private banking. It sells rigour, not dreams. And it holds up in Arabic because the system is the grid, not the reading direction.",
+  bRiesgo:"The risk: it is cold. A client who buys a journey out of longing may be left unmoved.",
+  cMarca:"NAWA", cLema:"نَوى · “to set out for”",
+  cQue:"Nocturnal and single-themed, deliberately. The cover is a star map computed in the browser: fixed positions, brightness by magnitude, constellation lines and a very slow rotation. Before there were maps, travel meant reading the sky. Arabic headlines are set in calligraphic ruqʿa.",
+  cPara:"For selling desire. It is the one that works best on social media and the one most remembered after a single visit. The word nawā — to set your mind on going somewhere — sums up the whole business: intention before route.",
+  cRiesgo:"The risk: dark ages faster and forgives less. It demands genuinely good photography from day one.",
+  siguienteM:"Next",
+  siguiente1:"Choose one and I will build the complete site on that basis: inner pages, a content manager, a working form, per-language SEO and legal notices.",
+  siguiente2:"If you would rather mix — MERIDIANO's grid with DIWAN's typography, say — that is possible too. Tell me and I will make a fourth with that combination before building anything.",
+  pie:"Identity proposal · HARUNANA TRAVEL AND CONSULTING — FZCO"
+},
+ar:{
+  _dir:"rtl", _lang:"ar",
+  dMarca:"مَرْسى", dLema:"«المرفأ الذي تُلقى فيه المراسي»",
+  dQue:"أكثر المقترحات الأربعة اكتمالًا: عشر صفحات لا صفحة واحدة. فإلى جانب الموقع المعتاد يحمل ثلاث أدوات تعمل فعلًا — تقويم هجري يُحسب داخل المتصفح ويُظهر كيف يتزحزح الطلب الخليجي كل سنة، واليوم نفسه في كيوتو مُرتَّبًا بطريقتين، والمستويات الثلاثة المختلفة التي تُعلن جميعًا باسم «حلال».",
+  dPara:"لحين لا يكفي أن يُعجب الموقع، بل يجب أن يُثبت أننا نعرف ما لا يعرفه المنافسون. وهو الذي يحوّل الزيارة إلى حديث، لأن الزائر يخرج بمعلومة لم تكن لديه.",
+  dRiesgo:"المحذور: هو الأطمح والأعلى كلفةً في الصيانة. فالأدوات تحتاج مراجعة كل موسم، والموقع الذي يعرض بيانات يُلزم بأن تبقى بياناته حديثة.",
+
+  titulo:"أربعة مقترحات للهوية",
+  quien:"مقترح هوية", ariaLengua:"اللغة",
+  paraQuien:"لشركة HARUNANA TRAVEL AND CONSULTING — FZCO",
+  rIntro:"أربعة مسارات",
+  h1:"أربعة مقترحات مختلفة للدار نفسها.",
+  intro1:"ليست ثلاث نسخ من فكرة واحدة بألوان مختلفة، بل ثلاث قراءات لطبيعة هذه الشركة. كلٌّ منها مبنيّ بالكامل ويعمل، بالإسبانية والإنجليزية والعربية، وبتخطيط معكوس فعليًا في النسخة العربية.",
+  intro2:"والمعقول أن تُختار واحدة وتُطوَّر. أما البقية فتُستبعد، ولا بأس: لهذا تُصنع أربعة.",
+  hQue:"ما هو", hPara:"لمن يصلح", bVer:"استعراض المقترح",
+  aMarca:"الدِّيوان", aLema:"«المجلس الذي يُستقبل فيه الضيف»",
+  aQue:"الصفحة مؤلَّفة كصفحة مخطوطة: كتلة نص متوسّطة، وهوامش واسعة، وعناوين مُشكَّلة بالحمرة — وهكذا كانت تُعلَّم الأقسام قبل أن يوجد الخط الغليظ — وإفريز من نجوم ثمانية مولَّد بحساب المثلثات، لا صورة جاهزة.",
+  aPara:"للعميل الخليجي الأكبر سنًّا والأوفر مالًا، الذي يربط الفخامة بالكرم لا بالجِدّة. وهو الاتجاه الوحيد الذي تتصدّر فيه العربية: الكتلة المتوسّطة تُقرأ بالاتجاهين سواء، فالنسخة العربية ليست تكييفًا.",
+  aRiesgo:"المحذور: قد يُقرأ على أنه دارٌ عتيقة. وإن كان المقصود عميلًا عالميًّا شابًّا، فقد يقول «تراث» أكثر مما ينبغي.",
+  bMarca:"خط الطول", bLema:"«المحور الذي تُقاس عليه المواقيت»",
+  bQue:"نقيض موقع السفر المعتاد: لا صورة واحدة، ولا نعت زائد. شبكة من اثني عشر عمودًا ظاهرة، وعناوين بخط ثابت العرض، وأرقام جدولية، ولون إشارة واحد. ويحمل ساعة حيّة بتوقيت دبي ومدريد ومكسيكو وطوكيو، إضافةً إلى توقيت الزائر نفسه.",
+  bPara:"للعميل الذي يقرّر بعقله ويرتاب في البريق: صاحب أعمال، أو مكتب عائلي، أو من اعتاد الخدمات المصرفية الخاصة. يبيع الإحكام لا الحُلم. ويصمد بالعربية تمامًا لأن النظام هو الشبكة، لا اتجاه القراءة.",
+  bRiesgo:"المحذور: إنه بارد. والعميل الذي يشتري الرحلة بدافع الشوق قد يمرّ عليه دون أثر.",
+  cMarca:"نَوى", cLema:"«أن تعقد العزم على المسير»",
+  cQue:"ليليّ وبمظهر واحد، عن قصد. تشغل الواجهةَ خريطةُ نجوم محسوبة داخل المتصفح: مواضع ثابتة، وسطوعٌ بحسب القدر، وخطوط كوكبات، ودورانٌ بالغ البطء. قبل أن تُوجد الخرائط كان السفر قراءةً للسماء. وعناوينه العربية بخط الرقعة.",
+  cPara:"لبيع الرغبة. وهو الأنجح في وسائل التواصل، والأرسخ في الذاكرة من زيارة واحدة. وكلمة «نَوى» — أن تعقد العزم على المسير — تختصر العمل كله: النيّة قبل الطريق.",
+  cRiesgo:"المحذور: الداكن يشيخ أسرع ويغفر أقل. ويستلزم تصويرًا جيدًا فعلًا من أول يوم.",
+  siguienteM:"وبعد",
+  siguiente1:"اختر واحدًا وأبني عليه الموقع كاملًا: الصفحات الداخلية، ونظام إدارة المحتوى، ونموذج تواصل يعمل فعلًا، وتحسين محركات البحث لكل لغة، والإشعارات القانونية.",
+  siguiente2:"وإن فضّلت المزج — شبكة «خط الطول» مع حروف «الديوان» مثلًا — فذلك ممكن أيضًا. أخبرني وأصنع رابعًا بذلك المزيج قبل أن نبدأ البناء.",
+  pie:"مقترح هوية · HARUNANA TRAVEL AND CONSULTING — FZCO"
+}
+};
+
+var idioma = "es";
+function aplicar(codigo){
+  if (!T[codigo]) codigo = "es";
+  idioma = codigo;
+  var t = T[codigo], i;
+  document.documentElement.lang = t._lang;
+  document.documentElement.dir  = t._dir;
+  document.title = t.titulo;
+  var n = document.querySelectorAll("[data-t]");
+  for (i = 0; i < n.length; i++){
+    var k = n[i].getAttribute("data-t");
+    if (t[k] !== undefined) n[i].textContent = t[k];
+  }
+  var a = document.querySelectorAll("[data-t-attr]");
+  for (i = 0; i < a.length; i++){
+    a[i].getAttribute("data-t-attr").split(",").forEach(function(par){
+      var q = par.split(":");
+      if (t[q[1].trim()] !== undefined) a[i].setAttribute(q[0].trim(), t[q[1].trim()]);
+    });
+  }
+  var b = document.querySelectorAll(".idi button");
+  for (i = 0; i < b.length; i++) b[i].setAttribute("aria-pressed", String(b[i].dataset.lang === codigo));
+  try{ localStorage.setItem("pres_lang", codigo); }catch(e){}
+}
+var bs = document.querySelectorAll(".idi button");
+for (var i = 0; i < bs.length; i++) bs[i].addEventListener("click", function(){ aplicar(this.dataset.lang); });
+(function(){
+  var g = null;
+  try{ g = localStorage.getItem("pres_lang"); }catch(e){}
+  if (!g || !T[g]){ var l = (navigator.language||"es").slice(0,2).toLowerCase(); g = T[l] ? l : "es"; }
+  aplicar(g);
+})();
+</script>
+</body>
+</html>

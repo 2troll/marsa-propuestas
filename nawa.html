@@ -1,0 +1,517 @@
+<!doctype html>
+<html lang="es" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<!-- Maqueta de propuesta. No es el sitio público de la empresa. -->
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nawa Night Journeys</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Manrope:wght@300;400;500&family=Aref+Ruqaa:wght@400;700&family=Tajawal:wght@300;400;500&display=swap">
+
+<style>
+/* ══════════════════════════════════════════════════════════════════
+   NAWA — نَوى. "Nawà" es intentar, proponerse, encaminarse hacia algo:
+   نَوى السفرَ, "se propuso viajar". La intención antes que el trayecto.
+
+   Dirección deliberadamente nocturna y de un solo tema. No es una
+   omisión: el fondo ES la marca. La portada la ocupa un mapa de
+   estrellas calculado en canvas, porque antes de que existieran las
+   agencias, viajar consistía en saber leer el cielo. Todos los colores
+   están declarados, así que la página se sostiene sobre cualquier
+   fondo del visor.
+   ══════════════════════════════════════════════════════════════════ */
+
+:root{
+  --noche:#070b14;
+  --noche-2:#0d1320;
+  --noche-3:#141c2e;
+  --luz:#eef1f7;
+  --luz-2:#a4adc2;
+  --luz-3:#6b7590;
+  --arena:#e0b872;      /* la única nota cálida: la duna al amanecer */
+  --arena-2:#c39a55;
+  --hilo:rgba(238,241,247,.14);
+
+  --disp:"Fraunces",Georgia,serif;
+  --cuerpo:"Manrope",system-ui,sans-serif;
+  --marco:min(1180px, 100% - 2.75rem);
+}
+
+/* En árabe, Aref Ruqaa (ruqʿa caligráfica) para los titulares y Tajawal
+   para el cuerpo. La ruqʿa es cursiva y dramática: hace en árabe lo que
+   Fraunces hace en latino, que es dar carácter sin gritar. */
+html[dir="rtl"]{ --disp:"Aref Ruqaa",serif; --cuerpo:"Tajawal",system-ui,sans-serif; }
+
+*,*::before,*::after{box-sizing:border-box;}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;}}
+
+body{
+  margin:0; background:var(--noche); color:var(--luz);
+  font-family:var(--cuerpo); font-weight:300;
+  font-size:clamp(15px,1.05vw,17px); line-height:1.72;
+  -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+html[dir="rtl"] body{line-height:2;}
+h1,h2,h3{font-family:var(--disp); font-weight:400; margin:0; line-height:1.06; text-wrap:balance;}
+html[dir="rtl"] h1,html[dir="rtl"] h2,html[dir="rtl"] h3{line-height:1.6; font-weight:700;}
+p{margin:0 0 1em; max-width:60ch;}
+p:last-child{margin-bottom:0;}
+a{color:inherit;}
+:focus-visible{outline:2px solid var(--arena); outline-offset:4px;}
+
+.marco{width:var(--marco); margin-inline:auto;}
+.tramo{padding-block:clamp(4rem,9vw,7.5rem);}
+
+.epig{
+  font-size:.7rem; letter-spacing:.34em; text-transform:uppercase;
+  color:var(--arena); margin:0 0 1.4rem; font-weight:500;
+}
+/* Ni versales ni espaciado en árabe: descosería las ligaduras. */
+html[dir="rtl"] .epig{letter-spacing:0; text-transform:none; font-size:.95rem; font-weight:500;}
+
+/* ── Cabecera ────────────────────────────────────────────────────── */
+header.n{position:absolute; inset-inline:0; top:0; z-index:3;}
+.barra{display:flex; align-items:center; gap:1.4rem; padding-block:1.5rem; flex-wrap:wrap;}
+.marca{
+  font-family:var(--disp); font-size:1.4rem; letter-spacing:.36em;
+  text-decoration:none; line-height:1; color:var(--luz);
+}
+html[dir="rtl"] .marca{letter-spacing:normal; font-size:1.9rem;}
+nav.n{display:flex; gap:1.6rem; margin-inline-start:auto; font-size:.82rem;}
+nav.n a{text-decoration:none; color:var(--luz-2);}
+nav.n a:hover{color:var(--arena);}
+.leng{display:flex; gap:.45rem; font-size:.75rem;}
+.leng button{background:none; border:0; cursor:pointer; font:inherit; font-family:var(--cuerpo);
+  color:var(--luz-3); padding:.2rem 0;}
+.leng button[aria-pressed="true"]{color:var(--arena);}
+.leng button:hover{color:var(--luz);}
+
+/* ── Cielo ───────────────────────────────────────────────────────── */
+.cielo{position:relative; min-height:min(92vh,780px); display:flex; align-items:flex-end; overflow:hidden;}
+#mapa{position:absolute; inset:0; width:100%; height:100%; display:block;}
+.cielo::after{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(to bottom, rgba(7,11,20,.35) 0%, rgba(7,11,20,0) 32%, rgba(7,11,20,.88) 88%);
+}
+.cielo .texto{position:relative; z-index:2; padding-bottom:clamp(3rem,7vw,5.5rem);}
+.cielo h1{font-size:clamp(2.6rem,7.6vw,5.6rem); font-weight:300; max-width:15ch;}
+html[dir="rtl"] .cielo h1{font-weight:700; max-width:18ch;}
+.cielo .bajo{color:var(--luz-2); max-width:42ch; margin-top:1.5rem; font-size:clamp(1rem,1.45vw,1.15rem);}
+
+/* ── Capítulos ───────────────────────────────────────────────────── */
+.cap{
+  display:grid; grid-template-columns:1fr; gap:1rem;
+  padding-block:clamp(2.4rem,5vw,3.6rem); border-top:1px solid var(--hilo);
+}
+@media(min-width:860px){ .cap{grid-template-columns:8rem 1fr 1fr; gap:2.5rem; align-items:start;} }
+.cap .cifra{
+  font-family:var(--disp); font-size:clamp(2.6rem,5vw,4rem); font-weight:300;
+  color:var(--arena); line-height:.9;
+}
+html[dir="rtl"] .cap .cifra{font-weight:400;}
+.cap h3{font-size:clamp(1.5rem,2.6vw,2.1rem); margin-bottom:.5rem;}
+.cap p{color:var(--luz-2);}
+.cap .apostilla{color:var(--luz-3); font-size:.92rem; border-inline-start:1px solid var(--hilo); padding-inline-start:1.2rem;}
+
+/* ── Cita ────────────────────────────────────────────────────────── */
+.cita{background:var(--noche-2); border-block:1px solid var(--hilo);}
+.cita blockquote{
+  margin:0; font-family:var(--disp); font-weight:300;
+  font-size:clamp(1.6rem,3.8vw,2.9rem); line-height:1.3; max-width:22ch;
+}
+html[dir="rtl"] .cita blockquote{line-height:1.75; max-width:26ch; font-weight:400;}
+.cita cite{display:block; margin-top:1.8rem; font-style:normal; font-size:.78rem;
+  letter-spacing:.22em; text-transform:uppercase; color:var(--luz-3);}
+html[dir="rtl"] .cita cite{letter-spacing:0; text-transform:none; font-size:.92rem;}
+
+/* ── Formulario ──────────────────────────────────────────────────── */
+form{display:grid; gap:1.5rem; max-width:32rem;}
+label{display:block; font-size:.7rem; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--luz-3); margin-bottom:.45rem;}
+html[dir="rtl"] label{letter-spacing:0; text-transform:none; font-size:.9rem;}
+input,textarea,select{
+  width:100%; font:inherit; font-family:var(--cuerpo); color:var(--luz);
+  background:transparent; border:0; border-bottom:1px solid var(--hilo);
+  padding:.55rem 0; border-radius:0;
+}
+input:focus,textarea:focus,select:focus{outline:none; border-bottom-color:var(--arena);}
+textarea{resize:vertical; min-height:5rem;}
+select{appearance:none; cursor:pointer; color:var(--luz);
+  background-image:linear-gradient(45deg,transparent 50%,var(--luz-3) 50%),
+                   linear-gradient(135deg,var(--luz-3) 50%,transparent 50%);
+  background-size:5px 5px,5px 5px; background-repeat:no-repeat;
+  background-position:right 4px center,right 0 center;}
+/* No hay propiedad lógica para background-position. */
+html[dir="rtl"] select{background-position:left 0 center,left 4px center;}
+select option{background:var(--noche-2); color:var(--luz);}
+
+.partir{
+  font-family:var(--cuerpo); font-size:.76rem; letter-spacing:.2em; text-transform:uppercase;
+  background:var(--arena); color:var(--noche); border:1px solid var(--arena);
+  padding:.95rem 2.4rem; cursor:pointer; transition:.25s;
+}
+html[dir="rtl"] .partir{letter-spacing:0; text-transform:none; font-size:.95rem;}
+.partir:hover{background:transparent; color:var(--arena);}
+.senal{margin:.8rem 0 0; color:var(--arena); font-size:.9rem; min-height:1.4em;}
+.menudo{font-size:.78rem; color:var(--luz-3);}
+
+footer.n{border-top:1px solid var(--hilo); padding-block:2rem 2.8rem;
+  font-size:.76rem; color:var(--luz-3); display:flex; flex-wrap:wrap; gap:.6rem 2rem;}
+.ltr{direction:ltr; unicode-bidi:isolate; display:inline-block;}
+</style>
+</head>
+<body>
+<header class="n">
+  <div class="marco barra">
+    <a class="marca" href="#" data-t="marca">NAWA</a>
+    <nav class="n" data-t-attr="aria-label:ariaMenu" aria-label="Secciones">
+      <a href="#capitulos" data-t="nComo">Cómo</a>
+      <a href="#contacto"  data-t="nContacto">Contacto</a>
+    </nav>
+    <div class="leng" role="group" data-t-attr="aria-label:ariaLengua" aria-label="Idioma">
+      <button type="button" data-lang="es" aria-pressed="true">ES</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      <button type="button" data-lang="ar" aria-pressed="false" lang="ar">العربية</button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section class="cielo">
+    <canvas id="mapa" aria-hidden="true"></canvas>
+    <div class="marco texto">
+      <p class="epig" data-t="epigPortada">Viajes privados · Dubái</p>
+      <h1 data-t="h1">Antes de que hubiera mapas, había quien sabía leer el cielo.</h1>
+      <p class="bajo" data-t="bajo">Nawà, en árabe, es proponerse ir a un sitio. La intención antes que el trayecto. Nosotros empezamos ahí y no en un catálogo.</p>
+    </div>
+  </section>
+
+  <section class="marco tramo" id="capitulos">
+    <p class="epig" data-t="epigCap">Cómo trabajamos</p>
+    <article class="cap">
+      <div class="cifra" data-t="n1">I</div>
+      <div>
+        <h3 data-t="c1t">La intención</h3>
+        <p data-t="c1p">Una llamada de media hora, sin cuestionario. Queremos saber qué espera de este viaje, no rellenar una ficha con sus datos.</p>
+      </div>
+      <p class="apostilla" data-t="c1a">Un itinerario diseñado para otra persona no le va a gustar por mucho que esté bien hecho.</p>
+    </article>
+    <article class="cap">
+      <div class="cifra" data-t="n2">II</div>
+      <div>
+        <h3 data-t="c2t">La ruta</h3>
+        <p data-t="c2p">Se la entregamos escrita, día por día, con las horas reales de traslado y el nombre de cada sitio. Presupuesto cerrado y nada reservado todavía.</p>
+      </div>
+      <p class="apostilla" data-t="c2a">Se lee entera en veinte minutos. Si no se entiende sola, es que está mal planteada.</p>
+    </article>
+    <article class="cap">
+      <div class="cifra" data-t="n3">III</div>
+      <div>
+        <h3 data-t="c3t">El camino</h3>
+        <p data-t="c3p">Durante el viaje hay una persona localizable en su idioma y a su hora. La misma de principio a fin, y con su itinerario aprendido.</p>
+      </div>
+      <p class="apostilla" data-t="c3a">Todo viaje se tuerce alguna vez. Lo que distingue a unos de otros es cuánto tarda alguien en arreglarlo.</p>
+    </article>
+  </section>
+
+  <section class="cita">
+    <div class="marco tramo">
+      <blockquote data-t="cita">No medimos un viaje por los sitios que vio, sino por las decisiones que no tuvo que tomar.</blockquote>
+      <cite data-t="firma">Nawa · Dubái</cite>
+    </div>
+  </section>
+
+  <section class="marco tramo" id="contacto">
+    <p class="epig" data-t="epigContacto">Escríbanos</p>
+    <h2 style="font-size:clamp(1.9rem,4vw,3rem);max-width:16ch;margin-bottom:1.6rem" data-t="coH">¿Adónde se ha propuesto ir?</h2>
+    <form id="f" novalidate>
+      <div><label for="nom" data-t="lNombre">Nombre</label><input id="nom" autocomplete="name"></div>
+      <div><label for="cor" data-t="lCorreo">Correo</label><input id="cor" type="email" autocomplete="email" inputmode="email" dir="ltr"></div>
+      <div><label for="des" data-t="lDestino">Destino</label>
+        <select id="des">
+          <option value="" data-t="oElegir">Elija…</option>
+          <option value="jp" data-t="oJapon">Japón</option>
+          <option value="gu" data-t="oGolfo">El Golfo</option>
+          <option value="la" data-t="oLatam">América Latina</option>
+          <option value="eu" data-t="oEuropa">Europa</option>
+          <option value="ot" data-t="oOtro">Todavía no lo sé</option>
+        </select></div>
+      <div><label for="msg" data-t="lMensaje">Cuéntenoslo en pocas líneas</label><textarea id="msg" rows="3"></textarea></div>
+      <div>
+        <button class="partir" type="submit" data-t="bEnviar">Enviar</button>
+        <p class="senal" id="senal" role="status" aria-live="polite"></p>
+      </div>
+      <p class="menudo" data-t="coNota">Sus datos se usan sólo para contestarle. No se ceden a nadie.</p>
+    </form>
+  </section>
+
+</main>
+
+<footer class="marco n">
+  <span data-t="marca">NAWA</span>
+  <span class="ltr">HARUNANA TRAVEL AND CONSULTING — FZCO</span>
+  <span data-t="pieSede">Dubái</span>
+  <span class="ltr">© 2026</span>
+</footer>
+
+<script>
+/* ══════════════════════════════════════════════════════════════════
+   El mapa de estrellas. Posiciones deterministas (un generador
+   congruencial con semilla fija, para que el cielo sea siempre el
+   mismo), brillos distintos por magnitud, y unas pocas líneas de
+   constelación trazadas entre las estrellas más brillantes. Gira muy
+   despacio, como gira el cielo de verdad; si el visitante ha pedido
+   menos movimiento, se queda quieto.
+   ══════════════════════════════════════════════════════════════════ */
+(function cielo(){
+  var lienzo = document.getElementById("mapa");
+  if (!lienzo) return;
+  var ctx = lienzo.getContext("2d");
+  var quieto = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var estrellas = [], lineas = [], ancho = 0, alto = 0, giro = 0;
+
+  /* Generador con semilla: mismo cielo en cada visita. */
+  var s = 20260831;
+  function azar(){ s = (s * 1664525 + 1013904223) % 4294967296; return s / 4294967296; }
+
+  function sembrar(){
+    estrellas = [];
+    var n = Math.round(Math.min(260, (ancho * alto) / 5200));
+    for (var i = 0; i < n; i++){
+      var mag = Math.pow(azar(), 2.4);          // pocas brillantes, muchas tenues
+      estrellas.push({
+        a: azar() * Math.PI * 2,                 // ángulo respecto al centro
+        r: Math.pow(azar(), .62),                // radio normalizado
+        t: 0.35 + mag * 1.9,                     // tamaño
+        b: 0.18 + mag * 0.82,                    // brillo
+        f: 0.4 + azar() * 1.6,                   // ritmo del titileo
+        d: azar() * Math.PI * 2
+      });
+    }
+    /* Constelación: unimos las diez más brillantes por cercanía. */
+    var top = estrellas.slice().sort(function(x,y){ return y.b - x.b; }).slice(0, 10);
+    lineas = [];
+    for (var k = 0; k < top.length - 1; k++) lineas.push([top[k], top[k+1]]);
+  }
+
+  function medir(){
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var caja = lienzo.getBoundingClientRect();
+    ancho = caja.width; alto = caja.height;
+    lienzo.width = Math.round(ancho * dpr);
+    lienzo.height = Math.round(alto * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    s = 20260831;
+    sembrar();
+  }
+
+  function sitio(e){
+    var cx = ancho * 0.62, cy = alto * 0.34;
+    var R = Math.max(ancho, alto) * 0.78;
+    var a = e.a + giro;
+    return [cx + Math.cos(a) * e.r * R, cy + Math.sin(a) * e.r * R * 0.72];
+  }
+
+  function pintar(t){
+    ctx.clearRect(0, 0, ancho, alto);
+
+    /* Fondo: un degradado radial que hace de horizonte. */
+    var g = ctx.createRadialGradient(ancho*0.62, alto*0.34, 0, ancho*0.62, alto*0.34, Math.max(ancho,alto)*0.85);
+    g.addColorStop(0, "#141c2e");
+    g.addColorStop(0.55, "#0d1320");
+    g.addColorStop(1, "#070b14");
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, ancho, alto);
+
+    /* Las líneas de constelación, muy tenues: sugieren, no dibujan. */
+    ctx.strokeStyle = "rgba(224,184,114,.16)";
+    ctx.lineWidth = 1;
+    for (var i = 0; i < lineas.length; i++){
+      var p = sitio(lineas[i][0]), q = sitio(lineas[i][1]);
+      ctx.beginPath(); ctx.moveTo(p[0], p[1]); ctx.lineTo(q[0], q[1]); ctx.stroke();
+    }
+
+    for (var j = 0; j < estrellas.length; j++){
+      var e = estrellas[j], c = sitio(e);
+      if (c[0] < -20 || c[0] > ancho + 20 || c[1] < -20 || c[1] > alto + 20) continue;
+      var tit = quieto ? 1 : 0.72 + 0.28 * Math.sin(t / 1000 * e.f + e.d);
+      var b = e.b * tit;
+      ctx.beginPath();
+      ctx.arc(c[0], c[1], e.t, 0, Math.PI * 2);
+      /* Las más brillantes tiran a la nota cálida de la marca. */
+      ctx.fillStyle = e.b > .78
+        ? "rgba(224,184,114," + b.toFixed(3) + ")"
+        : "rgba(238,241,247," + b.toFixed(3) + ")";
+      ctx.fill();
+      if (e.t > 1.5){
+        ctx.beginPath();
+        ctx.arc(c[0], c[1], e.t * 3.4, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(224,184,114," + (b * .07).toFixed(3) + ")";
+        ctx.fill();
+      }
+    }
+  }
+
+  function bucle(t){
+    if (!quieto) giro += 0.000018;
+    pintar(t);
+    requestAnimationFrame(bucle);
+  }
+
+  medir();
+  window.addEventListener("resize", medir);
+  if (quieto){ pintar(0); } else { requestAnimationFrame(bucle); }
+})();
+
+var T = {
+es:{
+  _dir:"ltr", _lang:"es",
+  titulo:"NAWA — Viajes privados",
+  marca:"NAWA", ariaMenu:"Secciones", ariaLengua:"Idioma",
+  nComo:"Cómo", nContacto:"Contacto", pieSede:"Dubái",
+  epigPortada:"Viajes privados · Dubái",
+  h1:"Antes de que hubiera mapas, había quien sabía leer el cielo.",
+  bajo:"Nawà, en árabe, es proponerse ir a un sitio. La intención antes que el trayecto. Nosotros empezamos ahí y no en un catálogo.",
+  epigCap:"Cómo trabajamos",
+  n1:"I", n2:"II", n3:"III",
+  c1t:"La intención", c1p:"Una llamada de media hora, sin cuestionario. Queremos saber qué espera de este viaje, no rellenar una ficha con sus datos.",
+  c1a:"Un itinerario diseñado para otra persona no le va a gustar por mucho que esté bien hecho.",
+  c2t:"La ruta", c2p:"Se la entregamos escrita, día por día, con las horas reales de traslado y el nombre de cada sitio. Presupuesto cerrado y nada reservado todavía.",
+  c2a:"Se lee entera en veinte minutos. Si no se entiende sola, es que está mal planteada.",
+  c3t:"El camino", c3p:"Durante el viaje hay una persona localizable en su idioma y a su hora. La misma de principio a fin, y con su itinerario aprendido.",
+  c3a:"Todo viaje se tuerce alguna vez. Lo que distingue a unos de otros es cuánto tarda alguien en arreglarlo.",
+  cita:"No medimos un viaje por los sitios que vio, sino por las decisiones que no tuvo que tomar.",
+  firma:"Nawa · Dubái",
+  epigContacto:"Escríbanos",
+  coH:"¿Adónde se ha propuesto ir?",
+  lNombre:"Nombre", lCorreo:"Correo", lDestino:"Destino", lMensaje:"Cuéntenoslo en pocas líneas",
+  oElegir:"Elija…", oJapon:"Japón", oGolfo:"El Golfo", oLatam:"América Latina",
+  oEuropa:"Europa", oOtro:"Todavía no lo sé",
+  bEnviar:"Enviar",
+  coNota:"Sus datos se usan sólo para contestarle. No se ceden a nadie.",
+  okMsg:"Recibido. Le contestamos en menos de veinticuatro horas.",
+  errNombre:"Díganos su nombre, para saber cómo dirigirnos a usted.",
+  errCorreo:"Ese correo está incompleto. Repáselo, por favor."
+},
+en:{
+  _dir:"ltr", _lang:"en",
+  titulo:"NAWA — Private journeys",
+  marca:"NAWA", ariaMenu:"Sections", ariaLengua:"Language",
+  nComo:"How", nContacto:"Contact", pieSede:"Dubai",
+  epigPortada:"Private journeys · Dubai",
+  h1:"Before there were maps, there were people who could read the sky.",
+  bajo:"Nawā, in Arabic, is to set your mind on going somewhere. The intention before the route. That is where we begin, not in a catalogue.",
+  epigCap:"How we work",
+  n1:"I", n2:"II", n3:"III",
+  c1t:"The intention", c1p:"A half-hour call, no questionnaire. We want to know what you expect from this journey, not to fill in a record with your details.",
+  c1a:"An itinerary designed for somebody else will not please you, however well it is made.",
+  c2t:"The route", c2p:"We hand it to you written out, day by day, with real transfer times and the name of every place. Fixed budget, and nothing booked yet.",
+  c2a:"It reads in twenty minutes. If it does not explain itself, it is badly conceived.",
+  c3t:"The way", c3p:"During the trip there is one person reachable in your language and at your hour. The same one throughout, who has learnt your itinerary.",
+  c3a:"Every journey goes wrong at some point. What separates one house from another is how long someone takes to put it right.",
+  cita:"We do not measure a journey by the places it saw, but by the decisions you never had to make.",
+  firma:"Nawa · Dubai",
+  epigContacto:"Write to us",
+  coH:"Where have you set your mind on going?",
+  lNombre:"Name", lCorreo:"Email", lDestino:"Destination", lMensaje:"Tell us in a few lines",
+  oElegir:"Choose…", oJapon:"Japan", oGolfo:"The Gulf", oLatam:"Latin America",
+  oEuropa:"Europe", oOtro:"I do not know yet",
+  bEnviar:"Send",
+  coNota:"Your details are used only to reply to you. They are given to nobody.",
+  okMsg:"Received. We will answer within twenty-four hours.",
+  errNombre:"Tell us your name, so we know how to address you.",
+  errCorreo:"That email is incomplete. Please check it."
+},
+ar:{
+  _dir:"rtl", _lang:"ar",
+  titulo:"نَوى — أسفار خاصة",
+  marca:"نَوى", ariaMenu:"الأقسام", ariaLengua:"اللغة",
+  nComo:"كيف نعمل", nContacto:"تواصل", pieSede:"دبي",
+  epigPortada:"أسفار خاصة · دبي",
+  h1:"قبل أن تُوجد الخرائط، كان ثمّة من يُحسن قراءة السماء.",
+  bajo:"نَوى، في العربية، أن تعقد العزم على السفر. النيّة قبل الطريق. ومن هناك نبدأ نحن، لا من كتالوج.",
+  epigCap:"كيف نعمل",
+  n1:"الأوّل", n2:"الثاني", n3:"الثالث",
+  c1t:"النيّة", c1p:"مكالمة من نصف ساعة، بلا استبيان. نريد أن نعرف ما تنتظره من هذه الرحلة، لا أن نملأ استمارة ببياناتك.",
+  c1a:"برنامجٌ صُمِّم لسواك لن يعجبك مهما أُتقن.",
+  c2t:"الطريق", c2p:"نُسلّمك إياه مكتوبًا يومًا بيوم، بأوقات تنقّل حقيقية وباسم كل موضع. ميزانية محددة، ولا شيء محجوز بعد.",
+  c2a:"يُقرأ كاملًا في عشرين دقيقة. وإن لم يشرح نفسه بنفسه فقد أُسيء وضعه.",
+  c3t:"المسير", c3p:"في أثناء الرحلة شخصٌ تصل إليه بلغتك وفي ساعتك. هو نفسه من أولها إلى آخرها، وقد حفظ برنامجك.",
+  c3a:"كل رحلة يعترضها خلل يومًا ما. وما يفرّق بين دارٍ وأخرى هو كم يستغرق إصلاحه.",
+  cita:"لا نقيس الرحلة بما رأت من أماكن، بل بما لم تُضطر أنت إلى اتخاذه من قرارات.",
+  firma:"نَوى · دبي",
+  epigContacto:"اكتب إلينا",
+  coH:"إلى أين عقدتَ العزم أن تمضي؟",
+  lNombre:"الاسم", lCorreo:"البريد", lDestino:"الوجهة", lMensaje:"احكِ لنا في أسطر قليلة",
+  oElegir:"اختر…", oJapon:"اليابان", oGolfo:"الخليج", oLatam:"أمريكا اللاتينية",
+  oEuropa:"أوروبا", oOtro:"لم أقرّر بعد",
+  bEnviar:"إرسال",
+  coNota:"لا تُستخدم بياناتك إلا للردّ عليك، ولا تُعطى لأحد.",
+  okMsg:"وصلتنا رسالتك. سنردّ عليك خلال أقل من أربع وعشرين ساعة.",
+  errNombre:"أخبرنا باسمك، لنعرف كيف نخاطبك.",
+  errCorreo:"البريد الإلكتروني ناقص. يرجى مراجعته."
+}
+};
+
+var idioma = "es";
+
+function aplicar(codigo){
+  if (!T[codigo]) codigo = "es";
+  idioma = codigo;
+  var t = T[codigo], i;
+  document.documentElement.lang = t._lang;
+  document.documentElement.dir  = t._dir;
+  document.title = t.titulo;
+
+  var n = document.querySelectorAll("[data-t]");
+  for (i = 0; i < n.length; i++){
+    var k = n[i].getAttribute("data-t");
+    if (t[k] !== undefined) n[i].textContent = t[k];
+  }
+  var a = document.querySelectorAll("[data-t-attr]");
+  for (i = 0; i < a.length; i++){
+    a[i].getAttribute("data-t-attr").split(",").forEach(function(par){
+      var q = par.split(":");
+      if (t[q[1].trim()] !== undefined) a[i].setAttribute(q[0].trim(), t[q[1].trim()]);
+    });
+  }
+  var b = document.querySelectorAll(".leng button");
+  for (i = 0; i < b.length; i++) b[i].setAttribute("aria-pressed", String(b[i].dataset.lang === codigo));
+
+  var s = document.getElementById("senal");
+  if (s) s.textContent = "";
+  try{ localStorage.setItem("nawa_lang", codigo); }catch(e){}
+}
+
+var bs = document.querySelectorAll(".leng button");
+for (var i = 0; i < bs.length; i++){
+  bs[i].addEventListener("click", function(){ aplicar(this.dataset.lang); });
+}
+
+document.getElementById("f").addEventListener("submit", function(e){
+  e.preventDefault();
+  var t = T[idioma], s = document.getElementById("senal");
+  var nom = document.getElementById("nom").value.trim();
+  var cor = document.getElementById("cor").value.trim();
+  if (nom.length < 2){ s.textContent = t.errNombre; return; }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(cor)){ s.textContent = t.errCorreo; return; }
+  s.textContent = t.okMsg;
+  e.target.reset();
+});
+
+(function(){
+  var g = null;
+  try{ g = localStorage.getItem("nawa_lang"); }catch(e){}
+  if (!g || !T[g]){
+    var l = (navigator.language || "es").slice(0,2).toLowerCase();
+    g = T[l] ? l : "es";
+  }
+  aplicar(g);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,574 @@
+<!doctype html>
+<html lang="es" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<!-- Maqueta de propuesta. No es el sitio público de la empresa. -->
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diwan Travel House</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Spectral:ital,wght@0,300;0,400;0,600;1,300&family=Jost:wght@300;400;500&display=swap">
+
+<style>
+/* ══════════════════════════════════════════════════════════════════
+   DIWAN — الديوان. "Diwán": la sala donde se recibe al huésped, y
+   también el volumen encuadernado que reúne los poemas de un autor.
+
+   La página está compuesta como una página de manuscrito, no como una
+   landing: caja de texto centrada, márgenes generosos, notas al margen
+   y epígrafes rubricados en rojo, que es como se marcaban las secciones
+   antes de que existieran las negritas.
+
+   Esa decisión resuelve además el problema técnico: una caja centrada
+   se lee igual de derecha a izquierda que de izquierda a derecha. El
+   diseño no se "adapta" al árabe; nace ya sirviendo a los dos.
+   ══════════════════════════════════════════════════════════════════ */
+
+:root{
+  --papel:#e4e3de;
+  --papel-2:#dbdad3;
+  --tinta:#23262b;
+  --tinta-2:#5c5f5a;
+  --tinta-3:#8b8e88;
+  --rubrica:#7a2b2b;     /* la tinta roja del copista */
+  --oro:#8a6a2c;
+  --filete:rgba(35,38,43,.16);
+
+  --lat:"Spectral",Georgia,serif;
+  --ara:"Amiri",serif;
+  --util:"Jost",system-ui,sans-serif;
+  --display:var(--lat);
+  --cuerpo:var(--lat);
+  --caja:min(46rem, 100% - 2.5rem);
+}
+
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --papel:#1a1c20; --papel-2:#22252a;
+  --tinta:#e8e6e0; --tinta-2:#9a9d98; --tinta-3:#6d716c;
+  --rubrica:#c98b86; --oro:#c2a05e;
+  --filete:rgba(232,230,224,.18);
+}}
+:root[data-theme="dark"]{
+  --papel:#1a1c20; --papel-2:#22252a;
+  --tinta:#e8e6e0; --tinta-2:#9a9d98; --tinta-3:#6d716c;
+  --rubrica:#c98b86; --oro:#c2a05e;
+  --filete:rgba(232,230,224,.18);
+}
+
+/* En árabe el Amiri toma el mando en todo: titulares y cuerpo. Es una
+   naskh de imprenta con contraste alto, la pareja natural de Spectral. */
+html[dir="rtl"]{ --display:var(--ara); --cuerpo:var(--ara); --util:var(--ara); }
+
+*,*::before,*::after{box-sizing:border-box;}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;}}
+
+body{
+  margin:0; background:var(--papel); color:var(--tinta);
+  font-family:var(--cuerpo); font-weight:300;
+  font-size:clamp(16px,1.08vw,18px); line-height:1.78;
+  -webkit-font-smoothing:antialiased;
+}
+html[dir="rtl"] body{font-weight:400; line-height:2.1;}
+
+h1,h2,h3{font-family:var(--display); font-weight:400; margin:0; line-height:1.16; text-wrap:balance;}
+html[dir="rtl"] h1,html[dir="rtl"] h2,html[dir="rtl"] h3{line-height:1.55; font-weight:700;}
+p{margin:0 0 1.15em;}
+p:last-child{margin-bottom:0;}
+a{color:inherit;}
+:focus-visible{outline:2px solid var(--rubrica); outline-offset:4px;}
+
+.caja{width:var(--caja); margin-inline:auto;}
+.aire{padding-block:clamp(3rem,7vw,5.5rem);}
+
+/* ── Cenefa girih ─────────────────────────────────────────────────
+   El friso no es una imagen: es un polígono estrellado {8/3} generado
+   por trigonometría y repetido como patrón SVG. Se puede reescalar sin
+   perder nitidez y cambia de color con el tema. */
+.cenefa{width:100%; height:34px; display:block; color:var(--oro); opacity:.8;}
+
+/* ── Epígrafes rubricados ────────────────────────────────────────── */
+.rubrica{
+  font-family:var(--util); font-size:.72rem; letter-spacing:.3em;
+  text-transform:uppercase; color:var(--rubrica); font-weight:500;
+  margin:0 0 1.1rem; text-align:center;
+}
+/* El árabe ni se espacia ni tiene versales: se descosería la palabra. */
+html[dir="rtl"] .rubrica{letter-spacing:0; text-transform:none; font-size:1rem; font-weight:700;}
+
+/* ── Cabecera ────────────────────────────────────────────────────── */
+header.casa{padding-top:1.4rem;}
+.barra{
+  width:var(--caja); margin-inline:auto;
+  display:flex; align-items:baseline; gap:1.2rem; flex-wrap:wrap;
+  padding-bottom:1.2rem;
+}
+.sello{
+  font-family:var(--display); font-size:1.35rem; letter-spacing:.42em;
+  text-decoration:none; line-height:1; font-weight:400;
+}
+html[dir="rtl"] .sello{letter-spacing:normal; font-size:1.9rem; font-weight:700;}
+nav.casa{display:flex; gap:1.35rem; margin-inline-start:auto; font-family:var(--util); font-size:.8rem;}
+html[dir="rtl"] nav.casa{font-size:.95rem;}
+nav.casa a{text-decoration:none; color:var(--tinta-2); border-bottom:1px solid transparent; padding-bottom:2px;}
+nav.casa a:hover{color:var(--rubrica); border-bottom-color:var(--rubrica);}
+.lenguas{display:flex; gap:.1rem; align-items:baseline;}
+.lenguas button{
+  background:none; border:0; cursor:pointer; font-family:var(--util);
+  font-size:.75rem; color:var(--tinta-3); padding:.3rem .5rem; letter-spacing:.08em;
+}
+.lenguas button[aria-pressed="true"]{color:var(--tinta); border-bottom:1px solid var(--rubrica);}
+.lenguas button:hover{color:var(--rubrica);}
+
+/* ── Portada ─────────────────────────────────────────────────────── */
+.portada{text-align:center; padding-block:clamp(3rem,8vw,6rem) clamp(2rem,5vw,3.5rem);}
+.portada h1{font-size:clamp(2.3rem,6vw,4.2rem); font-weight:300;}
+html[dir="rtl"] .portada h1{font-size:clamp(2.1rem,5.4vw,3.7rem); font-weight:700;}
+.portada .bajada{
+  font-size:clamp(1.05rem,1.5vw,1.2rem); color:var(--tinta-2);
+  max-width:34ch; margin-inline:auto; margin-top:1.5rem; font-style:italic;
+}
+html[dir="rtl"] .portada .bajada{font-style:normal; max-width:38ch;}
+
+/* Filete doble, como el que encuadra la caja de un manuscrito. */
+.doble{border-top:1px solid var(--filete); border-bottom:1px solid var(--filete);
+  padding-block:.42rem; margin-block:2.6rem;}
+.doble div{border-top:1px solid var(--filete); border-bottom:1px solid var(--filete); height:0;}
+
+/* ── Entradas con nota al margen ─────────────────────────────────── */
+.entrada{
+  display:grid; grid-template-columns:3.4rem 1fr; gap:1.6rem;
+  padding-block:1.9rem; border-bottom:1px solid var(--filete);
+}
+/* La cifra vive en el margen exterior: con grid + dir se coloca sola
+   a la izquierda en español y a la derecha en árabe. */
+.entrada .folio{
+  font-family:var(--display); font-size:1.15rem; color:var(--rubrica);
+  text-align:center; padding-top:.35rem; font-variant-numeric:tabular-nums;
+}
+.entrada h3{font-size:1.6rem; margin-bottom:.55rem;}
+.entrada p{color:var(--tinta-2); margin:0;}
+.entrada .glosa{
+  display:block; margin-top:.7rem; font-size:.88rem; color:var(--tinta-3);
+  font-style:italic; border-inline-start:2px solid var(--filete); padding-inline-start:.9rem;
+}
+html[dir="rtl"] .entrada .glosa{font-style:normal;}
+@media(max-width:600px){ .entrada{grid-template-columns:2.2rem 1fr; gap:1rem;} }
+
+/* ── Colofón ─────────────────────────────────────────────────────── */
+.colofon{
+  text-align:center; font-style:italic; color:var(--tinta-2);
+  max-width:38ch; margin-inline:auto;
+}
+html[dir="rtl"] .colofon{font-style:normal; max-width:42ch;}
+.colofon .firma{
+  display:block; margin-top:1.6rem; font-family:var(--util); font-size:.72rem;
+  letter-spacing:.26em; text-transform:uppercase; color:var(--rubrica); font-style:normal;
+}
+html[dir="rtl"] .colofon .firma{letter-spacing:0; text-transform:none; font-size:.95rem;}
+
+.datos{display:grid; gap:0; margin-top:2rem;}
+.datos div{display:flex; gap:1rem; padding-block:.7rem; border-bottom:1px solid var(--filete); font-size:.92rem;}
+.datos dt{color:var(--tinta-3); min-width:9rem;}
+.datos dd{margin:0; color:var(--tinta-2);}
+
+/* ── Formulario ──────────────────────────────────────────────────── */
+form{display:grid; gap:1.5rem; margin-top:.6rem;}
+label{display:block; font-family:var(--util); font-size:.7rem; letter-spacing:.2em;
+  text-transform:uppercase; color:var(--tinta-3); margin-bottom:.45rem;}
+html[dir="rtl"] label{letter-spacing:0; text-transform:none; font-size:.92rem;}
+input,textarea,select{
+  width:100%; font:inherit; font-family:var(--cuerpo); color:var(--tinta);
+  background:transparent; border:0; border-bottom:1px solid var(--filete);
+  padding:.55rem 0; border-radius:0;
+}
+input:focus,textarea:focus,select:focus{outline:none; border-bottom-color:var(--rubrica);}
+textarea{resize:vertical; min-height:5.5rem;}
+select{appearance:none; cursor:pointer;
+  background-image:linear-gradient(45deg,transparent 50%,var(--tinta-3) 50%),
+                   linear-gradient(135deg,var(--tinta-3) 50%,transparent 50%);
+  background-size:5px 5px,5px 5px; background-repeat:no-repeat;
+  background-position:right 4px center,right 0 center;}
+/* No hay propiedad lógica para background-position: se refleja a mano. */
+html[dir="rtl"] select{background-position:left 0 center,left 4px center;}
+
+.sellar{
+  font-family:var(--util); font-size:.76rem; letter-spacing:.2em; text-transform:uppercase;
+  padding:.95rem 2.3rem; background:var(--tinta); color:var(--papel);
+  border:1px solid var(--tinta); cursor:pointer; transition:.25s;
+}
+html[dir="rtl"] .sellar{letter-spacing:0; text-transform:none; font-size:.98rem;}
+.sellar:hover{background:transparent; color:var(--tinta);}
+.recibo{margin:.8rem 0 0; color:var(--rubrica); font-size:.92rem; min-height:1.4em;}
+.nota{font-size:.8rem; color:var(--tinta-3);}
+
+footer.casa{padding-block:2rem 2.8rem; text-align:center; font-size:.78rem; color:var(--tinta-3);}
+footer.casa .razon{font-family:var(--util); letter-spacing:.1em;}
+html[dir="rtl"] footer.casa .razon{letter-spacing:0;}
+.ltr{direction:ltr; unicode-bidi:isolate; display:inline-block;}
+</style>
+</head>
+<body>
+<header class="casa">
+  <div class="barra">
+    <a class="sello" href="#" data-t="sello">DIWAN</a>
+    <nav class="casa" data-t-attr="aria-label:ariaMenu" aria-label="Secciones">
+      <a href="#servicios" data-t="nServicios">La casa</a>
+      <a href="#metodo"    data-t="nMetodo">El orden</a>
+      <a href="#nosotros"  data-t="nNosotros">Colofón</a>
+      <a href="#contacto"  data-t="nContacto">Escribirnos</a>
+    </nav>
+    <div class="lenguas" role="group" data-t-attr="aria-label:ariaLengua" aria-label="Lengua">
+      <button type="button" data-lang="ar" aria-pressed="false" lang="ar">العربية</button>
+      <button type="button" data-lang="es" aria-pressed="true">ES</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    </div>
+  </div>
+  <svg class="cenefa" id="frisoAlto" aria-hidden="true"></svg>
+</header>
+
+<main>
+
+  <section class="caja portada">
+    <p class="rubrica" data-t="rPortada">Casa de viajes · Dubái</p>
+    <h1 data-t="h1">Recibir bien a alguien empieza mucho antes de que llegue.</h1>
+    <p class="bajada" data-t="bajada">Un diwán es la sala donde se recibe al huésped. También el volumen donde se reúne, ordenada, la obra de un poeta. Nos gustan las dos cosas.</p>
+  </section>
+
+  <div class="caja doble"><div></div></div>
+
+  <section class="caja aire" id="servicios">
+    <p class="rubrica" data-t="rServicios">Lo que hace la casa</p>
+    <article class="entrada">
+      <div class="folio" data-t="f1">I</div>
+      <div>
+        <h3 data-t="s1t">Escuchar</h3>
+        <p data-t="s1p">Antes de proponer nada preguntamos cómo viaja usted: a qué hora se levanta de buena gana, cuánto aguanta caminando, con quién va y qué le sobró del último viaje.</p>
+        <span class="glosa" data-t="s1g">Nadie ha disfrutado nunca de un itinerario diseñado para otra persona.</span>
+      </div>
+    </article>
+    <article class="entrada">
+      <div class="folio" data-t="f2">II</div>
+      <div>
+        <h3 data-t="s2t">Escribir</h3>
+        <p data-t="s2p">El viaje se entrega redactado, día por día, con las horas reales de traslado y el nombre de cada sitio. Se lee en veinte minutos y se entiende del todo.</p>
+        <span class="glosa" data-t="s2g">Lo que no se puede escribir con claridad tampoco se ha pensado con claridad.</span>
+      </div>
+    </article>
+    <article class="entrada">
+      <div class="folio" data-t="f3">III</div>
+      <div>
+        <h3 data-t="s3t">Responder</h3>
+        <p data-t="s3p">Durante el viaje hay una persona, siempre la misma, localizable en su idioma y a su hora. No un número de expediente ni una centralita.</p>
+        <span class="glosa" data-t="s3g">La calidad de una casa se mide el día que algo sale mal.</span>
+      </div>
+    </article>
+  </section>
+
+  <section class="caja aire" id="metodo">
+    <p class="rubrica" data-t="rMetodo">El orden de las cosas</p>
+    <article class="entrada">
+      <div class="folio" data-t="p1n">1</div>
+      <div><h3 data-t="p1t">La conversación</h3><p data-t="p1p">Media hora, sin cuestionario. Basta para saber qué viaje hay que hacer.</p></div>
+    </article>
+    <article class="entrada">
+      <div class="folio" data-t="p2n">2</div>
+      <div><h3 data-t="p2t">El borrador</h3><p data-t="p2p">Un documento con presupuesto cerrado y alternativas reales donde la decisión cambia el viaje.</p></div>
+    </article>
+    <article class="entrada">
+      <div class="folio" data-t="p3n">3</div>
+      <div><h3 data-t="p3t">Las correcciones</h3><p data-t="p3p">Se cambia cuanto haga falta y sin coste. Nada se reserva hasta que el documento entero le parece bien.</p></div>
+    </article>
+    <article class="entrada">
+      <div class="folio" data-t="p4n">4</div>
+      <div><h3 data-t="p4t">El viaje</h3><p data-t="p4p">Todo confirmado en un solo cuaderno, y un teléfono directo de principio a fin.</p></div>
+    </article>
+  </section>
+
+  <div class="caja doble"><div></div></div>
+
+  <section class="caja aire" id="nosotros">
+    <p class="rubrica" data-t="rColofon">Colofón</p>
+    <div class="colofon">
+      <p data-t="col1">Esta casa se fundó en Dubái en 2024 para atender a un puñado de familias que ya nos conocían. No tuvimos web ni anuncios durante dos años, y no nos fue mal.</p>
+      <p data-t="col2">Seguimos siendo pocos a propósito. Preferimos veinte viajes que se recuerden a doscientos que se olviden.</p>
+      <span class="firma" data-t="firma">Dubái · Madrid · Kioto</span>
+    </div>
+    <dl class="datos">
+      <div><dt data-t="d1">Razón social</dt><dd><span class="ltr">HARUNANA TRAVEL AND CONSULTING — FZCO</span></dd></div>
+      <div><dt data-t="d2">Lenguas de la casa</dt><dd data-t="d2v">Árabe · Español · Inglés</dd></div>
+      <div><dt data-t="d3">Clientes al año</dt><dd data-t="d3v">Pocos, y a conciencia</dd></div>
+    </dl>
+  </section>
+
+  <section class="caja aire" id="contacto">
+    <p class="rubrica" data-t="rContacto">Escribirnos</p>
+    <h2 style="text-align:center;font-size:clamp(1.7rem,3.4vw,2.4rem);margin-bottom:.6rem" data-t="coH">Cuéntenos qué viaje tiene en la cabeza.</h2>
+    <p style="text-align:center;color:var(--tinta-2);max-width:36ch;margin-inline:auto" data-t="coP">Contesta una persona, y siempre antes de veinticuatro horas.</p>
+    <form id="f" novalidate>
+      <div>
+        <label for="nom" data-t="lNombre">Nombre</label>
+        <input id="nom" autocomplete="name">
+      </div>
+      <div>
+        <label for="cor" data-t="lCorreo">Correo</label>
+        <input id="cor" type="email" autocomplete="email" inputmode="email" dir="ltr">
+      </div>
+      <div>
+        <label for="ori" data-t="lOrigen">Desde dónde escribe</label>
+        <select id="ori">
+          <option value="" data-t="oElegir">Elija…</option>
+          <option value="gu" data-t="oGolfo">El Golfo</option>
+          <option value="la" data-t="oLatam">América Latina</option>
+          <option value="eu" data-t="oEuropa">Europa</option>
+          <option value="ot" data-t="oOtro">Otro lugar</option>
+        </select>
+      </div>
+      <div>
+        <label for="msg" data-t="lMensaje">El viaje, en pocas líneas</label>
+        <textarea id="msg" rows="4"></textarea>
+      </div>
+      <div style="text-align:center">
+        <button class="sellar" type="submit" data-t="bEnviar">Enviar</button>
+        <p class="recibo" id="recibo" role="status" aria-live="polite"></p>
+      </div>
+      <p class="nota" style="text-align:center" data-t="coNota">Sus datos se usan sólo para contestarle. No se ceden a nadie.</p>
+    </form>
+  </section>
+
+</main>
+
+<svg class="cenefa" id="frisoBajo" aria-hidden="true"></svg>
+<footer class="casa">
+  <span class="razon" data-t="pie">DIWAN · HARUNANA TRAVEL AND CONSULTING — FZCO · Dubái</span>
+</footer>
+
+<script>
+/* ══════════════════════════════════════════════════════════════════
+   La cenefa. Un polígono estrellado {8/3}: ocho vértices en un círculo,
+   unidos saltando de tres en tres. Es la figura que está debajo de casi
+   todo el ornamento geométrico islámico. Se genera con trigonometría y
+   se repite como patrón SVG, así que escala sin pixelarse y hereda el
+   color del tema.
+   ══════════════════════════════════════════════════════════════════ */
+function estrella(cx, cy, r, puntas, salto, giro){
+  var pts = [], i, a;
+  for (i = 0; i < puntas; i++){
+    a = giro + i * 2 * Math.PI / puntas;
+    pts.push([cx + r * Math.cos(a), cy + r * Math.sin(a)]);
+  }
+  var d = "", visto = [], k = 0;
+  for (i = 0; i < puntas; i++){
+    d += (i === 0 ? "M" : "L") + pts[k][0].toFixed(2) + " " + pts[k][1].toFixed(2) + " ";
+    visto.push(k);
+    k = (k + salto) % puntas;
+  }
+  return d + "Z";
+}
+
+function friso(el){
+  if (!el) return;
+  var lado = 34, r = lado / 2 - 1.2;
+  var d = estrella(lado/2, lado/2, r, 8, 3, -Math.PI/2)
+        + " " + estrella(lado/2, lado/2, r * 0.62, 8, 3, -Math.PI/2 + Math.PI/8);
+  /* Sin viewBox a propósito: con él, el SVG escalaría el motivo hasta
+     deformarlo. Sin él, el patrón se repite en píxeles reales a lo largo
+     de todo el ancho, que es lo que hace un friso. */
+  el.setAttribute("height", lado);
+  el.innerHTML =
+    '<defs><pattern id="g' + el.id + '" width="' + lado + '" height="' + lado +
+    '" patternUnits="userSpaceOnUse">' +
+    '<path d="' + d + '" fill="none" stroke="currentColor" stroke-width=".7"/>' +
+    '<line x1="0" y1="' + lado/2 + '" x2="' + lado + '" y2="' + lado/2 +
+    '" stroke="currentColor" stroke-width=".35" opacity=".55"/>' +
+    '</pattern></defs>' +
+    '<rect width="100%" height="100%" fill="url(#g' + el.id + ')"/>';
+  /* El SVG se estira a lo ancho, así que el patrón se repite solo. */
+  el.style.width = "100%";
+}
+
+var T = {
+es:{
+  _dir:"ltr", _lang:"es",
+  titulo:"DIWAN — Casa de viajes",
+  sello:"DIWAN", ariaMenu:"Secciones", ariaLengua:"Lengua",
+  nServicios:"La casa", nMetodo:"El orden", nNosotros:"Colofón", nContacto:"Escribirnos",
+  rPortada:"Casa de viajes · Dubái",
+  h1:"Recibir bien a alguien empieza mucho antes de que llegue.",
+  bajada:"Un diwán es la sala donde se recibe al huésped. También el volumen donde se reúne, ordenada, la obra de un poeta. Nos gustan las dos cosas.",
+  rServicios:"Lo que hace la casa",
+  f1:"I", f2:"II", f3:"III",
+  s1t:"Escuchar", s1p:"Antes de proponer nada preguntamos cómo viaja usted: a qué hora se levanta de buena gana, cuánto aguanta caminando, con quién va y qué le sobró del último viaje.",
+  s1g:"Nadie ha disfrutado nunca de un itinerario diseñado para otra persona.",
+  s2t:"Escribir", s2p:"El viaje se entrega redactado, día por día, con las horas reales de traslado y el nombre de cada sitio. Se lee en veinte minutos y se entiende del todo.",
+  s2g:"Lo que no se puede escribir con claridad tampoco se ha pensado con claridad.",
+  s3t:"Responder", s3p:"Durante el viaje hay una persona, siempre la misma, localizable en su idioma y a su hora. No un número de expediente ni una centralita.",
+  s3g:"La calidad de una casa se mide el día que algo sale mal.",
+  rMetodo:"El orden de las cosas",
+  p1n:"1", p2n:"2", p3n:"3", p4n:"4",
+  p1t:"La conversación", p1p:"Media hora, sin cuestionario. Basta para saber qué viaje hay que hacer.",
+  p2t:"El borrador",     p2p:"Un documento con presupuesto cerrado y alternativas reales donde la decisión cambia el viaje.",
+  p3t:"Las correcciones",p3p:"Se cambia cuanto haga falta y sin coste. Nada se reserva hasta que el documento entero le parece bien.",
+  p4t:"El viaje",        p4p:"Todo confirmado en un solo cuaderno, y un teléfono directo de principio a fin.",
+  rColofon:"Colofón",
+  col1:"Esta casa se fundó en Dubái en 2024 para atender a un puñado de familias que ya nos conocían. No tuvimos web ni anuncios durante dos años, y no nos fue mal.",
+  col2:"Seguimos siendo pocos a propósito. Preferimos veinte viajes que se recuerden a doscientos que se olviden.",
+  firma:"Dubái · Madrid · Kioto",
+  d1:"Razón social", d2:"Lenguas de la casa", d2v:"Árabe · Español · Inglés",
+  d3:"Clientes al año", d3v:"Pocos, y a conciencia",
+  rContacto:"Escribirnos",
+  coH:"Cuéntenos qué viaje tiene en la cabeza.",
+  coP:"Contesta una persona, y siempre antes de veinticuatro horas.",
+  lNombre:"Nombre", lCorreo:"Correo", lOrigen:"Desde dónde escribe", lMensaje:"El viaje, en pocas líneas",
+  oElegir:"Elija…", oGolfo:"El Golfo", oLatam:"América Latina", oEuropa:"Europa", oOtro:"Otro lugar",
+  bEnviar:"Enviar",
+  coNota:"Sus datos se usan sólo para contestarle. No se ceden a nadie.",
+  okMsg:"Recibido. Le contestamos antes de veinticuatro horas.",
+  errNombre:"Díganos su nombre, para saber cómo dirigirnos a usted.",
+  errCorreo:"Ese correo está incompleto. Repáselo, por favor.",
+  pie:"DIWAN · HARUNANA TRAVEL AND CONSULTING — FZCO · Dubái"
+},
+en:{
+  _dir:"ltr", _lang:"en",
+  titulo:"DIWAN — Travel house",
+  sello:"DIWAN", ariaMenu:"Sections", ariaLengua:"Language",
+  nServicios:"The house", nMetodo:"The order", nNosotros:"Colophon", nContacto:"Write to us",
+  rPortada:"Travel house · Dubai",
+  h1:"Receiving someone well begins long before they arrive.",
+  bajada:"A diwan is the room where a guest is received. It is also the bound volume in which a poet's work is gathered in order. We are fond of both meanings.",
+  rServicios:"What the house does",
+  f1:"I", f2:"II", f3:"III",
+  s1t:"Listening", s1p:"Before proposing anything we ask how you travel: what hour you willingly rise at, how far you walk before it stops being a pleasure, who is with you, and what was surplus on your last trip.",
+  s1g:"Nobody has ever enjoyed an itinerary designed for somebody else.",
+  s2t:"Writing", s2p:"The journey is delivered written out, day by day, with real transfer times and the name of every place. It reads in twenty minutes and leaves nothing unclear.",
+  s2g:"What cannot be written clearly has not been thought through clearly either.",
+  s3t:"Answering", s3p:"During the trip there is one person, always the same one, reachable in your language and at your hour. Not a file number and not a switchboard.",
+  s3g:"The quality of a house is measured on the day something goes wrong.",
+  rMetodo:"The order of things",
+  p1n:"1", p2n:"2", p3n:"3", p4n:"4",
+  p1t:"The conversation", p1p:"Half an hour, no questionnaire. Enough to know which journey needs making.",
+  p2t:"The draft",        p2p:"A document with a fixed budget and real alternatives wherever the decision changes the journey.",
+  p3t:"The corrections",  p3p:"We change as much as needed, at no cost. Nothing is booked until the whole document suits you.",
+  p4t:"The journey",      p4p:"Everything confirmed in a single notebook, and a direct telephone from beginning to end.",
+  rColofon:"Colophon",
+  col1:"This house was founded in Dubai in 2024 to look after a handful of families who already knew us. We had no website and no advertising for two years, and it served us well enough.",
+  col2:"We remain few on purpose. We would rather have twenty journeys that are remembered than two hundred that are forgotten.",
+  firma:"Dubai · Madrid · Kyoto",
+  d1:"Registered name", d2:"Languages of the house", d2v:"Arabic · Spanish · English",
+  d3:"Clients per year", d3v:"Few, and deliberately so",
+  rContacto:"Write to us",
+  coH:"Tell us the journey you have in mind.",
+  coP:"A person answers, and always within twenty-four hours.",
+  lNombre:"Name", lCorreo:"Email", lOrigen:"Where you are writing from", lMensaje:"The journey, in a few lines",
+  oElegir:"Choose…", oGolfo:"The Gulf", oLatam:"Latin America", oEuropa:"Europe", oOtro:"Elsewhere",
+  bEnviar:"Send",
+  coNota:"Your details are used only to reply to you. They are given to nobody.",
+  okMsg:"Received. We will answer within twenty-four hours.",
+  errNombre:"Tell us your name, so we know how to address you.",
+  errCorreo:"That email is incomplete. Please check it.",
+  pie:"DIWAN · HARUNANA TRAVEL AND CONSULTING — FZCO · Dubai"
+},
+ar:{
+  _dir:"rtl", _lang:"ar",
+  titulo:"الديوان — دار للأسفار",
+  sello:"الدِّيوان", ariaMenu:"الأقسام", ariaLengua:"اللغة",
+  nServicios:"الدار", nMetodo:"الترتيب", nNosotros:"الخاتمة", nContacto:"اكتب إلينا",
+  rPortada:"دار للأسفار · دبي",
+  h1:"حُسنُ استقبال الضيف يبدأ قبل وصوله بزمن طويل.",
+  bajada:"الديوان مجلسٌ يُستقبل فيه الضيف، وهو أيضًا المُجلَّد الذي يُجمع فيه شعر الشاعر مرتَّبًا. ونحن نحبّ المعنيين معًا.",
+  rServicios:"ما تصنعه الدار",
+  f1:"الأوّل", f2:"الثاني", f3:"الثالث",
+  s1t:"الإصغاء", s1p:"قبل أن نقترح شيئًا نسأل كيف تسافر أنت: في أي ساعة تنهض راضيًا، وكم تحتمل من المشي، ومع من تسافر، وما الذي فاض عن حاجتك في رحلتك الأخيرة.",
+  s1g:"ما استمتع أحدٌ قط ببرنامجٍ صُمِّم لسواه.",
+  s2t:"الكتابة", s2p:"تُسلَّم الرحلة مكتوبةً يومًا بيوم، بأوقات تنقّل حقيقية وباسم كل موضع. تُقرأ في عشرين دقيقة ولا يبقى فيها ملتبس.",
+  s2g:"ما لا يُكتب بوضوح لم يُفكَّر فيه بوضوح.",
+  s3t:"الاستجابة", s3p:"في أثناء الرحلة شخصٌ واحد، هو نفسه دائمًا، تصل إليه بلغتك وفي ساعتك. لا رقم ملف ولا مقسم هاتفي.",
+  s3g:"تُقاس جودة الدار يوم يعترضها الخلل.",
+  rMetodo:"ترتيب الأمور",
+  p1n:"١", p2n:"٢", p3n:"٣", p4n:"٤",
+  p1t:"الحديث",     p1p:"نصف ساعة، بلا استبيان. يكفي لمعرفة أي رحلة ينبغي أن تُصنع.",
+  p2t:"المسوّدة",   p2p:"مستندٌ بميزانية محددة وببدائل حقيقية عند كل مفترق يغيّر القرار فيه شكل الرحلة.",
+  p3t:"التصحيحات", p3p:"نغيّر ما يلزم دون تكلفة. ولا يُحجز شيء حتى يرضيك المستند كاملًا.",
+  p4t:"الرحلة",     p4p:"كل شيء مؤكَّد في كرّاسة واحدة، وهاتف مباشر من أولها إلى آخرها.",
+  rColofon:"الخاتمة",
+  col1:"تأسّست هذه الدار في دبي سنة ٢٠٢٤ لخدمة حفنة من العائلات كانت تعرفنا من قبل. بقينا سنتين بلا موقع وبلا إعلان، ولم يضرّنا ذلك.",
+  col2:"وما زلنا قلّة عن قصد. نُفضّل عشرين رحلة تُذكر على مئتين تُنسى.",
+  firma:"دبي · مدريد · كيوتو",
+  d1:"الاسم المسجَّل", d2:"لغات الدار", d2v:"العربية · الإسبانية · الإنجليزية",
+  d3:"عدد العملاء سنويًا", d3v:"قليل، وعن قصد",
+  rContacto:"اكتب إلينا",
+  coH:"احكِ لنا عن الرحلة التي تدور في بالك.",
+  coP:"يردّ عليك إنسان، وقبل مضيّ أربع وعشرين ساعة دائمًا.",
+  lNombre:"الاسم", lCorreo:"البريد", lOrigen:"من أين تكتب إلينا", lMensaje:"الرحلة في أسطر قليلة",
+  oElegir:"اختر…", oGolfo:"الخليج", oLatam:"أمريكا اللاتينية", oEuropa:"أوروبا", oOtro:"مكان آخر",
+  bEnviar:"إرسال",
+  coNota:"لا تُستخدم بياناتك إلا للردّ عليك، ولا تُعطى لأحد.",
+  okMsg:"وصلتنا رسالتك. سنردّ عليك قبل مضيّ أربع وعشرين ساعة.",
+  errNombre:"أخبرنا باسمك، لنعرف كيف نخاطبك.",
+  errCorreo:"البريد الإلكتروني ناقص. يرجى مراجعته.",
+  pie:"الديوان · HARUNANA TRAVEL AND CONSULTING — FZCO · دبي"
+}
+};
+
+var idioma = "es";
+
+function aplicar(codigo){
+  if (!T[codigo]) codigo = "es";
+  idioma = codigo;
+  var t = T[codigo];
+  document.documentElement.lang = t._lang;
+  document.documentElement.dir  = t._dir;
+  document.title = t.titulo;
+
+  var n = document.querySelectorAll("[data-t]"), i;
+  for (i = 0; i < n.length; i++){
+    var k = n[i].getAttribute("data-t");
+    if (t[k] !== undefined) n[i].textContent = t[k];
+  }
+  var a = document.querySelectorAll("[data-t-attr]");
+  for (i = 0; i < a.length; i++){
+    a[i].getAttribute("data-t-attr").split(",").forEach(function(par){
+      var q = par.split(":"), at = q[0].trim(), kk = q[1].trim();
+      if (t[kk] !== undefined) a[i].setAttribute(at, t[kk]);
+    });
+  }
+  var b = document.querySelectorAll(".lenguas button");
+  for (i = 0; i < b.length; i++) b[i].setAttribute("aria-pressed", String(b[i].dataset.lang === codigo));
+
+  var r = document.getElementById("recibo");
+  if (r) r.textContent = "";
+  try{ localStorage.setItem("diwan_lang", codigo); }catch(e){}
+}
+
+var bs = document.querySelectorAll(".lenguas button");
+for (var i = 0; i < bs.length; i++){
+  bs[i].addEventListener("click", function(){ aplicar(this.dataset.lang); });
+}
+
+document.getElementById("f").addEventListener("submit", function(e){
+  e.preventDefault();
+  var t = T[idioma], r = document.getElementById("recibo");
+  var nom = document.getElementById("nom").value.trim();
+  var cor = document.getElementById("cor").value.trim();
+  if (nom.length < 2){ r.textContent = t.errNombre; return; }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(cor)){ r.textContent = t.errCorreo; return; }
+  r.textContent = t.okMsg;
+  e.target.reset();
+});
+
+friso(document.getElementById("frisoAlto"));
+friso(document.getElementById("frisoBajo"));
+
+(function(){
+  var g = null;
+  try{ g = localStorage.getItem("diwan_lang"); }catch(e){}
+  if (!g || !T[g]){
+    var l = (navigator.language || "es").slice(0,2).toLowerCase();
+    g = T[l] ? l : "es";
+  }
+  aplicar(g);
+})();
+</script>
+</body>
+</html>

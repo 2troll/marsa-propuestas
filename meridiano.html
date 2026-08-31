@@ -1,0 +1,527 @@
+<!doctype html>
+<html lang="es" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<!-- Maqueta de propuesta. No es el sitio público de la empresa. -->
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Meridiano Travel Desk</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&display=swap">
+
+<style>
+/* ══════════════════════════════════════════════════════════════════
+   MERIDIANO — خط الطول
+
+   El planteamiento opuesto al de una web de viajes al uso: nada de
+   fotografía, nada de adjetivos, nada de ornamento. Una rejilla visible
+   de doce columnas, etiquetas en monoespaciada, cifras tabulares y un
+   solo color de señal. La referencia no es una agencia: es la mesa de
+   operaciones de una banca privada.
+
+   Funciona igual en árabe porque el sistema no depende de la dirección
+   de lectura, sino de la retícula: todo se alinea a la misma columna
+   se lea hacia donde se lea.
+   ══════════════════════════════════════════════════════════════════ */
+
+:root{
+  --papel:#f1f2ef;
+  --papel-2:#e7e9e4;
+  --tinta:#121412;
+  --gris:#6a6f6a;
+  --gris-2:#9aa09a;
+  --senal:#1e3fd8;
+  --regla:rgba(18,20,18,.14);
+  --regla-2:rgba(18,20,18,.07);
+
+  --disp:"Archivo",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+  --cuerpo:"Archivo",system-ui,sans-serif;
+  --marco:min(1320px, 100% - 3rem);
+}
+
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --papel:#0c0e0d; --papel-2:#151816;
+  --tinta:#e8eae6; --gris:#8d938c; --gris-2:#5e645d;
+  --senal:#8ea3ff;
+  --regla:rgba(232,234,230,.16); --regla-2:rgba(232,234,230,.08);
+}}
+:root[data-theme="dark"]{
+  --papel:#0c0e0d; --papel-2:#151816;
+  --tinta:#e8eae6; --gris:#8d938c; --gris-2:#5e645d;
+  --senal:#8ea3ff;
+  --regla:rgba(232,234,230,.16); --regla-2:rgba(232,234,230,.08);
+}
+
+/* En árabe, IBM Plex Sans Arabic sustituye a Archivo y también a la
+   monoespaciada: no existe una mono árabe que no se lea como error. */
+html[dir="rtl"]{
+  --disp:"IBM Plex Sans Arabic",system-ui,sans-serif;
+  --cuerpo:"IBM Plex Sans Arabic",system-ui,sans-serif;
+  --mono:"IBM Plex Sans Arabic",system-ui,sans-serif;
+}
+
+*,*::before,*::after{box-sizing:border-box;}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;}}
+
+body{
+  margin:0; background:var(--papel); color:var(--tinta);
+  font-family:var(--cuerpo); font-weight:400;
+  font-size:clamp(14.5px,.98vw,16px); line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  font-variant-numeric:tabular-nums;
+}
+html[dir="rtl"] body{line-height:1.95;}
+h1,h2,h3{font-family:var(--disp); margin:0; font-weight:500; line-height:1.04; letter-spacing:-.02em;}
+html[dir="rtl"] h1,html[dir="rtl"] h2,html[dir="rtl"] h3{line-height:1.42; letter-spacing:0; font-weight:600;}
+p{margin:0 0 .9em; max-width:62ch;}
+p:last-child{margin-bottom:0;}
+a{color:inherit;}
+:focus-visible{outline:2px solid var(--senal); outline-offset:2px;}
+
+.marco{width:var(--marco); margin-inline:auto;}
+
+/* La rejilla es el sistema, y se ve. Doce columnas en pantalla ancha. */
+.rej{display:grid; grid-template-columns:repeat(12,1fr); gap:0 1.25rem;}
+@media(max-width:900px){ .rej{grid-template-columns:repeat(6,1fr);} }
+@media(max-width:560px){ .rej{grid-template-columns:repeat(2,1fr);} }
+
+/* Etiqueta técnica: en monoespaciada y con clave numérica. */
+.etq{
+  font-family:var(--mono); font-size:.68rem; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--gris); margin:0 0 .8rem;
+}
+html[dir="rtl"] .etq{letter-spacing:0; text-transform:none; font-size:.85rem;}
+.clave{color:var(--senal);}
+
+/* ── Cabecera ────────────────────────────────────────────────────── */
+header.mesa{border-bottom:1px solid var(--tinta);}
+.cinta{
+  display:flex; align-items:center; gap:1.5rem; padding-block:.85rem;
+  font-family:var(--mono); font-size:.7rem; letter-spacing:.1em;
+  border-bottom:1px solid var(--regla-2); color:var(--gris);
+}
+html[dir="rtl"] .cinta{letter-spacing:0; font-size:.85rem;}
+.cinta .vivo{color:var(--senal);}
+.cinta .sep{margin-inline-start:auto;}
+
+.barra{display:flex; align-items:center; gap:1.5rem; padding-block:1.15rem; flex-wrap:wrap;}
+.logo{
+  font-family:var(--disp); font-weight:600; font-size:1.15rem;
+  letter-spacing:-.03em; text-decoration:none; line-height:1;
+}
+html[dir="rtl"] .logo{letter-spacing:0; font-size:1.45rem;}
+nav.mesa{display:flex; gap:1.5rem; margin-inline-start:auto; font-family:var(--mono); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase;}
+html[dir="rtl"] nav.mesa{letter-spacing:0; text-transform:none; font-size:.9rem;}
+nav.mesa a{text-decoration:none; color:var(--gris);}
+nav.mesa a:hover{color:var(--senal);}
+.idi{display:flex; gap:.5rem; font-family:var(--mono); font-size:.72rem;}
+.idi button{background:none; border:0; cursor:pointer; font:inherit; color:var(--gris-2); padding:0;}
+.idi button[aria-pressed="true"]{color:var(--tinta); text-decoration:underline; text-underline-offset:3px;}
+.idi button:hover{color:var(--senal);}
+
+/* ── Portada ─────────────────────────────────────────────────────── */
+.portada{padding-block:clamp(3rem,7vw,6rem) clamp(2.5rem,5vw,4rem); border-bottom:1px solid var(--regla);}
+.portada h1{font-size:clamp(2.4rem,6.4vw,5.2rem); grid-column:1/-1; max-width:17ch;}
+html[dir="rtl"] .portada h1{max-width:20ch;}
+.portada .sub{grid-column:1/-1; color:var(--gris); margin-top:1.5rem; font-size:clamp(.98rem,1.25vw,1.1rem);}
+@media(min-width:901px){
+  .portada h1{grid-column:1/9;}
+  .portada .sub{grid-column:1/7;}
+}
+
+/* ── Reloj de husos ──────────────────────────────────────────────── */
+.husos{grid-column:1/-1; display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:1px; background:var(--regla); border:1px solid var(--regla); margin-top:2.75rem;}
+.huso{background:var(--papel); padding:1rem 1.1rem;}
+.huso .ciudad{font-family:var(--mono); font-size:.66rem; letter-spacing:.14em; text-transform:uppercase; color:var(--gris);}
+html[dir="rtl"] .huso .ciudad{letter-spacing:0; text-transform:none; font-size:.85rem;}
+.huso .hora{font-family:var(--disp); font-size:clamp(1.5rem,2.4vw,2rem); font-weight:500; letter-spacing:-.03em; margin-top:.3rem;}
+html[dir="rtl"] .huso .hora{letter-spacing:0;}
+.huso .off{font-family:var(--mono); font-size:.66rem; color:var(--gris-2); margin-top:.15rem;}
+html[dir="rtl"] .huso .off{font-size:.8rem;}
+.huso.aqui .hora{color:var(--senal);}
+
+/* ── Índice tabular ──────────────────────────────────────────────── */
+.indice{border-top:1px solid var(--tinta);}
+.linea{
+  display:grid; grid-template-columns:3.5rem 1fr; gap:1.25rem;
+  padding-block:1.5rem; border-bottom:1px solid var(--regla-2);
+}
+@media(min-width:901px){ .linea{grid-template-columns:3.5rem 15rem 1fr;} }
+.linea .num{font-family:var(--mono); font-size:.72rem; color:var(--senal); padding-top:.35rem;}
+html[dir="rtl"] .linea .num{font-size:.9rem;}
+.linea h3{font-size:1.35rem;}
+.linea .cuerpo{color:var(--gris);}
+.linea .cuerpo b{color:var(--tinta); font-weight:500;}
+
+/* ── Datos ───────────────────────────────────────────────────────── */
+.cifras{display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:1px;
+  background:var(--regla); border:1px solid var(--regla);}
+.cifra{background:var(--papel); padding:1.5rem 1.2rem;}
+.cifra .val{font-family:var(--disp); font-size:clamp(2.2rem,4.5vw,3.4rem); font-weight:500; letter-spacing:-.04em; line-height:1;}
+html[dir="rtl"] .cifra .val{letter-spacing:0;}
+.cifra .pie{font-family:var(--mono); font-size:.68rem; letter-spacing:.1em; text-transform:uppercase; color:var(--gris); margin-top:.7rem;}
+html[dir="rtl"] .cifra .pie{letter-spacing:0; text-transform:none; font-size:.85rem;}
+
+/* ── Formulario ──────────────────────────────────────────────────── */
+.form-rej{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:0 1.25rem;}
+.campo{border-bottom:1px solid var(--regla); padding-block:.9rem;}
+label{display:block; font-family:var(--mono); font-size:.66rem; letter-spacing:.13em;
+  text-transform:uppercase; color:var(--gris); margin-bottom:.35rem;}
+html[dir="rtl"] label{letter-spacing:0; text-transform:none; font-size:.85rem;}
+input,textarea,select{
+  width:100%; font:inherit; font-family:var(--cuerpo); color:var(--tinta);
+  background:transparent; border:0; padding:.2rem 0; border-radius:0;
+}
+input:focus,textarea:focus,select:focus{outline:none;}
+.campo:focus-within{border-bottom-color:var(--senal);}
+textarea{resize:vertical; min-height:4.5rem;}
+select{appearance:none; cursor:pointer;
+  background-image:linear-gradient(45deg,transparent 50%,var(--gris) 50%),
+                   linear-gradient(135deg,var(--gris) 50%,transparent 50%);
+  background-size:5px 5px,5px 5px; background-repeat:no-repeat;
+  background-position:right 4px center,right 0 center;}
+/* background-position no tiene versión lógica: se refleja a mano. */
+html[dir="rtl"] select{background-position:left 0 center,left 4px center;}
+
+.enviar{
+  font-family:var(--mono); font-size:.72rem; letter-spacing:.14em; text-transform:uppercase;
+  background:var(--tinta); color:var(--papel); border:1px solid var(--tinta);
+  padding:.85rem 2rem; cursor:pointer; margin-top:1.5rem;
+}
+html[dir="rtl"] .enviar{letter-spacing:0; text-transform:none; font-size:.92rem;}
+.enviar:hover{background:var(--senal); border-color:var(--senal); color:#fff;}
+.acuse{font-family:var(--mono); font-size:.78rem; color:var(--senal); min-height:1.4em; margin:.9rem 0 0;}
+html[dir="rtl"] .acuse{font-size:.92rem;}
+.legal{font-family:var(--mono); font-size:.66rem; color:var(--gris-2); margin-top:1.2rem;}
+html[dir="rtl"] .legal{font-size:.82rem;}
+
+.bloque{padding-block:clamp(3rem,6vw,5rem);}
+footer.mesa{border-top:1px solid var(--tinta); padding-block:1.4rem 2.4rem;
+  font-family:var(--mono); font-size:.68rem; letter-spacing:.08em; color:var(--gris-2);
+  display:flex; flex-wrap:wrap; gap:.6rem 2rem;}
+html[dir="rtl"] footer.mesa{letter-spacing:0; font-size:.85rem;}
+.ltr{direction:ltr; unicode-bidi:isolate; display:inline-block;}
+</style>
+</head>
+<body>
+<header class="mesa">
+  <div class="marco cinta">
+    <span class="vivo" data-t="cintaEstado">● Mesa abierta</span>
+    <span data-t="cintaSede">Dubái · DIFC</span>
+    <span class="sep" id="cintaFecha"></span>
+  </div>
+  <div class="marco barra">
+    <a class="logo" href="#" data-t="logo">MERIDIANO</a>
+    <nav class="mesa" data-t-attr="aria-label:ariaMenu" aria-label="Secciones">
+      <a href="#mandato" data-t="nMandato">Mandato</a>
+      <a href="#proceso" data-t="nProceso">Proceso</a>
+      <a href="#terminos" data-t="nTerminos">Términos</a>
+      <a href="#contacto" data-t="nContacto">Contacto</a>
+    </nav>
+    <div class="idi" role="group" data-t-attr="aria-label:ariaLengua" aria-label="Idioma">
+      <button type="button" data-lang="es" aria-pressed="true">ES</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      <button type="button" data-lang="ar" aria-pressed="false" lang="ar">ع</button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section class="marco rej portada">
+    <p class="etq" style="grid-column:1/-1"><span class="clave">001</span> <span data-t="rPortada">Consultoría de viajes privados</span></p>
+    <h1 data-t="h1">Un viaje es una cadena de decisiones. Nos ocupamos de todas.</h1>
+    <p class="sub" data-t="sub">Sin catálogo, sin comisiones de proveedor y sin paquetes de terceros. Honorarios acordados por escrito y el coste real de cada reserva, a la vista.</p>
+    <div class="husos" id="husos"></div>
+  </section>
+
+  <section class="marco bloque" id="mandato">
+    <p class="etq"><span class="clave">002</span> <span data-t="rMandato">Mandato</span></p>
+    <div class="indice">
+      <article class="linea">
+        <div class="num">01</div>
+        <h3 data-t="m1t">Diseño</h3>
+        <div class="cuerpo" data-t="m1p">Itinerario escrito día a día, con tiempos de traslado comprobados y alternativas reales en cada punto donde la decisión cambia el viaje.</div>
+      </article>
+      <article class="linea">
+        <div class="num">02</div>
+        <h3 data-t="m2t">Ejecución</h3>
+        <div class="cuerpo" data-t="m2p">Reservas a su nombre, nunca dentro de un bloque. Alojamiento elegido hasta la habitación concreta, y accesos que no figuran en ningún buscador.</div>
+      </article>
+      <article class="linea">
+        <div class="num">03</div>
+        <h3 data-t="m3t">Cobertura</h3>
+        <div class="cuerpo" data-t="m3p">Un solo interlocutor, disponible en su huso horario durante todo el trayecto. Los cambios y las cancelaciones los gestionamos nosotros.</div>
+      </article>
+    </div>
+  </section>
+
+  <section class="marco bloque" id="terminos">
+    <p class="etq"><span class="clave">003</span> <span data-t="rTerminos">Términos</span></p>
+    <div class="cifras">
+      <div class="cifra"><div class="val" data-t="c1v">3</div><div class="pie" data-t="c1p">Lenguas de trabajo</div></div>
+      <div class="cifra"><div class="val" data-t="c2v">24 h</div><div class="pie" data-t="c2p">Plazo máximo de respuesta</div></div>
+      <div class="cifra"><div class="val" data-t="c3v">0</div><div class="pie" data-t="c3p">Comisiones de proveedor</div></div>
+      <div class="cifra"><div class="val" data-t="c4v">1</div><div class="pie" data-t="c4p">Interlocutor por cliente</div></div>
+    </div>
+    <p style="color:var(--gris); margin-top:1.6rem" data-t="terminosNota">Estas cuatro cifras son compromisos, no resultados. No publicamos estadísticas de clientes porque no tenemos forma de que usted las verifique.</p>
+  </section>
+
+  <section class="marco bloque" id="proceso">
+    <p class="etq"><span class="clave">004</span> <span data-t="rProceso">Proceso</span></p>
+    <div class="indice">
+      <article class="linea"><div class="num">01</div><h3 data-t="p1t">Llamada</h3><div class="cuerpo" data-t="p1p">Treinta minutos. Sin cuestionario y sin coste.</div></article>
+      <article class="linea"><div class="num">02</div><h3 data-t="p2t">Propuesta</h3><div class="cuerpo" data-t="p2p">Documento escrito con presupuesto cerrado. <b>No se reserva nada todavía.</b></div></article>
+      <article class="linea"><div class="num">03</div><h3 data-t="p3t">Revisión</h3><div class="cuerpo" data-t="p3p">Tantas correcciones como haga falta, sin cargo.</div></article>
+      <article class="linea"><div class="num">04</div><h3 data-t="p4t">Ejecución</h3><div class="cuerpo" data-t="p4p">Confirmación en un solo documento y línea directa durante el viaje.</div></article>
+    </div>
+  </section>
+
+  <section class="marco bloque" id="contacto">
+    <p class="etq"><span class="clave">005</span> <span data-t="rContacto">Contacto</span></p>
+    <h2 style="font-size:clamp(1.8rem,3.6vw,2.7rem);max-width:20ch;margin-bottom:1.8rem" data-t="coH">Escriba y le contestamos una persona, no un formulario.</h2>
+    <form id="f" novalidate>
+      <div class="form-rej">
+        <div class="campo"><label for="nom" data-t="lNombre">Nombre</label><input id="nom" autocomplete="name"></div>
+        <div class="campo"><label for="cor" data-t="lCorreo">Correo</label><input id="cor" type="email" autocomplete="email" inputmode="email" dir="ltr"></div>
+        <div class="campo"><label for="hus" data-t="lHuso">Su huso horario</label>
+          <select id="hus">
+            <option value="" data-t="oElegir">Seleccione</option>
+            <option value="gu" data-t="oGolfo">Golfo (UTC+4)</option>
+            <option value="eu" data-t="oEuropa">Europa (UTC+1/+2)</option>
+            <option value="la" data-t="oLatam">América Latina (UTC−3/−6)</option>
+            <option value="as" data-t="oAsia">Asia oriental (UTC+8/+9)</option>
+          </select></div>
+        <div class="campo"><label for="fec" data-t="lFechas">Fechas aproximadas</label><input id="fec" data-t-attr="placeholder:phFechas" placeholder="Primavera de 2027"></div>
+      </div>
+      <div class="campo" style="margin-top:0"><label for="msg" data-t="lMensaje">Encargo</label><textarea id="msg" rows="3"></textarea></div>
+      <button class="enviar" type="submit" data-t="bEnviar">Enviar</button>
+      <p class="acuse" id="acuse" role="status" aria-live="polite"></p>
+      <p class="legal" data-t="coNota">Sus datos se usan únicamente para responder a esta consulta.</p>
+    </form>
+  </section>
+
+</main>
+
+<footer class="marco mesa">
+  <span data-t="logo">MERIDIANO</span>
+  <span class="ltr">HARUNANA TRAVEL AND CONSULTING — FZCO</span>
+  <span data-t="pieSede">Dubái</span>
+  <span class="ltr">© 2026</span>
+</footer>
+
+<script>
+var T = {
+es:{
+  _dir:"ltr", _lang:"es", _loc:"es-ES",
+  titulo:"MERIDIANO — Consultoría de viajes privados",
+  logo:"MERIDIANO", ariaMenu:"Secciones", ariaLengua:"Idioma",
+  nMandato:"Mandato", nProceso:"Proceso", nTerminos:"Términos", nContacto:"Contacto",
+  cintaEstado:"● Mesa abierta", cintaSede:"Dubái · DIFC", pieSede:"Dubái",
+  rPortada:"Consultoría de viajes privados",
+  h1:"Un viaje es una cadena de decisiones. Nos ocupamos de todas.",
+  sub:"Sin catálogo, sin comisiones de proveedor y sin paquetes de terceros. Honorarios acordados por escrito y el coste real de cada reserva, a la vista.",
+  ciudades:["Dubái","Madrid","Ciudad de México","Tokio"],
+  aqui:"Su hora",
+  rMandato:"Mandato",
+  m1t:"Diseño", m1p:"Itinerario escrito día a día, con tiempos de traslado comprobados y alternativas reales en cada punto donde la decisión cambia el viaje.",
+  m2t:"Ejecución", m2p:"Reservas a su nombre, nunca dentro de un bloque. Alojamiento elegido hasta la habitación concreta, y accesos que no figuran en ningún buscador.",
+  m3t:"Cobertura", m3p:"Un solo interlocutor, disponible en su huso horario durante todo el trayecto. Los cambios y las cancelaciones los gestionamos nosotros.",
+  rTerminos:"Términos",
+  c1v:"3", c1p:"Lenguas de trabajo",
+  c2v:"24 h", c2p:"Plazo máximo de respuesta",
+  c3v:"0", c3p:"Comisiones de proveedor",
+  c4v:"1", c4p:"Interlocutor por cliente",
+  terminosNota:"Estas cuatro cifras son compromisos, no resultados. No publicamos estadísticas de clientes porque no tenemos forma de que usted las verifique.",
+  rProceso:"Proceso",
+  p1t:"Llamada",   p1p:"Treinta minutos. Sin cuestionario y sin coste.",
+  p2t:"Propuesta", p2p:"Documento escrito con presupuesto cerrado. No se reserva nada todavía.",
+  p3t:"Revisión",  p3p:"Tantas correcciones como haga falta, sin cargo.",
+  p4t:"Ejecución", p4p:"Confirmación en un solo documento y línea directa durante el viaje.",
+  rContacto:"Contacto",
+  coH:"Escriba y le contestamos una persona, no un formulario.",
+  lNombre:"Nombre", lCorreo:"Correo", lHuso:"Su huso horario", lFechas:"Fechas aproximadas",
+  phFechas:"Primavera de 2027", lMensaje:"Encargo",
+  oElegir:"Seleccione", oGolfo:"Golfo (UTC+4)", oEuropa:"Europa (UTC+1/+2)",
+  oLatam:"América Latina (UTC−3/−6)", oAsia:"Asia oriental (UTC+8/+9)",
+  bEnviar:"Enviar",
+  coNota:"Sus datos se usan únicamente para responder a esta consulta.",
+  okMsg:"› Recibido. Respuesta en menos de 24 h.",
+  errNombre:"› Falta el nombre.",
+  errCorreo:"› El correo está incompleto."
+},
+en:{
+  _dir:"ltr", _lang:"en", _loc:"en-GB",
+  titulo:"MERIDIANO — Private travel consultancy",
+  logo:"MERIDIANO", ariaMenu:"Sections", ariaLengua:"Language",
+  nMandato:"Mandate", nProceso:"Process", nTerminos:"Terms", nContacto:"Contact",
+  cintaEstado:"● Desk open", cintaSede:"Dubai · DIFC", pieSede:"Dubai",
+  rPortada:"Private travel consultancy",
+  h1:"A journey is a chain of decisions. We take on every one.",
+  sub:"No catalogue, no supplier commissions and no third-party packages. A fee agreed in writing and the real cost of every booking, in plain sight.",
+  ciudades:["Dubai","Madrid","Mexico City","Tokyo"],
+  aqui:"Your time",
+  rMandato:"Mandate",
+  m1t:"Design", m1p:"An itinerary written day by day, with verified transfer times and real alternatives at every point where the decision changes the journey.",
+  m2t:"Execution", m2p:"Bookings in your name, never inside a block. Accommodation chosen down to the specific room, and access that appears in no search engine.",
+  m3t:"Cover", m3p:"A single contact, available in your time zone throughout the trip. Changes and cancellations are handled by us.",
+  rTerminos:"Terms",
+  c1v:"3", c1p:"Working languages",
+  c2v:"24 h", c2p:"Maximum reply time",
+  c3v:"0", c3p:"Supplier commissions",
+  c4v:"1", c4p:"Contact per client",
+  terminosNota:"These four figures are commitments, not results. We publish no client statistics because we have no way for you to verify them.",
+  rProceso:"Process",
+  p1t:"Call",      p1p:"Thirty minutes. No questionnaire and no charge.",
+  p2t:"Proposal",  p2p:"A written document with a fixed budget. Nothing is booked yet.",
+  p3t:"Revision",  p3p:"As many corrections as needed, at no charge.",
+  p4t:"Execution", p4p:"Confirmation in a single document and a direct line during the trip.",
+  rContacto:"Contact",
+  coH:"Write, and a person answers you — not a form.",
+  lNombre:"Name", lCorreo:"Email", lHuso:"Your time zone", lFechas:"Approximate dates",
+  phFechas:"Spring 2027", lMensaje:"Brief",
+  oElegir:"Select", oGolfo:"Gulf (UTC+4)", oEuropa:"Europe (UTC+1/+2)",
+  oLatam:"Latin America (UTC−3/−6)", oAsia:"East Asia (UTC+8/+9)",
+  bEnviar:"Send",
+  coNota:"Your details are used only to answer this enquiry.",
+  okMsg:"› Received. Reply within 24 h.",
+  errNombre:"› Name is missing.",
+  errCorreo:"› The email is incomplete."
+},
+ar:{
+  _dir:"rtl", _lang:"ar", _loc:"ar-u-nu-arab",
+  titulo:"خط الطول — استشارات السفر الخاصة",
+  logo:"خط الطول", ariaMenu:"الأقسام", ariaLengua:"اللغة",
+  nMandato:"التكليف", nProceso:"سير العمل", nTerminos:"الشروط", nContacto:"تواصل",
+  cintaEstado:"● المكتب مفتوح", cintaSede:"دبي · مركز دبي المالي", pieSede:"دبي",
+  rPortada:"استشارات السفر الخاصة",
+  h1:"الرحلة سلسلةٌ من القرارات. ونحن نتولّاها كلها.",
+  sub:"بلا كتالوج، وبلا عمولات من المورّدين، وبلا برامج مُعاد بيعها. أتعابٌ متّفق عليها كتابةً، والتكلفة الحقيقية لكل حجز ظاهرةٌ أمامك.",
+  ciudades:["دبي","مدريد","مكسيكو","طوكيو"],
+  aqui:"توقيتك",
+  rMandato:"التكليف",
+  m1t:"التصميم", m1p:"برنامج مكتوب يومًا بيوم، بأوقات تنقّل مُتحقَّق منها وببدائل حقيقية عند كل مفترق يغيّر القرار فيه شكل الرحلة.",
+  m2t:"التنفيذ", m2p:"حجوزات باسمك أنت، لا ضمن حجز جماعي. إقامة مُنتقاة وصولًا إلى الغرفة بعينها، ومداخل لا تظهر في أي محرك بحث.",
+  m3t:"التغطية", m3p:"جهة اتصال واحدة، متاحة بتوقيتك طوال الرحلة. والتعديلات والإلغاءات نتولّاها نحن.",
+  rTerminos:"الشروط",
+  c1v:"٣", c1p:"لغات العمل",
+  c2v:"٢٤ ساعة", c2p:"أقصى مدة للردّ",
+  c3v:"٠", c3p:"عمولات من المورّدين",
+  c4v:"١", c4p:"جهة اتصال لكل عميل",
+  terminosNota:"هذه الأرقام الأربعة التزاماتٌ لا نتائج. ولا ننشر إحصاءات عن العملاء لأنه لا سبيل أمامك للتحقق منها.",
+  rProceso:"سير العمل",
+  p1t:"مكالمة",  p1p:"ثلاثون دقيقة. بلا استبيان وبلا مقابل.",
+  p2t:"العرض",   p2p:"مستند مكتوب بميزانية محددة. ولا يُحجز شيء بعد.",
+  p3t:"المراجعة", p3p:"من التعديلات ما يلزم، دون أي رسوم.",
+  p4t:"التنفيذ",  p4p:"تأكيدٌ في مستند واحد وخط مباشر طوال الرحلة.",
+  rContacto:"تواصل",
+  coH:"اكتب إلينا، ويردّ عليك إنسان لا استمارة.",
+  lNombre:"الاسم", lCorreo:"البريد", lHuso:"منطقتك الزمنية", lFechas:"التواريخ التقريبية",
+  phFechas:"ربيع ٢٠٢٧", lMensaje:"طلبك",
+  oElegir:"اختر", oGolfo:"الخليج (UTC+4)", oEuropa:"أوروبا (UTC+1/+2)",
+  oLatam:"أمريكا اللاتينية (UTC−3/−6)", oAsia:"شرق آسيا (UTC+8/+9)",
+  bEnviar:"إرسال",
+  coNota:"لا تُستخدم بياناتك إلا للردّ على هذا الطلب.",
+  okMsg:"‹ وصلتنا رسالتك. الردّ خلال أقل من ٢٤ ساعة.",
+  errNombre:"‹ الاسم ناقص.",
+  errCorreo:"‹ البريد الإلكتروني غير مكتمل."
+}
+};
+
+var ZONAS = ["Asia/Dubai","Europe/Madrid","America/Mexico_City","Asia/Tokyo"];
+var idioma = "es";
+var tempo = null;
+
+function loc(){ return T[idioma]._loc; }
+
+/* El reloj: hora real de cada huso, en el sistema de numeración que
+   corresponda. Es lo único de la página que se mueve, y se mueve porque
+   la marca se llama Meridiano. */
+function pintarHusos(){
+  var cont = document.getElementById("husos");
+  if (!cont) return;
+  var t = T[idioma], ahora = new Date(), html = "";
+
+  for (var i = 0; i < ZONAS.length; i++){
+    var h = new Intl.DateTimeFormat(loc(), {hour:"2-digit", minute:"2-digit",
+              hour12:false, timeZone:ZONAS[i]}).format(ahora);
+    var off = new Intl.DateTimeFormat("en-GB", {timeZoneName:"shortOffset",
+              timeZone:ZONAS[i]}).format(ahora).split(" ").pop();
+    html += '<div class="huso"><div class="ciudad">' + t.ciudades[i] + '</div>'
+          + '<div class="hora">' + h + '</div><div class="off ltr">' + off + '</div></div>';
+  }
+  var propia = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  var hp = new Intl.DateTimeFormat(loc(), {hour:"2-digit", minute:"2-digit", hour12:false}).format(ahora);
+  var op = new Intl.DateTimeFormat("en-GB", {timeZoneName:"shortOffset"}).format(ahora).split(" ").pop();
+  html += '<div class="huso aqui"><div class="ciudad">' + t.aqui + '</div>'
+        + '<div class="hora">' + hp + '</div><div class="off ltr">' + op + '</div></div>';
+  cont.innerHTML = html;
+
+  var f = document.getElementById("cintaFecha");
+  if (f) f.textContent = new Intl.DateTimeFormat(loc(),
+    {weekday:"long", day:"numeric", month:"long", year:"numeric"}).format(ahora);
+}
+
+function aplicar(codigo){
+  if (!T[codigo]) codigo = "es";
+  idioma = codigo;
+  var t = T[codigo], i;
+  document.documentElement.lang = t._lang;
+  document.documentElement.dir  = t._dir;
+  document.title = t.titulo;
+
+  var n = document.querySelectorAll("[data-t]");
+  for (i = 0; i < n.length; i++){
+    var k = n[i].getAttribute("data-t");
+    if (t[k] !== undefined) n[i].textContent = t[k];
+  }
+  var a = document.querySelectorAll("[data-t-attr]");
+  for (i = 0; i < a.length; i++){
+    a[i].getAttribute("data-t-attr").split(",").forEach(function(par){
+      var q = par.split(":");
+      if (t[q[1].trim()] !== undefined) a[i].setAttribute(q[0].trim(), t[q[1].trim()]);
+    });
+  }
+  var b = document.querySelectorAll(".idi button");
+  for (i = 0; i < b.length; i++) b[i].setAttribute("aria-pressed", String(b[i].dataset.lang === codigo));
+
+  var ac = document.getElementById("acuse");
+  if (ac) ac.textContent = "";
+  pintarHusos();
+  try{ localStorage.setItem("meridiano_lang", codigo); }catch(e){}
+}
+
+var bs = document.querySelectorAll(".idi button");
+for (var i = 0; i < bs.length; i++){
+  bs[i].addEventListener("click", function(){ aplicar(this.dataset.lang); });
+}
+
+document.getElementById("f").addEventListener("submit", function(e){
+  e.preventDefault();
+  var t = T[idioma], ac = document.getElementById("acuse");
+  var nom = document.getElementById("nom").value.trim();
+  var cor = document.getElementById("cor").value.trim();
+  if (nom.length < 2){ ac.textContent = t.errNombre; return; }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(cor)){ ac.textContent = t.errCorreo; return; }
+  ac.textContent = t.okMsg;
+  e.target.reset();
+});
+
+(function(){
+  var g = null;
+  try{ g = localStorage.getItem("meridiano_lang"); }catch(e){}
+  if (!g || !T[g]){
+    var l = (navigator.language || "es").slice(0,2).toLowerCase();
+    g = T[l] ? l : "es";
+  }
+  aplicar(g);
+  /* Un tic por minuto basta: mostramos horas y minutos, no segundos. */
+  tempo = setInterval(pintarHusos, 15000);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1915 @@
+<!doctype html>
+<html lang="es" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<!-- Maqueta de propuesta. No es el sitio público de la empresa. -->
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MARSA Travel Consultancy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;500&family=Karla:wght@300;400;500&family=Reem+Kufi:wght@400;500;600&family=IBM+Plex+Sans+Arabic:wght@300;400;500&display=swap">
+
+<style>
+/* ══════════════════════════════════════════════════════════════════
+   MARSA — مَرْسى, "fondeadero".
+   Paleta tomada del nombre: agua honda, sal y verdín de latón.
+   Todo el RTL sale de propiedades lógicas; las excepciones reales
+   van marcadas una a una con su número.
+   ══════════════════════════════════════════════════════════════════ */
+
+:root{
+  --fondo:#e8ebea;
+  --fondo-2:#dde2e1;
+  --sup:#f5f7f6;
+  --texto:#0e1a24;
+  --texto-2:#4a5a62;
+  --texto-3:#7a8891;
+  --acento:#2f6d5e;
+  --linea:rgba(14,26,36,.14);
+  --hondo:#0e1a24;
+  --hondo-texto:#dfe6e4;
+  --hondo-linea:rgba(223,230,228,.18);
+
+  --display:"Bodoni Moda",Didot,"Times New Roman",serif;
+  --texto-f:"Karla",system-ui,-apple-system,sans-serif;
+  --paso:clamp(1.15rem,4vw,2.25rem);
+  --env:1220px;
+}
+
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --fondo:#0b1319;
+    --fondo-2:#12202a;
+    --sup:#16252f;
+    --texto:#e4e9e8;
+    --texto-2:#9fb0b4;
+    --texto-3:#6f8189;
+    --acento:#6fb3a0;
+    --linea:rgba(228,233,232,.14);
+    --hondo:#060d12;
+    --hondo-texto:#e4e9e8;
+    --hondo-linea:rgba(228,233,232,.16);
+  }
+}
+:root[data-theme="dark"]{
+  --fondo:#0b1319;
+  --fondo-2:#12202a;
+  --sup:#16252f;
+  --texto:#e4e9e8;
+  --texto-2:#9fb0b4;
+  --texto-3:#6f8189;
+  --acento:#6fb3a0;
+  --linea:rgba(228,233,232,.14);
+  --hondo:#060d12;
+  --hondo-texto:#e4e9e8;
+  --hondo-linea:rgba(228,233,232,.16);
+}
+
+/* EXCEPCIÓN 1 — Bodoni y Karla no tienen glifos árabes. Sin esto el
+   árabe cae en la fuente del sistema y la página parece a medio hacer.
+   Reem Kufi para titulares (geométrica, registro de marca del Golfo),
+   IBM Plex Sans Arabic para el cuerpo. */
+html[dir="rtl"]{
+  --display:"Reem Kufi","Noto Naskh Arabic",serif;
+  --texto-f:"IBM Plex Sans Arabic",system-ui,sans-serif;
+}
+
+*,*::before,*::after{box-sizing:border-box;}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;}}
+
+body{
+  margin:0;
+  background:var(--fondo);
+  color:var(--texto);
+  font-family:var(--texto-f);
+  font-weight:300;
+  font-size:clamp(15px,1.05vw,17px);
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+/* EXCEPCIÓN 2 — el árabe lleva diacríticos y ligaduras que ocupan
+   altura vertical que el latino no usa: con 1.7 se pisan. */
+html[dir="rtl"] body{line-height:2.05;font-weight:300;}
+
+h1,h2,h3{font-family:var(--display);font-weight:400;line-height:1.08;margin:0;text-wrap:balance;}
+/* EXCEPCIÓN 3 — los titulares árabes necesitan aún más aire. */
+html[dir="rtl"] h1,html[dir="rtl"] h2,html[dir="rtl"] h3{line-height:1.5;font-weight:500;}
+p{margin:0 0 1em;max-width:65ch;}
+p:last-child{margin-bottom:0;}
+a{color:inherit;}
+:focus-visible{outline:2px solid var(--acento);outline-offset:3px;border-radius:1px;}
+
+.env{width:min(var(--env),100% - var(--paso)*2);margin-inline:auto;}
+.seccion{padding-block:clamp(3.5rem,8vw,6.5rem);}
+.fina{padding-block:clamp(2rem,5vw,3.5rem);}
+.raya{border-top:1px solid var(--linea);}
+
+/* ── Eyebrow ─────────────────────────────────────────────────────── */
+.rot{
+  font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--acento);font-weight:500;margin:0 0 1.35rem;
+  display:flex;align-items:center;gap:.9rem;max-width:none;
+}
+.rot::after{content:"";flex:1;height:1px;background:var(--linea);max-width:4.5rem;}
+/* EXCEPCIÓN 4 — letter-spacing en árabe ROMPE las ligaduras: las letras
+   se descosen y la palabra deja de leerse. El error que más delata. */
+html[dir="rtl"] .rot{letter-spacing:0;text-transform:none;font-size:.85rem;}
+
+/* ── Cabecera ────────────────────────────────────────────────────── */
+header.sitio{
+  position:sticky;top:0;z-index:60;background:color-mix(in srgb,var(--fondo) 90%,transparent);
+  backdrop-filter:blur(14px);border-bottom:1px solid var(--linea);
+}
+.barra{display:flex;align-items:center;gap:1.25rem;padding-block:1rem;}
+.marca{
+  font-family:var(--display);font-size:1.45rem;letter-spacing:.34em;
+  text-decoration:none;white-space:nowrap;line-height:1;font-weight:500;
+  background:none;border:0;cursor:pointer;color:inherit;padding:0;
+}
+/* EXCEPCIÓN 5 — misma razón que el eyebrow, aplicada al logotipo. */
+html[dir="rtl"] .marca{letter-spacing:normal;font-size:1.75rem;}
+
+nav.principal{
+  display:flex;gap:1.5rem;margin-inline-start:auto;font-size:.85rem;
+  overflow-x:auto;scrollbar-width:none;
+}
+nav.principal::-webkit-scrollbar{display:none;}
+nav.principal a{
+  text-decoration:none;color:var(--texto-2);white-space:nowrap;
+  padding-block:.3rem;border-bottom:1px solid transparent;transition:color .2s;
+}
+nav.principal a:hover{color:var(--texto);}
+nav.principal a[aria-current="page"]{color:var(--texto);border-bottom-color:var(--acento);}
+
+.idiomas{display:flex;gap:.1rem;align-items:center;flex-shrink:0;}
+.idiomas button{
+  background:none;border:0;cursor:pointer;font-family:var(--texto-f);
+  font-size:.76rem;color:var(--texto-3);padding:.35rem .55rem;
+  letter-spacing:.06em;line-height:1.4;transition:color .2s;
+}
+.idiomas button[aria-pressed="true"]{color:var(--texto);background:var(--fondo-2);}
+.idiomas button:hover{color:var(--acento);}
+@media(max-width:960px){
+  .barra{flex-wrap:wrap;gap:.7rem 1.1rem;}
+  nav.principal{order:3;width:100%;margin-inline-start:0;gap:1.15rem;padding-bottom:.15rem;}
+  .idiomas{margin-inline-start:auto;}
+}
+
+/* ── Rutas ───────────────────────────────────────────────────────── */
+[data-ruta]{display:none;}
+[data-ruta].activa{display:block;animation:entra .45s ease both;}
+@keyframes entra{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+
+/* ── Portada ─────────────────────────────────────────────────────── */
+.horizonte{
+  background:var(--hondo);color:var(--hondo-texto);
+  padding-block:clamp(4.5rem,13vw,9rem);position:relative;overflow:hidden;
+}
+.horizonte::after{
+  content:"";position:absolute;inset-inline:0;bottom:0;height:38%;
+  background:linear-gradient(to bottom,transparent,color-mix(in srgb,var(--acento) 16%,transparent));
+  pointer-events:none;
+}
+.horizonte .rot{color:color-mix(in srgb,var(--acento) 70%,#ffffff);}
+.horizonte .rot::after{background:var(--hondo-linea);}
+.horizonte h1{font-size:clamp(2.5rem,7.5vw,5.4rem);max-width:15ch;}
+html[dir="rtl"] .horizonte h1{max-width:19ch;}
+.horizonte .entrada{color:color-mix(in srgb,var(--hondo-texto) 74%,transparent);}
+.entrada{font-size:clamp(1.02rem,1.5vw,1.2rem);color:var(--texto-2);max-width:50ch;margin-top:1.6rem;}
+
+.cabecera{padding-block:clamp(2.75rem,7vw,5rem) clamp(1.5rem,4vw,2.5rem);}
+.cabecera h1{font-size:clamp(2rem,5.2vw,3.7rem);max-width:19ch;}
+html[dir="rtl"] .cabecera h1{max-width:23ch;}
+h2.grande{font-size:clamp(1.75rem,4vw,2.7rem);max-width:20ch;}
+html[dir="rtl"] h2.grande{max-width:24ch;}
+
+/* ── Botones ─────────────────────────────────────────────────────── */
+.acciones{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2.4rem;}
+.btn{
+  display:inline-block;text-decoration:none;font-family:var(--texto-f);
+  font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;
+  padding:1rem 2.2rem;border:1px solid currentColor;background:transparent;
+  color:var(--texto);cursor:pointer;transition:background .25s,color .25s;
+}
+/* EXCEPCIÓN 6 — el árabe no tiene mayúsculas ni admite espaciado. */
+html[dir="rtl"] .btn{letter-spacing:0;text-transform:none;font-size:.95rem;}
+.btn.solido{background:var(--texto);color:var(--fondo);border-color:var(--texto);}
+.btn.solido:hover{background:transparent;color:var(--texto);}
+.btn.hueco:hover{background:var(--texto);color:var(--fondo);}
+.horizonte .btn{color:var(--hondo-texto);}
+.horizonte .btn.solido{background:var(--hondo-texto);color:var(--hondo);border-color:var(--hondo-texto);}
+.horizonte .btn.solido:hover{background:transparent;color:var(--hondo-texto);}
+.horizonte .btn.hueco:hover{background:var(--hondo-texto);color:var(--hondo);}
+
+/* ── Rejillas ────────────────────────────────────────────────────── */
+.rejilla{display:grid;gap:clamp(1.5rem,3.4vw,3rem);}
+.g3{grid-template-columns:repeat(auto-fit,minmax(245px,1fr));}
+.g2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr));align-items:start;}
+.g2d{grid-template-columns:repeat(auto-fit,minmax(min(100%,26rem),1fr));align-items:start;}
+
+.tarjeta{border-top:1px solid var(--linea);padding-top:1.5rem;}
+.tarjeta h3{font-size:1.5rem;margin-bottom:.65rem;}
+.tarjeta p{color:var(--texto-2);}
+.marca-orden{
+  font-family:var(--display);font-size:.8rem;color:var(--acento);
+  display:block;margin-bottom:.85rem;letter-spacing:.1em;
+}
+html[dir="rtl"] .marca-orden{letter-spacing:0;font-size:.95rem;}
+
+/* ── Bloques de detalle ──────────────────────────────────────────── */
+.detalle{
+  display:grid;grid-template-columns:minmax(0,6.5rem) minmax(0,1fr);
+  gap:clamp(1rem,3vw,2.5rem);align-items:start;
+  border-top:1px solid var(--linea);padding-block:clamp(1.9rem,4vw,3rem);
+}
+.detalle .idx{font-family:var(--display);font-size:1.45rem;color:var(--acento);}
+.detalle h3{font-size:clamp(1.45rem,2.6vw,2rem);margin-bottom:.85rem;}
+.detalle p{color:var(--texto-2);}
+@media(max-width:640px){.detalle{grid-template-columns:1fr;gap:.6rem;}}
+
+/* ── Listas ──────────────────────────────────────────────────────── */
+.lista{list-style:none;margin:1.2rem 0 0;padding:0;display:grid;gap:.55rem;max-width:60ch;}
+.lista li{display:grid;grid-template-columns:1.3rem 1fr;gap:.7rem;align-items:baseline;color:var(--texto-2);font-size:.95rem;}
+.lista li::before{content:"—";color:var(--acento);line-height:1;}
+.lista.no li::before{content:"×";color:var(--texto-3);}
+
+/* ── Pasos (secuencia real: el orden importa) ────────────────────── */
+.pasos{list-style:none;margin:0;padding:0;counter-reset:p;}
+.pasos > li{
+  counter-increment:p;border-bottom:1px solid var(--linea);padding-block:1.6rem;
+  display:grid;grid-template-columns:3.2rem 1fr;gap:1.4rem;align-items:baseline;
+}
+.pasos > li::before{content:"0" counter(p);font-family:var(--display);font-size:1.3rem;color:var(--acento);}
+/* EXCEPCIÓN 7 — numeración árabe-índica, la que espera el lector del Golfo. */
+html[dir="rtl"] .pasos > li::before{content:"٠" counter(p,arabic-indic);}
+.pasos h3{font-size:1.25rem;margin-bottom:.35rem;}
+.pasos p{color:var(--texto-2);}
+
+/* ── Destinos ────────────────────────────────────────────────────── */
+.destino{
+  border-top:1px solid var(--linea);padding-top:1.5rem;
+  display:grid;gap:.85rem;
+}
+.destino .banda{height:5px;background:var(--tono);width:100%;}
+.destino h3{font-size:1.6rem;}
+.destino p{color:var(--texto-2);font-size:.96rem;}
+.destino .apunte{color:var(--texto-3);font-size:.86rem;}
+
+/* ── Cita ────────────────────────────────────────────────────────── */
+.cita{background:var(--hondo);color:var(--hondo-texto);}
+.cita blockquote{
+  margin:0;font-family:var(--display);font-weight:400;
+  font-size:clamp(1.4rem,3.2vw,2.35rem);line-height:1.35;max-width:25ch;
+}
+html[dir="rtl"] .cita blockquote{line-height:1.75;max-width:29ch;}
+.cita .firma{margin-top:1.6rem;font-size:.8rem;color:color-mix(in srgb,var(--hondo-texto) 55%,transparent);letter-spacing:.12em;}
+html[dir="rtl"] .cita .firma{letter-spacing:0;}
+
+/* ── Preguntas ───────────────────────────────────────────────────── */
+.faq{border-top:1px solid var(--linea);}
+.faq summary{
+  cursor:pointer;padding-block:1.3rem;font-family:var(--display);
+  font-size:1.2rem;list-style:none;display:flex;gap:1rem;align-items:baseline;
+}
+html[dir="rtl"] .faq summary{font-size:1.25rem;}
+.faq summary::-webkit-details-marker{display:none;}
+/* EXCEPCIÓN 8 — margin-inline-start:auto manda el signo al final de la
+   línea en los dos sentidos, sin duplicar la regla. */
+.faq summary::after{content:"+";margin-inline-start:auto;color:var(--acento);font-size:1.05rem;}
+.faq[open] summary::after{content:"–";}
+.faq p{color:var(--texto-2);padding-bottom:1.35rem;}
+
+/* ── Formulario ──────────────────────────────────────────────────── */
+form{display:grid;gap:1.35rem;max-width:34rem;}
+label{display:block;font-size:.71rem;letter-spacing:.17em;text-transform:uppercase;color:var(--texto-2);margin-bottom:.5rem;}
+html[dir="rtl"] label{letter-spacing:0;text-transform:none;font-size:.85rem;}
+input,select,textarea{
+  width:100%;font:inherit;font-family:var(--texto-f);color:var(--texto);
+  background:transparent;border:0;border-bottom:1px solid var(--linea);
+  padding:.6rem 0;border-radius:0;
+  /* Sin text-align: se hereda de dir. Forzarlo es lo que rompe el RTL. */
+}
+input:focus,select:focus,textarea:focus{outline:none;border-bottom-color:var(--acento);}
+textarea{resize:vertical;min-height:6rem;}
+select{
+  appearance:none;cursor:pointer;
+  background-image:linear-gradient(45deg,transparent 50%,var(--texto-2) 50%),
+                   linear-gradient(135deg,var(--texto-2) 50%,transparent 50%);
+  background-size:5px 5px,5px 5px;background-repeat:no-repeat;
+  background-position:right 4px center,right 0 center;
+}
+/* EXCEPCIÓN 9 — no hay propiedad lógica para background-position: los
+   iconos direccionales se reflejan a mano. */
+html[dir="rtl"] select{background-position:left 0 center,left 4px center;}
+.aviso{font-size:.78rem;color:var(--texto-3);}
+.ok{color:var(--acento);font-size:.9rem;min-height:1.4em;margin:.6rem 0 0;}
+.ok.mal{color:#b4543f;}
+:root[data-theme="dark"] .ok.mal{color:#e08a72;}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .ok.mal{color:#e08a72;}}
+
+.dato{border-top:1px solid var(--linea);padding-block:1rem;}
+.dato dt{font-size:.71rem;letter-spacing:.17em;text-transform:uppercase;color:var(--texto-3);margin-bottom:.25rem;}
+html[dir="rtl"] .dato dt{letter-spacing:0;text-transform:none;font-size:.85rem;}
+.dato dd{margin:0;font-size:1rem;}
+
+/* ── Pie ─────────────────────────────────────────────────────────── */
+footer.sitio{border-top:1px solid var(--linea);padding-block:2.5rem;font-size:.8rem;color:var(--texto-2);}
+.pie{display:flex;flex-wrap:wrap;gap:.9rem 2.4rem;align-items:center;}
+.pie nav{display:flex;gap:1.4rem;flex-wrap:wrap;}
+.pie a{text-decoration:none;}
+.pie a:hover{color:var(--acento);}
+.pie .fin{margin-inline-start:auto;color:var(--texto-3);}
+
+
+/* ── Gráficos y herramientas (3 páginas nuevas) ──────────────────── */
+/* Paleta categórica validada con los seis controles: banda de
+   luminosidad, chroma, separación para daltonismo, suelo de visión
+   normal y contraste sobre la superficie. Orden fijo, nunca cíclico. */
+:root{
+  --serie-1:#1a6fb0;  /* Ramadán */
+  --serie-2:#c8641a;  /* Eid */
+  --serie-3:#0f8f7a;  /* Vacaciones del Golfo */
+  --serie-4:#8c4bab;  /* Temporada alta en Japón */
+  --rejilla:rgba(14,24,36,.10);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --serie-1:#3f88c4; --serie-2:#c47f32; --serie-3:#20a086; --serie-4:#9d6bbd;
+  --rejilla:rgba(228,233,232,.12);
+}}
+:root[data-theme="dark"]{
+  --serie-1:#3f88c4; --serie-2:#c47f32; --serie-3:#20a086; --serie-4:#9d6bbd;
+  --rejilla:rgba(228,233,232,.12);
+}
+
+.mandos{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.6rem;}
+.mandos button{
+  font-family:var(--texto-f);font-size:.82rem;padding:.5rem .95rem;
+  border:1px solid var(--linea);background:transparent;color:var(--texto-2);
+  cursor:pointer;font-variant-numeric:tabular-nums;transition:.2s;
+}
+.mandos button:hover{color:var(--texto);border-color:var(--texto-3);}
+.mandos button[aria-pressed="true"]{background:var(--texto);color:var(--fondo);border-color:var(--texto);}
+
+.leyenda{display:flex;flex-wrap:wrap;gap:.3rem 1.4rem;margin-bottom:1.3rem;font-size:.82rem;color:var(--texto-2);}
+.leyenda span{display:flex;align-items:center;gap:.5rem;}
+.leyenda i{width:.85rem;height:.85rem;border-radius:2px;background:var(--c);flex-shrink:0;}
+
+.lienzo{overflow-x:auto;}
+.lienzo-int{min-width:34rem;--col-nom:clamp(6rem,15vw,13rem);}
+.fila{display:grid;grid-template-columns:var(--col-nom) 1fr;gap:.9rem;align-items:center;margin-bottom:.5rem;}
+.fila > .nom{font-size:.8rem;color:var(--texto-2);line-height:1.35;}
+.pista{position:relative;height:1.65rem;background:var(--fondo-2);border-radius:2px;}
+/* Rejilla mensual de fondo: recesiva, nunca compite con las marcas. */
+.pista::before{
+  content:"";position:absolute;inset:0;border-radius:2px;
+  background:repeating-linear-gradient(to right,var(--rejilla) 0 1px,transparent 1px calc(100%/12));
+}
+.banda{
+  position:absolute;top:.2rem;bottom:.2rem;background:var(--c);
+  border-radius:4px;box-shadow:0 0 0 2px var(--fondo);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.68rem;color:#fff;white-space:nowrap;overflow:hidden;
+}
+.banda:hover{filter:brightness(1.12);}
+.eje{display:grid;grid-template-columns:var(--col-nom) 1fr;gap:.9rem;margin-top:.35rem;}
+.eje-meses{display:grid;grid-template-columns:repeat(12,1fr);font-size:.66rem;color:var(--texto-3);letter-spacing:.04em;}
+.eje-meses span{text-align:center;}
+html[dir="rtl"] .eje-meses span{letter-spacing:0;font-size:.72rem;}
+
+.hallazgo{
+  margin:1.8rem 0 0;padding:1.1rem 1.3rem;background:var(--fondo-2);
+  border-inline-start:3px solid var(--acento);font-size:.97rem;
+}
+.hallazgo strong{color:var(--acento);}
+.metodo{font-size:.78rem;color:var(--texto-3);margin-top:1.5rem;}
+.tabla-dat{width:100%;border-collapse:collapse;font-size:.86rem;margin-top:.9rem;}
+.tabla-dat th,.tabla-dat td{border-bottom:1px solid var(--linea);padding:.45rem .5rem;text-align:start;}
+.tabla-dat th{font-weight:500;color:var(--texto-2);}
+.tabla-dat td{font-variant-numeric:tabular-nums;color:var(--texto-2);}
+
+/* ── El día hora a hora ──────────────────────────────────────────── */
+.jornada{display:grid;gap:.35rem;margin-top:.4rem;}
+.tramo{
+  display:grid;grid-template-columns:4.2rem 1fr;gap:1rem;align-items:baseline;
+  padding:.6rem .8rem;border-inline-start:3px solid var(--c,var(--linea));
+  background:var(--fondo-2);
+}
+.tramo .hora{font-size:.82rem;color:var(--texto-3);font-variant-numeric:tabular-nums;}
+.tramo .qué{font-size:.95rem;}
+.tramo .nota{display:block;font-size:.8rem;color:var(--texto-3);margin-top:.15rem;}
+.tramo.rezo{background:transparent;border-inline-start-color:var(--serie-2);}
+.tramo.rezo .qué{color:var(--serie-2);}
+
+/* ── Niveles halal ───────────────────────────────────────────────── */
+.detalle-nivel{margin-top:1.5rem;border-top:1px solid var(--linea);padding-top:1.4rem;}
+.detalle-nivel h3{font-size:1.35rem;margin-bottom:.5rem;}
+.semaforo{display:inline-block;width:.7rem;height:.7rem;border-radius:50%;
+  background:var(--e);margin-inline-end:.5rem;vertical-align:baseline;}
+
+/* Los identificadores latinos (correo, razón social, año) se quedan
+   LTR aunque la página sea árabe. */
+.ltr{direction:ltr;unicode-bidi:isolate;display:inline-block;}
+</style>
+</head>
+<body>
+<header class="sitio">
+  <div class="env barra">
+    <a class="marca" href="#/inicio" data-t="marca">MARSA</a>
+    <nav class="principal" data-t-attr="aria-label:ariaMenu" aria-label="Menú principal">
+      <a href="#/inicio"         data-t="nInicio">Inicio</a>
+      <a href="#/servicios"      data-t="nServicios">Servicios</a>
+      <a href="#/metodo"         data-t="nMetodo">Método</a>
+      <a href="#/destinos"       data-t="nDestinos">Destinos</a>
+      <a href="#/estacionalidad" data-t="nEstacion">Cuándo viajar</a>
+      <a href="#/dia"            data-t="nDia">Un día real</a>
+      <a href="#/halal"          data-t="nHalal">Halal de verdad</a>
+      <a href="#/nosotros"       data-t="nNosotros">Quiénes somos</a>
+      <a href="#/preguntas"      data-t="nPreguntas">Preguntas</a>
+      <a href="#/contacto"       data-t="nContacto">Contacto</a>
+    </nav>
+    <div class="idiomas" role="group" data-t-attr="aria-label:ariaIdioma" aria-label="Idioma">
+      <button type="button" data-lang="es" aria-pressed="true">ES</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      <button type="button" data-lang="ar" aria-pressed="false" lang="ar">العربية</button>
+    </div>
+  </div>
+</header>
+
+<main id="app">
+
+<!-- ═══ INICIO ═══ -->
+<section data-ruta="inicio">
+  <div class="horizonte">
+    <div class="env">
+      <p class="rot" data-t="iRot">Consultoría de viajes privados</p>
+      <h1 data-t="iH1">Los viajes no se reservan. Se diseñan.</h1>
+      <p class="entrada" data-t="iEntrada">No vendemos itinerarios hechos. Escuchamos primero, y después construimos un viaje que sólo tiene sentido para quien lo va a hacer.</p>
+      <div class="acciones">
+        <a class="btn solido" href="#/contacto" data-t="bHablemos">Hablemos de su viaje</a>
+        <a class="btn hueco"  href="#/metodo"   data-t="bMetodo">Cómo trabajamos</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="env seccion">
+    <p class="rot" data-t="nServicios">Servicios</p>
+    <div class="rejilla g3">
+      <article class="tarjeta">
+        <span class="marca-orden" data-t="oDiseno">Diseño</span>
+        <h3 data-t="s1t">Diseño de itinerario</h3>
+        <p data-t="s1p">Un viaje construido desde cero sobre su calendario, su ritmo y lo que de verdad le interesa ver.</p>
+      </article>
+      <article class="tarjeta">
+        <span class="marca-orden" data-t="oReserva">Reserva</span>
+        <h3 data-t="s2t">Acceso y reservas</h3>
+        <p data-t="s2p">Alojamiento, mesas, visitas privadas y guías locales. Lo que no se reserva por internet.</p>
+      </article>
+      <article class="tarjeta">
+        <span class="marca-orden" data-t="oViaje">Viaje</span>
+        <h3 data-t="s3t">Acompañamiento</h3>
+        <p data-t="s3p">Un interlocutor localizable en su idioma y en su huso horario, desde la salida hasta la vuelta.</p>
+      </article>
+    </div>
+    <div class="acciones">
+      <a class="btn hueco" href="#/servicios" data-t="bVerServicios">Ver los servicios en detalle</a>
+    </div>
+  </div>
+
+  <div class="cita">
+    <div class="env seccion">
+      <blockquote data-t="iCita">Un buen viaje no se mide en lugares vistos, sino en decisiones que usted no tuvo que tomar.</blockquote>
+      <p class="firma" data-t="firma">MARSA — Dubái</p>
+    </div>
+  </div>
+
+  <div class="env seccion">
+    <p class="rot" data-t="nDestinos">Destinos</p>
+    <div class="rejilla g2">
+      <div>
+        <h2 class="grande" data-t="iDestH">Cuatro regiones que conocemos de primera mano.</h2>
+      </div>
+      <div>
+        <p style="color:var(--texto-2)" data-t="iDestP">No trabajamos el mundo entero. Trabajamos donde tenemos gente de confianza sobre el terreno y podemos responder de lo que prometemos.</p>
+        <div class="acciones" style="margin-top:1.6rem">
+          <a class="btn hueco" href="#/destinos" data-t="bVerDestinos">Ver los destinos</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="env seccion raya">
+    <div class="rejilla g2">
+      <div>
+        <p class="rot" data-t="rEmpezar">Empezar</p>
+        <h2 class="grande" data-t="iCierreH">Una conversación no compromete a nada.</h2>
+      </div>
+      <div>
+        <p style="color:var(--texto-2)" data-t="iCierreP">Cuéntenos qué viaje tiene en la cabeza y le respondemos personalmente, en español, inglés o árabe.</p>
+        <div class="acciones" style="margin-top:1.6rem">
+          <a class="btn solido" href="#/contacto" data-t="bHablemos">Hablemos de su viaje</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SERVICIOS ═══ -->
+<section data-ruta="servicios">
+  <div class="env cabecera">
+    <p class="rot" data-t="nServicios">Servicios</p>
+    <h1 data-t="svH1">Tres cosas, hechas bien.</h1>
+    <p class="entrada" data-t="svEntrada">No hacemos de todo. Hacemos lo que un viaje bien resuelto necesita de verdad, y lo hace una sola persona de principio a fin.</p>
+  </div>
+
+  <div class="env fina">
+    <article class="detalle">
+      <div class="idx" data-t="oDiseno">Diseño</div>
+      <div>
+        <h3 data-t="s1t">Diseño de itinerario</h3>
+        <p data-t="sv1p">Partimos de una conversación, no de un catálogo. De ahí sale un itinerario escrito, día a día, con los tiempos reales de desplazamiento y el margen suficiente para que el viaje no se convierta en una lista de tareas.</p>
+        <ul class="lista">
+          <li data-t="sv1a">Ruta y calendario ajustados a su ritmo, no al de un grupo</li>
+          <li data-t="sv1b">Tiempos de traslado comprobados, no estimados</li>
+          <li data-t="sv1c">Alternativas para los días de lluvia y los cambios de última hora</li>
+          <li data-t="sv1d">Requisitos alimentarios y de culto contemplados desde el primer borrador</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="detalle">
+      <div class="idx" data-t="oReserva">Reserva</div>
+      <div>
+        <h3 data-t="s2t">Acceso y reservas</h3>
+        <p data-t="sv2p">La parte del viaje que no aparece en ningún buscador. Trabajamos con contactos locales en cada destino y reservamos a su nombre: usted es siempre el cliente del hotel, no un número dentro de un bloque.</p>
+        <ul class="lista">
+          <li data-t="sv2a">Alojamiento elegido uno a uno, hasta la habitación concreta</li>
+          <li data-t="sv2b">Mesas y visitas privadas fuera del horario público</li>
+          <li data-t="sv2c">Guías locales que hablan su idioma</li>
+          <li data-t="sv2d">Traslados privados y conductor cuando el trayecto lo justifica</li>
+        </ul>
+        <ul class="lista no">
+          <li data-t="sv2n1">No trabajamos con comisiones ocultas del proveedor</li>
+          <li data-t="sv2n2">No revendemos paquetes de terceros</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="detalle">
+      <div class="idx" data-t="oViaje">Viaje</div>
+      <div>
+        <h3 data-t="s3t">Acompañamiento</h3>
+        <p data-t="sv3p">Un viaje bien planificado también se tuerce. La diferencia está en cuánto tarda alguien en resolverlo. Durante todo el trayecto tiene un número directo y una persona que ya conoce su itinerario de memoria.</p>
+        <ul class="lista">
+          <li data-t="sv3a">Un solo interlocutor, el mismo de principio a fin</li>
+          <li data-t="sv3b">Disponible en su huso horario, no en el nuestro</li>
+          <li data-t="sv3c">Cambios y cancelaciones gestionados por nosotros</li>
+          <li data-t="sv3d">Español, inglés y árabe, sin intermediarios ni traductores</li>
+        </ul>
+      </div>
+    </article>
+  </div>
+
+  <div class="env seccion raya">
+    <div class="rejilla g2">
+      <div>
+        <p class="rot" data-t="rSiguiente">Siguiente paso</p>
+        <h2 class="grande" data-t="svCierreH">El método, paso a paso.</h2>
+      </div>
+      <div>
+        <p style="color:var(--texto-2)" data-t="svCierreP">Si quiere ver cómo se convierte una conversación en un viaje cerrado, está explicado entero y sin letra pequeña.</p>
+        <div class="acciones" style="margin-top:1.6rem">
+          <a class="btn solido" href="#/metodo"   data-t="bMetodo">Cómo trabajamos</a>
+          <a class="btn hueco"  href="#/contacto" data-t="bHablemos">Hablemos de su viaje</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ MÉTODO ═══ -->
+<section data-ruta="metodo">
+  <div class="env cabecera">
+    <p class="rot" data-t="nMetodo">Método</p>
+    <h1 data-t="meH1">Cuatro pasos, sin prisa y sin formularios interminables.</h1>
+    <p class="entrada" data-t="meEntrada">Nada se reserva hasta que usted ha visto el viaje entero por escrito y ha dicho que sí. Ese es todo el secreto.</p>
+  </div>
+
+  <div class="env fina">
+    <ol class="pasos">
+      <li><div>
+        <h3 data-t="p1t">Conversación</h3>
+        <p data-t="p1p">Una llamada de media hora, sin cuestionario. Queremos saber qué le apetece, qué le cansa, con quién viaja y qué le hizo disfrutar del último viaje bueno que hizo. Con eso ya se puede trabajar.</p>
+      </div></li>
+      <li><div>
+        <h3 data-t="p2t">Propuesta</h3>
+        <p data-t="p2p">Un itinerario escrito, día a día, con presupuesto cerrado y dos o tres alternativas reales en los puntos donde la decisión cambia el viaje. Sin fotos de catálogo y sin adjetivos de más.</p>
+      </div></li>
+      <li><div>
+        <h3 data-t="p3t">Ajuste</h3>
+        <p data-t="p3p">Se cambia lo que haga falta, tantas veces como haga falta, y sin coste. Aquí es donde el viaje se vuelve suyo. Sólo cuando el documento le parece bien entero se reserva algo.</p>
+      </div></li>
+      <li><div>
+        <h3 data-t="p4t">Viaje</h3>
+        <p data-t="p4p">Todo confirmado, con los localizadores en un solo documento, y un número directo disponible durante todo el trayecto. Si algo se tuerce, lo resolvemos nosotros mientras usted sigue de viaje.</p>
+      </div></li>
+    </ol>
+  </div>
+
+  <div class="cita">
+    <div class="env seccion">
+      <blockquote data-t="meCita">Nada se reserva hasta que usted ha dicho que sí al viaje entero.</blockquote>
+      <p class="firma" data-t="firma">MARSA — Dubái</p>
+    </div>
+  </div>
+
+  <div class="env seccion">
+    <div class="rejilla g2">
+      <div>
+        <p class="rot" data-t="rUsted">Qué necesitamos de usted</p>
+        <h2 class="grande" data-t="meUstedH">Muy poco, y sólo al principio.</h2>
+      </div>
+      <div>
+        <ul class="lista">
+          <li data-t="u1">Las fechas, aunque sean aproximadas</li>
+          <li data-t="u2">Cuántos viajan y qué relación hay entre ustedes</li>
+          <li data-t="u3">Un orden de magnitud del presupuesto, para no hacerle perder el tiempo</li>
+          <li data-t="u4">Lo que no quiere: madrugar, andar mucho, comer fuera todos los días</li>
+        </ul>
+        <p style="color:var(--texto-2);margin-top:1.4rem" data-t="meUstedP">Lo demás lo averiguamos hablando. No hay formulario de treinta campos ni cuestionario de personalidad.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="env seccion raya">
+    <div class="rejilla g2">
+      <div>
+        <p class="rot" data-t="rEmpezar">Empezar</p>
+        <h2 class="grande" data-t="meCierreH">El primer paso es sólo una conversación.</h2>
+      </div>
+      <div>
+        <p style="color:var(--texto-2)" data-t="meCierreP">Sin compromiso, sin presupuesto por delante y sin que nadie le llame después para insistir.</p>
+        <div class="acciones" style="margin-top:1.6rem">
+          <a class="btn solido" href="#/contacto"  data-t="bHablemos">Hablemos de su viaje</a>
+          <a class="btn hueco"  href="#/servicios" data-t="nServicios">Servicios</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ DESTINOS ═══ -->
+<section data-ruta="destinos">
+  <div class="env cabecera">
+    <p class="rot" data-t="nDestinos">Destinos</p>
+    <h1 data-t="deH1">Cuatro regiones, no el mundo entero.</h1>
+    <p class="entrada" data-t="deEntrada">Trabajamos sólo donde tenemos gente de confianza sobre el terreno. Prometer más que eso sería vender un catálogo, que es justo lo que no hacemos.</p>
+  </div>
+
+  <div class="env fina">
+    <div class="rejilla g2d">
+      <article class="destino" style="--tono:#2f4f5e">
+        <div class="banda"></div>
+        <h3 data-t="d1t">Japón</h3>
+        <p data-t="d1p">El país donde peor funciona el viaje improvisado y mejor funciona el planificado. Trabajamos fuera de la ruta de Tokio y Kioto en temporada alta, y sabemos qué merece madrugar y qué no.</p>
+        <p class="apunte" data-t="d1a">Primavera y otoño se cierran con seis meses de antelación.</p>
+      </article>
+      <article class="destino" style="--tono:#7a6436">
+        <div class="banda"></div>
+        <h3 data-t="d2t">Golfo Arábigo</h3>
+        <p data-t="d2p">Nuestra casa. Emiratos, Omán y Arabia Saudí, con el conocimiento de quien vive aquí y no de quien pasa una semana al año. Y con el calendario islámico contemplado, que mueve la demanda cada año.</p>
+        <p class="apunte" data-t="d2a">Ramadán y las dos fiestas cambian de fecha cada año: lo tenemos en cuenta.</p>
+      </article>
+      <article class="destino" style="--tono:#3f6b4a">
+        <div class="banda"></div>
+        <h3 data-t="d3t">América Latina</h3>
+        <p data-t="d3p">México, Colombia, Perú y Argentina. Distancias grandes, información poco fiable en internet y una diferencia enorme entre el operador bueno y el operador cualquiera. Ahí es donde valemos la pena.</p>
+        <p class="apunte" data-t="d3a">Atención en español peninsular y latinoamericano.</p>
+      </article>
+      <article class="destino" style="--tono:#5a4a63">
+        <div class="banda"></div>
+        <h3 data-t="d4t">Europa</h3>
+        <p data-t="d4p">Menos previsible de lo que parece en verano. Trabajamos las temporadas intermedias, cuando lo mismo cuesta la mitad y se disfruta el doble, y las ciudades pequeñas que no salen en las listas.</p>
+        <p class="apunte" data-t="d4a">Mejor relación entre precio y experiencia de mayo a junio y de septiembre a octubre.</p>
+      </article>
+    </div>
+  </div>
+
+  <div class="env seccion raya">
+    <div class="rejilla g2">
+      <div>
+        <p class="rot" data-t="rSiguiente">Siguiente paso</p>
+        <h2 class="grande" data-t="deCierreH">¿Su destino no está en la lista?</h2>
+      </div>
+      <div>
+        <p style="color:var(--texto-2)" data-t="deCierreP">Escríbanos igualmente. Si no podemos hacerlo bien, se lo diremos y le indicaremos a quién acudir. Es más rentable para todos que hacerlo a medias.</p>
+        <div class="acciones" style="margin-top:1.6rem">
+          <a class="btn solido" href="#/contacto" data-t="bHablemos">Hablemos de su viaje</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ QUIÉNES SOMOS ═══ -->
+<section data-ruta="nosotros">
+  <div class="env cabecera">
+    <p class="rot" data-t="nNosotros">Quiénes somos</p>
+    <h1 data-t="noH1">Una casa pequeña, y a mucha honra.</h1>
+    <p class="entrada" data-t="noEntrada">MARSA es la división de viajes privados de HARUNANA TRAVEL AND CONSULTING, constituida en Dubái en 2024.</p>
+  </div>
+
+  <div class="env fina">
+    <div class="rejilla g2">
+      <div>
+        <p style="color:var(--texto-2)" data-t="noP1">Empezamos atendiendo a un puñado de clientes de México y Colombia que ya nos conocían, sin web y sin publicidad, sólo por recomendación. Seguimos siendo pequeños a propósito: cada cliente habla con una persona, y esa persona es la que ha diseñado su viaje.</p>
+        <p style="color:var(--texto-2)" data-t="noP2">Trabajamos en tres idiomas porque nuestros clientes viven en tres mundos distintos, y porque un viaje se cuenta mejor en la lengua en la que uno piensa. No traducimos: escribimos en cada idioma.</p>
+      </div>
+      <div>
+        <dl>
+          <div class="dato"><dt data-t="noD1">Constituida</dt><dd data-t="noD1v">Dubái, 2024</dd></div>
+          <div class="dato"><dt data-t="noD2">Razón social</dt><dd><span class="ltr">HARUNANA TRAVEL AND CONSULTING — FZCO</span></dd></div>
+          <div class="dato"><dt data-t="noD3">Idiomas de trabajo</dt><dd data-t="noD3v">Español · Inglés · Árabe</dd></div>
+          <div class="dato"><dt data-t="noD4">Clientes al año</dt><dd data-t="noD4v">Pocos, y deliberadamente</dd></div>
+        </dl>
+      </div>
+    </div>
+  </div>
+
+  <div class="env seccion">
+    <p class="rot" data-t="rPrincipios">Cómo trabajamos</p>
+    <div class="rejilla g3">
+      <article class="tarjeta">
+        <h3 data-t="v1t">Sin comisiones ocultas</h3>
+        <p data-t="v1p">Cobramos honorarios y le pasamos el coste real de cada reserva. Si un hotel nos ofrece comisión, se la descontamos a usted del precio.</p>
+      </article>
+      <article class="tarjeta">
+        <h3 data-t="v2t">Decimos que no</h3>
+        <p data-t="v2p">Si un destino, una fecha o un presupuesto no dan para un buen viaje, lo decimos antes de cobrar, no después.</p>
+      </article>
+      <article class="tarjeta">
+        <h3 data-t="v3t">Una sola persona</h3>
+        <p data-t="v3p">Quien le atiende al principio es quien le atiende durante el viaje. No hay traspaso de expediente ni centralita.</p>
+      </article>
+    </div>
+  </div>
+
+  <div class="cita">
+    <div class="env seccion">
+      <blockquote data-t="noCita">Preferimos veinte viajes que se recuerdan a doscientos que se olvidan.</blockquote>
+      <p class="firma" data-t="firma">MARSA — Dubái</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PREGUNTAS ═══ -->
+<section data-ruta="preguntas">
+  <div class="env cabecera">
+    <p class="rot" data-t="nPreguntas">Preguntas</p>
+    <h1 data-t="prH1">Lo que nos preguntan antes de decidirse.</h1>
+    <p class="entrada" data-t="prEntrada">Y si falta la suya, escríbanos y se la contestamos sin rodeos.</p>
+  </div>
+
+  <div class="env fina">
+    <details class="faq">
+      <summary data-t="q1">¿Cómo se cobra el servicio?</summary>
+      <p data-t="a1">Con unos honorarios de consultoría acordados por escrito antes de empezar, más el coste real de cada reserva, sin recargo. Usted ve lo que cuesta cada cosa.</p>
+    </details>
+    <details class="faq">
+      <summary data-t="q2">¿Con cuánta antelación hay que escribir?</summary>
+      <p data-t="a2">Lo cómodo son tres meses. Se puede hacer en menos, pero la disponibilidad de lo bueno manda, y en temporada alta manda mucho.</p>
+    </details>
+    <details class="faq">
+      <summary data-t="q3">¿Trabajan con requisitos halal?</summary>
+      <p data-t="a3">Sí, y con verificación real: no damos por halal un restaurante porque lo diga su carta. Horarios de oración, salas disponibles y separación por sexos entran en el itinerario desde el principio, no como añadido.</p>
+    </details>
+    <details class="faq">
+      <summary data-t="q4">¿Qué pasa si quiero cambiar el itinerario a mitad?</summary>
+      <p data-t="a4">Se cambia. Le decimos qué es reversible sin coste y qué no, y usted decide con esa información delante.</p>
+    </details>
+    <details class="faq">
+      <summary data-t="q5">¿Viajan ustedes con nosotros?</summary>
+      <p data-t="a5">No de forma habitual. Lo que sí hay es un guía local seleccionado por nosotros en cada punto del viaje, y un teléfono nuestro disponible todo el tiempo.</p>
+    </details>
+    <details class="faq">
+      <summary data-t="q6">¿Hay un presupuesto mínimo?</summary>
+      <p data-t="a6">No hay una cifra publicada, pero por debajo de cierto punto nuestros honorarios dejan de tener sentido para usted. En la primera llamada se lo decimos con franqueza.</p>
+    </details>
+  </div>
+
+  <div class="env seccion raya">
+    <div class="rejilla g2">
+      <div>
+        <p class="rot" data-t="rEmpezar">Empezar</p>
+        <h2 class="grande" data-t="prCierreH">¿Le queda alguna duda?</h2>
+      </div>
+      <div>
+        <p style="color:var(--texto-2)" data-t="prCierreP">Escríbanos y le contestamos en menos de veinticuatro horas, sin compromiso.</p>
+        <div class="acciones" style="margin-top:1.6rem">
+          <a class="btn solido" href="#/contacto" data-t="bHablemos">Hablemos de su viaje</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CONTACTO ═══ -->
+<section data-ruta="contacto">
+  <div class="env cabecera">
+    <p class="rot" data-t="nContacto">Contacto</p>
+    <h1 data-t="coH1">Cuéntenos qué viaje tiene en la cabeza.</h1>
+    <p class="entrada" data-t="coEntrada">Responde una persona, no un sistema, y siempre en menos de veinticuatro horas.</p>
+  </div>
+
+  <div class="env fina">
+    <div class="rejilla g2">
+      <form id="f" novalidate>
+        <div>
+          <label for="nombre" data-t="lNombre">Nombre</label>
+          <input id="nombre" name="nombre" autocomplete="name">
+        </div>
+        <div>
+          <label for="email" data-t="lEmail">Correo electrónico</label>
+          <input id="email" name="email" type="email" autocomplete="email" inputmode="email" dir="ltr">
+        </div>
+        <div>
+          <label for="tel" data-t="lTel">Teléfono (opcional)</label>
+          <input id="tel" name="tel" type="tel" autocomplete="tel" dir="ltr">
+        </div>
+        <div>
+          <label for="dest" data-t="lDestino">Destino de interés</label>
+          <select id="dest" name="dest">
+            <option value=""   data-t="oElegir">Seleccione…</option>
+            <option value="jp" data-t="d1t">Japón</option>
+            <option value="gu" data-t="d2t">Golfo Arábigo</option>
+            <option value="la" data-t="d3t">América Latina</option>
+            <option value="eu" data-t="d4t">Europa</option>
+            <option value="ot" data-t="oOtro">Otro</option>
+          </select>
+        </div>
+        <div>
+          <label for="cuando" data-t="lCuando">Fechas aproximadas</label>
+          <input id="cuando" name="cuando" data-t-attr="placeholder:phCuando" placeholder="Primavera de 2027, dos semanas…">
+        </div>
+        <div>
+          <label for="msg" data-t="lMensaje">Su viaje, en pocas líneas</label>
+          <textarea id="msg" name="msg" rows="4"></textarea>
+        </div>
+        <div>
+          <button class="btn solido" type="submit" data-t="bEnviar">Enviar</button>
+          <p class="ok" id="ok" role="status" aria-live="polite"></p>
+        </div>
+        <p class="aviso" data-t="coAviso">Sus datos se usan únicamente para responder a esta consulta. No se ceden a terceros.</p>
+      </form>
+
+      <div>
+        <p class="rot" data-t="rOtras">Otras formas</p>
+        <dl>
+          <div class="dato"><dt data-t="coCorreo">Correo</dt><dd><span class="ltr">hola@marsa.example</span></dd></div>
+          <div class="dato"><dt data-t="coOficina">Oficina</dt><dd data-t="coOficinaV">Dubái, Emiratos Árabes Unidos</dd></div>
+          <div class="dato"><dt data-t="coIdiomas">Idiomas</dt><dd data-t="coIdiomasV">Español · Inglés · Árabe</dd></div>
+          <div class="dato"><dt data-t="coRespuesta">Respuesta</dt><dd data-t="coRespuestaV">Menos de 24 horas, todos los días</dd></div>
+        </dl>
+        <p style="color:var(--texto-2);margin-top:1.8rem" data-t="coNota">Si prefiere hablar antes de escribir nada, díganoslo y le llamamos a la hora que le venga bien, en su huso horario.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ ESTACIONALIDAD ═══ -->
+<section data-ruta="estacionalidad">
+  <div class="env cabecera">
+    <p class="rot" data-t="nEstacion">Cuándo viajar</p>
+    <h1 data-t="esH1">El Golfo no viaja por el calendario que usted mira.</h1>
+    <p class="entrada" data-t="esEntrada">Ramadán y las dos fiestas se adelantan unos once días cada año. Eso desplaza la demanda entera y no se ve en ninguna estadística anual.</p>
+  </div>
+  <div class="env fina">
+    <div class="mandos" id="esAnios" role="group" data-t-attr="aria-label:esAriaAnios" aria-label="Año"></div>
+    <div class="leyenda" id="esLeyenda"></div>
+    <div class="lienzo"><div class="lienzo-int" id="esLienzo"></div></div>
+    <p class="hallazgo" id="esHallazgo"></p>
+    <details class="faq" style="margin-top:1.6rem">
+      <summary data-t="esVerTabla">Ver las fechas como tabla</summary>
+      <div id="esTabla"></div>
+    </details>
+    <p class="metodo" data-t="esMetodo">Fechas calculadas con el calendario islámico tabular. El inicio real depende del avistamiento lunar y puede variar uno o dos días. Las vacaciones escolares del Golfo y las temporadas altas de Japón son las habituales, no fechas oficiales.</p>
+  </div>
+  <div class="env seccion raya">
+    <div class="rejilla g2">
+      <div><p class="rot" data-t="rSiguiente">Siguiente paso</p>
+        <h2 class="grande" data-t="esCierreH">Un día bien montado vale más que un mes bien vendido.</h2></div>
+      <div><p style="color:var(--texto-2)" data-t="esCierreP">Sabiendo cuándo viene el cliente, queda lo difícil: que el día le cunda. Eso se ve mejor con un ejemplo real.</p>
+        <div class="acciones" style="margin-top:1.6rem">
+          <a class="btn solido" href="#/dia" data-t="bVerDia">Ver un día real</a></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ UN DÍA REAL ═══ -->
+<section data-ruta="dia">
+  <div class="env cabecera">
+    <p class="rot" data-t="nDia">Un día real</p>
+    <h1 data-t="diH1">El mismo día en Kioto, montado de dos maneras.</h1>
+    <p class="entrada" data-t="diEntrada">La creencia común es que atender las oraciones recorta el día. Es al revés: lo que lo recorta es no haberlas previsto y tener que improvisar a media tarde.</p>
+  </div>
+  <div class="env fina">
+    <div class="mandos" id="diMandos" role="group" data-t-attr="aria-label:diAriaPlan" aria-label="Plan"></div>
+    <div class="jornada" id="diJornada"></div>
+    <p class="hallazgo" id="diHallazgo"></p>
+    <p class="metodo" data-t="diMetodo">Horas de oración orientativas para Kioto a mediados de abril. Varían cada día y con la estación; en el itinerario real se calculan fecha a fecha.</p>
+  </div>
+  <div class="env seccion raya">
+    <div class="rejilla g2">
+      <div><p class="rot" data-t="rSiguiente">Siguiente paso</p>
+        <h2 class="grande" data-t="diCierreH">Y la comida, que es donde se rompe el viaje.</h2></div>
+      <div><p style="color:var(--texto-2)" data-t="diCierreP">La logística de la oración se resuelve con planificación. La comida no: hay que ir y comprobarlo.</p>
+        <div class="acciones" style="margin-top:1.6rem">
+          <a class="btn solido" href="#/halal" data-t="bVerHalal">Qué significa halal de verdad</a></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ HALAL ═══ -->
+<section data-ruta="halal">
+  <div class="env cabecera">
+    <p class="rot" data-t="nHalal">Halal de verdad</p>
+    <h1 data-t="haH1">Tres cosas distintas se anuncian con la misma palabra.</h1>
+    <p class="entrada" data-t="haEntrada">Para un cliente del Golfo la diferencia entre estas tres no es un matiz: es si puede comer o no. Pulse cada una.</p>
+  </div>
+  <div class="env fina">
+    <div class="mandos" id="haMandos" role="group" data-t-attr="aria-label:haAriaNivel" aria-label="Nivel"></div>
+    <div class="detalle-nivel" id="haDetalle"></div>
+    <div style="margin-top:2.5rem">
+      <p class="rot" data-t="haListaRot">Lo que una familia da por supuesto</p>
+      <ul class="lista" id="haLista"></ul>
+    </div>
+    <p class="metodo" data-t="haMetodo">No existe una autoridad única de certificación halal en Japón: conviven varios organismos con criterios distintos. Por eso comprobamos establecimiento por establecimiento y no nos fiamos del rótulo.</p>
+  </div>
+  <div class="env seccion raya">
+    <div class="rejilla g2">
+      <div><p class="rot" data-t="rEmpezar">Empezar</p>
+        <h2 class="grande" data-t="haCierreH">Esto no se improvisa el día antes.</h2></div>
+      <div><p style="color:var(--texto-2)" data-t="haCierreP">Si viaja con su familia y esto le importa, hablemos antes de que reserve nada.</p>
+        <div class="acciones" style="margin-top:1.6rem">
+          <a class="btn solido" href="#/contacto" data-t="bHablemos">Hablemos de su viaje</a></div></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="sitio">
+  <div class="env pie">
+    <a class="marca" style="font-size:1.05rem" href="#/inicio" data-t="marca">MARSA</a>
+    <nav data-t-attr="aria-label:ariaPie" aria-label="Enlaces del pie">
+      <a href="#/servicios"      data-t="nServicios">Servicios</a>
+      <a href="#/destinos"       data-t="nDestinos">Destinos</a>
+      <a href="#/estacionalidad" data-t="nEstacion">Cuándo viajar</a>
+      <a href="#/dia"            data-t="nDia">Un día real</a>
+      <a href="#/halal"          data-t="nHalal">Halal de verdad</a>
+      <a href="#/nosotros"       data-t="nNosotros">Quiénes somos</a>
+      <a href="#/preguntas"      data-t="nPreguntas">Preguntas</a>
+      <a href="#/contacto"       data-t="nContacto">Contacto</a>
+    </nav>
+    <span class="fin"><span data-t="pieRazon">HARUNANA TRAVEL AND CONSULTING — FZCO · Dubái</span> <span class="ltr">© 2026</span></span>
+  </div>
+</footer>
+
+<script>
+/* ══════════════════════════════════════════════════════════════════
+   Un único diccionario por idioma para las SIETE rutas. aplicar()
+   traduce el documento entero de una pasada, esté la ruta visible o
+   no: por eso no puede quedar media web sin traducir al cambiar de
+   página. El árabe está escrito, no traducido.
+   ══════════════════════════════════════════════════════════════════ */
+var T = {
+
+es:{
+  _dir:"ltr", _lang:"es",
+  nEstacion:"Cuándo viajar", nDia:"Un día real", nHalal:"Halal de verdad",
+  bVerDia:"Ver un día real", bVerHalal:"Qué significa halal de verdad",
+  esAriaAnios:"Año", diAriaPlan:"Plan del día", haAriaNivel:"Nivel de garantía",
+  tEstacion:"Cuándo viaja el Golfo — MARSA", tDia:"Un día real en Kioto — MARSA", tHalal:"Halal de verdad — MARSA",
+
+  esH1:"El Golfo no viaja por el calendario que usted mira.",
+  esEntrada:"Ramadán y las dos fiestas se adelantan unos once días cada año. Eso desplaza la demanda entera y no se ve en ninguna estadística anual.",
+  esVerTabla:"Ver las fechas como tabla",
+  esMetodo:"Fechas calculadas con el calendario islámico tabular. El inicio real depende del avistamiento lunar y puede variar uno o dos días. Las vacaciones escolares del Golfo y las temporadas altas de Japón son las habituales, no fechas oficiales.",
+  esCierreH:"Un día bien montado vale más que un mes bien vendido.",
+  esCierreP:"Sabiendo cuándo viene el cliente, queda lo difícil: que el día le cunda. Eso se ve mejor con un ejemplo real.",
+  serRamadan:"Ramadán", serEid:"Las dos fiestas", serGolfo:"Vacaciones escolares del Golfo", serJapon:"Temporada alta en Japón",
+  bRamadan:"Ramadán", bFitr:"Eid al-Fitr", bAdha:"Eid al-Adha",
+  bVacGolfo:"Verano escolar", bSakura:"Cerezos", bGW:"Semana Dorada", bOtono:"Hojas de otoño",
+  thEvento:"Periodo", thInicio:"Empieza", thFin:"Acaba",
+  halDentro:"En {a} el Eid al-Fitr cae el {f}, dentro de la floración de los cerezos. Es la coincidencia más rentable del calendario, y no se da todos los años.",
+  halCerca:"En {a} el Eid al-Fitr cae el {f}, a {d} de la floración de los cerezos. Lo bastante cerca para encadenar fiesta y viaje.",
+  halLejos:"En {a} el Eid al-Fitr cae el {f}, a {d} de la floración. Ese año la demanda del Golfo y la temporada alta japonesa no se solapan.",
+  halDoble:"Fíjese en {a}: Ramadán entra dos veces en el mismo año gregoriano. Los años así descuadran cualquier previsión hecha por trimestres.",
+  meses:["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"],
+
+  diH1:"El mismo día en Kioto, montado de dos maneras.",
+  diEntrada:"La creencia común es que atender las oraciones recorta el día. Es al revés: lo que lo recorta es no haberlas previsto y tener que improvisar a media tarde.",
+  diMetodo:"Horas de oración orientativas para Kioto a mediados de abril. Varían cada día y con la estación; en el itinerario real se calculan fecha a fecha.",
+  diCierreH:"Y la comida, que es donde se rompe el viaje.",
+  diCierreP:"La logística de la oración se resuelve con planificación. La comida no: hay que ir y comprobarlo.",
+  diHallazgo:"Los mismos cuatro lugares, y el segundo plan termina antes. Se gana la hora que el primero pierde buscando dónde comer, porque las oraciones caen en los traslados y no en mitad de una visita.",
+  diaPlanes:[
+    {nombre:"Plan corriente", tramos:[
+      {h:"07:30", q:"Desayuno en el hotel"},
+      {h:"08:30", q:"Fushimi Inari", n:"Se llega tarde: ya hay cola en los primeros torii"},
+      {h:"11:00", q:"Traslado a Arashiyama"},
+      {h:"11:45", q:"Bosque de bambú"},
+      {h:"13:00", q:"Comida", n:"Sin reserva ni comprobación. Aquí se va una hora larga buscando"},
+      {h:"14:30", q:"Templo Tenryū-ji"},
+      {h:"16:00", q:"Kinkaku-ji", n:"Se entra justo antes del cierre, con prisa"},
+      {h:"17:45", q:"Vuelta al hotel"},
+      {h:"20:00", q:"Cena", n:"Se decide sobre la marcha"}
+    ]},
+    {nombre:"Plan previsto", tramos:[
+      {h:"07:15", q:"Desayuno en el hotel"},
+      {h:"08:00", q:"Fushimi Inari", n:"Una hora antes: los torii todavía están vacíos"},
+      {h:"10:45", q:"Traslado a Arashiyama"},
+      {h:"11:15", q:"Bosque de bambú"},
+      {h:"12:05", q:"Dhuhr", n:"En la sala de la estación de Saga-Arashiyama, de camino", rezo:true},
+      {h:"12:35", q:"Comida", n:"Restaurante ya verificado y reservado la semana anterior"},
+      {h:"13:45", q:"Templo Tenryū-ji"},
+      {h:"15:35", q:"Asr", n:"Antes de salir de Arashiyama, en el traslado", rezo:true},
+      {h:"16:00", q:"Kinkaku-ji", n:"Con tiempo de sobra antes del cierre"},
+      {h:"17:30", q:"Vuelta al hotel y descanso"},
+      {h:"18:35", q:"Maghrib", n:"En la habitación, sin correr", rezo:true},
+      {h:"19:30", q:"Cena", n:"Reservada, a la hora que la familia quería"}
+    ]}
+  ],
+
+  haH1:"Tres cosas distintas se anuncian con la misma palabra.",
+  haEntrada:"Para un cliente del Golfo la diferencia entre estas tres no es un matiz: es si puede comer o no. Pulse cada una.",
+  haListaRot:"Lo que una familia da por supuesto",
+  haMetodo:"No existe una autoridad única de certificación halal en Japón: conviven varios organismos con criterios distintos. Por eso comprobamos establecimiento por establecimiento y no nos fiamos del rótulo.",
+  haCierreH:"Esto no se improvisa el día antes.",
+  haCierreP:"Si viaja con su familia y esto le importa, hablemos antes de que reserve nada.",
+  haQueEs:"Qué es en realidad", haRiesgo:"Riesgo", haPregunta:"La pregunta que hacemos nosotros",
+  haNiveles:[
+    {n:"Certificado", e:"#0f8f7a",
+     s:"Un organismo ha auditado la cocina, los proveedores y el almacenamiento, y lo revisa cada cierto tiempo.",
+     r:"Bajo. Lo que queda por comprobar es que el certificado siga vigente y que cubra toda la carta y no un menú aparte.",
+     p:"¿Qué organismo lo certifica, hasta cuándo es válido y cubre la carta entera?"},
+    {n:"De confianza", e:"#c8641a",
+     s:"No hay auditoría externa, pero quien cocina entiende el requisito, separa utensilios y sabe lo que le está sirviendo a usted.",
+     r:"Medio. Depende de una persona, no de un sistema. El día que cambie el cocinero, cambia el criterio y nadie se lo va a avisar.",
+     p:"¿La freidora y la plancha son separadas? ¿Qué llevan el caldo y la salsa?"},
+    {n:"Sin cerdo", e:"#b4543f",
+     s:"Sólo dice que no hay cerdo en la carta. No es halal, y en Japón la distancia entre las dos cosas es grande.",
+     r:"Alto. El mirin y la salsa de soja llevan alcohol, el caldo dashi puede llevar cerdo, la carne no está sacrificada conforme, y la freidora es la misma para todo.",
+     p:"Ninguna. Aquí la respuesta ya es no, y se busca otro sitio."}
+  ],
+  haLista:[
+    "Que haya dónde rezar sin tener que pedirlo como un favor",
+    "Que el desayuno del hotel no obligue a interrogar a un camarero plato por plato",
+    "Que la habitación admita a una familia de cinco o seis, y no de cuatro",
+    "Que se pueda cenar después del Maghrib sin encontrarse la cocina cerrada",
+    "Que a nadie se le ocurra poner una cata de sake como actividad estrella del día"
+  ],
+
+  marca:"MARSA", firma:"MARSA — Dubái",
+  ariaMenu:"Menú principal", ariaIdioma:"Idioma", ariaPie:"Enlaces del pie",
+  nInicio:"Inicio", nServicios:"Servicios", nMetodo:"Método", nDestinos:"Destinos",
+  nNosotros:"Quiénes somos", nPreguntas:"Preguntas", nContacto:"Contacto",
+  pieRazon:"HARUNANA TRAVEL AND CONSULTING — FZCO · Dubái",
+  bHablemos:"Hablemos de su viaje", bMetodo:"Cómo trabajamos",
+  bVerServicios:"Ver los servicios en detalle", bVerDestinos:"Ver los destinos", bEnviar:"Enviar",
+  oDiseno:"Diseño", oReserva:"Reserva", oViaje:"Viaje",
+  rEmpezar:"Empezar", rSiguiente:"Siguiente paso", rUsted:"Qué necesitamos de usted",
+  rPrincipios:"Cómo trabajamos", rOtras:"Otras formas",
+
+  tInicio:"MARSA — Consultoría de viajes privados",
+  iRot:"Consultoría de viajes privados",
+  iH1:"Los viajes no se reservan. Se diseñan.",
+  iEntrada:"No vendemos itinerarios hechos. Escuchamos primero, y después construimos un viaje que sólo tiene sentido para quien lo va a hacer.",
+  s1t:"Diseño de itinerario", s1p:"Un viaje construido desde cero sobre su calendario, su ritmo y lo que de verdad le interesa ver.",
+  s2t:"Acceso y reservas",    s2p:"Alojamiento, mesas, visitas privadas y guías locales. Lo que no se reserva por internet.",
+  s3t:"Acompañamiento",       s3p:"Un interlocutor localizable en su idioma y en su huso horario, desde la salida hasta la vuelta.",
+  iCita:"Un buen viaje no se mide en lugares vistos, sino en decisiones que usted no tuvo que tomar.",
+  iDestH:"Cuatro regiones que conocemos de primera mano.",
+  iDestP:"No trabajamos el mundo entero. Trabajamos donde tenemos gente de confianza sobre el terreno y podemos responder de lo que prometemos.",
+  iCierreH:"Una conversación no compromete a nada.",
+  iCierreP:"Cuéntenos qué viaje tiene en la cabeza y le respondemos personalmente, en español, inglés o árabe.",
+
+  tServicios:"Servicios — MARSA",
+  svH1:"Tres cosas, hechas bien.",
+  svEntrada:"No hacemos de todo. Hacemos lo que un viaje bien resuelto necesita de verdad, y lo hace una sola persona de principio a fin.",
+  sv1p:"Partimos de una conversación, no de un catálogo. De ahí sale un itinerario escrito, día a día, con los tiempos reales de desplazamiento y el margen suficiente para que el viaje no se convierta en una lista de tareas.",
+  sv1a:"Ruta y calendario ajustados a su ritmo, no al de un grupo",
+  sv1b:"Tiempos de traslado comprobados, no estimados",
+  sv1c:"Alternativas para los días de lluvia y los cambios de última hora",
+  sv1d:"Requisitos alimentarios y de culto contemplados desde el primer borrador",
+  sv2p:"La parte del viaje que no aparece en ningún buscador. Trabajamos con contactos locales en cada destino y reservamos a su nombre: usted es siempre el cliente del hotel, no un número dentro de un bloque.",
+  sv2a:"Alojamiento elegido uno a uno, hasta la habitación concreta",
+  sv2b:"Mesas y visitas privadas fuera del horario público",
+  sv2c:"Guías locales que hablan su idioma",
+  sv2d:"Traslados privados y conductor cuando el trayecto lo justifica",
+  sv2n1:"No trabajamos con comisiones ocultas del proveedor",
+  sv2n2:"No revendemos paquetes de terceros",
+  sv3p:"Un viaje bien planificado también se tuerce. La diferencia está en cuánto tarda alguien en resolverlo. Durante todo el trayecto tiene un número directo y una persona que ya conoce su itinerario de memoria.",
+  sv3a:"Un solo interlocutor, el mismo de principio a fin",
+  sv3b:"Disponible en su huso horario, no en el nuestro",
+  sv3c:"Cambios y cancelaciones gestionados por nosotros",
+  sv3d:"Español, inglés y árabe, sin intermediarios ni traductores",
+  svCierreH:"El método, paso a paso.",
+  svCierreP:"Si quiere ver cómo se convierte una conversación en un viaje cerrado, está explicado entero y sin letra pequeña.",
+
+  tMetodo:"Método — MARSA",
+  meH1:"Cuatro pasos, sin prisa y sin formularios interminables.",
+  meEntrada:"Nada se reserva hasta que usted ha visto el viaje entero por escrito y ha dicho que sí. Ese es todo el secreto.",
+  p1t:"Conversación", p1p:"Una llamada de media hora, sin cuestionario. Queremos saber qué le apetece, qué le cansa, con quién viaja y qué le hizo disfrutar del último viaje bueno que hizo. Con eso ya se puede trabajar.",
+  p2t:"Propuesta",    p2p:"Un itinerario escrito, día a día, con presupuesto cerrado y dos o tres alternativas reales en los puntos donde la decisión cambia el viaje. Sin fotos de catálogo y sin adjetivos de más.",
+  p3t:"Ajuste",       p3p:"Se cambia lo que haga falta, tantas veces como haga falta, y sin coste. Aquí es donde el viaje se vuelve suyo. Sólo cuando el documento le parece bien entero se reserva algo.",
+  p4t:"Viaje",        p4p:"Todo confirmado, con los localizadores en un solo documento, y un número directo disponible durante todo el trayecto. Si algo se tuerce, lo resolvemos nosotros mientras usted sigue de viaje.",
+  meCita:"Nada se reserva hasta que usted ha dicho que sí al viaje entero.",
+  meUstedH:"Muy poco, y sólo al principio.",
+  u1:"Las fechas, aunque sean aproximadas",
+  u2:"Cuántos viajan y qué relación hay entre ustedes",
+  u3:"Un orden de magnitud del presupuesto, para no hacerle perder el tiempo",
+  u4:"Lo que no quiere: madrugar, andar mucho, comer fuera todos los días",
+  meUstedP:"Lo demás lo averiguamos hablando. No hay formulario de treinta campos ni cuestionario de personalidad.",
+  meCierreH:"El primer paso es sólo una conversación.",
+  meCierreP:"Sin compromiso, sin presupuesto por delante y sin que nadie le llame después para insistir.",
+
+  tDestinos:"Destinos — MARSA",
+  deH1:"Cuatro regiones, no el mundo entero.",
+  deEntrada:"Trabajamos sólo donde tenemos gente de confianza sobre el terreno. Prometer más que eso sería vender un catálogo, que es justo lo que no hacemos.",
+  d1t:"Japón", d1p:"El país donde peor funciona el viaje improvisado y mejor funciona el planificado. Trabajamos fuera de la ruta de Tokio y Kioto en temporada alta, y sabemos qué merece madrugar y qué no.",
+  d1a:"Primavera y otoño se cierran con seis meses de antelación.",
+  d2t:"Golfo Arábigo", d2p:"Nuestra casa. Emiratos, Omán y Arabia Saudí, con el conocimiento de quien vive aquí y no de quien pasa una semana al año. Y con el calendario islámico contemplado, que mueve la demanda cada año.",
+  d2a:"Ramadán y las dos fiestas cambian de fecha cada año: lo tenemos en cuenta.",
+  d3t:"América Latina", d3p:"México, Colombia, Perú y Argentina. Distancias grandes, información poco fiable en internet y una diferencia enorme entre el operador bueno y el operador cualquiera. Ahí es donde valemos la pena.",
+  d3a:"Atención en español peninsular y latinoamericano.",
+  d4t:"Europa", d4p:"Menos previsible de lo que parece en verano. Trabajamos las temporadas intermedias, cuando lo mismo cuesta la mitad y se disfruta el doble, y las ciudades pequeñas que no salen en las listas.",
+  d4a:"Mejor relación entre precio y experiencia de mayo a junio y de septiembre a octubre.",
+  deCierreH:"¿Su destino no está en la lista?",
+  deCierreP:"Escríbanos igualmente. Si no podemos hacerlo bien, se lo diremos y le indicaremos a quién acudir. Es más rentable para todos que hacerlo a medias.",
+
+  tNosotros:"Quiénes somos — MARSA",
+  noH1:"Una casa pequeña, y a mucha honra.",
+  noEntrada:"MARSA es la división de viajes privados de HARUNANA TRAVEL AND CONSULTING, constituida en Dubái en 2024.",
+  noP1:"Empezamos atendiendo a un puñado de clientes de México y Colombia que ya nos conocían, sin web y sin publicidad, sólo por recomendación. Seguimos siendo pequeños a propósito: cada cliente habla con una persona, y esa persona es la que ha diseñado su viaje.",
+  noP2:"Trabajamos en tres idiomas porque nuestros clientes viven en tres mundos distintos, y porque un viaje se cuenta mejor en la lengua en la que uno piensa. No traducimos: escribimos en cada idioma.",
+  noD1:"Constituida", noD1v:"Dubái, 2024",
+  noD2:"Razón social",
+  noD3:"Idiomas de trabajo", noD3v:"Español · Inglés · Árabe",
+  noD4:"Clientes al año", noD4v:"Pocos, y deliberadamente",
+  v1t:"Sin comisiones ocultas", v1p:"Cobramos honorarios y le pasamos el coste real de cada reserva. Si un hotel nos ofrece comisión, se la descontamos a usted del precio.",
+  v2t:"Decimos que no", v2p:"Si un destino, una fecha o un presupuesto no dan para un buen viaje, lo decimos antes de cobrar, no después.",
+  v3t:"Una sola persona", v3p:"Quien le atiende al principio es quien le atiende durante el viaje. No hay traspaso de expediente ni centralita.",
+  noCita:"Preferimos veinte viajes que se recuerdan a doscientos que se olvidan.",
+
+  tPreguntas:"Preguntas — MARSA",
+  prH1:"Lo que nos preguntan antes de decidirse.",
+  prEntrada:"Y si falta la suya, escríbanos y se la contestamos sin rodeos.",
+  q1:"¿Cómo se cobra el servicio?",
+  a1:"Con unos honorarios de consultoría acordados por escrito antes de empezar, más el coste real de cada reserva, sin recargo. Usted ve lo que cuesta cada cosa.",
+  q2:"¿Con cuánta antelación hay que escribir?",
+  a2:"Lo cómodo son tres meses. Se puede hacer en menos, pero la disponibilidad de lo bueno manda, y en temporada alta manda mucho.",
+  q3:"¿Trabajan con requisitos halal?",
+  a3:"Sí, y con verificación real: no damos por halal un restaurante porque lo diga su carta. Horarios de oración, salas disponibles y separación por sexos entran en el itinerario desde el principio, no como añadido.",
+  q4:"¿Qué pasa si quiero cambiar el itinerario a mitad?",
+  a4:"Se cambia. Le decimos qué es reversible sin coste y qué no, y usted decide con esa información delante.",
+  q5:"¿Viajan ustedes con nosotros?",
+  a5:"No de forma habitual. Lo que sí hay es un guía local seleccionado por nosotros en cada punto del viaje, y un teléfono nuestro disponible todo el tiempo.",
+  q6:"¿Hay un presupuesto mínimo?",
+  a6:"No hay una cifra publicada, pero por debajo de cierto punto nuestros honorarios dejan de tener sentido para usted. En la primera llamada se lo decimos con franqueza.",
+  prCierreH:"¿Le queda alguna duda?",
+  prCierreP:"Escríbanos y le contestamos en menos de veinticuatro horas, sin compromiso.",
+
+  tContacto:"Contacto — MARSA",
+  coH1:"Cuéntenos qué viaje tiene en la cabeza.",
+  coEntrada:"Responde una persona, no un sistema, y siempre en menos de veinticuatro horas.",
+  lNombre:"Nombre", lEmail:"Correo electrónico", lTel:"Teléfono (opcional)",
+  lDestino:"Destino de interés", lCuando:"Fechas aproximadas",
+  phCuando:"Primavera de 2027, dos semanas…",
+  lMensaje:"Su viaje, en pocas líneas",
+  oElegir:"Seleccione…", oOtro:"Otro",
+  coAviso:"Sus datos se usan únicamente para responder a esta consulta. No se ceden a terceros.",
+  okMsg:"Gracias. Le respondemos en menos de 24 horas.",
+  errNombre:"Escriba su nombre para poder dirigirnos a usted.",
+  errEmail:"Ese correo no parece completo. Revíselo, por favor.",
+  coCorreo:"Correo", coOficina:"Oficina", coOficinaV:"Dubái, Emiratos Árabes Unidos",
+  coIdiomas:"Idiomas", coIdiomasV:"Español · Inglés · Árabe",
+  coRespuesta:"Respuesta", coRespuestaV:"Menos de 24 horas, todos los días",
+  coNota:"Si prefiere hablar antes de escribir nada, díganoslo y le llamamos a la hora que le venga bien, en su huso horario."
+},
+
+en:{
+  _dir:"ltr", _lang:"en",
+  nEstacion:"When to travel", nDia:"A real day", nHalal:"What halal means",
+  bVerDia:"See a real day", bVerHalal:"What halal actually means",
+  esAriaAnios:"Year", diAriaPlan:"Day plan", haAriaNivel:"Level of assurance",
+  tEstacion:"When the Gulf travels — MARSA", tDia:"A real day in Kyoto — MARSA", tHalal:"What halal means — MARSA",
+
+  esH1:"The Gulf does not travel by the calendar you are looking at.",
+  esEntrada:"Ramadan and the two Eids move about eleven days earlier each year. That shifts the entire demand curve, and it shows up in no annual statistic.",
+  esVerTabla:"See the dates as a table",
+  esMetodo:"Dates calculated with the tabular Islamic calendar. The real start depends on the sighting of the moon and may vary by a day or two. Gulf school holidays and Japanese peak seasons are the usual ones, not official dates.",
+  esCierreH:"One well-built day is worth more than a well-sold month.",
+  esCierreP:"Once you know when the client comes, the hard part remains: making the day count. That is easier to see with a real example.",
+  serRamadan:"Ramadan", serEid:"The two Eids", serGolfo:"Gulf school holidays", serJapon:"Japanese peak season",
+  bRamadan:"Ramadan", bFitr:"Eid al-Fitr", bAdha:"Eid al-Adha",
+  bVacGolfo:"School summer", bSakura:"Cherry blossom", bGW:"Golden Week", bOtono:"Autumn leaves",
+  thEvento:"Period", thInicio:"Starts", thFin:"Ends",
+  halDentro:"In {a} Eid al-Fitr falls on {f}, inside the cherry blossom window. It is the most profitable coincidence in the calendar, and it does not happen every year.",
+  halCerca:"In {a} Eid al-Fitr falls on {f}, {d} from the cherry blossom. Close enough to join the holiday to the trip.",
+  halLejos:"In {a} Eid al-Fitr falls on {f}, {d} from the blossom. That year Gulf demand and the Japanese peak season do not overlap.",
+  halDoble:"Look at {a}: Ramadan falls twice inside the same Gregorian year. Years like that wreck any forecast built by quarters.",
+  meses:["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
+
+  diH1:"The same day in Kyoto, built two ways.",
+  diEntrada:"The common belief is that observing prayers shortens the day. It is the other way round: what shortens it is not planning for them and having to improvise mid-afternoon.",
+  diMetodo:"Prayer times are indicative, for Kyoto in mid-April. They change daily and by season; in a real itinerary they are calculated date by date.",
+  diCierreH:"And then food, which is where trips break.",
+  diCierreP:"Prayer logistics are solved by planning. Food is not: someone has to go and check.",
+  diHallazgo:"The same four places, and the second plan finishes earlier. It gains the hour the first one loses hunting for somewhere to eat, because the prayers fall inside the transfers rather than in the middle of a visit.",
+  diaPlanes:[
+    {nombre:"Ordinary plan", tramos:[
+      {h:"07:30", q:"Breakfast at the hotel"},
+      {h:"08:30", q:"Fushimi Inari", n:"Arriving late: there is already a queue at the first torii"},
+      {h:"11:00", q:"Transfer to Arashiyama"},
+      {h:"11:45", q:"Bamboo grove"},
+      {h:"13:00", q:"Lunch", n:"No booking, nothing checked. A long hour goes here"},
+      {h:"14:30", q:"Tenryū-ji temple"},
+      {h:"16:00", q:"Kinkaku-ji", n:"Arriving just before closing, in a rush"},
+      {h:"17:45", q:"Back to the hotel"},
+      {h:"20:00", q:"Dinner", n:"Decided on the spot"}
+    ]},
+    {nombre:"Planned day", tramos:[
+      {h:"07:15", q:"Breakfast at the hotel"},
+      {h:"08:00", q:"Fushimi Inari", n:"An hour earlier: the torii are still empty"},
+      {h:"10:45", q:"Transfer to Arashiyama"},
+      {h:"11:15", q:"Bamboo grove"},
+      {h:"12:05", q:"Dhuhr", n:"In the room at Saga-Arashiyama station, on the way", rezo:true},
+      {h:"12:35", q:"Lunch", n:"Restaurant checked and booked the week before"},
+      {h:"13:45", q:"Tenryū-ji temple"},
+      {h:"15:35", q:"Asr", n:"Before leaving Arashiyama, during the transfer", rezo:true},
+      {h:"16:00", q:"Kinkaku-ji", n:"With time to spare before closing"},
+      {h:"17:30", q:"Back to the hotel, and a rest"},
+      {h:"18:35", q:"Maghrib", n:"In the room, unhurried", rezo:true},
+      {h:"19:30", q:"Dinner", n:"Booked, at the hour the family wanted"}
+    ]}
+  ],
+
+  haH1:"Three different things are advertised with the same word.",
+  haEntrada:"For a Gulf client the difference between these three is not a nuance: it decides whether they can eat. Tap each one.",
+  haListaRot:"What a family assumes is taken care of",
+  haMetodo:"There is no single halal certification authority in Japan: several bodies coexist with different criteria. That is why we check establishment by establishment and do not trust the sign on the door.",
+  haCierreH:"This cannot be improvised the day before.",
+  haCierreP:"If you travel with your family and this matters to you, let us talk before you book anything.",
+  haQueEs:"What it actually is", haRiesgo:"Risk", haPregunta:"The question we ask",
+  haNiveles:[
+    {n:"Certified", e:"#0f8f7a",
+     s:"A body has audited the kitchen, the suppliers and the storage, and reviews it periodically.",
+     r:"Low. What remains to check is that the certificate is still valid and covers the whole menu, not a separate one.",
+     p:"Which body certifies it, until when is it valid, and does it cover the full menu?"},
+    {n:"Trusted", e:"#c8641a",
+     s:"There is no external audit, but whoever cooks understands the requirement, separates utensils and knows what they are serving you.",
+     r:"Medium. It rests on a person, not a system. The day the chef changes, the standard changes and nobody will tell you.",
+     p:"Are the fryer and the griddle separate? What goes into the stock and the sauce?"},
+    {n:"Pork-free", e:"#b4543f",
+     s:"It only says there is no pork on the menu. It is not halal, and in Japan the gap between the two is wide.",
+     r:"High. Mirin and soy sauce contain alcohol, dashi stock may contain pork, the meat is not slaughtered accordingly, and the same fryer is used for everything.",
+     p:"None. Here the answer is already no, and we look elsewhere."}
+  ],
+  haLista:[
+    "Somewhere to pray without having to ask for it as a favour",
+    "A hotel breakfast that does not mean interrogating a waiter dish by dish",
+    "A room that takes a family of five or six, not four",
+    "Dinner after Maghrib without finding the kitchen closed",
+    "Nobody putting a sake tasting down as the highlight of the day"
+  ],
+
+  marca:"MARSA", firma:"MARSA — Dubai",
+  ariaMenu:"Main menu", ariaIdioma:"Language", ariaPie:"Footer links",
+  nInicio:"Home", nServicios:"Services", nMetodo:"Method", nDestinos:"Destinations",
+  nNosotros:"About us", nPreguntas:"Questions", nContacto:"Contact",
+  pieRazon:"HARUNANA TRAVEL AND CONSULTING — FZCO · Dubai",
+  bHablemos:"Talk about your journey", bMetodo:"How we work",
+  bVerServicios:"See the services in detail", bVerDestinos:"See the destinations", bEnviar:"Send",
+  oDiseno:"Design", oReserva:"Booking", oViaje:"Journey",
+  rEmpezar:"Begin", rSiguiente:"Next step", rUsted:"What we need from you",
+  rPrincipios:"How we work", rOtras:"Other ways",
+
+  tInicio:"MARSA — Private travel consultancy",
+  iRot:"Private travel consultancy",
+  iH1:"Journeys are not booked. They are designed.",
+  iEntrada:"We do not sell ready-made itineraries. We listen first, then build a journey that only makes sense for the person taking it.",
+  s1t:"Itinerary design",   s1p:"A journey built from scratch around your calendar, your pace and what genuinely interests you.",
+  s2t:"Access and booking", s2p:"Accommodation, tables, private viewings and local guides. The things you cannot book online.",
+  s3t:"Support throughout", s3p:"One person you can reach, in your language and your time zone, from departure to return.",
+  iCita:"A good journey is measured not in places seen, but in decisions you never had to make.",
+  iDestH:"Four regions we know at first hand.",
+  iDestP:"We do not work the whole world. We work where we have people we trust on the ground and can stand behind what we promise.",
+  iCierreH:"A conversation commits you to nothing.",
+  iCierreP:"Tell us the journey you have in mind and we will reply personally, in Spanish, English or Arabic.",
+
+  tServicios:"Services — MARSA",
+  svH1:"Three things, done properly.",
+  svEntrada:"We do not do everything. We do what a well-resolved journey actually needs, and one person does all of it from beginning to end.",
+  sv1p:"We start from a conversation, not a catalogue. What comes out is a written itinerary, day by day, with real travel times and enough margin that the journey does not turn into a list of tasks.",
+  sv1a:"Route and calendar set to your pace, not a group's",
+  sv1b:"Transfer times checked, not estimated",
+  sv1c:"Alternatives for rainy days and last-minute changes",
+  sv1d:"Dietary and prayer requirements built into the first draft",
+  sv2p:"The part of a journey that appears in no search engine. We work with local contacts in each destination and book in your name: you are always the hotel's client, never a number inside a block booking.",
+  sv2a:"Accommodation chosen one by one, down to the specific room",
+  sv2b:"Tables and private viewings outside public hours",
+  sv2c:"Local guides who speak your language",
+  sv2d:"Private transfers and a driver where the journey justifies it",
+  sv2n1:"We do not work on hidden supplier commissions",
+  sv2n2:"We do not resell third-party packages",
+  sv3p:"Even a well-planned journey goes wrong. The difference is how long someone takes to fix it. Throughout the trip you have a direct number and a person who already knows your itinerary by heart.",
+  sv3a:"One contact, the same one from beginning to end",
+  sv3b:"Available in your time zone, not ours",
+  sv3c:"Changes and cancellations handled by us",
+  sv3d:"Spanish, English and Arabic, with no intermediary or translator",
+  svCierreH:"The method, step by step.",
+  svCierreP:"If you want to see how a conversation becomes a finished journey, it is explained in full, with no small print.",
+
+  tMetodo:"Method — MARSA",
+  meH1:"Four steps. No rush, no endless forms.",
+  meEntrada:"Nothing is booked until you have seen the whole journey in writing and said yes. That is the entire secret.",
+  p1t:"Conversation", p1p:"A half-hour call, no questionnaire. We want to know what appeals to you, what tires you, who you travel with, and what made the last good trip you took a good one. That is enough to work with.",
+  p2t:"Proposal",     p2p:"A written itinerary, day by day, with a fixed budget and two or three real alternatives at the points where the decision changes the journey. No catalogue photographs and no surplus adjectives.",
+  p3t:"Refinement",   p3p:"We change whatever is needed, as often as needed, at no cost. This is where the journey becomes yours. Only once the whole document suits you is anything booked.",
+  p4t:"Journey",      p4p:"Everything confirmed, all booking references in a single document, and a direct number available throughout. If something goes wrong, we resolve it while you carry on travelling.",
+  meCita:"Nothing is booked until you have said yes to the whole journey.",
+  meUstedH:"Very little, and only at the start.",
+  u1:"The dates, even approximate ones",
+  u2:"How many are travelling and how you are related",
+  u3:"A rough order of budget, so we do not waste your time",
+  u4:"What you do not want: early starts, long walks, eating out every day",
+  meUstedP:"The rest we find out by talking. There is no thirty-field form and no personality questionnaire.",
+  meCierreH:"The first step is only a conversation.",
+  meCierreP:"No commitment, no budget up front, and nobody calling you afterwards to push.",
+
+  tDestinos:"Destinations — MARSA",
+  deH1:"Four regions, not the whole world.",
+  deEntrada:"We work only where we have people we trust on the ground. Promising more than that would be selling a catalogue, which is precisely what we do not do.",
+  d1t:"Japan", d1p:"The country where improvised travel works worst and planned travel works best. We work off the Tokyo–Kyoto line in high season, and we know what is worth an early start and what is not.",
+  d1a:"Spring and autumn close six months ahead.",
+  d2t:"The Gulf", d2p:"Our home. The Emirates, Oman and Saudi Arabia, with the knowledge of someone who lives here rather than someone who visits for a week a year. And with the Islamic calendar accounted for, which moves demand every year.",
+  d2a:"Ramadan and the two Eids shift each year: we plan around them.",
+  d3t:"Latin America", d3p:"Mexico, Colombia, Peru and Argentina. Long distances, unreliable information online, and an enormous gap between a good operator and any operator. That is where we earn our fee.",
+  d3a:"Service in both peninsular and Latin American Spanish.",
+  d4t:"Europe", d4p:"Less predictable in summer than it looks. We work the shoulder seasons, when the same thing costs half and is twice as enjoyable, and the smaller cities that never make the lists.",
+  d4a:"Best value from May to June and September to October.",
+  deCierreH:"Your destination is not on the list?",
+  deCierreP:"Write to us anyway. If we cannot do it well, we will say so and point you to someone who can. That works out better for everyone than doing it halfway.",
+
+  tNosotros:"About us — MARSA",
+  noH1:"A small house, and proudly so.",
+  noEntrada:"MARSA is the private travel division of HARUNANA TRAVEL AND CONSULTING, incorporated in Dubai in 2024.",
+  noP1:"We began looking after a handful of clients from Mexico and Colombia who already knew us, with no website and no advertising, purely by referral. We stay small on purpose: every client speaks to one person, and that person is the one who designed their journey.",
+  noP2:"We work in three languages because our clients live in three different worlds, and because a journey is told better in the language you think in. We do not translate: we write in each language.",
+  noD1:"Incorporated", noD1v:"Dubai, 2024",
+  noD2:"Registered name",
+  noD3:"Working languages", noD3v:"Spanish · English · Arabic",
+  noD4:"Clients per year", noD4v:"Few, and deliberately so",
+  v1t:"No hidden commissions", v1p:"We charge a fee and pass on the real cost of every booking. If a hotel offers us a commission, we deduct it from your price.",
+  v2t:"We say no", v2p:"If a destination, a date or a budget will not make a good journey, we say so before charging, not after.",
+  v3t:"One person", v3p:"Whoever looks after you at the start looks after you during the trip. No handover of files, no switchboard.",
+  noCita:"We would rather have twenty journeys people remember than two hundred they forget.",
+
+  tPreguntas:"Questions — MARSA",
+  prH1:"What people ask before deciding.",
+  prEntrada:"And if yours is missing, write to us and we will answer it straight.",
+  q1:"How is the service charged?",
+  a1:"A consultancy fee agreed in writing before we begin, plus the real cost of each booking with no mark-up. You see what everything costs.",
+  q2:"How far in advance should I write?",
+  a2:"Three months is comfortable. It can be done in less, but availability of the good things decides, and in high season it decides a great deal.",
+  q3:"Do you work with halal requirements?",
+  a3:"Yes, and with real verification: we do not accept a restaurant as halal because its menu says so. Prayer times, available rooms and gender separation go into the itinerary from the start, not as an afterthought.",
+  q4:"What if I want to change the itinerary halfway through?",
+  a4:"Then we change it. We tell you what is reversible at no cost and what is not, and you decide with that in front of you.",
+  q5:"Do you travel with us?",
+  a5:"Not as a rule. What you do get is a local guide chosen by us at every point of the journey, and a number of ours available the whole time.",
+  q6:"Is there a minimum budget?",
+  a6:"There is no published figure, but below a certain point our fee stops making sense for you. We will tell you frankly on the first call.",
+  prCierreH:"Still have a question?",
+  prCierreP:"Write to us and we will answer within twenty-four hours, with no obligation.",
+
+  tContacto:"Contact — MARSA",
+  coH1:"Tell us the journey you have in mind.",
+  coEntrada:"A person replies, not a system, and always within twenty-four hours.",
+  lNombre:"Name", lEmail:"Email", lTel:"Telephone (optional)",
+  lDestino:"Destination of interest", lCuando:"Approximate dates",
+  phCuando:"Spring 2027, two weeks…",
+  lMensaje:"Your journey, in a few lines",
+  oElegir:"Select…", oOtro:"Other",
+  coAviso:"Your details are used only to answer this enquiry. They are not shared with third parties.",
+  okMsg:"Thank you. We will reply within 24 hours.",
+  errNombre:"Please add your name so we know how to address you.",
+  errEmail:"That email does not look complete. Please check it.",
+  coCorreo:"Email", coOficina:"Office", coOficinaV:"Dubai, United Arab Emirates",
+  coIdiomas:"Languages", coIdiomasV:"Spanish · English · Arabic",
+  coRespuesta:"Reply time", coRespuestaV:"Under 24 hours, every day",
+  coNota:"If you would rather talk before writing anything, say so and we will call you at a time that suits you, in your time zone."
+},
+
+ar:{
+  _dir:"rtl", _lang:"ar",
+  nEstacion:"متى تسافر", nDia:"يوم حقيقي", nHalal:"معنى الحلال",
+  bVerDia:"شاهد يومًا حقيقيًا", bVerHalal:"ما معنى الحلال فعلًا",
+  esAriaAnios:"السنة", diAriaPlan:"خطة اليوم", haAriaNivel:"درجة الضمان",
+  tEstacion:"متى يسافر الخليج — مَرْسى", tDia:"يوم حقيقي في كيوتو — مَرْسى", tHalal:"معنى الحلال — مَرْسى",
+
+  esH1:"الخليج لا يسافر وفق التقويم الذي تنظر إليه.",
+  esEntrada:"رمضان والعيدان يتقدّمان نحو أحد عشر يومًا كل سنة. وهذا يُزيح الطلب كله، ولا يظهر في أي إحصاء سنوي.",
+  esVerTabla:"عرض التواريخ في جدول",
+  esMetodo:"التواريخ محسوبة بالتقويم الهجري الحسابي. والبداية الفعلية تعتمد على رؤية الهلال وقد تختلف يومًا أو يومين. أما العطلة المدرسية الخليجية ومواسم الذروة اليابانية فهي المعتادة، لا تواريخ رسمية.",
+  esCierreH:"يومٌ مُحكَم البناء خيرٌ من شهرٍ حسن البيع.",
+  esCierreP:"وحين تعرف متى يأتي العميل، يبقى الأصعب: أن يُثمر يومه. وهذا يتّضح بمثال حقيقي.",
+  serRamadan:"رمضان", serEid:"العيدان", serGolfo:"العطلة المدرسية الخليجية", serJapon:"ذروة الموسم في اليابان",
+  bRamadan:"رمضان", bFitr:"عيد الفطر", bAdha:"عيد الأضحى",
+  bVacGolfo:"العطلة الصيفية", bSakura:"أزهار الكرز", bGW:"الأسبوع الذهبي", bOtono:"أوراق الخريف",
+  thEvento:"الفترة", thInicio:"تبدأ", thFin:"تنتهي",
+  halDentro:"في {a} يقع عيد الفطر في {f}، أي داخل موسم أزهار الكرز. وهو أنفع تقارب في التقويم، ولا يتكرر كل سنة.",
+  halCerca:"في {a} يقع عيد الفطر في {f}، على بُعد {d} من أزهار الكرز. قريبٌ بما يكفي لوصل العيد بالرحلة.",
+  halLejos:"في {a} يقع عيد الفطر في {f}، على بُعد {d} من موسم الأزهار. في تلك السنة لا يتداخل الطلب الخليجي مع ذروة الموسم الياباني.",
+  halDoble:"انتبه إلى {a}: يدخل رمضان مرتين في السنة الميلادية نفسها. وسنوات كهذه تُفسد أي توقّع مبني على أرباع السنة.",
+  meses:["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"],
+
+  diH1:"اليوم نفسه في كيوتو، مُرتَّبًا بطريقتين.",
+  diEntrada:"الشائع أن مراعاة الصلاة تختصر اليوم. والحقيقة عكس ذلك: ما يختصره هو ألّا تُحسَب لها حسابًا فتضطر إلى الارتجال بعد الظهر.",
+  diMetodo:"أوقات الصلاة تقريبية لكيوتو في منتصف أبريل. وهي تتغيّر يوميًا وبتغيّر الفصول؛ وفي البرنامج الفعلي تُحسب لكل تاريخ على حدة.",
+  diCierreH:"ثم الطعام، وعنده تنكسر الرحلة.",
+  diCierreP:"ترتيب الصلاة يُحلّ بالتخطيط. أما الطعام فلا: لا بدّ أن يذهب أحدٌ ويتحقق بنفسه.",
+  diHallazgo:"الأماكن الأربعة نفسها، والخطة الثانية تنتهي أبكر. تكسب الساعة التي تُضيّعها الأولى بحثًا عن مكان للأكل، لأن الصلوات تقع في أوقات التنقّل لا في وسط الزيارة.",
+  diaPlanes:[
+    {nombre:"خطة عادية", tramos:[
+      {h:"٠٧:٣٠", q:"الإفطار في الفندق"},
+      {h:"٠٨:٣٠", q:"فوشيمي إيناري", n:"وصولٌ متأخر: الطابور بدأ عند أول البوابات"},
+      {h:"١١:٠٠", q:"الانتقال إلى أراشِياما"},
+      {h:"١١:٤٥", q:"غابة الخيزران"},
+      {h:"١٣:٠٠", q:"الغداء", n:"بلا حجز ولا تحقّق. هنا تضيع ساعة طويلة"},
+      {h:"١٤:٣٠", q:"معبد تِنريو-جي"},
+      {h:"١٦:٠٠", q:"كينكاكو-جي", n:"الوصول قبيل الإغلاق، على عجل"},
+      {h:"١٧:٤٥", q:"العودة إلى الفندق"},
+      {h:"٢٠:٠٠", q:"العشاء", n:"يُقرَّر في حينه"}
+    ]},
+    {nombre:"خطة مدروسة", tramos:[
+      {h:"٠٧:١٥", q:"الإفطار في الفندق"},
+      {h:"٠٨:٠٠", q:"فوشيمي إيناري", n:"قبل ساعة: البوابات ما زالت خالية"},
+      {h:"١٠:٤٥", q:"الانتقال إلى أراشِياما"},
+      {h:"١١:١٥", q:"غابة الخيزران"},
+      {h:"١٢:٠٥", q:"الظهر", n:"في مصلّى محطة ساغا-أراشِياما، وهي في الطريق", rezo:true},
+      {h:"١٢:٣٥", q:"الغداء", n:"مطعم تم التحقق منه وحجزه قبل أسبوع"},
+      {h:"١٣:٤٥", q:"معبد تِنريو-جي"},
+      {h:"١٥:٣٥", q:"العصر", n:"قبل مغادرة أراشِياما، أثناء التنقّل", rezo:true},
+      {h:"١٦:٠٠", q:"كينكاكو-جي", n:"بمتّسع من الوقت قبل الإغلاق"},
+      {h:"١٧:٣٠", q:"العودة إلى الفندق والراحة"},
+      {h:"١٨:٣٥", q:"المغرب", n:"في الغرفة، دون استعجال", rezo:true},
+      {h:"١٩:٣٠", q:"العشاء", n:"محجوز، في الوقت الذي اختارته العائلة"}
+    ]}
+  ],
+
+  haH1:"ثلاثة أشياء مختلفة تُعلَن بالكلمة نفسها.",
+  haEntrada:"بالنسبة لعميل خليجي، الفرق بين هذه الثلاثة ليس تفصيلًا: هو الفرق بين أن يأكل وألّا يأكل. اضغط على كل واحدة.",
+  haListaRot:"ما تفترض العائلة أنه مضمون",
+  haMetodo:"لا توجد جهة واحدة لاعتماد الحلال في اليابان: تتعايش هيئات عدة بمعايير مختلفة. لذلك نتحقق من كل مكان على حدة، ولا نثق باللافتة.",
+  haCierreH:"هذا لا يُرتَّب في اليوم السابق.",
+  haCierreP:"إن كنت تسافر مع عائلتك وكان هذا يهمّك، فلنتحدث قبل أن تحجز شيئًا.",
+  haQueEs:"ما هو في الحقيقة", haRiesgo:"درجة الخطر", haPregunta:"السؤال الذي نطرحه نحن",
+  haNiveles:[
+    {n:"معتمد", e:"#0f8f7a",
+     s:"جهة رقابية دقّقت المطبخ والموردين والتخزين، وتراجع ذلك بين حين وآخر.",
+     r:"منخفض. ويبقى التأكد من أن الشهادة سارية وأنها تشمل القائمة كلها لا قائمة منفصلة.",
+     p:"أي جهة تمنح الاعتماد، وإلى متى يسري، وهل يشمل القائمة بكاملها؟"},
+    {n:"موضع ثقة", e:"#c8641a",
+     s:"لا يوجد تدقيق خارجي، لكن من يطبخ يفهم الشرط، ويفصل الأدوات، ويعرف ما يقدّمه لك.",
+     r:"متوسط. يقوم على شخص لا على نظام. ويوم يتغيّر الطاهي يتغيّر المعيار، ولن يخبرك أحد.",
+     p:"هل المقلاة والصاج منفصلان؟ وما الذي يدخل في المرق والصلصة؟"},
+    {n:"خالٍ من لحم الخنزير", e:"#b4543f",
+     s:"يقول فقط إنه لا خنزير في القائمة. وهذا ليس حلالًا، والمسافة بين الأمرين في اليابان واسعة.",
+     r:"مرتفع. الميرين وصلصة الصويا فيهما كحول، ومرق الداشي قد يحوي لحم خنزير، واللحم غير مذكّى، والمقلاة واحدة للجميع.",
+     p:"لا سؤال. هنا الجواب لا من البداية، ونبحث عن مكان آخر."}
+  ],
+  haLista:[
+    "أن يوجد مكان للصلاة دون أن تطلبه كأنه معروف",
+    "ألّا يضطرك إفطار الفندق إلى استجواب النادل صحنًا صحنًا",
+    "أن تتّسع الغرفة لعائلة من خمسة أو ستة، لا من أربعة",
+    "أن تتعشّى بعد المغرب دون أن تجد المطبخ مغلقًا",
+    "ألّا يخطر ببال أحد أن يضع تذوّق الساكي نشاطًا رئيسيًا في اليوم"
+  ],
+
+  marca:"مَرْسى", firma:"مَرْسى — دبي",
+  ariaMenu:"القائمة الرئيسية", ariaIdioma:"اللغة", ariaPie:"روابط أسفل الصفحة",
+  nInicio:"الرئيسية", nServicios:"خدماتنا", nMetodo:"منهجنا", nDestinos:"الوجهات",
+  nNosotros:"من نحن", nPreguntas:"أسئلة", nContacto:"تواصل معنا",
+  pieRazon:"HARUNANA TRAVEL AND CONSULTING — FZCO · دبي",
+  bHablemos:"لنتحدث عن رحلتك", bMetodo:"كيف نعمل",
+  bVerServicios:"تفاصيل الخدمات", bVerDestinos:"استعراض الوجهات", bEnviar:"إرسال",
+  oDiseno:"التصميم", oReserva:"الحجز", oViaje:"الرحلة",
+  rEmpezar:"لنبدأ", rSiguiente:"الخطوة التالية", rUsted:"ما نحتاجه منك",
+  rPrincipios:"كيف نعمل", rOtras:"طرق أخرى للتواصل",
+
+  tInicio:"مَرْسى — استشارات السفر الخاصة",
+  iRot:"استشارات السفر الخاصة",
+  iH1:"الرحلة لا تُحجز، بل تُصمَّم.",
+  iEntrada:"لا نبيع برامج جاهزة. نُصغي أولًا، ثم نبني رحلةً لا معنى لها إلا لمن سيخوضها.",
+  s1t:"تصميم البرنامج", s1p:"رحلة تُبنى من الصفر حول مواعيدك وإيقاعك وما يهمّك أنت حقًا أن تراه.",
+  s2t:"الحجز والوصول",  s2p:"الإقامة والموائد والزيارات الخاصة والمرشدون المحليون. ما لا يُحجز عبر الإنترنت.",
+  s3t:"مرافقة دائمة",   s3p:"شخص واحد تصل إليه بلغتك وفي توقيتك، من لحظة المغادرة حتى العودة.",
+  iCita:"لا تُقاس الرحلة الجيدة بعدد ما رأيت، بل بعدد القرارات التي لم تُضطر إلى اتخاذها.",
+  iDestH:"أربع مناطق نعرفها عن قرب.",
+  iDestP:"لا نعمل في العالم كله. نعمل حيث لدينا أشخاص نثق بهم على الأرض، ونستطيع أن نفي بما نَعِد به.",
+  iCierreH:"الحديث معنا لا يُلزمك بشيء.",
+  iCierreP:"احكِ لنا عن الرحلة التي تدور في بالك، ونردّ عليك شخصيًا بالعربية أو الإسبانية أو الإنجليزية.",
+
+  tServicios:"خدماتنا — مَرْسى",
+  svH1:"ثلاثة أمور، نُتقنها.",
+  svEntrada:"لا نفعل كل شيء. نفعل ما تحتاجه الرحلة المُحكَمة فعلًا، ويتولّاه شخص واحد من أوله إلى آخره.",
+  sv1p:"نبدأ من حديث، لا من كتالوج. وتخرج منه خطة مكتوبة يومًا بيوم، بأوقات تنقّل حقيقية وبمساحة كافية حتى لا تتحوّل الرحلة إلى قائمة مهام.",
+  sv1a:"مسار وجدول على إيقاعك أنت، لا على إيقاع مجموعة",
+  sv1b:"أوقات تنقّل مُتحقَّق منها، لا مُقدَّرة",
+  sv1c:"بدائل جاهزة ليوم المطر وللتغييرات المفاجئة",
+  sv1d:"متطلبات الطعام والصلاة مدروسة من المسودّة الأولى",
+  sv2p:"الجزء الذي لا يظهر في أي محرك بحث. نعمل مع معارف محليين في كل وجهة، ونحجز باسمك أنت: تبقى دائمًا ضيف الفندق، لا رقمًا ضمن حجز جماعي.",
+  sv2a:"إقامة مُنتقاة واحدة واحدة، وصولًا إلى الغرفة بعينها",
+  sv2b:"موائد وزيارات خاصة خارج أوقات الزحام",
+  sv2c:"مرشدون محليون يتحدثون لغتك",
+  sv2d:"تنقّلات خاصة وسائق حين يستحق الطريق ذلك",
+  sv2n1:"لا نعمل بعمولات خفية من المورّدين",
+  sv2n2:"لا نعيد بيع برامج جاهزة لجهات أخرى",
+  sv3p:"حتى الرحلة المُحكَمة قد يعترضها خلل. والفرق هو كم يستغرق حلّه. طوال الطريق لديك رقم مباشر وشخص يحفظ برنامجك عن ظهر قلب.",
+  sv3a:"جهة اتصال واحدة، هي نفسها من البداية إلى النهاية",
+  sv3b:"متاحة بتوقيتك أنت، لا بتوقيتنا",
+  sv3c:"التعديلات والإلغاءات نتولّاها نحن",
+  sv3d:"بالعربية والإسبانية والإنجليزية، دون وسيط ولا مترجم",
+  svCierreH:"منهجنا، خطوة بخطوة.",
+  svCierreP:"إن أردت أن ترى كيف يتحوّل الحديث إلى رحلة مكتملة، فالأمر مشروح بالكامل ودون بنود صغيرة.",
+
+  tMetodo:"منهجنا — مَرْسى",
+  meH1:"أربع خطوات، دون عجلة ودون استمارات لا تنتهي.",
+  meEntrada:"لا يُحجز شيء قبل أن ترى الرحلة كاملةً مكتوبةً وتقول: نعم. هذا هو السرّ كله.",
+  p1t:"حديث",    p1p:"مكالمة من نصف ساعة، بلا استبيان. نريد أن نعرف ما يروق لك وما يُتعبك، ومع مَن تسافر، وما الذي جعل آخر رحلة جميلة خضتها جميلة. هذا وحده يكفي للبدء.",
+  p2t:"العرض",   p2p:"برنامج مكتوب يومًا بيوم، بميزانية محددة وببديلين أو ثلاثة حقيقية عند المفارق التي يغيّر القرار فيها شكل الرحلة. بلا صور كتالوجات وبلا نعوت زائدة.",
+  p3t:"التعديل", p3p:"نغيّر ما يلزم، وبقدر ما يلزم، ودون تكلفة. هنا تصير الرحلة رحلتك أنت. ولا يُحجز شيء إلا حين يرضيك البرنامج كاملًا.",
+  p4t:"الرحلة",  p4p:"كل شيء مؤكَّد، وأرقام الحجوزات كلها في مستند واحد، ورقم مباشر متاح طوال الطريق. وإن اعترض شيء، نتولّى حلّه بينما تواصل أنت رحلتك.",
+  meCita:"لا يُحجز شيء قبل أن تقول: نعم، للرحلة كاملةً.",
+  meUstedH:"القليل جدًا، وفي البداية فقط.",
+  u1:"التواريخ، ولو على وجه التقريب",
+  u2:"عدد المسافرين وصلة القرابة بينكم",
+  u3:"حدود تقريبية للميزانية، حتى لا نضيّع وقتك",
+  u4:"ما لا ترغب فيه: الاستيقاظ باكرًا، المشي الطويل، تناول الطعام خارجًا كل يوم",
+  meUstedP:"وما عدا ذلك نعرفه بالحديث. لا استمارة من ثلاثين حقلًا ولا اختبار شخصية.",
+  meCierreH:"الخطوة الأولى مجرّد حديث.",
+  meCierreP:"دون التزام، ودون ميزانية مسبقة، ودون أن يتصل بك أحد بعدها للإلحاح.",
+
+  tDestinos:"الوجهات — مَرْسى",
+  deH1:"أربع مناطق، لا العالم كله.",
+  deEntrada:"لا نعمل إلا حيث لدينا أشخاص نثق بهم على الأرض. والوعد بأكثر من ذلك بيعُ كتالوج، وهو تحديدًا ما لا نفعله.",
+  d1t:"اليابان", d1p:"البلد الذي يفشل فيه السفر الارتجالي أكثر من غيره، وينجح فيه السفر المُخطَّط أكثر من غيره. نعمل بعيدًا عن خط طوكيو وكيوتو في الموسم، ونعرف ما يستحق الاستيقاظ باكرًا وما لا يستحق.",
+  d1a:"الربيع والخريف يُحجزان قبل ستة أشهر.",
+  d2t:"الخليج العربي", d2p:"بيتنا. الإمارات وعُمان والسعودية، بمعرفة من يعيش هنا لا من يزور أسبوعًا في السنة. ومع مراعاة التقويم الهجري الذي يُزيح الطلب كل عام.",
+  d2a:"رمضان والعيدان يتغيّر موعدهما كل سنة، ونحسب لذلك حسابه.",
+  d3t:"أمريكا اللاتينية", d3p:"المكسيك وكولومبيا والبيرو والأرجنتين. مسافات شاسعة، ومعلومات غير موثوقة على الإنترنت، وفارق هائل بين المشغّل الجيد وأي مشغّل. وهنا تحديدًا نستحق أتعابنا.",
+  d3a:"خدمة بالإسبانية الأوروبية واللاتينية معًا.",
+  d4t:"أوروبا", d4p:"أقل قابلية للتنبؤ في الصيف مما تبدو عليه. نعمل في المواسم البينية، حيث يكلّف الشيء نفسه نصف الثمن ويُستمتع به ضعفين، وفي المدن الصغيرة التي لا تَرِد في القوائم.",
+  d4a:"أفضل علاقة بين السعر والتجربة من مايو إلى يونيو ومن سبتمبر إلى أكتوبر.",
+  deCierreH:"ووجهتك ليست في القائمة؟",
+  deCierreP:"اكتب إلينا على أي حال. فإن كنا لا نُحسنها، قلنا لك ذلك ودللناك على من يُحسنها. هذا أنفع للجميع من عمل ناقص.",
+
+  tNosotros:"من نحن — مَرْسى",
+  noH1:"بيت صغير، ونعتزّ بذلك.",
+  noEntrada:"مَرْسى هي ذراع السفر الخاص لشركة HARUNANA TRAVEL AND CONSULTING، المؤسَّسة في دبي عام ٢٠٢٤.",
+  noP1:"بدأنا بخدمة حفنة من العملاء من المكسيك وكولومبيا كانوا يعرفوننا من قبل، بلا موقع وبلا إعلان، بالتزكية وحدها. وما زلنا صغارًا عن قصد: كل عميل يتحدث إلى شخص واحد، وهذا الشخص هو نفسه من صمّم رحلته.",
+  noP2:"نعمل بثلاث لغات لأن عملاءنا يعيشون في ثلاثة عوالم مختلفة، ولأن الرحلة تُحكى أفضل باللغة التي يفكّر بها المرء. نحن لا نترجم: نكتب بكل لغة على حدة.",
+  noD1:"سنة التأسيس", noD1v:"دبي، ٢٠٢٤",
+  noD2:"الاسم التجاري المسجَّل",
+  noD3:"لغات العمل", noD3v:"العربية · الإسبانية · الإنجليزية",
+  noD4:"عدد العملاء سنويًا", noD4v:"قليل، وعن قصد",
+  v1t:"بلا عمولات خفية", v1p:"نتقاضى أتعابًا ونمرّر إليك التكلفة الحقيقية لكل حجز. وإن عرض علينا فندقٌ عمولةً، خصمناها لك من السعر.",
+  v2t:"نقول: لا", v2p:"إن كانت وجهةٌ أو تاريخٌ أو ميزانيةٌ لا تكفي لرحلة جيدة، قلناها قبل أن نتقاضى شيئًا، لا بعده.",
+  v3t:"شخص واحد", v3p:"مَن يستقبلك في البداية هو نفسه من يرافقك أثناء الرحلة. لا تنقُّلَ للملف بين الموظفين ولا مقسمًا هاتفيًا.",
+  noCita:"نُفضّل عشرين رحلة تُذكر على مئتين تُنسى.",
+
+  tPreguntas:"أسئلة — مَرْسى",
+  prH1:"ما يسألوننا عنه قبل أن يقرّروا.",
+  prEntrada:"وإن لم يكن سؤالك هنا، فاكتب إلينا ونجيبك دون لفّ ولا دوران.",
+  q1:"كيف تُحتسب أتعاب الخدمة؟",
+  a1:"أتعاب استشارية متّفق عليها كتابةً قبل البدء، إضافةً إلى التكلفة الحقيقية لكل حجز دون أي زيادة. ترى ثمن كل بند بوضوح.",
+  q2:"قبل كم من الوقت ينبغي أن أتواصل؟",
+  a2:"ثلاثة أشهر مريحة. ويمكن في وقت أقصر، لكن التوافر هو ما يحكم، وفي الموسم يحكم كثيرًا.",
+  q3:"هل تراعون المتطلبات الحلال؟",
+  a3:"نعم، وبتحقّق فعلي: لا نعدّ مطعمًا حلالًا لمجرد أن قائمته تقول ذلك. أوقات الصلاة والمصلّيات المتاحة والفصل بين الجنسين تدخل في البرنامج من البداية، لا كإضافة لاحقة.",
+  q4:"وإن أردتُ تعديل البرنامج في منتصفه؟",
+  a4:"نُعدّله. نوضّح لك ما يمكن التراجع عنه دون تكلفة وما لا يمكن، ثم تقرّر أنت وهذه المعلومات أمامك.",
+  q5:"هل ترافقوننا في الرحلة؟",
+  a5:"ليس في العادة. لكن يوجد مرشد محلي نختاره نحن في كل محطة من الرحلة، ورقم هاتف لنا متاح طوال الوقت.",
+  q6:"هل هناك حدّ أدنى للميزانية؟",
+  a6:"لا رقم معلن، لكن دون حدٍّ معيّن تفقد أتعابنا معناها بالنسبة إليك. وسنقول لك ذلك بصراحة في أول مكالمة.",
+  prCierreH:"أبقي لديك سؤال؟",
+  prCierreP:"اكتب إلينا ونجيبك خلال أقل من أربع وعشرين ساعة، دون أي التزام.",
+
+  tContacto:"تواصل معنا — مَرْسى",
+  coH1:"احكِ لنا عن الرحلة التي تدور في بالك.",
+  coEntrada:"يردّ عليك إنسان لا نظام آلي، وخلال أقل من أربع وعشرين ساعة دائمًا.",
+  lNombre:"الاسم", lEmail:"البريد الإلكتروني", lTel:"رقم الهاتف (اختياري)",
+  lDestino:"الوجهة التي تهمّك", lCuando:"التواريخ التقريبية",
+  phCuando:"ربيع ٢٠٢٧، أسبوعان…",
+  lMensaje:"رحلتك في أسطر قليلة",
+  oElegir:"اختر…", oOtro:"وجهة أخرى",
+  coAviso:"لا تُستخدم بياناتك إلا للردّ على هذا الطلب، ولا تُشارَك مع أي جهة أخرى.",
+  okMsg:"شكرًا لك. سنردّ عليك خلال أقل من ٢٤ ساعة.",
+  errNombre:"اكتب اسمك من فضلك حتى نعرف كيف نخاطبك.",
+  errEmail:"يبدو البريد الإلكتروني غير مكتمل. يرجى مراجعته.",
+  coCorreo:"البريد", coOficina:"المكتب", coOficinaV:"دبي، الإمارات العربية المتحدة",
+  coIdiomas:"اللغات", coIdiomasV:"العربية · الإسبانية · الإنجليزية",
+  coRespuesta:"زمن الردّ", coRespuestaV:"أقل من ٢٤ ساعة، طوال أيام الأسبوع",
+  coNota:"إن فضّلت أن نتحدث قبل أن تكتب شيئًا، أخبرنا ونتصل بك في الوقت الذي يناسبك وبتوقيتك أنت."
+}
+
+};
+
+
+/* ══════════════════════════════════════════════════════════════════
+   Calendario islámico tabular (variante civil). Determinista y
+   verificable: 1 Ramadán 1447 = 19/02/2026, que es la fecha real.
+   No sustituye al avistamiento lunar; puede desviarse un día.
+   ══════════════════════════════════════════════════════════════════ */
+function jdnAGreg(j){
+  var a=j+32044, b=Math.floor((4*a+3)/146097), c=a-Math.floor(146097*b/4);
+  var d=Math.floor((4*c+3)/1461), e=c-Math.floor(1461*d/4), m=Math.floor((5*e+2)/153);
+  return new Date(Date.UTC(100*b+d-4800+Math.floor(m/10), m+3-12*Math.floor(m/10)-1,
+                           e-Math.floor((153*m+2)/5)+1));
+}
+function hijriJDN(hy,hm,hd){
+  return hd + Math.ceil(29.5*(hm-1)) + (hy-1)*354
+       + Math.floor((3+11*hy)/30) + 1948440;
+}
+function hijri(hy,hm,hd){ return jdnAGreg(hijriJDN(hy,hm,hd)); }
+
+var U = {
+  dia: function(f){ return Date.UTC(f.getUTCFullYear(), f.getUTCMonth(), f.getUTCDate()); },
+  ord: function(f){ return Math.round((U.dia(f) - Date.UTC(f.getUTCFullYear(),0,1))/864e5); },
+  largo: function(y){ return (y%4===0&&y%100!==0)||y%400===0 ? 366 : 365; },
+  suma: function(f,n){ return new Date(U.dia(f) + n*864e5); },
+  fecha: function(f, lang){
+    try{ return new Intl.DateTimeFormat(lang==="ar"?"ar-u-nu-arab":lang,
+      {day:"numeric",month:"long",timeZone:"UTC"}).format(f); }
+    catch(e){ return f.toISOString().slice(0,10); }
+  }
+};
+
+
+/* Concordancia de número. El árabe no pluraliza como el español: 1 lleva
+   singular, 2 tiene forma dual propia, de 3 a 10 va en plural (أيام) y a
+   partir de 11 vuelve al singular en acusativo (يومًا). Escribir "٤ يومًا"
+   es el fallo que delata una traducción automática. */
+function dias(n){
+  var f = new Intl.NumberFormat(idioma==="ar"?"ar-u-nu-arab":idioma).format(n);
+  if (idioma === "ar"){
+    if (n === 1) return "يوم واحد";
+    if (n === 2) return "يومين";
+    return n <= 10 ? f + " أيام" : f + " يومًا";
+  }
+  if (idioma === "en") return f + (n === 1 ? " day" : " days");
+  return f + (n === 1 ? " día" : " días");
+}
+
+var esAnio = 2027, diPlan = 1, haNivel = 0;
+
+/* Bandas del año: las hijríes se calculan, las demás son las
+   temporadas habituales y van declaradas como tales. */
+function bandasDe(anio, t){
+  var b = [], hy0 = Math.round((anio - 622) * 1.030684) + 1;
+  for (var hy = hy0 - 1; hy <= hy0 + 1; hy++){
+    var ram = hijri(hy,9,1), fitr = hijri(hy,10,1), adha = hijri(hy,12,10);
+    if (ram.getUTCFullYear() === anio)  b.push({f:0, n:t.bRamadan, d:ram, h:U.suma(fitr,-1)});
+    if (fitr.getUTCFullYear() === anio) b.push({f:1, n:t.bFitr, d:fitr, h:U.suma(fitr,2), eid:true});
+    if (adha.getUTCFullYear() === anio) b.push({f:1, n:t.bAdha, d:adha, h:U.suma(adha,3)});
+  }
+  var D = function(m,d){ return new Date(Date.UTC(anio,m-1,d)); };
+  b.push({f:2, n:t.bVacGolfo, d:D(7,1),  h:D(8,25)});
+  b.push({f:3, n:t.bSakura,   d:D(3,25), h:D(4,10)});
+  b.push({f:3, n:t.bGW,       d:D(4,29), h:D(5,5)});
+  b.push({f:3, n:t.bOtono,    d:D(11,15),h:D(12,5)});
+  return b;
+}
+
+function pintarEstacionalidad(){
+  var cont = document.getElementById("esLienzo");
+  if (!cont) return;
+  var t = T[idioma], diasAnio = U.largo(esAnio);
+
+  var anios = document.getElementById("esAnios");
+  anios.innerHTML = "";
+  for (var a = 2026; a <= 2031; a++){
+    var bt = document.createElement("button");
+    bt.type = "button";
+    bt.textContent = new Intl.NumberFormat(idioma==="ar"?"ar-u-nu-arab":idioma,{useGrouping:false}).format(a);
+    bt.setAttribute("aria-pressed", String(a === esAnio));
+    bt.dataset.anio = a;
+    bt.addEventListener("click", function(){ esAnio = +this.dataset.anio; pintarEstacionalidad(); });
+    anios.appendChild(bt);
+  }
+
+  var series = [t.serRamadan, t.serEid, t.serGolfo, t.serJapon];
+  var leyenda = document.getElementById("esLeyenda");
+  leyenda.innerHTML = series.map(function(n,i){
+    return '<span><i style="--c:var(--serie-'+(i+1)+')"></i>'+n+'</span>';
+  }).join("");
+
+  var bandas = bandasDe(esAnio, t);
+  var html = "";
+  for (var f = 0; f < 4; f++){
+    html += '<div class="fila"><div class="nom">'+series[f]+'</div><div class="pista">';
+    bandas.filter(function(x){ return x.f === f; }).forEach(function(x){
+      var ini = U.ord(x.d), fin = U.ord(x.h);
+      if (fin < 0 || ini > diasAnio) return;
+      ini = Math.max(0, ini); fin = Math.min(diasAnio-1, fin);
+      var izq = ini/diasAnio*100, an = Math.max((fin-ini+1)/diasAnio*100, 1.1);
+      var rot = U.fecha(x.d, idioma) + " → " + U.fecha(x.h, idioma);
+      html += '<div class="banda" style="--c:var(--serie-'+(f+1)+');'
+            + 'inset-inline-start:'+izq.toFixed(2)+'%;width:'+an.toFixed(2)+'%"'
+            + ' title="'+x.n+': '+rot+'">'+(an > 9 ? x.n : "")+'</div>';
+    });
+    html += '</div></div>';
+  }
+  html += '<div class="eje"><div></div><div class="eje-meses">'
+        + t.meses.map(function(m){ return "<span>"+m+"</span>"; }).join("") + '</div></div>';
+  cont.innerHTML = html;
+
+  /* El hallazgo: ¿cae el Eid al-Fitr dentro de la floración? */
+  var fitr = bandas.filter(function(x){ return x.eid; })[0];
+  var ram  = bandas.filter(function(x){ return x.f === 0; });
+  var sak  = new Date(Date.UTC(esAnio,2,25)), sakF = new Date(Date.UTC(esAnio,3,10));
+  var msg = "";
+  if (fitr){
+    var anioTxt = new Intl.NumberFormat(idioma==="ar"?"ar-u-nu-arab":idioma,{useGrouping:false}).format(esAnio);
+    var fTxt = U.fecha(fitr.d, idioma);
+    if (fitr.d >= sak && fitr.d <= sakF){
+      msg = t.halDentro.replace("{a}",anioTxt).replace("{f}",fTxt);
+    } else {
+      var dd = Math.round(Math.abs(U.dia(fitr.d) - U.dia(sak))/864e5);
+      var dTxt = dias(dd);
+      msg = (dd <= 30 ? t.halCerca : t.halLejos)
+              .replace("{a}",anioTxt).replace("{f}",fTxt).replace("{d}",dTxt);
+    }
+    if (ram.length > 1) msg = t.halDoble.replace("{a}",anioTxt) + " " + msg;
+  }
+  document.getElementById("esHallazgo").innerHTML = msg;
+
+  /* Vista de tabla: la identidad nunca depende sólo del color. */
+  document.getElementById("esTabla").innerHTML =
+    '<table class="tabla-dat"><thead><tr><th>'+t.thEvento+'</th><th>'+t.thInicio
+    + '</th><th>'+t.thFin+'</th></tr></thead><tbody>'
+    + bandas.map(function(x){
+        return "<tr><td>"+x.n+"</td><td>"+U.fecha(x.d,idioma)+"</td><td>"+U.fecha(x.h,idioma)+"</td></tr>";
+      }).join("") + '</tbody></table>';
+}
+
+function pintarDia(){
+  var cont = document.getElementById("diJornada");
+  if (!cont) return;
+  var t = T[idioma], planes = t.diaPlanes;
+
+  var m = document.getElementById("diMandos");
+  m.innerHTML = "";
+  planes.forEach(function(pl,i){
+    var b = document.createElement("button");
+    b.type = "button"; b.textContent = pl.nombre;
+    b.setAttribute("aria-pressed", String(i === diPlan));
+    b.dataset.i = i;
+    b.addEventListener("click", function(){ diPlan = +this.dataset.i; pintarDia(); });
+    m.appendChild(b);
+  });
+
+  cont.innerHTML = planes[diPlan].tramos.map(function(x){
+    return '<div class="tramo'+(x.rezo?" rezo":"")+'">'
+         + '<div class="hora">'+x.h+'</div><div><span class="qué">'+x.q+'</span>'
+         + (x.n ? '<span class="nota">'+x.n+'</span>' : '') + '</div></div>';
+  }).join("");
+
+  document.getElementById("diHallazgo").textContent = diPlan === 1 ? t.diHallazgo : "";
+}
+
+function pintarHalal(){
+  var cont = document.getElementById("haDetalle");
+  if (!cont) return;
+  var t = T[idioma], niveles = t.haNiveles;
+
+  var m = document.getElementById("haMandos");
+  m.innerHTML = "";
+  niveles.forEach(function(nv,i){
+    var b = document.createElement("button");
+    b.type = "button";
+    b.innerHTML = '<span class="semaforo" style="--e:'+nv.e+'"></span>'+nv.n;
+    b.setAttribute("aria-pressed", String(i === haNivel));
+    b.dataset.i = i;
+    b.addEventListener("click", function(){ haNivel = +this.dataset.i; pintarHalal(); });
+    m.appendChild(b);
+  });
+
+  var nv = niveles[haNivel];
+  cont.innerHTML = '<h3><span class="semaforo" style="--e:'+nv.e+'"></span>'+nv.n+'</h3>'
+    + '<p class="rot" style="margin-top:1.1rem">'+t.haQueEs+'</p><p>'+nv.s+'</p>'
+    + '<p class="rot" style="margin-top:1.1rem">'+t.haRiesgo+'</p><p>'+nv.r+'</p>'
+    + '<p class="rot" style="margin-top:1.1rem">'+t.haPregunta+'</p><p>'+nv.p+'</p>';
+
+  document.getElementById("haLista").innerHTML =
+    t.haLista.map(function(x){ return "<li>"+x+"</li>"; }).join("");
+}
+
+function repintar(){ pintarEstacionalidad(); pintarDia(); pintarHalal(); }
+
+var RUTAS = ["inicio","servicios","metodo","destinos","estacionalidad","dia","halal","nosotros","preguntas","contacto"];
+var TITULOS = {inicio:"tInicio",servicios:"tServicios",metodo:"tMetodo",
+               destinos:"tDestinos",estacionalidad:"tEstacion",dia:"tDia",halal:"tHalal",
+               nosotros:"tNosotros",preguntas:"tPreguntas",contacto:"tContacto"};
+var idioma = "es";
+
+function rutaActual(){
+  var r = (location.hash || "").replace(/^#\/?/,"");
+  return RUTAS.indexOf(r) >= 0 ? r : "inicio";
+}
+
+/* Traduce TODO el documento, rutas ocultas incluidas. */
+function aplicar(codigo){
+  if (!T[codigo]) codigo = "es";
+  idioma = codigo;
+  var t = T[codigo];
+
+  document.documentElement.lang = t._lang;
+  document.documentElement.dir  = t._dir;
+
+  var nodos = document.querySelectorAll("[data-t]");
+  for (var i=0;i<nodos.length;i++){
+    var k = nodos[i].getAttribute("data-t");
+    if (t[k] !== undefined) nodos[i].textContent = t[k];
+  }
+  var attrs = document.querySelectorAll("[data-t-attr]");
+  for (var j=0;j<attrs.length;j++){
+    attrs[j].getAttribute("data-t-attr").split(",").forEach(function(par){
+      var p = par.split(":"), a = p[0].trim(), k2 = p[1].trim();
+      if (t[k2] !== undefined) attrs[j].setAttribute(a, t[k2]);
+    });
+  }
+  var bs = document.querySelectorAll(".idiomas button");
+  for (var b=0;b<bs.length;b++) bs[b].setAttribute("aria-pressed", String(bs[b].dataset.lang === codigo));
+
+  var ok = document.getElementById("ok");
+  if (ok){ ok.textContent = ""; ok.classList.remove("mal"); }
+
+  document.title = t[TITULOS[rutaActual()]] || t.tInicio;
+  if (typeof repintar === "function") repintar();
+  try{ localStorage.setItem("marsa_lang", codigo); }catch(e){}
+}
+
+function enrutar(){
+  var r = rutaActual();
+  var secs = document.querySelectorAll("[data-ruta]");
+  for (var i=0;i<secs.length;i++)
+    secs[i].classList.toggle("activa", secs[i].getAttribute("data-ruta") === r);
+
+  var enlaces = document.querySelectorAll("nav.principal a");
+  for (var j=0;j<enlaces.length;j++){
+    if (enlaces[j].getAttribute("href") === "#/" + r) enlaces[j].setAttribute("aria-current","page");
+    else enlaces[j].removeAttribute("aria-current");
+  }
+  document.title = T[idioma][TITULOS[r]] || T[idioma].tInicio;
+  window.scrollTo(0,0);
+}
+
+var botones = document.querySelectorAll(".idiomas button");
+for (var n=0;n<botones.length;n++){
+  botones[n].addEventListener("click", function(){ aplicar(this.dataset.lang); });
+}
+window.addEventListener("hashchange", enrutar);
+
+document.getElementById("f").addEventListener("submit", function(e){
+  e.preventDefault();
+  var t = T[idioma];
+  var nombre = document.getElementById("nombre").value.trim();
+  var email  = document.getElementById("email").value.trim();
+  var ok = document.getElementById("ok");
+  if (nombre.length < 2){ ok.textContent = t.errNombre; ok.classList.add("mal"); return; }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)){ ok.textContent = t.errEmail; ok.classList.add("mal"); return; }
+  ok.classList.remove("mal");
+  ok.textContent = t.okMsg;
+  e.target.reset();
+});
+
+(function(){
+  var g = null;
+  try{ g = localStorage.getItem("marsa_lang"); }catch(e){}
+  if (!g || !T[g]){
+    var n = (navigator.language || "es").slice(0,2).toLowerCase();
+    g = T[n] ? n : "es";
+  }
+  aplicar(g);
+  enrutar();
+})();
+</script>
+</body>
+</html>
