@@ -7,6 +7,14 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Meridiano Travel Desk</title>
+<meta name="description" content="Viajes privados a Japón desde Dubái, medidos y planificados sobre una retícula.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Meridiano Travel Desk">
+<meta property="og:description" content="Viajes privados a Japón desde Dubái, medidos y planificados sobre una retícula.">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#101215">
+<!-- Icono incrustado: una petición menos y no se pierde al mover el sitio. -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23101215'/%3E%3Cpath d='M16 3v26M3 16h26' stroke='%23d24a3d' stroke-width='1.6'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%23e8e4dd' stroke-width='1.6'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&display=swap">
@@ -205,6 +213,26 @@ footer.mesa{border-top:1px solid var(--tinta); padding-block:1.4rem 2.4rem;
   display:flex; flex-wrap:wrap; gap:.6rem 2rem;}
 html[dir="rtl"] footer.mesa{letter-spacing:0; font-size:.85rem;}
 .ltr{direction:ltr; unicode-bidi:isolate; display:inline-block;}
+
+/* Condiciones: índice arriba y columna estrecha. Un texto legal a noventa
+   caracteres por línea no lo lee nadie, y aquí la idea es que se lea. */
+#legal{padding-block:4rem 1rem;}
+#legal .idx{display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;padding-block:1rem;
+  border-block:1px solid rgba(127,127,127,.26);margin-bottom:2.2rem;font-size:.86rem;}
+#legal .idx a{text-decoration:none;opacity:.75;}
+#legal .idx a:hover{opacity:1;text-decoration:underline;}
+#legal .idx .n{font-variant-numeric:tabular-nums;opacity:.6;margin-inline-end:.3rem;}
+#legal .bq{max-width:38rem;padding-block-start:1.9rem;}
+#legal .bq h3{font-size:1.12rem;margin-bottom:.6rem;}
+#legal .bq p{margin-bottom:.85rem;}
+#legal details{border-block-start:1px solid rgba(127,127,127,.26);margin-top:1.6rem;}
+#legal summary{cursor:pointer;padding-block:1.1rem;font-size:.94rem;list-style:none;}
+#legal summary::-webkit-details-marker{display:none;}
+#legal summary::before{content:"+";margin-inline-end:.6rem;opacity:.6;}
+#legal details[open] summary::before{content:"\2212";}
+#legal summary:hover{opacity:.85;}
+#legal summary:focus-visible{outline:2px solid currentColor;outline-offset:3px;}
+#legal .maqueta{max-width:38rem;font-size:.82rem;opacity:.7;margin-top:2.4rem;}
 </style>
 </head>
 <body>
@@ -305,9 +333,22 @@ html[dir="rtl"] footer.mesa{letter-spacing:0; font-size:.85rem;}
     </form>
   </section>
 
+
+<section id="legal" class="marco">
+  <h2 data-t="leH1">Las condiciones, escritas para leerse.</h2>
+  <p data-t="leEntrada" style="max-width:38rem"></p>
+  <details>
+    <summary data-t="leVer">Leer las condiciones completas — ocho apartados</summary>
+    <div class="idx" id="leIndice"></div>
+    <div id="leCuerpo"></div>
+  </details>
+  <p class="maqueta" data-t="leMaqueta"></p>
+</section>
+
 </main>
 
 <footer class="marco mesa">
+  <a href="#legal" data-t="nLegal" style="text-decoration:none;opacity:.75">Información legal</a>
   <span data-t="logo">MERIDIANO</span>
   <span class="ltr">HARUNANA TRAVEL AND CONSULTING — FZCO</span>
   <span data-t="pieSede">Dubái</span>
@@ -317,7 +358,22 @@ html[dir="rtl"] footer.mesa{letter-spacing:0; font-size:.85rem;}
 <script>
 var T = {
 es:{
-  _dir:"ltr", _lang:"es", _loc:"es-ES",
+  _dir:"ltr", _lang:"es",
+  leVer:"Leer las condiciones completas — ocho apartados",
+  nLegal:"Información legal",
+  leH1:"Las condiciones, escritas para leerse.",
+  leEntrada:"Un viaje se contrata con dinero por delante y con fechas que no se mueven. Estas son las reglas, dichas antes de que usted pague nada y sin letra pequeña.",
+  leMaqueta:"Aviso: esto es una maqueta de propuesta. Los textos siguen la estructura de unas condiciones reales, pero los datos registrales de la sociedad están sin rellenar a propósito, y esto no constituye asesoramiento jurídico.",
+  legal:[
+    {t:"Titularidad", p:["Este sitio pertenece a <b>HARUNANA TRAVEL AND CONSULTING — FZCO</b>, sociedad de zona franca con domicilio en Dubái, Emiratos Árabes Unidos, que opera comercialmente bajo la marca MARSA.", "El número de licencia comercial, el registro ante la autoridad de turismo del emirato y el domicilio completo <b>se publicarán aquí en cuanto la sociedad los tenga asignados</b>. Preferimos dejar el hueco a la vista antes que rellenarlo con algo que no se pueda comprobar.", "Para cualquier asunto relativo a este sitio o a un viaje contratado, el canal es el de la página de contacto. Contestamos por escrito."]},
+    {t:"Qué contrata usted exactamente", p:["Contrata dos cosas distintas y conviene no confundirlas, porque no responden igual si algo sale mal.", "<b>Una: nuestro trabajo.</b> Escuchar, diseñar el itinerario, elegir los proveedores, coordinarlos y acompañarle durante el viaje. De esto respondemos nosotros, enteramente.", "<b>Dos: los servicios de terceros.</b> Hoteles, transporte, guías, entradas y restaurantes los presta cada empresa en destino, y nosotros los reservamos <b>en su nombre</b>. De la calidad de cada servicio responde quien lo presta. Lo que sí es responsabilidad nuestra es haberlo elegido, haberlo comprobado y resolverlo cuando falla: si un hotel no cumple, el problema lo gestionamos nosotros y no le dejamos negociando en un mostrador en un idioma que no habla.", "Las dos partidas van <b>separadas en el presupuesto y en la factura</b>. Usted ve siempre cuánto cuesta cada servicio y cuánto cobramos nosotros."]},
+    {t:"Pagos, cambios y cancelación", p:["El diseño del viaje empieza con un <b>anticipo</b> que se descuenta íntegro del importe final. El resto se abona antes de la salida, según el calendario que figure en su presupuesto.", "<b>Cambios.</b> Mientras el viaje está en diseño, cambiar de idea no cuesta nada: para eso está esa fase. Una vez confirmadas las reservas, cada proveedor tiene sus propias condiciones y se las trasladamos tal cual, sin recargo nuestro por gestionar el cambio.", "<b>Cancelación.</b> Se aplican las condiciones de cada proveedor, que le entregamos por escrito <b>antes</b> de confirmar nada. Nuestros honorarios de diseño cubren un trabajo ya hecho y no se devuelven una vez entregado el itinerario, salvo que la cancelación se deba a un error nuestro.", "<b>Divisa.</b> El presupuesto se cierra en una sola moneda y se indica cuál. Si el pago se hace en otra, la conversión se aplica al cambio del día de emisión de cada factura y ese tipo consta en el propio documento. No trasladamos a nadie un riesgo de cambio que no haya visto escrito."]},
+    {t:"Documentación, visado y seguro", p:["El pasaporte y los visados son responsabilidad del viajero. Nosotros le decimos qué necesita, con tiempo, y le avisamos si algo de lo que nos cuenta no cuadra.", "Para varios países del Golfo existe desde mayo de 2026 un <b>visado electrónico de noventa días</b> para Japón. <b>No damos por supuesto que le aplique</b>: comprobamos su caso concreto —nacionalidad, pasaporte y motivo del viaje— antes de cerrar fechas, porque el requisito cambia de un pasaporte a otro dentro de una misma familia.", "<b>El seguro de viaje no es opcional para nosotros.</b> No confirmamos un viaje sin que todos los viajeros tengan cobertura médica y de cancelación en vigor. La asistencia sanitaria en Japón es excelente y es cara; una urgencia sin seguro arruina un viaje dos veces.", "Si alguien del grupo tiene una condición médica, una alergia o una movilidad reducida que afecte al itinerario, díganoslo al principio. No para excluir a nadie: para diseñar el viaje de forma que pueda hacerlo."]},
+    {t:"Privacidad y datos personales", p:["Recogemos lo imprescindible para que el viaje exista: nombres tal y como figuran en el pasaporte, fechas, datos de contacto y de facturación, y las restricciones alimentarias o médicas que usted decida contarnos.", "<b>Esos datos se comparten sólo con quien tiene que ejecutar su servicio</b> —el hotel que le aloja, el guía que le acompaña, el restaurante que le prepara la comida— y sólo lo que ese proveedor necesita. Nunca se venden, nunca se ceden para publicidad y no alimentan ninguna lista.", "Parte de esos datos <b>viaja a Japón</b>, porque es donde están los proveedores. Es inevitable en un viaje a Japón y se lo decimos claramente en lugar de esconderlo en una cláusula.", "Las restricciones alimentarias y médicas son <b>datos sensibles</b> y los tratamos como tales: se comunican al proveedor concreto que debe atenderlas, no al grupo entero, y se borran cuando el viaje termina y la contabilidad lo permite.", "Puede pedirnos en cualquier momento qué tenemos sobre usted, que lo corrijamos o que lo borremos. Contestamos en un plazo de un mes y por escrito."]},
+    {t:"Qué guarda este sitio en su navegador", p:["<b>Este sitio no usa cookies.</b> No lleva medición de audiencia, no carga guiones de terceros para seguirle y no envía sus datos a ninguna parte cuando usted navega.", "Lo único que se guarda en su equipo es <b>el idioma que ha elegido</b>, en el almacenamiento local del propio sitio, para no volver a preguntárselo. No sale de su navegador y desaparece al borrar los datos del sitio.", "Por eso <b>no verá aquí un aviso de cookies</b>: no hay nada que consentir. El día que se añada cualquier medición, el aviso aparecerá <b>antes</b> de que esa medición se active, y estará desactivada por defecto.", "La única petición a un servidor ajeno es la de las tipografías, alojadas en el servicio de fuentes de Google. Su navegador les pide el archivo de letra y, como en cualquier petición web, ese servicio ve desde qué dirección se pide."]},
+    {t:"Propiedad intelectual y fotografías", p:["Los textos, el diseño y el código de este sitio son de la empresa y de quien los ha escrito.", "<b>Las fotografías son de terceros y se usan con licencia libre.</b> El título, el autor y la licencia de cada una figuran en el pie de este sitio, con enlace a las condiciones de la licencia. Los títulos y los nombres de autor <b>no se traducen</b> en ninguna de las tres versiones: traducir el título de una obra rompe la atribución que su licencia exige.", "Si es usted el autor de una imagen y considera que la atribución no es correcta, escríbanos y la corregimos o la retiramos el mismo día."]},
+    {t:"Accesibilidad, ley aplicable y reclamaciones", p:["<b>Accesibilidad.</b> Este sitio se construye buscando cumplir las pautas WCAG 2.2 en nivel AA: navegación completa con teclado, foco siempre visible, contraste medido y texto alternativo en los tres idiomas. Si encuentra una barrera, díganos qué pasó y con qué navegador; se corrige y le contamos qué se cambió.", "<b>Ley aplicable.</b> La relación se rige por la legislación de los Emiratos Árabes Unidos y del Emirato de Dubái, y son competentes sus tribunales. Un cliente consumidor conserva siempre los derechos que le reconozca la ley de su país de residencia, y nada de lo escrito aquí se los quita.", "<b>Reclamaciones.</b> Antes de llegar a un tribunal preferimos hablarlo. Escríbanos describiendo qué ha pasado, con las fechas y lo que espera como solución. Contestamos por escrito en un plazo de <b>catorce días</b>, y si la respuesta es que no, decimos por qué."]}
+  ], _loc:"es-ES",
   titulo:"MERIDIANO — Consultoría de viajes privados",
   logo:"MERIDIANO", ariaMenu:"Secciones", ariaLengua:"Idioma",
   nMandato:"Mandato", nProceso:"Proceso", nTerminos:"Términos", nContacto:"Contacto",
@@ -355,7 +411,22 @@ es:{
   errCorreo:"› El correo está incompleto."
 },
 en:{
-  _dir:"ltr", _lang:"en", _loc:"en-GB",
+  _dir:"ltr", _lang:"en",
+  leVer:"Read the full terms — eight sections",
+  nLegal:"Legal information",
+  leH1:"The terms, written to be read.",
+  leEntrada:"A trip is booked with money up front and with dates that do not move. These are the rules, stated before you pay anything, and with no small print.",
+  leMaqueta:"Note: this is a proposal mock-up. The texts follow the structure of real terms, but the company's registration details are deliberately left blank, and none of this is legal advice.",
+  legal:[
+    {t:"Ownership", p:["This site belongs to <b>HARUNANA TRAVEL AND CONSULTING — FZCO</b>, a free-zone company domiciled in Dubai, United Arab Emirates, trading under the MARSA name.", "The trade licence number, the registration with the emirate's tourism authority and the full registered address <b>will be published here as soon as the company has been assigned them</b>. We would rather leave the gap visible than fill it with something that cannot be checked.", "For anything concerning this site or a booked trip, the channel is the one on the contact page. We answer in writing."]},
+    {t:"What exactly you are contracting", p:["You are contracting two different things, and it is worth not confusing them, because they do not answer the same way when something goes wrong.", "<b>One: our work.</b> Listening, designing the itinerary, choosing the suppliers, coordinating them and standing by you during the trip. For this we answer, entirely.", "<b>Two: third-party services.</b> Hotels, transport, guides, tickets and restaurants are provided by each company at the destination, and we book them <b>in your name</b>. Each provider answers for the quality of its own service. What is our responsibility is having chosen it, having checked it, and sorting it out when it fails: if a hotel falls short, we handle it, and you are not left negotiating at a counter in a language you do not speak.", "The two amounts appear <b>separately in the quotation and on the invoice</b>. You always see what each service costs and what we charge."]},
+    {t:"Payments, changes and cancellation", p:["Designing the trip starts with an <b>advance</b>, deducted in full from the final amount. The balance is paid before departure, on the schedule set out in your quotation.", "<b>Changes.</b> While the trip is being designed, changing your mind costs nothing: that is what that phase is for. Once bookings are confirmed, each supplier has its own terms and we pass them on exactly as they are, with no handling charge of our own.", "<b>Cancellation.</b> Each supplier's terms apply, and we give them to you in writing <b>before</b> anything is confirmed. Our design fee covers work already done and is not refunded once the itinerary has been delivered, unless the cancellation is down to a mistake of ours.", "<b>Currency.</b> The quotation is closed in a single currency and says which. If payment is made in another, conversion is applied at the rate on the day each invoice is issued, and that rate is stated on the document itself. We do not pass anyone an exchange risk they have not seen in writing."]},
+    {t:"Documents, visa and insurance", p:["Passports and visas are the traveller's responsibility. We tell you what you need, in good time, and we flag it if something you have told us does not add up.", "For several Gulf countries there has been, since May 2026, a <b>ninety-day electronic visa</b> for Japan. <b>We do not assume it applies to you</b>: we check your specific case — nationality, passport and purpose of travel — before fixing dates, because the requirement differs from one passport to another within the same family.", "<b>Travel insurance is not optional as far as we are concerned.</b> We do not confirm a trip unless every traveller has medical and cancellation cover in force. Healthcare in Japan is excellent and it is expensive; an emergency without insurance ruins a trip twice over.", "If anyone in the party has a medical condition, an allergy or reduced mobility that affects the itinerary, tell us at the start. Not to exclude anybody: to design the trip so that they can actually do it."]},
+    {t:"Privacy and personal data", p:["We collect what the trip cannot exist without: names exactly as they appear on the passport, dates, contact and billing details, and any dietary or medical restrictions you choose to tell us.", "<b>That data is shared only with whoever has to deliver your service</b> — the hotel that accommodates you, the guide who is with you, the restaurant preparing your meal — and only the part that supplier needs. It is never sold, never passed on for advertising, and it feeds no list.", "Some of that data <b>travels to Japan</b>, because that is where the suppliers are. On a trip to Japan this is unavoidable, and we say so plainly rather than burying it in a clause.", "Dietary and medical restrictions are <b>sensitive data</b> and we treat them as such: they go to the specific supplier who must act on them, not to the whole group, and they are deleted once the trip is over and the accounts allow it.", "You can ask us at any time what we hold about you, to correct it or to delete it. We answer within one month, in writing."]},
+    {t:"What this site stores in your browser", p:["<b>This site uses no cookies.</b> It carries no audience measurement, loads no third-party scripts to follow you, and sends your data nowhere while you browse.", "The only thing stored on your machine is <b>the language you chose</b>, in this site's own local storage, so that you are not asked twice. It never leaves your browser and it disappears when you clear the site's data.", "That is why <b>you will see no cookie banner here</b>: there is nothing to consent to. The day any measurement is added, the banner will appear <b>before</b> that measurement is switched on, and it will be off by default.", "The single request to someone else's server is for the typefaces, hosted on Google's font service. Your browser asks it for the letterforms and, as with any web request, that service sees the address the request comes from."]},
+    {t:"Intellectual property and photographs", p:["The texts, the design and the code of this site belong to the company and to those who wrote them.", "<b>The photographs belong to third parties and are used under free licences.</b> The title, author and licence of each appear in this site's footer, linked to the licence terms. Titles and author names <b>are not translated</b> in any of the three versions: translating the title of a work breaks the attribution its licence requires.", "If you are the author of an image and believe the attribution is wrong, write to us and we will correct it or take it down the same day."]},
+    {t:"Accessibility, governing law and complaints", p:["<b>Accessibility.</b> This site is built aiming to meet the WCAG 2.2 guidelines at level AA: full keyboard navigation, focus always visible, measured contrast and alternative text in all three languages. If you hit a barrier, tell us what happened and in which browser; it gets fixed and we tell you what changed.", "<b>Governing law.</b> The relationship is governed by the law of the United Arab Emirates and the Emirate of Dubai, whose courts have jurisdiction. A consumer client always keeps the rights granted by the law of their country of residence, and nothing written here takes those away.", "<b>Complaints.</b> Before it reaches a court we would rather talk. Write describing what happened, with dates and what you expect as a remedy. We answer in writing within <b>fourteen days</b>, and if the answer is no, we say why."]}
+  ], _loc:"en-GB",
   titulo:"MERIDIANO — Private travel consultancy",
   logo:"MERIDIANO", ariaMenu:"Sections", ariaLengua:"Language",
   nMandato:"Mandate", nProceso:"Process", nTerminos:"Terms", nContacto:"Contact",
@@ -393,7 +464,22 @@ en:{
   errCorreo:"› The email is incomplete."
 },
 ar:{
-  _dir:"rtl", _lang:"ar", _loc:"ar-u-nu-arab",
+  _dir:"rtl", _lang:"ar",
+  leVer:"قراءة الشروط كاملةً — ثمانية أقسام",
+  nLegal:"معلومات قانونية",
+  leH1:"الشروط، مكتوبة لتُقرأ.",
+  leEntrada:"الرحلة تُتعاقَد بمال مقدَّم وبمواعيد لا تتحرّك. هذه هي القواعد، مقولةً قبل أن تدفع شيئًا، وبلا خطّ صغير.",
+  leMaqueta:"تنبيه: هذا نموذج عرض. النصوص تتبع بنية شروط حقيقية، لكن بيانات السجلّ التجاري للشركة تُركت فارغة عمدًا، وليس في هذا استشارة قانونية.",
+  legal:[
+    {t:"الملكية", p:["هذا الموقع مملوك لـ<b>هارونانا للسفر والاستشارات — FZCO</b>، شركة منطقة حرّة مقرّها دبي، الإمارات العربية المتحدة، وتعمل تجاريًّا تحت اسم «مَرْسى».", "أما رقم الرخصة التجارية والتسجيل لدى هيئة السياحة في الإمارة والعنوان الكامل، <b>فستُنشر هنا فور تخصيصها للشركة</b>. نفضّل ترك الفراغ ظاهرًا على ملئه بما لا يمكن التحقّق منه.", "ولأي أمر يخصّ هذا الموقع أو رحلة متعاقدًا عليها، القناة هي المذكورة في صفحة التواصل. ونردّ كتابةً."]},
+    {t:"ما الذي تتعاقد عليه بالضبط", p:["أنت تتعاقد على شيئين مختلفين، ويجدر ألّا يختلطا، لأنّهما لا يتحمّلان المسؤولية بالطريقة نفسها حين يسوء شيء.", "<b>الأول: عملنا نحن.</b> الإصغاء، وتصميم خطّ السير، واختيار المورّدين، وتنسيقهم، ومرافقتك أثناء الرحلة. عن هذا نتحمّل المسؤولية كاملةً.", "<b>الثاني: خدمات أطراف أخرى.</b> الفنادق والنقل والمرشدون والتذاكر والمطاعم تقدّمها كلُّ شركة في الوجهة، ونحن نحجزها <b>باسمك</b>. وعن جودة كل خدمة يتحمّل المسؤولية من يقدّمها. أما ما يقع علينا فهو أنّنا اخترناها وتحقّقنا منها ونحلّها حين تتعثّر: إن قصّر فندق فنحن من يتولّى الأمر، ولا تُترك تفاوض عند طاولة استقبال بلغة لا تتكلّمها.", "والبندان يظهران <b>منفصلين في العرض وفي الفاتورة</b>. ترى دائمًا كم تكلّف كل خدمة وكم نتقاضى نحن."]},
+    {t:"الدفع والتعديل والإلغاء", p:["يبدأ تصميم الرحلة بـ<b>دفعة مقدَّمة</b> تُخصم بالكامل من المبلغ النهائي. ويُسدَّد الباقي قبل السفر، وفق الجدول المذكور في عرضك.", "<b>التعديلات.</b> ما دامت الرحلة قيد التصميم، فتغيير رأيك لا يكلّف شيئًا: لهذا وُجدت تلك المرحلة. وبعد تأكيد الحجوزات، لكل مورّد شروطه ونحن ننقلها إليك كما هي، دون رسم إضافي منّا مقابل إدارة التعديل.", "<b>الإلغاء.</b> تُطبَّق شروط كل مورّد، ونسلّمها لك كتابةً <b>قبل</b> تأكيد أي شيء. أما أتعاب التصميم فتغطّي عملًا أُنجز فعلًا ولا تُردّ بعد تسليم خطّ السير، إلّا إذا كان الإلغاء بسبب خطأ منّا.", "<b>العملة.</b> يُغلق العرض بعملة واحدة ويُذكر أيّها. وإن جرى الدفع بعملة أخرى، يُطبَّق التحويل بسعر يوم إصدار كل فاتورة، ويُذكر ذلك السعر في المستند نفسه. ولا نحمّل أحدًا مخاطرة صرف لم يرها مكتوبة."]},
+    {t:"الوثائق والتأشيرة والتأمين", p:["جواز السفر والتأشيرات مسؤولية المسافر. ونحن نخبرك بما تحتاجه، بوقت كافٍ، وننبّهك إن كان في ما ترويه ما لا يستقيم.", "بالنسبة إلى عدّة دول خليجية، توجد منذ أيار ٢٠٢٦ <b>تأشيرة إلكترونية لتسعين يومًا</b> لليابان. <b>ولا نفترض أنّها تنطبق عليك</b>: نتحقّق من حالتك تحديدًا — الجنسية وجواز السفر وغرض السفر — قبل تثبيت المواعيد، لأنّ الشرط يختلف من جواز إلى آخر داخل العائلة الواحدة.", "<b>وتأمين السفر ليس اختياريًّا عندنا.</b> لا نؤكّد رحلة ما لم يكن لدى كل المسافرين تغطية طبية وتغطية إلغاء سارية. الرعاية الصحية في اليابان ممتازة وهي مكلفة؛ وطارئ بلا تأمين يُفسد الرحلة مرّتين.", "وإن كان لدى أحد أفراد المجموعة حالة طبية أو حساسية أو محدودية حركة تؤثّر في خطّ السير، فأخبرنا من البداية. لا لاستبعاد أحد، بل لتصميم الرحلة على نحو يمكّنه من القيام بها."]},
+    {t:"الخصوصية والبيانات الشخصية", p:["نجمع ما لا تقوم الرحلة بدونه: الأسماء كما تَرِد في جواز السفر، والمواعيد، وبيانات التواصل والفوترة، وما تختار أن تخبرنا به من قيود غذائية أو طبية.", "<b>وهذه البيانات تُشارَك فقط مع من عليه تنفيذ خدمتك</b> — الفندق الذي يُسكنك، والمرشد الذي يرافقك، والمطعم الذي يعدّ طعامك — وبالقدر الذي يحتاجه ذلك المورّد فقط. ولا تُباع أبدًا، ولا تُمرَّر لأغراض إعلانية، ولا تغذّي أي قائمة.", "وجزء من تلك البيانات <b>ينتقل إلى اليابان</b>، لأنّ المورّدين هناك. وهذا لا مفرّ منه في رحلة إلى اليابان، ونقوله صراحةً بدل إخفائه في بند.", "والقيود الغذائية والطبية <b>بيانات حسّاسة</b> ونعاملها كذلك: تُبلَّغ للمورّد المعنيّ الذي عليه أن يراعيها، لا للمجموعة كلّها، وتُمحى بعد انتهاء الرحلة حين تسمح المحاسبة بذلك.", "ويمكنك في أي وقت أن تسألنا عمّا لدينا عنك، وأن تطلب تصحيحه أو محوه. ونردّ خلال شهر، كتابةً."]},
+    {t:"ما يحفظه هذا الموقع في متصفّحك", p:["<b>هذا الموقع لا يستعمل ملفات تعريف الارتباط.</b> لا يحمل قياس جمهور، ولا يحمّل نصوصًا برمجية لطرف ثالث لتتبّعك، ولا يرسل بياناتك إلى أي جهة أثناء تصفّحك.", "الشيء الوحيد المحفوظ في جهازك هو <b>اللغة التي اخترتها</b>، في التخزين المحلّي الخاصّ بالموقع، كي لا تُسأل مرّتين. ولا يغادر متصفّحك ويزول بمسح بيانات الموقع.", "لذلك <b>لن ترى هنا إشعار ارتباط</b>: لا شيء يُوافَق عليه. ويوم يُضاف أي قياس، سيظهر الإشعار <b>قبل</b> تفعيل ذلك القياس، وسيكون مُطفأً افتراضيًّا.", "والطلب الوحيد إلى خادم غيرنا هو طلب الخطوط، المستضافة على خدمة الخطوط من غوغل. يطلب متصفّحك ملفّ الحرف، وكأي طلب على الويب ترى تلك الخدمة العنوان الذي جاء منه الطلب."]},
+    {t:"الملكية الفكرية والصور", p:["نصوص هذا الموقع وتصميمه وشيفرته ملك للشركة ولمن كتبها.", "<b>أما الصور فهي لأطراف أخرى وتُستعمل برُخص حرّة.</b> عنوان كل صورة ومؤلّفها ورخصتها مذكورة في أسفل هذا الموقع، مع رابط إلى شروط الرخصة. والعناوين وأسماء المؤلّفين <b>لا تُترجم</b> في أيٍّ من النسخ الثلاث: فترجمة عنوان عمل تكسر النسبة التي تشترطها رخصته.", "وإن كنت صاحب صورة ورأيت أنّ النسبة غير صحيحة، فاكتب إلينا ونصحّحها أو نسحبها في اليوم نفسه."]},
+    {t:"سهولة الوصول والقانون الواجب التطبيق والشكاوى", p:["<b>سهولة الوصول.</b> بُني هذا الموقع سعيًا إلى استيفاء إرشادات WCAG 2.2 عند المستوى AA: تصفّح كامل بلوحة المفاتيح، وتركيز مرئيّ دائمًا، وتباين مقيس، ونصّ بديل باللغات الثلاث. وإن صادفت عائقًا فأخبرنا بما حدث وبأي متصفّح؛ يُصلَح ونخبرك بما تغيّر.", "<b>القانون الواجب التطبيق.</b> تخضع العلاقة لقوانين الإمارات العربية المتحدة وإمارة دبي، ولمحاكمها الاختصاص. ويحتفظ العميل المستهلك دائمًا بالحقوق التي يمنحها له قانون بلد إقامته، ولا شيء ممّا كُتب هنا يسلبه إيّاها.", "<b>الشكاوى.</b> قبل الوصول إلى محكمة نفضّل الحديث. اكتب واصفًا ما جرى، بالتواريخ وبما تتوقّعه حلًّا. ونردّ كتابةً خلال <b>أربعة عشر يومًا</b>، وإن كان الجواب لا، قلنا لماذا."]}
+  ], _loc:"ar-u-nu-arab",
   titulo:"خط الطول — استشارات السفر الخاصة",
   logo:"خط الطول", ariaMenu:"الأقسام", ariaLengua:"اللغة",
   nMandato:"التكليف", nProceso:"سير العمل", nTerminos:"الشروط", nContacto:"تواصل",
@@ -466,6 +552,24 @@ function pintarHusos(){
     {weekday:"long", day:"numeric", month:"long", year:"numeric"}).format(ahora);
 }
 
+
+function numero(t, n){
+  var loc = t._lang === "ar" ? "ar-u-nu-arab" : t._lang;
+  try { return new Intl.NumberFormat(loc).format(n); } catch(e){ return String(n); }
+}
+
+function pintarLegal(t){
+  var idx = document.getElementById("leIndice"), cuerpo = document.getElementById("leCuerpo");
+  if (!idx || !t.legal) return;
+  idx.innerHTML = t.legal.map(function(b, i){
+    return '<a href="#le' + i + '"><span class="n">' + numero(t, i + 1) + '.</span>' + b.t + "</a>";
+  }).join("");
+  cuerpo.innerHTML = t.legal.map(function(b, i){
+    return '<div class="bq" id="le' + i + '"><h3>' + numero(t, i + 1) + ". " + b.t + "</h3>" +
+           b.p.map(function(x){ return "<p>" + x + "</p>"; }).join("") + "</div>";
+  }).join("");
+}
+
 function aplicar(codigo){
   if (!T[codigo]) codigo = "es";
   idioma = codigo;
@@ -473,6 +577,7 @@ function aplicar(codigo){
   document.documentElement.lang = t._lang;
   document.documentElement.dir  = t._dir;
   document.title = t.titulo;
+  pintarLegal(t);
 
   var n = document.querySelectorAll("[data-t]");
   for (i = 0; i < n.length; i++){
