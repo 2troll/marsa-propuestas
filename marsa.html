@@ -299,7 +299,12 @@ html[dir="rtl"] .pasos > li::before{content:"٠" counter(p,arabic-indic);}
   border-top:1px solid var(--linea);padding-top:1.5rem;
   display:grid;gap:.85rem;
 }
-.destino .banda{height:5px;background:var(--tono);width:100%;}
+/* Dos cosas distintas se llamaban «banda»: este filete de color del destino y
+   las barras del calendario de estacionalidad. La regla general de aquéllas es
+   «position:absolute», y como ésta no fijaba posición la heredaba: el filete se
+   salía a lo ancho de la ventana y la ruta de destinos desbordaba 759 px. */
+.destino .banda{position:static;height:5px;background:var(--tono);width:100%;
+  border-radius:0;box-shadow:none;}
 .destino h3{font-size:1.6rem;}
 .destino p{color:var(--texto-2);font-size:.96rem;}
 .destino .apunte{color:var(--texto-3);font-size:.86rem;}
