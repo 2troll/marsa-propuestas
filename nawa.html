@@ -162,7 +162,14 @@ footer.n{border-top:1px solid var(--hilo); padding-block:2rem 2.8rem;
   font-size:.76rem; color:var(--luz-3); display:flex; flex-wrap:wrap; gap:.6rem 2rem;}
 .ltr{direction:ltr; unicode-bidi:isolate; display:inline-block;}
 </style>
-</head>
+<style>
+/* La portada de NAWA es el mapa de estrellas dibujado en canvas; una foto
+   detrás competiría con él. La fotografía entra después, como descanso. */
+.placa{position:relative;margin:4rem 0 0;}
+.placa img{width:100%;height:auto;display:block;filter:brightness(.82) saturate(.9);}
+.placa figcaption{font-size:.78rem;line-height:1.7;opacity:.68;margin-top:.7rem;}
+.creditos-foto{font-size:.76rem;line-height:1.7;list-style:none;padding:0;margin:1.3rem 0 0;opacity:.68;}
+</style></head>
 <body>
 <header class="n">
   <div class="marco barra">
@@ -189,6 +196,12 @@ footer.n{border-top:1px solid var(--hilo); padding-block:2rem 2.8rem;
       <p class="bajo" data-t="bajo">Nawà, en árabe, es proponerse ir a un sitio. La intención antes que el trayecto. Nosotros empezamos ahí y no en un catálogo.</p>
     </div>
   </section>
+
+  <figure class="placa">
+    <img src="img/fuji-noche.jpg" loading="lazy" decoding="async" width="1400" height="938"
+         data-t-attr="alt:altFuji" alt="El monte Fuji de noche desde el lago Kawaguchi">
+    <div class="marco"><figcaption data-t="pieFuji">El Fuji desde el lago Kawaguchi, de noche.</figcaption></div>
+  </figure>
 
   <section class="marco tramo" id="capitulos">
     <p class="epig" data-t="epigCap">Cómo trabajamos</p>
@@ -256,6 +269,7 @@ footer.n{border-top:1px solid var(--hilo); padding-block:2rem 2.8rem;
   <span class="ltr">HARUNANA TRAVEL AND CONSULTING — FZCO</span>
   <span data-t="pieSede">Dubái</span>
   <span class="ltr">© 2026</span>
+  <ul class="creditos-foto" id="credFotos"></ul>
 </footer>
 
 <script>
@@ -370,6 +384,9 @@ footer.n{border-top:1px solid var(--hilo); padding-block:2rem 2.8rem;
 var T = {
 es:{
   _dir:"ltr", _lang:"es",
+  altFuji:"El monte Fuji de noche, visto desde el lago Kawaguchi",
+  pieFuji:"El Fuji desde el lago Kawaguchi, de noche. Se llega antes del amanecer y se espera: es una decisión de itinerario, no una casualidad.",
+  credRot:"Fotografía",
   titulo:"NAWA — Viajes privados",
   marca:"NAWA", ariaMenu:"Secciones", ariaLengua:"Idioma",
   nComo:"Cómo", nContacto:"Contacto", pieSede:"Dubái",
@@ -399,6 +416,9 @@ es:{
 },
 en:{
   _dir:"ltr", _lang:"en",
+  altFuji:"Mount Fuji at night, seen from Lake Kawaguchi",
+  pieFuji:"Fuji from Lake Kawaguchi, at night. You arrive before dawn and you wait: that is an itinerary decision, not a coincidence.",
+  credRot:"Photograph",
   titulo:"NAWA — Private journeys",
   marca:"NAWA", ariaMenu:"Sections", ariaLengua:"Language",
   nComo:"How", nContacto:"Contact", pieSede:"Dubai",
@@ -428,6 +448,9 @@ en:{
 },
 ar:{
   _dir:"rtl", _lang:"ar",
+  altFuji:"جبل فوجي ليلًا، من بحيرة كاواغوتشي",
+  pieFuji:"فوجي من بحيرة كاواغوتشي ليلًا. يُوصَل قبل الفجر ويُنتظَر: هذا قرار في خطّ السير، لا مصادفة.",
+  credRot:"الصورة",
   titulo:"نَوى — أسفار خاصة",
   marca:"نَوى", ariaMenu:"الأقسام", ariaLengua:"اللغة",
   nComo:"كيف نعمل", nContacto:"تواصل", pieSede:"دبي",
@@ -459,6 +482,22 @@ ar:{
 
 var idioma = "es";
 
+
+/* La ficha de la fotografía vive fuera de los diccionarios: traducir el título
+   o el autor de una obra rompe la atribución que exige su licencia. */
+var FOTOS = [
+  {t:"Mount Fuji at night, Kawaguchiko", a:"Sergiy Galyonkin", l:"CC BY-SA 2.0", u:"https://creativecommons.org/licenses/by-sa/2.0/"},
+];
+
+function pintarCreditos(t){
+  var caja = document.getElementById("credFotos");
+  if (!caja) return;
+  caja.innerHTML = "<li><b>" + t.credRot + "</b></li>" + FOTOS.map(function(f){
+    return '<li><span class="ltr">' + f.t + " \u00b7 " + f.a +
+           ' \u00b7 <a href="' + f.u + '" rel="noopener">' + f.l + "</a></span></li>";
+  }).join("");
+}
+
 function aplicar(codigo){
   if (!T[codigo]) codigo = "es";
   idioma = codigo;
@@ -466,6 +505,7 @@ function aplicar(codigo){
   document.documentElement.lang = t._lang;
   document.documentElement.dir  = t._dir;
   document.title = t.titulo;
+  pintarCreditos(t);
 
   var n = document.querySelectorAll("[data-t]");
   for (i = 0; i < n.length; i++){

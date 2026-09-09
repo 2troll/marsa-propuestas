@@ -208,7 +208,14 @@ footer.casa .razon{font-family:var(--util); letter-spacing:.1em;}
 html[dir="rtl"] footer.casa .razon{letter-spacing:0;}
 .ltr{direction:ltr; unicode-bidi:isolate; display:inline-block;}
 </style>
-</head>
+<style>
+/* Lámina: en un manuscrito la imagen va encajada en la caja de texto, con su
+   pie debajo, no a sangre. Romperla rompería el concepto de la página. */
+.lamina{margin:3rem auto 0;max-width:44rem;}
+.lamina img{width:100%;height:auto;display:block;}
+.lamina figcaption{font-size:.8rem;line-height:1.7;margin-top:.7rem;opacity:.72;}
+.creditos-foto{font-size:.76rem;line-height:1.7;list-style:none;padding:0;margin:1.3rem 0 0;opacity:.7;}
+</style></head>
 <body>
 <header class="casa">
   <div class="barra">
@@ -235,6 +242,12 @@ html[dir="rtl"] footer.casa .razon{letter-spacing:0;}
     <h1 data-t="h1">Recibir bien a alguien empieza mucho antes de que llegue.</h1>
     <p class="bajada" data-t="bajada">Un diwán es la sala donde se recibe al huésped. También el volumen donde se reúne, ordenada, la obra de un poeta. Nos gustan las dos cosas.</p>
   </section>
+
+  <figure class="caja lamina">
+    <img src="img/jardin-enkoji.jpg" loading="lazy" decoding="async" width="1400" height="933"
+         data-t-attr="alt:altJardin" alt="Jardín de musgo visto desde una sala de tatami, en el templo Enkō-ji de Kioto">
+    <figcaption data-t="pieJardin">Enkō-ji, Kioto.</figcaption>
+  </figure>
 
   <div class="caja doble"><div></div></div>
 
@@ -342,6 +355,7 @@ html[dir="rtl"] footer.casa .razon{letter-spacing:0;}
 <svg class="cenefa" id="frisoBajo" aria-hidden="true"></svg>
 <footer class="casa">
   <span class="razon" data-t="pie">DIWAN · HARUNANA TRAVEL AND CONSULTING — FZCO · Dubái</span>
+  <ul class="creditos-foto" id="credFotos"></ul>
 </footer>
 
 <script>
@@ -391,6 +405,9 @@ function friso(el){
 var T = {
 es:{
   _dir:"ltr", _lang:"es",
+  altJardin:"Jardín de musgo visto desde una sala de tatami, templo Enkō-ji, Kioto",
+  pieJardin:"Enkō-ji, Kioto. La sala se abre al jardín y el jardín se mira sentado: media hora, sin prisa. Es el tipo de parada que no aparece en un circuito de autobús.",
+  credRot:"Fotografía",
   titulo:"DIWAN — Casa de viajes",
   sello:"DIWAN", ariaMenu:"Secciones", ariaLengua:"Lengua",
   nServicios:"La casa", nMetodo:"El orden", nNosotros:"Colofón", nContacto:"Escribirnos",
@@ -431,6 +448,9 @@ es:{
 },
 en:{
   _dir:"ltr", _lang:"en",
+  altJardin:"A moss garden seen from a tatami hall, Enkō-ji temple, Kyoto",
+  pieJardin:"Enkō-ji, Kyoto. The hall opens onto the garden and the garden is looked at sitting down: half an hour, unhurried. The kind of stop that never appears on a coach tour.",
+  credRot:"Photograph",
   titulo:"DIWAN — Travel house",
   sello:"DIWAN", ariaMenu:"Sections", ariaLengua:"Language",
   nServicios:"The house", nMetodo:"The order", nNosotros:"Colophon", nContacto:"Write to us",
@@ -471,6 +491,9 @@ en:{
 },
 ar:{
   _dir:"rtl", _lang:"ar",
+  altJardin:"حديقة طحلبية تُرى من قاعة تاتامي، معبد إنكوجي، كيوتو",
+  pieJardin:"إنكوجي، كيوتو. القاعة تنفتح على الحديقة، والحديقة تُشاهَد جالسًا: نصف ساعة بلا عجلة. هذا نوع من المحطات لا يظهر في جولة بحافلة.",
+  credRot:"الصورة",
   titulo:"الديوان — دار للأسفار",
   sello:"الدِّيوان", ariaMenu:"الأقسام", ariaLengua:"اللغة",
   nServicios:"الدار", nMetodo:"الترتيب", nNosotros:"الخاتمة", nContacto:"اكتب إلينا",
@@ -513,6 +536,22 @@ ar:{
 
 var idioma = "es";
 
+
+/* La ficha de la fotografía vive fuera de los diccionarios: traducir el título
+   o el autor de una obra rompe la atribución que exige su licencia. */
+var FOTOS = [
+  {t:"Enko-ji, Kyoto — Enkoji7725", a:"lumoplank", l:"CC0", u:"https://creativecommons.org/publicdomain/zero/1.0/"},
+];
+
+function pintarCreditos(t){
+  var caja = document.getElementById("credFotos");
+  if (!caja) return;
+  caja.innerHTML = "<li><b>" + t.credRot + "</b></li>" + FOTOS.map(function(f){
+    return '<li><span class="ltr">' + f.t + " \u00b7 " + f.a +
+           ' \u00b7 <a href="' + f.u + '" rel="noopener">' + f.l + "</a></span></li>";
+  }).join("");
+}
+
 function aplicar(codigo){
   if (!T[codigo]) codigo = "es";
   idioma = codigo;
@@ -520,6 +559,7 @@ function aplicar(codigo){
   document.documentElement.lang = t._lang;
   document.documentElement.dir  = t._dir;
   document.title = t.titulo;
+  pintarCreditos(t);
 
   var n = document.querySelectorAll("[data-t]"), i;
   for (i = 0; i < n.length; i++){

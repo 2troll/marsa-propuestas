@@ -168,6 +168,24 @@ nav.principal a[aria-current="page"]{color:var(--texto);border-bottom-color:var(
   background:var(--hondo);color:var(--hondo-texto);
   padding-block:clamp(4.5rem,13vw,9rem);position:relative;overflow:hidden;
 }
+/* La fotografía va DEBAJO del color, no encima: el velo mantiene el contraste
+   del titular por encima de 4,5:1 pase lo que pase con la imagen. */
+.horizonte .fondo{
+  position:absolute;inset:0;z-index:0;
+  background-size:cover;background-position:center;
+  opacity:.34;filter:saturate(.75);
+}
+.horizonte .velo{
+  position:absolute;inset:0;z-index:1;
+  background:linear-gradient(105deg,var(--hondo) 22%,color-mix(in srgb,var(--hondo) 62%,transparent) 62%,color-mix(in srgb,var(--hondo) 30%,transparent));
+}
+.horizonte .env{position:relative;z-index:2;}
+.foto-seccion{margin:2.5rem 0 0;}
+.foto-seccion img{width:100%;height:auto;display:block;border-radius:2px;}
+.foto-seccion figcaption{font-size:.78rem;color:var(--tenue,#8a8378);margin-top:.6rem;line-height:1.6;}
+.foto-seccion figcaption a{color:inherit;}
+.creditos-foto{font-size:.78rem;line-height:1.7;}
+.creditos-foto li{margin-bottom:.3rem;}
 .horizonte::after{
   content:"";position:absolute;inset-inline:0;bottom:0;height:38%;
   background:linear-gradient(to bottom,transparent,color-mix(in srgb,var(--acento) 16%,transparent));
@@ -443,6 +461,8 @@ html[dir="rtl"] .eje-meses span{letter-spacing:0;font-size:.72rem;}
 <!-- ═══ INICIO ═══ -->
 <section data-ruta="inicio">
   <div class="horizonte">
+    <div class="fondo" style="background-image:url(img/torii-fushimi.jpg)" role="img" data-t-attr="aria-label:altTorii" aria-label="Sendero de torii en Fushimi Inari, Kioto"></div>
+    <div class="velo"></div>
     <div class="env">
       <p class="rot" data-t="iRot">Consultoría de viajes privados</p>
       <h1 data-t="iH1">Los viajes no se reservan. Se diseñan.</h1>
@@ -946,6 +966,11 @@ html[dir="rtl"] .eje-meses span{letter-spacing:0;font-size:.72rem;}
       <p class="rot" data-t="haListaRot">Lo que una familia da por supuesto</p>
       <ul class="lista" id="haLista"></ul>
     </div>
+    <figure class="foto-seccion">
+      <img src="img/mezquita-kobe.jpg" loading="lazy" decoding="async" width="1000" height="1333"
+           data-t-attr="alt:altMezquita" alt="La mezquita de Kobe, la más antigua de Japón, abierta en 1935">
+      <figcaption data-t="pieMezquita">La mezquita de Kobe, en el barrio de Kitano, abierta en 1935: la más antigua de Japón y una de las paradas que planificamos desde el principio, no sobre la marcha.</figcaption>
+    </figure>
     <p class="metodo" data-t="haMetodo">No existe una autoridad única de certificación halal en Japón: conviven varios organismos con criterios distintos. Por eso comprobamos establecimiento por establecimiento y no nos fiamos del rótulo.</p>
   </div>
   <div class="env seccion raya">
@@ -975,6 +1000,7 @@ html[dir="rtl"] .eje-meses span{letter-spacing:0;font-size:.72rem;}
       <a href="#/contacto"       data-t="nContacto">Contacto</a>
     </nav>
     <span class="fin"><span data-t="pieRazon">HARUNANA TRAVEL AND CONSULTING — FZCO · Dubái</span> <span class="ltr">© 2026</span></span>
+    <ul class="creditos-foto" id="credFotos" style="list-style:none;padding:0;margin:1.4rem 0 0"></ul>
   </div>
 </footer>
 
@@ -989,6 +1015,10 @@ var T = {
 
 es:{
   _dir:"ltr", _lang:"es",
+  altTorii:"Sendero de torii en el santuario de Fushimi Inari, Kioto",
+  altMezquita:"La mezquita de Kobe, de 1935, entre cables y pinos podados",
+  pieMezquita:"La mezquita de Kobe, en el barrio de Kitano, abierta en 1935: la más antigua de Japón. Es una de las paradas que se planifican desde el principio, no sobre la marcha.",
+  credRot:"Fotografías",
   nEstacion:"Cuándo viajar", nDia:"Un día real", nHalal:"Halal de verdad",
   bVerDia:"Ver un día real", bVerHalal:"Qué significa halal de verdad",
   esAriaAnios:"Año", diAriaPlan:"Plan del día", haAriaNivel:"Nivel de garantía",
@@ -1203,6 +1233,10 @@ es:{
 
 en:{
   _dir:"ltr", _lang:"en",
+  altTorii:"Torii path at the Fushimi Inari shrine, Kyoto",
+  altMezquita:"The Kobe mosque, built in 1935, among cables and clipped pines",
+  pieMezquita:"The Kobe mosque, in the Kitano district, opened in 1935: the oldest in Japan. It is one of the stops planned from the outset, not improvised on the day.",
+  credRot:"Photographs",
   nEstacion:"When to travel", nDia:"A real day", nHalal:"What halal means",
   bVerDia:"See a real day", bVerHalal:"What halal actually means",
   esAriaAnios:"Year", diAriaPlan:"Day plan", haAriaNivel:"Level of assurance",
@@ -1417,6 +1451,10 @@ en:{
 
 ar:{
   _dir:"rtl", _lang:"ar",
+  altTorii:"درب البوابات في معبد فوشيمي إيناري، كيوتو",
+  altMezquita:"مسجد كوبه، المبني عام ١٩٣٥، بين الأسلاك وأشجار الصنوبر المشذّبة",
+  pieMezquita:"مسجد كوبه في حيّ كيتانو، افتُتح عام ١٩٣٥، وهو أقدم مساجد اليابان. وهو من المحطات التي تُخطَّط من البداية، لا في يومها.",
+  credRot:"الصور",
   nEstacion:"متى تسافر", nDia:"يوم حقيقي", nHalal:"معنى الحلال",
   bVerDia:"شاهد يومًا حقيقيًا", bVerHalal:"ما معنى الحلال فعلًا",
   esAriaAnios:"السنة", diAriaPlan:"خطة اليوم", haAriaNivel:"درجة الضمان",
@@ -1835,6 +1873,25 @@ function rutaActual(){
 }
 
 /* Traduce TODO el documento, rutas ocultas incluidas. */
+/* Ficha de cada fotografía. Fuera de los diccionarios a propósito: el título y
+   el autor de una obra NO se traducen, porque traducirlos rompe la atribución
+   que pide la licencia. Sale de img/creditos.json, escrito por commons.py. */
+var FOTOS = [
+  {t:"Torii path at Fushimi Inari-taisha", a:"Maarten Heerlien",
+   l:"CC BY 2.0", u:"https://creativecommons.org/licenses/by/2.0/"},
+  {t:"Mosque in Japan (Kobe Muslim Mosque)", a:"Lmadcap",
+   l:"CC0", u:"https://creativecommons.org/publicdomain/zero/1.0/"}
+];
+
+function pintarCreditos(t){
+  var caja = document.getElementById("credFotos");
+  if (!caja) return;
+  caja.innerHTML = "<li><b>" + t.credRot + "</b></li>" + FOTOS.map(function(f){
+    return '<li><span class="ltr">' + f.t + " · " + f.a +
+           ' · <a href="' + f.u + '" rel="noopener">' + f.l + "</a></span></li>";
+  }).join("");
+}
+
 function aplicar(codigo){
   if (!T[codigo]) codigo = "es";
   idioma = codigo;
@@ -1855,6 +1912,7 @@ function aplicar(codigo){
       if (t[k2] !== undefined) attrs[j].setAttribute(a, t[k2]);
     });
   }
+  pintarCreditos(t);
   var bs = document.querySelectorAll(".idiomas button");
   for (var b=0;b<bs.length;b++) bs[b].setAttribute("aria-pressed", String(bs[b].dataset.lang === codigo));
 
