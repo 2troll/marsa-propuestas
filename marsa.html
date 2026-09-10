@@ -1223,6 +1223,7 @@ var T = {
 
 es:{
   _dir:"ltr", _lang:"es",
+  ciudades:["Osaka", "Kioto", "Nara", "Kobe", "Tokio", "Hiroshima"],
   nOracion:"Las horas del rezo",
   tOracion:"Las horas del rezo — MARSA",
   orH1:"Cinco paradas al día que nadie pone en el itinerario.",
@@ -1522,6 +1523,7 @@ es:{
 
 en:{
   _dir:"ltr", _lang:"en",
+  ciudades:["Osaka", "Kyoto", "Nara", "Kobe", "Tokyo", "Hiroshima"],
   nOracion:"Prayer times",
   tOracion:"Prayer times — MARSA",
   orH1:"Five stops a day that no itinerary makes room for.",
@@ -1821,6 +1823,7 @@ en:{
 
 ar:{
   _dir:"rtl", _lang:"ar",
+  ciudades:["أوساكا", "كيوتو", "نارا", "كوبه", "طوكيو", "هيروشيما"],
   nOracion:"مواقيت الصلاة",
   tOracion:"مواقيت الصلاة — مَرْسى",
   orH1:"خمس وقفات في اليوم لا يفسح لها أي برنامج مكانًا.",
@@ -2429,13 +2432,16 @@ function numero(t, n){
    Método: Umm al-Qura (fajr 18,5°, isha 90 min tras el magrib).
    ══════════════════════════════════════════════════════════════════ */
 var KAABA = [21.4225, 39.8262];
+/* Sólo coordenadas: el NOMBRE de una ciudad se traduce, y si va aquí sale en
+   español dentro del árabe. Los nombres están en los diccionarios, en el mismo
+   orden. */
 var CIUDADES = [
-  {n:"Osaka",     lat:34.6937, lon:135.5023, tz:9},
-  {n:"Kioto",     lat:35.0116, lon:135.7681, tz:9},
-  {n:"Nara",      lat:34.6851, lon:135.8048, tz:9},
-  {n:"Kobe",      lat:34.6901, lon:135.1955, tz:9},
-  {n:"Tokio",     lat:35.6895, lon:139.6917, tz:9},
-  {n:"Hiroshima", lat:34.3853, lon:132.4553, tz:9}
+  {lat:34.6937, lon:135.5023, tz:9},
+  {lat:35.0116, lon:135.7681, tz:9},
+  {lat:34.6851, lon:135.8048, tz:9},
+  {lat:34.6901, lon:135.1955, tz:9},
+  {lat:35.6895, lon:139.6917, tz:9},
+  {lat:34.3853, lon:132.4553, tz:9}
 ];
 var REZOS = ["fajr","salida","dhuhr","asr","maghrib","isha"];
 /* La salida del sol no es una oración: marca el final del tiempo del fajr. */
@@ -2514,11 +2520,11 @@ function hhmm(h, t){
 function pintarOracion(t){
   var selC = document.getElementById("orCiudad");
   if (!selC) return;
-  if (!selC.options.length){
-    selC.innerHTML = CIUDADES.map(function(c, i){
-      return '<option value="' + i + '">' + c.n + "</option>"; }).join("");
-  }
-  var ciudad = CIUDADES[+selC.value || 0];
+  var elegida = +selC.value || 0;
+  selC.innerHTML = CIUDADES.map(function(c, i){
+    return '<option value="' + i + '"' + (i === elegida ? " selected" : "") + ">" +
+           t.ciudades[i] + "</option>"; }).join("");
+  var ciudad = CIUDADES[elegida];
   var factor = +(document.getElementById("orEscuela") || {}).value || 1;
   var valor = (document.getElementById("orFecha") || {}).value || "2026-12-15";
   var partes = valor.split("-");
@@ -2556,7 +2562,7 @@ function pintarOracion(t){
     '<circle cx="' + ax + '" cy="' + ay + '" r="5" fill="var(--acento)"/>' +
     '<circle cx="' + cx + '" cy="' + cy + '" r="3.5" fill="currentColor"/></svg>';
   document.getElementById("orQuibla").innerHTML =
-    t.orQuiblaTxt.replace("{g}", hhmmGrados(q, t)).replace("{c}", ciudad.n);
+    t.orQuiblaTxt.replace("{g}", hhmmGrados(q, t)).replace("{c}", t.ciudades[elegida]);
 
   /* ── la línea del día ── */
   pintarLineaDia(t, h);
