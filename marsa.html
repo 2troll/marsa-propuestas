@@ -474,6 +474,18 @@ html[dir="rtl"] .eje-meses span{letter-spacing:0;font-size:.72rem;}
 .bloque-legal{max-width:40rem;padding-block-start:2rem;}
 .bloque-legal h2{font-size:1.25rem;margin-bottom:.7rem;}
 .bloque-legal p{margin-bottom:.9rem;}
+
+/* Gráfico de mercado: barras del índice del Golfo con la curva de España
+   encima, y debajo la tira de robustez. Se dibuja en SVG con los datos, así que
+   se redibuja al cambiar de idioma y no se pixela. */
+.grafico-mercado{margin-top:2rem;}
+.grafico-mercado svg{width:100%;height:auto;display:block;overflow:visible;}
+.gm-eje{stroke:currentColor;opacity:.18;}
+.gm-mes{font-size:10px;fill:currentColor;opacity:.6;}
+.gm-val{font-size:9px;fill:currentColor;opacity:.85;}
+.gm-leyenda{display:flex;flex-wrap:wrap;gap:.4rem 1.6rem;margin-top:1rem;font-size:.82rem;color:var(--texto-2);}
+.gm-leyenda i{display:inline-block;width:.75rem;height:.75rem;border-radius:2px;
+  margin-inline-end:.4rem;vertical-align:-1px;}
 </style>
 </head>
 <body>
@@ -658,7 +670,7 @@ html[dir="rtl"] .eje-meses span{letter-spacing:0;font-size:.72rem;}
   <div class="env cabecera">
     <p class="rot" data-t="nMetodo">Método</p>
     <h1 data-t="meH1">Cuatro pasos, sin prisa y sin formularios interminables.</h1>
-    <p class="entrada" data-t="meEntrada">Nada se reserva hasta que usted ha visto el viaje entero por escrito y ha dicho que sí. Ese es todo el secreto.</p>
+    <p class="entrada" data-t="mktEntrada">Nada se reserva hasta que usted ha visto el viaje entero por escrito y ha dicho que sí. Ese es todo el secreto.</p>
   </div>
 
   <div class="env fina">
@@ -961,6 +973,28 @@ html[dir="rtl"] .eje-meses span{letter-spacing:0;font-size:.72rem;}
     </details>
     <p class="metodo" data-t="esMetodo">Fechas calculadas con el calendario islámico tabular. El inicio real depende del avistamiento lunar y puede variar uno o dos días. Las vacaciones escolares del Golfo y las temporadas altas de Japón son las habituales, no fechas oficiales.</p>
   </div>
+  <div class="env seccion raya" id="mercado">
+    <p class="rot" data-t="mktRot">El año del Golfo, medido</p>
+    <h2 class="grande" data-t="mktH2">Esto no es una impresión del sector: son las llegadas reales.</h2>
+    <p style="max-width:52ch;color:var(--texto-2);margin-top:1rem" data-t="mktEntrada"></p>
+
+    <div class="grafico-mercado" id="meGrafico"></div>
+
+    <div class="rejilla g2" style="margin-top:2.4rem">
+      <div>
+        <p class="rot" data-t="mktRobustoRot">Meses que aguantan cualquier criterio</p>
+        <p data-t="mktRobustoP" style="color:var(--texto-2)"></p>
+        <ul class="lista" id="meRobustos"></ul>
+      </div>
+      <div>
+        <p class="rot" data-t="mktDescartaRot">Meses que no ganan con ningún criterio</p>
+        <p data-t="mktDescartaP" style="color:var(--texto-2)"></p>
+        <ul class="lista" id="meDescartables"></ul>
+      </div>
+    </div>
+    <p class="metodo" data-t="mktMetodo"></p>
+  </div>
+
   <div class="env seccion raya">
     <div class="rejilla g2">
       <div><p class="rot" data-t="rSiguiente">Siguiente paso</p>
@@ -1095,6 +1129,19 @@ var T = {
 
 es:{
   _dir:"ltr", _lang:"es",
+  mktRot:"El año del Golfo, medido",
+  mktH2:"Esto no es una impresión del sector: son las llegadas reales.",
+  mktEntrada:"Las barras son las llegadas del Golfo a Japón mes a mes, con 100 como el mes medio. La línea es lo mismo para España, que es con quien choca la agenda de un guía hispanohablante. Se parecen poco: son mercados casi independientes, y ahí está el negocio.",
+  mktLeyGolfo:"Golfo (CCG)",
+  mktLeyEspana:"España",
+  mktLeyFuente:"Fuente:",
+  mktTira:"Debajo: cuántas veces cada mes queda entre los tres mejores",
+  mktGraficoAlt:"Índice estacional de llegadas del Golfo y de España a Japón, mes a mes, y franja de robustez por mes",
+  mktRobustoRot:"Meses que aguantan cualquier criterio",
+  mktRobustoP:"Se han probado diez mil formas distintas de pesar tres cosas que empujan en direcciones contrarias: la demanda del Golfo, el choque con el mercado español y el Ramadán. Estos meses quedan entre los tres mejores casi siempre, se pesen como se pesen.",
+  mktDescartaRot:"Meses que no ganan con ningún criterio",
+  mktDescartaP:"Estos no entran entre los tres mejores en ninguna de las diez mil combinaciones. Se pueden bloquear sin discusión y dedicarlos a otra cosa.",
+  mktMetodo:"Llegadas de la Organización Nacional de Turismo de Japón, agregado de los seis países del Golfo, media de 2023 a 2025. Los años 2020 a 2022 quedan fuera por la pandemia. El calendario del Ramadán se calcula con la regla tabular islámica, que puede desviarse un día del avistamiento real.",
   nLegal:"Información legal",
   nMapa:"Mapa del sitio",
   tLegal:"Información legal — MARSA",
@@ -1337,6 +1384,19 @@ es:{
 
 en:{
   _dir:"ltr", _lang:"en",
+  mktRot:"The Gulf year, measured",
+  mktH2:"This is not an industry impression: these are the actual arrivals.",
+  mktEntrada:"The bars are Gulf arrivals to Japan month by month, with 100 as the average month. The line is the same for Spain, which is what a Spanish-speaking guide's diary collides with. They look very little alike: these are almost independent markets, and that is where the business is.",
+  mktLeyGolfo:"Gulf (GCC)",
+  mktLeyEspana:"Spain",
+  mktLeyFuente:"Source:",
+  mktTira:"Below: how often each month lands in the top three",
+  mktGraficoAlt:"Seasonal index of Gulf and Spanish arrivals to Japan, month by month, with a robustness band per month",
+  mktRobustoRot:"Months that hold up under any criterion",
+  mktRobustoP:"Ten thousand different ways of weighting three forces that pull in opposite directions were tested: Gulf demand, the clash with the Spanish market, and Ramadan. These months land in the top three almost every time, however you weight them.",
+  mktDescartaRot:"Months that win under no criterion",
+  mktDescartaP:"These never land in the top three in any of the ten thousand combinations. They can be blocked without argument and used for something else.",
+  mktMetodo:"Arrivals from the Japan National Tourism Organization, aggregate of the six Gulf countries, average of 2023 to 2025. The years 2020 to 2022 are excluded because of the pandemic. The Ramadan calendar is computed with the tabular Islamic rule, which can differ by a day from the actual sighting.",
   nLegal:"Legal information",
   nMapa:"Site map",
   tLegal:"Legal information — MARSA",
@@ -1579,6 +1639,19 @@ en:{
 
 ar:{
   _dir:"rtl", _lang:"ar",
+  mktRot:"سنة الخليج، مقيسةً",
+  mktH2:"هذا ليس انطباعًا عن القطاع: هؤلاء هم الوافدون فعلًا.",
+  mktEntrada:"الأعمدة هي وافدو الخليج إلى اليابان شهرًا بشهر، و١٠٠ هو الشهر المتوسّط. والخطّ هو الشيء نفسه لإسبانيا، وهي التي يصطدم بها جدول مرشد يتحدّث الإسبانية. الشبه بينهما ضئيل: سوقان شبه مستقلّتين، وهناك يكمن العمل.",
+  mktLeyGolfo:"الخليج (دول التعاون)",
+  mktLeyEspana:"إسبانيا",
+  mktLeyFuente:"المصدر:",
+  mktTira:"في الأسفل: كم مرّة يقع كلّ شهر ضمن الثلاثة الأفضل",
+  mktGraficoAlt:"المؤشّر الموسمي لوافدي الخليج وإسبانيا إلى اليابان شهرًا بشهر، مع شريط متانة لكل شهر",
+  mktRobustoRot:"أشهر تصمد أمام أي معيار",
+  mktRobustoP:"جُرِّبت عشرة آلاف طريقة مختلفة لترجيح ثلاث قوى تتجاذب في اتجاهات متعاكسة: طلب الخليج، والتعارض مع السوق الإسبانية، ورمضان. وهذه الأشهر تقع ضمن الثلاثة الأفضل في معظم الحالات، مهما كان الترجيح.",
+  mktDescartaRot:"أشهر لا تفوز بأي معيار",
+  mktDescartaP:"هذه لا تدخل ضمن الثلاثة الأفضل في أيٍّ من التركيبات العشرة آلاف. يمكن حجبها بلا نقاش وتخصيصها لشيء آخر.",
+  mktMetodo:"الوافدون بحسب المنظمة الوطنية للسياحة في اليابان، مجموع دول الخليج الستّ، متوسّط ٢٠٢٣ إلى ٢٠٢٥. وتُستبعد سنوات ٢٠٢٠ إلى ٢٠٢٢ بسبب الجائحة. ويُحسب تقويم رمضان بالقاعدة الإسلامية الجدولية، وقد يختلف يومًا واحدًا عن الرؤية الفعلية.",
   nLegal:"معلومات قانونية",
   nMapa:"خريطة الموقع",
   tLegal:"معلومات قانونية — مَرْسى",
@@ -2013,6 +2086,70 @@ function pintarHalal(){
 
 function repintar(){ pintarEstacionalidad(); pintarDia(); pintarHalal(); }
 
+
+/* Datos reales del mercado, no de ejemplo. Salen del análisis de
+   ~/projects/golfo-datos (python/para-web.py) y se incrustan aquí en vez de
+   recalcularse, para que esta página no pueda decir una cifra distinta de la
+   del informe. Fuera de los diccionarios de idioma: un número no se traduce. */
+var MERCADO = {
+  "fuente": "JNTO, 国籍/月別 訪日外客数 · agregado GCC6か国, 2023-2025",
+  "golfo": [
+    61.2,
+    62.7,
+    52.5,
+    130.7,
+    110.4,
+    114.3,
+    120.9,
+    74.1,
+    83.2,
+    117.8,
+    139.2,
+    133.2
+  ],
+  "espana": [
+    33.1,
+    41.3,
+    92.0,
+    93.9,
+    92.9,
+    87.9,
+    125.0,
+    168.6,
+    127.6,
+    151.7,
+    118.7,
+    67.2
+  ],
+  "robustez": [
+    40.3,
+    8.6,
+    0,
+    78.9,
+    0,
+    16.9,
+    0,
+    0,
+    0,
+    0,
+    55.2,
+    100
+  ],
+  "robustos": [
+    "diciembre",
+    "abril"
+  ],
+  "descartables": [
+    "mayo",
+    "julio",
+    "octubre",
+    "septiembre",
+    "marzo",
+    "agosto"
+  ],
+  "repartos": 10000
+};
+
 var RUTAS = ["inicio","servicios","metodo","destinos","estacionalidad","dia","halal","nosotros","preguntas","contacto","legal","mapa","err"];
 var TITULOS = {inicio:"tInicio",servicios:"tServicios",metodo:"tMetodo",
                destinos:"tDestinos",estacionalidad:"tEstacion",dia:"tDia",halal:"tHalal",
@@ -2047,6 +2184,90 @@ var FOTOS = [
 function numero(t, n){
   var loc = t._lang === "ar" ? "ar-u-nu-arab" : t._lang;
   try { return new Intl.NumberFormat(loc).format(n); } catch(e){ return String(n); }
+}
+
+/* ── El año del Golfo, dibujado ──────────────────────────────────────────────
+   Barras: índice estacional de llegadas del Golfo. Línea: el mismo índice para
+   España, que es con quien choca la agenda. Tira inferior: cuántas veces cada
+   mes queda entre los tres mejores al probar diez mil repartos de peso.
+   Todo en SVG y con los datos reales, así que se redibuja al cambiar de idioma
+   y se refleja solo en árabe. */
+function pintarMercado(t){
+  var caja = document.getElementById("meGrafico");
+  if (!caja || typeof MERCADO === "undefined") return;
+
+  var rtl = t._dir === "rtl";
+  var W = 720, H = 280, izq = 34, der = 12, arr = 16, baj = 64;
+  var ancho = W - izq - der, alto = H - arr - baj;
+  var maxV = Math.max.apply(null, MERCADO.golfo.concat(MERCADO.espana)) * 1.08;
+  var paso = ancho / 12;
+  var x = function(i){ return izq + (rtl ? (11 - i) : i) * paso; };
+  var y = function(v){ return arr + alto - v / maxV * alto; };
+
+  var partes = [];
+
+  // rejilla horizontal cada 50 puntos de índice
+  for (var g = 0; g <= maxV; g += 50){
+    partes.push('<line class="gm-eje" x1="'+izq+'" x2="'+(W-der)+'" y1="'+y(g)+'" y2="'+y(g)+'"/>');
+    partes.push('<text class="gm-mes" x="'+(izq-6)+'" y="'+(y(g)+3)+'" text-anchor="end">'+g+'</text>');
+  }
+  // la línea del 100: el mes medio
+  partes.push('<line x1="'+izq+'" x2="'+(W-der)+'" y1="'+y(100)+'" y2="'+y(100)+
+              '" stroke="currentColor" stroke-dasharray="3 3" opacity=".45"/>');
+
+  // barras del Golfo
+  MERCADO.golfo.forEach(function(v, i){
+    var bx = x(i) + paso * 0.18, bw = paso * 0.64;
+    partes.push('<rect x="'+bx+'" y="'+y(v)+'" width="'+bw+'" height="'+(y(0)-y(v))+
+                '" fill="var(--acento)" opacity=".85" rx="2"><title>'+
+                t.meses[i]+': '+v.toFixed(0)+'</title></rect>');
+    partes.push('<text class="gm-val" x="'+(bx+bw/2)+'" y="'+(y(v)-4)+
+                '" text-anchor="middle">'+v.toFixed(0)+'</text>');
+  });
+
+  // línea de España
+  var pts = MERCADO.espana.map(function(v, i){
+    return (x(i) + paso/2).toFixed(1) + "," + y(v).toFixed(1);
+  }).join(" ");
+  partes.push('<polyline points="'+pts+'" fill="none" stroke="var(--texto-2)" '+
+              'stroke-width="1.8" stroke-linejoin="round" opacity=".9"/>');
+  MERCADO.espana.forEach(function(v, i){
+    partes.push('<circle cx="'+(x(i)+paso/2)+'" cy="'+y(v)+'" r="2.6" fill="var(--texto-2)"><title>'+
+                t.meses[i]+': '+v.toFixed(0)+'</title></circle>');
+  });
+
+  // tira de robustez, debajo del eje
+  var yTira = arr + alto + 26;
+  MERCADO.robustez.forEach(function(v, i){
+    var bx = x(i) + paso * 0.18, bw = paso * 0.64;
+    var op = 0.14 + v / 100 * 0.86;
+    partes.push('<rect x="'+bx+'" y="'+yTira+'" width="'+bw+'" height="12" rx="2" '+
+                'fill="var(--acento)" opacity="'+op.toFixed(2)+'"><title>'+
+                t.meses[i]+': '+v.toFixed(0)+' %</title></rect>');
+  });
+
+  // nombres de mes
+  MERCADO.golfo.forEach(function(_, i){
+    partes.push('<text class="gm-mes" x="'+(x(i)+paso/2)+'" y="'+(arr+alto+16)+
+                '" text-anchor="middle">'+t.meses[i]+'</text>');
+  });
+  partes.push('<text class="gm-mes" x="'+izq+'" y="'+(yTira+26)+'">'+t.mktTira+'</text>');
+
+  caja.innerHTML = '<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="'+
+    t.mktGraficoAlt+'">'+partes.join("")+'</svg>'+
+    '<div class="gm-leyenda">'+
+      '<span><i style="background:var(--acento)"></i>'+t.mktLeyGolfo+'</span>'+
+      '<span><i style="background:var(--texto-2)"></i>'+t.mktLeyEspana+'</span>'+
+      '<span>'+t.mktLeyFuente+' '+MERCADO.fuente+'</span>'+
+    '</div>';
+
+  var lista = function(id, meses){
+    var c = document.getElementById(id);
+    if (c) c.innerHTML = meses.map(function(m){
+      return "<li>" + m.charAt(0).toUpperCase() + m.slice(1) + "</li>"; }).join("");
+  };
+  lista("meRobustos", MERCADO.robustos);
+  lista("meDescartables", MERCADO.descartables);
 }
 
 function pintarLegal(t){
@@ -2102,6 +2323,7 @@ function aplicar(codigo){
       if (t[k2] !== undefined) attrs[j].setAttribute(a, t[k2]);
     });
   }
+  pintarMercado(t);
   pintarLegal(t);
   pintarMapa(t);
   pintarCreditos(t);
