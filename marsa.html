@@ -538,6 +538,71 @@ html[dir="rtl"] .or-choque{padding:.7rem 1rem .7rem 0;}
 .fiestas-lista{list-style:none;padding:0;margin:1.2rem 0 0;font-size:.9rem;color:var(--texto-2);}
 .fiestas-lista li{padding-block:.3rem;border-bottom:1px solid rgba(127,127,127,.16);
   display:flex;gap:1rem;justify-content:space-between;}
+
+/* ══════════════════════════════════════════════════════════════════
+   PORTADA A SANGRE Y BANDA DE CIFRAS
+   El problema del diseño anterior no era el color: era el ritmo. Todo
+   eran rectángulos del mismo alto apilados. Aquí la portada ocupa la
+   pantalla entera y detrás entra una banda oscura con tres cifras a un
+   tamaño que no admite discusión. Ese salto de escala es lo que hace
+   que una página se lea como una publicación y no como un folleto.
+   ══════════════════════════════════════════════════════════════════ */
+.portada-plena{
+  min-height:min(88vh, 760px);
+  display:flex;flex-direction:column;justify-content:center;
+  padding-block:clamp(5rem,12vw,9rem) clamp(3rem,7vw,5rem);
+}
+.portada-plena .fondo{opacity:.42;}
+.portada-plena h1{
+  font-size:clamp(2.6rem,6.6vw,5.2rem);line-height:1.02;letter-spacing:-.02em;
+  max-width:15ch;
+}
+html[lang="ar"] .portada-plena h1{letter-spacing:0;line-height:1.28;}
+.portada-plena .entrada{max-width:44ch;font-size:clamp(1rem,1.6vw,1.22rem);}
+
+/* La marca de «sigue bajando»: una línea que respira. Es el único
+   movimiento de la página y se apaga si el sistema pide menos. */
+.pie-portada{
+  position:relative;z-index:2;margin-top:auto;padding-top:3rem;
+  display:flex;align-items:center;gap:.9rem;
+  font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;
+  color:color-mix(in srgb,var(--hondo-texto) 62%,transparent);
+  padding-inline:clamp(1.2rem,5vw,4rem);
+}
+html[dir="rtl"] .pie-portada{text-transform:none;letter-spacing:0;}
+.pie-portada .linea-vertical{
+  width:1px;height:46px;background:currentColor;opacity:.5;
+  transform-origin:top;animation:respira 2.8s ease-in-out infinite;
+}
+@keyframes respira{0%,100%{transform:scaleY(.35);opacity:.25}50%{transform:scaleY(1);opacity:.7}}
+@media(prefers-reduced-motion:reduce){
+  .pie-portada .linea-vertical{animation:none;transform:none;opacity:.5}
+}
+
+/* Banda de cifras: fondo hondo, números enormes, texto pequeño debajo.
+   El contraste de tamaño ES el diseño; sin él son tres párrafos más. */
+.banda-cifras{background:var(--hondo);color:var(--hondo-texto);
+  padding-block:clamp(3.4rem,8vw,6rem);}
+.banda-cifras .rot{color:color-mix(in srgb,var(--acento) 78%,#fff);}
+.cifras-monumentales{
+  display:grid;gap:clamp(2rem,4vw,3.4rem);margin-top:2.6rem;
+  grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr));
+}
+.cifra-monumental{margin:0;border-top:2px solid color-mix(in srgb,var(--hondo-texto) 30%,transparent);
+  padding-top:1.2rem;}
+.cifra-monumental b{
+  display:block;font-family:var(--display);font-weight:400;
+  font-size:clamp(3.4rem,8vw,6.2rem);line-height:.92;letter-spacing:-.03em;
+  font-variant-numeric:tabular-nums;
+}
+html[lang="ar"] .cifra-monumental b{letter-spacing:0;font-size:clamp(3rem,7vw,5.4rem);}
+.cifra-monumental b span{font-size:.42em;margin-inline-start:.12em;opacity:.62;}
+.cifra-monumental figcaption{
+  margin-top:.9rem;font-size:.93rem;line-height:1.55;max-width:30ch;
+  color:color-mix(in srgb,var(--hondo-texto) 76%,transparent);
+}
+.cifras-fuente{margin-top:2.6rem;font-size:.78rem;max-width:62ch;
+  color:color-mix(in srgb,var(--hondo-texto) 52%,transparent);}
 </style>
 </head>
 <body>
@@ -569,7 +634,7 @@ html[dir="rtl"] .or-choque{padding:.7rem 1rem .7rem 0;}
 
 <!-- ═══ INICIO ═══ -->
 <section data-ruta="inicio">
-  <div class="horizonte">
+  <div class="horizonte portada-plena">
     <div class="fondo" style="background-image:url(img/torii-fushimi.jpg)" role="img" data-t-attr="aria-label:altTorii" aria-label="Sendero de torii en Fushimi Inari, Kioto"></div>
     <div class="velo"></div>
     <div class="env">
@@ -580,6 +645,30 @@ html[dir="rtl"] .or-choque{padding:.7rem 1rem .7rem 0;}
         <a class="btn solido" href="#/contacto" data-t="bHablemos">Hablemos de su viaje</a>
         <a class="btn hueco"  href="#/metodo"   data-t="bMetodo">Cómo trabajamos</a>
       </div>
+    </div>
+    <div class="pie-portada">
+      <span class="linea-vertical" aria-hidden="true"></span>
+      <span data-t="iDesliza">Siga bajando</span>
+    </div>
+  </div>
+
+  <!-- Banda de cifras: lo que este mercado hace de verdad, en grande.
+       Los números salen del análisis, no son adorno tipográfico. -->
+  <div class="banda-cifras">
+    <div class="env">
+      <p class="rot" data-t="cfRot">El mercado, en tres cifras</p>
+      <div class="cifras-monumentales">
+        <figure class="cifra-monumental">
+          <b>12,5</b><figcaption data-t="cf1">noches de estancia media del viajero de Oriente Medio en Japón, frente a 8,7 del conjunto de mercados</figcaption>
+        </figure>
+        <figure class="cifra-monumental">
+          <b>482.836<span>¥</span></b><figcaption data-t="cf2">de gasto por visitante dentro de Japón. Es el segundo mercado de los veinticuatro que publica la encuesta oficial</figcaption>
+        </figure>
+        <figure class="cifra-monumental">
+          <b>5</b><figcaption data-t="cf3">días de fiesta nacional del Golfo caen en diciembre, el mismo mes que gana por llegadas. Dos caminos, un mes</figcaption>
+        </figure>
+      </div>
+      <p class="cifras-fuente" data-t="cfFuente">Agencia de Turismo de Japón, encuesta de consumo del turismo receptor, abril-junio de 2026. Objetivo de error estándar del 10 % declarado por el organismo.</p>
     </div>
   </div>
 
@@ -1239,6 +1328,12 @@ var T = {
 
 es:{
   _dir:"ltr", _lang:"es",
+  iDesliza:"Siga bajando",
+  cfRot:"El mercado, en tres cifras",
+  cf1:"noches de estancia media del viajero de Oriente Medio en Japón, frente a 8,7 del conjunto de mercados",
+  cf2:"de gasto por visitante dentro de Japón. Es el segundo mercado de los veinticuatro que publica la encuesta oficial",
+  cf3:"días de fiesta nacional del Golfo caen en diciembre, el mismo mes que gana por llegadas. Dos caminos, un mes",
+  cfFuente:"Agencia de Turismo de Japón, encuesta de consumo del turismo receptor, abril-junio de 2026. Objetivo de error estándar del 10 % declarado por el propio organismo.",
   fiH3:"Y hay una segunda razón, que no sale de las llegadas",
   fiP:"Las fiestas nacionales del Golfo son días libres que no gastan vacaciones. Contadas para {anio}, se reparten así:",
   fiHallazgo:"{mes} concentra {n} días de fiesta nacional del Golfo — y es el mismo mes que ganaba antes por las llegadas, sin que ese cálculo supiera nada de fiestas. Dos caminos distintos, el mismo mes.",
@@ -1543,6 +1638,12 @@ es:{
 
 en:{
   _dir:"ltr", _lang:"en",
+  iDesliza:"Keep scrolling",
+  cfRot:"The market, in three figures",
+  cf1:"nights of average stay for the Middle East traveller in Japan, against 8.7 across all markets",
+  cf2:"spent per visitor inside Japan. It is the second of the twenty-four markets the official survey publishes",
+  cf3:"days of Gulf national holiday fall in December, the same month that wins on arrivals. Two routes, one month",
+  cfFuente:"Japan Tourism Agency, inbound consumption survey, April-June 2026. Standard-error target of 10 % stated by the agency itself.",
   fiH3:"And there is a second reason, which does not come from the arrivals",
   fiP:"Gulf national holidays are free days that do not eat into annual leave. Counted for {anio}, they fall like this:",
   fiHallazgo:"{mes} holds {n} days of Gulf national holiday — and it is the same month that already won on arrivals, in a calculation that knew nothing about holidays. Two different routes, one month.",
@@ -1847,6 +1948,12 @@ en:{
 
 ar:{
   _dir:"rtl", _lang:"ar",
+  iDesliza:"تابع النزول",
+  cfRot:"السوق في ثلاثة أرقام",
+  cf1:"ليلة متوسّط إقامة المسافر من الشرق الأوسط في اليابان، مقابل ٨٫٧ لمجموع الأسواق",
+  cf2:"إنفاق الزائر الواحد داخل اليابان. وهو السوق الثاني من أصل أربعة وعشرين تنشرها المسوحات الرسمية",
+  cf3:"أيام عطلة وطنية خليجية تقع في ديسمبر، وهو الشهر نفسه الفائز بأعداد الوافدين. طريقان وشهر واحد",
+  cfFuente:"وكالة السياحة اليابانية، مسح إنفاق السياحة الوافدة، نيسان–حزيران ٢٠٢٦. وهدف نسبة الخطأ المعياري ١٠٪ معلن من الجهة نفسها.",
   fiH3:"وثمّة سبب ثانٍ لا يأتي من أعداد الوافدين",
   fiP:"الأعياد الوطنية الخليجية أيام عطلة لا تُقتطع من الإجازة السنوية. محسوبةً لعام {anio}، تتوزّع هكذا:",
   fiHallazgo:"{mes} يجمع {n} أيام عطلة وطنية خليجية — وهو الشهر نفسه الذي فاز سابقًا بأعداد الوافدين، في حساب لا يعرف شيئًا عن الأعياد. طريقان مختلفان، وشهر واحد.",
