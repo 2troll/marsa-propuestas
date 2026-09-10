@@ -1129,6 +1129,7 @@ var T = {
 
 es:{
   _dir:"ltr", _lang:"es",
+  mesesLargos:["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
   mktRot:"El año del Golfo, medido",
   mktH2:"Esto no es una impresión del sector: son las llegadas reales.",
   mktEntrada:"Las barras son las llegadas del Golfo a Japón mes a mes, con 100 como el mes medio. La línea es lo mismo para España, que es con quien choca la agenda de un guía hispanohablante. Se parecen poco: son mercados casi independientes, y ahí está el negocio.",
@@ -1384,6 +1385,7 @@ es:{
 
 en:{
   _dir:"ltr", _lang:"en",
+  mesesLargos:["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
   mktRot:"The Gulf year, measured",
   mktH2:"This is not an industry impression: these are the actual arrivals.",
   mktEntrada:"The bars are Gulf arrivals to Japan month by month, with 100 as the average month. The line is the same for Spain, which is what a Spanish-speaking guide's diary collides with. They look very little alike: these are almost independent markets, and that is where the business is.",
@@ -1639,6 +1641,7 @@ en:{
 
 ar:{
   _dir:"rtl", _lang:"ar",
+  mesesLargos:["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"],
   mktRot:"سنة الخليج، مقيسةً",
   mktH2:"هذا ليس انطباعًا عن القطاع: هؤلاء هم الوافدون فعلًا.",
   mktEntrada:"الأعمدة هي وافدو الخليج إلى اليابان شهرًا بشهر، و١٠٠ هو الشهر المتوسّط. والخطّ هو الشيء نفسه لإسبانيا، وهي التي يصطدم بها جدول مرشد يتحدّث الإسبانية. الشبه بينهما ضئيل: سوقان شبه مستقلّتين، وهناك يكمن العمل.",
@@ -2136,16 +2139,16 @@ var MERCADO = {
     100
   ],
   "robustos": [
-    "diciembre",
-    "abril"
+    11,
+    3
   ],
   "descartables": [
-    "mayo",
-    "julio",
-    "octubre",
-    "septiembre",
-    "marzo",
-    "agosto"
+    4,
+    6,
+    9,
+    8,
+    2,
+    7
   ],
   "repartos": 10000
 };
@@ -2261,10 +2264,12 @@ function pintarMercado(t){
       '<span>'+t.mktLeyFuente+' '+MERCADO.fuente+'</span>'+
     '</div>';
 
-  var lista = function(id, meses){
+  /* Los datos traen ÍNDICES de mes, no nombres: un nombre de mes sí se
+     traduce, y guardándolo en los datos salía en español dentro del árabe. */
+  var lista = function(id, indices){
     var c = document.getElementById(id);
-    if (c) c.innerHTML = meses.map(function(m){
-      return "<li>" + m.charAt(0).toUpperCase() + m.slice(1) + "</li>"; }).join("");
+    if (c) c.innerHTML = indices.map(function(n){
+      return "<li>" + t.mesesLargos[n] + "</li>"; }).join("");
   };
   lista("meRobustos", MERCADO.robustos);
   lista("meDescartables", MERCADO.descartables);
