@@ -486,6 +486,43 @@ html[dir="rtl"] .eje-meses span{letter-spacing:0;font-size:.72rem;}
 .gm-leyenda{display:flex;flex-wrap:wrap;gap:.4rem 1.6rem;margin-top:1rem;font-size:.82rem;color:var(--texto-2);}
 .gm-leyenda i{display:inline-block;width:.75rem;height:.75rem;border-radius:2px;
   margin-inline-end:.4rem;vertical-align:-1px;}
+
+/* ── Las horas del rezo ─────────────────────────────────────────────────────
+   Una herramienta, no un bloque de texto: mandos arriba, resultado abajo y la
+   línea del día con los rezos encima. Todo con propiedades lógicas, que en
+   árabe esto se lee de derecha a izquierda como el resto. */
+.or-mandos{display:flex;flex-wrap:wrap;gap:1.4rem 2rem;padding-block:1.4rem;
+  border-block:1px solid rgba(127,127,127,.26);}
+.or-campo{display:flex;flex-direction:column;gap:.35rem;min-width:11rem;}
+.or-campo label{font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--texto-3);}
+html[dir="rtl"] .or-campo label{text-transform:none;letter-spacing:0;}
+.or-campo select,.or-campo input{font:inherit;font-size:.95rem;padding:.5rem .6rem;
+  background:var(--fondo-2);color:var(--texto);border:1px solid var(--linea);
+  border-radius:3px;}
+.or-rejilla{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);
+  gap:2.4rem;margin-top:2rem;align-items:start;}
+@media(max-width:820px){.or-rejilla{grid-template-columns:1fr}}
+.or-tabla table{width:100%;border-collapse:collapse;}
+.or-tabla th,.or-tabla td{text-align:start;padding:.6rem .5rem;
+  border-bottom:1px solid var(--linea);}
+.or-tabla th{font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--texto-3);font-weight:400;}
+html[dir="rtl"] .or-tabla th{text-transform:none;letter-spacing:0;}
+.or-tabla td.h{font-variant-numeric:tabular-nums;font-size:1.15rem;
+  white-space:nowrap;}
+.or-tabla tr.ahora td{background:color-mix(in srgb,var(--acento) 12%,transparent);}
+.or-tabla .obl{opacity:.55;font-size:.86rem;}
+.or-nota{font-size:.82rem;color:var(--texto-3);margin-top:.9rem;}
+.or-brujula{text-align:center;}
+.or-brujula svg{width:min(100%,220px);height:auto;}
+.or-quibla{font-size:.86rem;color:var(--texto-2);margin-top:.6rem;}
+.or-linea{margin-top:1rem;}
+.or-linea svg{width:100%;height:auto;overflow:visible;}
+.or-choque{border-inline-start:3px solid var(--acento);padding:.7rem 0 .7rem 1rem;
+  margin-top:1rem;font-size:.92rem;}
+html[dir="rtl"] .or-choque{padding:.7rem 1rem .7rem 0;}
+.or-choque b{display:block;}
 </style>
 </head>
 <body>
@@ -499,6 +536,7 @@ html[dir="rtl"] .eje-meses span{letter-spacing:0;font-size:.72rem;}
       <a href="#/destinos"       data-t="nDestinos">Destinos</a>
       <a href="#/estacionalidad" data-t="nEstacion">Cuándo viajar</a>
       <a href="#/dia"            data-t="nDia">Un día real</a>
+      <a href="#/oracion"       data-t="nOracion">Las horas del rezo</a>
       <a href="#/halal"          data-t="nHalal">Halal de verdad</a>
       <a href="#/nosotros"       data-t="nNosotros">Quiénes somos</a>
       <a href="#/preguntas"      data-t="nPreguntas">Preguntas</a>
@@ -1031,6 +1069,61 @@ html[dir="rtl"] .eje-meses span{letter-spacing:0;font-size:.72rem;}
 </section>
 
 <!-- ═══ HALAL ═══ -->
+<section data-ruta="oracion">
+  <div class="env cabecera">
+    <p class="rot" data-t="nOracion">Las horas del rezo</p>
+    <h1 data-t="orH1">Cinco paradas al día que nadie pone en el itinerario.</h1>
+    <p class="entrada" data-t="orEntrada">Ponga las fechas de su viaje y la ciudad. Las horas se calculan aquí mismo con la posición del sol, no salen de una tabla, y se ven encima del día para que sepa cuáles caen en un traslado y cuáles no.</p>
+  </div>
+
+  <div class="env fina">
+    <div class="or-mandos">
+      <div class="or-campo">
+        <label for="orCiudad" data-t="orLCiudad">Ciudad</label>
+        <select id="orCiudad"></select>
+      </div>
+      <div class="or-campo">
+        <label for="orFecha" data-t="orLFecha">Día del viaje</label>
+        <input id="orFecha" type="date" value="2026-12-15">
+      </div>
+      <div class="or-campo">
+        <label for="orEscuela" data-t="orLEscuela">Cálculo del asr</label>
+        <select id="orEscuela">
+          <option value="1" data-t="orMayoria">Mayoría de escuelas</option>
+          <option value="2" data-t="orHanafi">Escuela hanafí</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="or-rejilla">
+      <div>
+        <div class="or-tabla" id="orTabla"></div>
+        <p class="or-nota" data-t="orNota"></p>
+      </div>
+      <div class="or-brujula">
+        <div id="orCompas"></div>
+        <p class="or-quibla" id="orQuibla"></p>
+      </div>
+    </div>
+
+    <p class="rot" style="margin-top:2.6rem" data-t="orLineaRot">El día, con los rezos encima</p>
+    <div class="or-linea" id="orLinea"></div>
+    <div id="orChoques"></div>
+
+    <p class="metodo" data-t="orMetodo"></p>
+  </div>
+
+  <div class="env seccion raya">
+    <div class="rejilla g2">
+      <div><p class="rot" data-t="rSiguiente">Siguiente paso</p>
+        <h2 class="grande" data-t="orCierreH">Saber la hora es fácil. Estar en el sitio adecuado, no.</h2></div>
+      <div><p style="color:var(--texto-2)" data-t="orCierreP">La hora la calcula cualquiera. Lo que cuesta es que a esa hora haya un sitio donde rezar y que el coche esté parado ahí.</p>
+        <div class="acciones" style="margin-top:1.6rem">
+          <a class="btn solido" href="#/halal" data-t="bVerHalal">Qué significa halal de verdad</a></div></div>
+    </div>
+  </div>
+</section>
+
 <section data-ruta="halal">
   <div class="env cabecera">
     <p class="rot" data-t="nHalal">Halal de verdad</p>
@@ -1106,6 +1199,7 @@ html[dir="rtl"] .eje-meses span{letter-spacing:0;font-size:.72rem;}
       <a href="#/destinos"       data-t="nDestinos">Destinos</a>
       <a href="#/estacionalidad" data-t="nEstacion">Cuándo viajar</a>
       <a href="#/dia"            data-t="nDia">Un día real</a>
+      <a href="#/oracion"       data-t="nOracion">Las horas del rezo</a>
       <a href="#/halal"          data-t="nHalal">Halal de verdad</a>
       <a href="#/nosotros"       data-t="nNosotros">Quiénes somos</a>
       <a href="#/preguntas"      data-t="nPreguntas">Preguntas</a>
@@ -1129,6 +1223,49 @@ var T = {
 
 es:{
   _dir:"ltr", _lang:"es",
+  nOracion:"Las horas del rezo",
+  tOracion:"Las horas del rezo — MARSA",
+  orH1:"Cinco paradas al día que nadie pone en el itinerario.",
+  orEntrada:"Ponga las fechas de su viaje y la ciudad. Las horas se calculan aquí mismo con la posición del sol, no salen de una tabla, y se ven encima del día para que sepa cuáles caen en un traslado y cuáles no.",
+  orLCiudad:"Ciudad",
+  orLFecha:"Día del viaje",
+  orLEscuela:"Cálculo del asr",
+  orMayoria:"Mayoría de escuelas",
+  orHanafi:"Escuela hanafí",
+  orCol1:"Momento",
+  orCol2:"Hora",
+  orCol3:"Qué significa para el día",
+  or_fajr:"Fajr",
+  or_salida:"Salida del sol",
+  or_dhuhr:"Duhr",
+  or_asr:"Asr",
+  or_maghrib:"Magrib",
+  or_isha:"Isha",
+  orN_fajr:"Antes de salir del hotel. El desayuno se sirve después.",
+  orN_salida:"No es una oración: marca el final del tiempo del fajr.",
+  orN_dhuhr:"Cae en la comida. Se planifica en el restaurante, no en la calle.",
+  orN_asr:"El que más se pierde: cae en mitad de la visita de la tarde.",
+  orN_maghrib:"Puesta de sol. En invierno cae antes de volver al hotel.",
+  orN_isha:"En verano, ya en el hotel. En diciembre cae durante la vuelta, y hay que contarlo.",
+  orNota:"Las horas cambian cada día y cada ciudad. En diciembre, entre Osaka e Hiroshima hay casi diez minutos de diferencia, que es justo lo que se tarda en aparcar.",
+  orCompasAlt:"Brújula con la dirección de la quibla desde la ciudad elegida",
+  orN:"N",
+  orQuiblaTxt:"La quibla desde {c} está a <b>{g}</b> desde el norte. No es el oeste: desde Japón hay que mirar bastante al norte del oeste, y casi nadie lo espera.",
+  orLineaRot:"El día, con los rezos encima",
+  orLineaAlt:"Línea del día con los bloques del itinerario y las horas de oración marcadas encima",
+  pTraslado:"Traslado",
+  pVisita1:"Visita de la mañana",
+  pComida:"Comida",
+  pTraslado2:"Traslado",
+  pVisita2:"Visita de la tarde",
+  pVuelta:"Vuelta al hotel",
+  orSinChoque:"Ningún rezo cae en un traslado. ",
+  orSinChoqueP:"Ese día el plan aguanta tal cual: cada oración cae en un sitio donde se puede parar.",
+  orChoqueT:"{rezo}, a las {hora}, cae en «{bloque}». ",
+  orChoqueP:"Rezar en un vehículo en marcha no es una solución. O se adelanta la salida quince minutos, o se elige una parada con sala de oración. Eso es lo que hacemos antes de que usted lo note.",
+  orMetodo:"Método de Umm al-Qura, el que se usa en el Golfo: fajr a 18,5° y isha noventa minutos después del magrib. El cálculo se hace en su propio navegador, sin enviar nada a ningún servidor. Está comprobado contra una segunda implementación escrita por separado y contra efemérides publicadas de salida y puesta de sol, con dos minutos de tolerancia. Aun así, el horario de la mezquita local manda siempre.",
+  orCierreH:"Saber la hora es fácil. Estar en el sitio adecuado, no.",
+  orCierreP:"La hora la calcula cualquiera. Lo que cuesta es que a esa hora haya un sitio donde rezar y que el coche esté parado ahí.",
   mesesLargos:["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
   mktRot:"El año del Golfo, medido",
   mktH2:"Esto no es una impresión del sector: son las llegadas reales.",
@@ -1385,6 +1522,49 @@ es:{
 
 en:{
   _dir:"ltr", _lang:"en",
+  nOracion:"Prayer times",
+  tOracion:"Prayer times — MARSA",
+  orH1:"Five stops a day that no itinerary makes room for.",
+  orEntrada:"Enter your travel dates and the city. The times are computed right here from the position of the sun — they do not come from a table — and they are drawn over the day so you can see which ones fall during a transfer and which do not.",
+  orLCiudad:"City",
+  orLFecha:"Day of the trip",
+  orLEscuela:"Asr calculation",
+  orMayoria:"Majority of schools",
+  orHanafi:"Hanafi school",
+  orCol1:"Time of day",
+  orCol2:"Time",
+  orCol3:"What it means for the day",
+  or_fajr:"Fajr",
+  or_salida:"Sunrise",
+  or_dhuhr:"Dhuhr",
+  or_asr:"Asr",
+  or_maghrib:"Maghrib",
+  or_isha:"Isha",
+  orN_fajr:"Before leaving the hotel. Breakfast is served afterwards.",
+  orN_salida:"Not a prayer: it marks the end of the time for Fajr.",
+  orN_dhuhr:"Falls at lunch. Planned at the restaurant, not in the street.",
+  orN_asr:"The one most often missed: it lands in the middle of the afternoon visit.",
+  orN_maghrib:"Sunset. In winter it falls before the return to the hotel.",
+  orN_isha:"In summer, back at the hotel by then. In December it lands during the return, and that has to be planned for.",
+  orNota:"The times change every day and every city. In December there are almost ten minutes between Osaka and Hiroshima — which is exactly how long it takes to park.",
+  orCompasAlt:"Compass showing the qibla direction from the selected city",
+  orN:"N",
+  orQuiblaTxt:"The qibla from {c} is at <b>{g}</b> from north. It is not west: from Japan you have to look well north of west, and almost nobody expects that.",
+  orLineaRot:"The day, with the prayers over it",
+  orLineaAlt:"Timeline of the day with the itinerary blocks and the prayer times marked above",
+  pTraslado:"Transfer",
+  pVisita1:"Morning visit",
+  pComida:"Lunch",
+  pTraslado2:"Transfer",
+  pVisita2:"Afternoon visit",
+  pVuelta:"Back to the hotel",
+  orSinChoque:"No prayer falls during a transfer. ",
+  orSinChoqueP:"That day the plan holds as it is: every prayer lands somewhere you can stop.",
+  orChoqueT:"{rezo}, at {hora}, falls inside «{bloque}». ",
+  orChoqueP:"Praying in a moving vehicle is not a solution. Either the departure moves fifteen minutes earlier, or the stop is chosen for having a prayer room. That is what we sort out before you notice it.",
+  orMetodo:"Umm al-Qura method, the one used in the Gulf: Fajr at 18.5° and Isha ninety minutes after Maghrib. The calculation runs in your own browser and nothing is sent to any server. It is checked against a second implementation written separately, and against published sunrise and sunset ephemerides, within two minutes. Even so, the local mosque's timetable always prevails.",
+  orCierreH:"Knowing the time is easy. Being in the right place is not.",
+  orCierreP:"Anyone can compute the time. What takes work is that at that time there is somewhere to pray and the car is stopped there.",
   mesesLargos:["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
   mktRot:"The Gulf year, measured",
   mktH2:"This is not an industry impression: these are the actual arrivals.",
@@ -1641,6 +1821,49 @@ en:{
 
 ar:{
   _dir:"rtl", _lang:"ar",
+  nOracion:"مواقيت الصلاة",
+  tOracion:"مواقيت الصلاة — مَرْسى",
+  orH1:"خمس وقفات في اليوم لا يفسح لها أي برنامج مكانًا.",
+  orEntrada:"أدخل تواريخ رحلتك والمدينة. تُحسب المواقيت هنا من موضع الشمس — لا تأتي من جدول — وتُرسم فوق اليوم لترى أيّها يقع في تنقّل وأيّها لا.",
+  orLCiudad:"المدينة",
+  orLFecha:"يوم الرحلة",
+  orLEscuela:"حساب العصر",
+  orMayoria:"جمهور المذاهب",
+  orHanafi:"المذهب الحنفي",
+  orCol1:"الوقت",
+  orCol2:"الساعة",
+  orCol3:"ماذا يعني ذلك لليوم",
+  or_fajr:"الفجر",
+  or_salida:"الشروق",
+  or_dhuhr:"الظهر",
+  or_asr:"العصر",
+  or_maghrib:"المغرب",
+  or_isha:"العشاء",
+  orN_fajr:"قبل مغادرة الفندق. والفطور يُقدَّم بعده.",
+  orN_salida:"ليس صلاة: يحدّد نهاية وقت الفجر.",
+  orN_dhuhr:"يقع مع الغداء. يُخطَّط له في المطعم، لا في الشارع.",
+  orN_asr:"أكثرها ضياعًا: يقع في منتصف زيارة العصر.",
+  orN_maghrib:"غروب الشمس. في الشتاء يقع قبل العودة إلى الفندق.",
+  orN_isha:"في الصيف يكون المسافر في الفندق. أما في ديسمبر فيقع أثناء العودة، وهذا يجب حسابه.",
+  orNota:"تتغيّر المواقيت كل يوم وكل مدينة. في ديسمبر بين أوساكا وهيروشيما نحو عشر دقائق فرق، وهي بالضبط ما يستغرقه ركن السيارة.",
+  orCompasAlt:"بوصلة تُظهر اتجاه القبلة من المدينة المختارة",
+  orN:"ش",
+  orQuiblaTxt:"القبلة من {c} على <b>{g}</b> من الشمال. ليست الغرب: من اليابان يجب النظر إلى شمال الغرب بوضوح، وقلّ من يتوقّع ذلك.",
+  orLineaRot:"اليوم، والصلوات فوقه",
+  orLineaAlt:"خطّ زمني لليوم بمقاطع البرنامج ومواقيت الصلاة معلّمة فوقه",
+  pTraslado:"تنقّل",
+  pVisita1:"زيارة الصباح",
+  pComida:"الغداء",
+  pTraslado2:"تنقّل",
+  pVisita2:"زيارة العصر",
+  pVuelta:"العودة إلى الفندق",
+  orSinChoque:"لا تقع أي صلاة أثناء تنقّل. ",
+  orSinChoqueP:"ذلك اليوم يصمد البرنامج كما هو: كل صلاة تقع حيث يمكن التوقّف.",
+  orChoqueT:"{rezo}، الساعة {hora}، تقع داخل «{bloque}». ",
+  orChoqueP:"الصلاة في مركبة متحرّكة ليست حلًّا. فإمّا أن يُقدَّم موعد الانطلاق ربع ساعة، وإمّا أن تُختار محطّة فيها مصلّى. هذا ما نحلّه قبل أن تنتبه إليه.",
+  orMetodo:"طريقة أم القرى، وهي المعتمدة في الخليج: الفجر عند ١٨٫٥ درجة والعشاء بعد المغرب بتسعين دقيقة. يجري الحساب في متصفّحك ولا يُرسل شيء إلى أي خادم. وقد قوبل بتنفيذ ثانٍ كُتب على حدة، وبجداول فلكية منشورة للشروق والغروب، بفارق دقيقتين. ومع ذلك، يبقى تقويم المسجد المحلّي هو المرجع.",
+  orCierreH:"معرفة الوقت سهلة. أما أن تكون في المكان المناسب فلا.",
+  orCierreP:"الوقت يحسبه أي أحد. الصعب أن يكون في تلك الساعة مكان للصلاة وأن تكون السيارة واقفة هناك.",
   mesesLargos:["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"],
   mktRot:"سنة الخليج، مقيسةً",
   mktH2:"هذا ليس انطباعًا عن القطاع: هؤلاء هم الوافدون فعلًا.",
@@ -2153,14 +2376,14 @@ var MERCADO = {
   "repartos": 10000
 };
 
-var RUTAS = ["inicio","servicios","metodo","destinos","estacionalidad","dia","halal","nosotros","preguntas","contacto","legal","mapa","err"];
+var RUTAS = ["inicio","servicios","metodo","destinos","estacionalidad","dia","oracion","halal","nosotros","preguntas","contacto","legal","mapa","err"];
 var TITULOS = {inicio:"tInicio",servicios:"tServicios",metodo:"tMetodo",
                destinos:"tDestinos",estacionalidad:"tEstacion",dia:"tDia",halal:"tHalal",
                nosotros:"tNosotros",preguntas:"tPreguntas",contacto:"tContacto",
-               legal:"tLegal",mapa:"tMapa",err:"tErr"};
+               oracion:"tOracion",legal:"tLegal",mapa:"tMapa",err:"tErr"};
 /* Las rutas que salen en el menú: legal y mapa viven en el pie, y «err» no
    sale en ningún sitio porque no se navega a ella a propósito. */
-var RUTAS_MENU = RUTAS.slice(0, 10);
+var RUTAS_MENU = RUTAS.slice(0, 11);
 var idioma = "es";
 
 function rutaActual(){
@@ -2195,6 +2418,223 @@ function numero(t, n){
    mes queda entre los tres mejores al probar diez mil repartos de peso.
    Todo en SVG y con los datos reales, así que se redibuja al cambiar de idioma
    y se refleja solo en árabe. */
+
+/* ══════════════════════════════════════════════════════════════════
+   LAS HORAS DEL REZO
+   Se calculan aquí, con la posición del sol para ese día y ese sitio:
+   no hay tabla copiada ni petición a ningún servidor. La implementación
+   está comprobada contra otra escrita por separado en Python
+   (golfo-datos/python/oracion.py) y contra efemérides publicadas de
+   salida y puesta de sol, con dos minutos de tolerancia.
+   Método: Umm al-Qura (fajr 18,5°, isha 90 min tras el magrib).
+   ══════════════════════════════════════════════════════════════════ */
+var KAABA = [21.4225, 39.8262];
+var CIUDADES = [
+  {n:"Osaka",     lat:34.6937, lon:135.5023, tz:9},
+  {n:"Kioto",     lat:35.0116, lon:135.7681, tz:9},
+  {n:"Nara",      lat:34.6851, lon:135.8048, tz:9},
+  {n:"Kobe",      lat:34.6901, lon:135.1955, tz:9},
+  {n:"Tokio",     lat:35.6895, lon:139.6917, tz:9},
+  {n:"Hiroshima", lat:34.3853, lon:132.4553, tz:9}
+];
+var REZOS = ["fajr","salida","dhuhr","asr","maghrib","isha"];
+/* La salida del sol no es una oración: marca el final del tiempo del fajr. */
+var NO_ES_REZO = {salida:true};
+
+/* Un día de visita normal, para poder enseñar dónde caen los rezos.
+   Las horas son de un itinerario real, no un ejemplo inventado. */
+var PLAN = [
+  {ini:8.5,  fin:9.5,  k:"pTraslado"},
+  {ini:9.5,  fin:12.0, k:"pVisita1"},
+  {ini:12.0, fin:13.5, k:"pComida"},
+  {ini:13.5, fin:14.5, k:"pTraslado2"},
+  {ini:14.5, fin:17.5, k:"pVisita2"},
+  {ini:17.5, fin:18.5, k:"pVuelta"}
+];
+
+function grados(r){ return r * 180 / Math.PI; }
+function rad(g){ return g * Math.PI / 180; }
+
+function juliano(f){
+  var a = f.getDate(), m = f.getMonth() + 1, y = f.getFullYear();
+  if (m <= 2){ y -= 1; m += 12; }
+  var A = Math.floor(y / 100), B = 2 - A + Math.floor(A / 4);
+  return Math.floor(365.25 * (y + 4716)) + Math.floor(30.6001 * (m + 1)) + a + B - 1524.5;
+}
+
+function sol(jd){
+  var d = jd - 2451545.0;
+  var g = rad((357.529 + 0.98560028 * d) % 360);
+  var q = (280.459 + 0.98564736 * d) % 360;
+  var L = rad((q + 1.915 * Math.sin(g) + 0.020 * Math.sin(2 * g)) % 360);
+  var e = rad(23.439 - 0.00000036 * d);
+  var dec = grados(Math.asin(Math.sin(e) * Math.sin(L)));
+  var ar = (grados(Math.atan2(Math.cos(e) * Math.sin(L), Math.cos(L))) + 360) % 360;
+  var eqt = q - ar;
+  if (eqt > 180) eqt -= 360;
+  if (eqt < -180) eqt += 360;
+  return {dec: dec, eqt: eqt * 4};
+}
+
+function anguloHorario(lat, dec, alt){
+  var c = (Math.sin(rad(alt)) - Math.sin(rad(lat)) * Math.sin(rad(dec)))
+        / (Math.cos(rad(lat)) * Math.cos(rad(dec)));
+  if (c > 1 || c < -1) return null;      /* el sol no llega a esa altura */
+  return grados(Math.acos(c)) / 15;
+}
+
+function horasRezo(fecha, ciudad, factorAsr){
+  var s = sol(juliano(fecha) + 0.5 - ciudad.lon / 360);
+  var dhuhr = 12 + ciudad.tz - ciudad.lon / 15 - s.eqt / 60;
+  var antes = function(alt){ var h = anguloHorario(ciudad.lat, s.dec, alt); return h === null ? null : dhuhr - h; };
+  var despues = function(alt){ var h = anguloHorario(ciudad.lat, s.dec, alt); return h === null ? null : dhuhr + h; };
+  var altAsr = grados(Math.atan(1 / (factorAsr + Math.tan(rad(Math.abs(ciudad.lat - s.dec))))));
+  var maghrib = despues(-0.833);
+  return {
+    fajr: antes(-18.5), salida: antes(-0.833), dhuhr: dhuhr,
+    asr: despues(altAsr), maghrib: maghrib,
+    isha: maghrib === null ? null : maghrib + 1.5
+  };
+}
+
+function quibla(lat, lon){
+  var l1 = rad(lat), l2 = rad(KAABA[0]), dl = rad(KAABA[1] - lon);
+  var y = Math.sin(dl);
+  var x = Math.cos(l1) * Math.tan(l2) - Math.sin(l1) * Math.cos(dl);
+  return (grados(Math.atan2(y, x)) + 360) % 360;
+}
+
+function hhmm(h, t){
+  if (h === null || h === undefined) return "—";
+  var m = Math.round(((h % 24) + 24) % 24 * 60);
+  var txt = ("0" + Math.floor(m / 60)).slice(-2) + ":" + ("0" + (m % 60)).slice(-2);
+  return t._lang === "ar" ? txt.replace(/[0-9]/g, function(d){ return "٠١٢٣٤٥٦٧٨٩"[+d]; }) : txt;
+}
+
+function pintarOracion(t){
+  var selC = document.getElementById("orCiudad");
+  if (!selC) return;
+  if (!selC.options.length){
+    selC.innerHTML = CIUDADES.map(function(c, i){
+      return '<option value="' + i + '">' + c.n + "</option>"; }).join("");
+  }
+  var ciudad = CIUDADES[+selC.value || 0];
+  var factor = +(document.getElementById("orEscuela") || {}).value || 1;
+  var valor = (document.getElementById("orFecha") || {}).value || "2026-12-15";
+  var partes = valor.split("-");
+  var fecha = new Date(+partes[0], +partes[1] - 1, +partes[2]);
+  var h = horasRezo(fecha, ciudad, factor);
+
+  /* ── tabla ── */
+  var filas = REZOS.map(function(k){
+    return "<tr" + (NO_ES_REZO[k] ? ' class="obl"' : "") + "><td>" + t["or_" + k] +
+           "</td><td class=\"h\">" + hhmm(h[k], t) + "</td><td class=\"obl\">" +
+           t["orN_" + k] + "</td></tr>";
+  }).join("");
+  document.getElementById("orTabla").innerHTML =
+    "<table><thead><tr><th>" + t.orCol1 + "</th><th>" + t.orCol2 +
+    "</th><th>" + t.orCol3 + "</th></tr></thead><tbody>" + filas + "</tbody></table>";
+
+  /* ── brújula de la quibla ── */
+  var q = quibla(ciudad.lat, ciudad.lon);
+  var R = 88, cx = 110, cy = 110;
+  var ax = cx + R * 0.78 * Math.sin(rad(q)), ay = cy - R * 0.78 * Math.cos(rad(q));
+  var marcas = "";
+  for (var g = 0; g < 360; g += 30){
+    var r1 = g % 90 === 0 ? R - 14 : R - 8;
+    marcas += '<line x1="' + (cx + r1 * Math.sin(rad(g))) + '" y1="' + (cy - r1 * Math.cos(rad(g))) +
+              '" x2="' + (cx + R * Math.sin(rad(g))) + '" y2="' + (cy - R * Math.cos(rad(g))) +
+              '" stroke="currentColor" opacity="' + (g % 90 === 0 ? ".55" : ".25") + '"/>';
+  }
+  document.getElementById("orCompas").innerHTML =
+    '<svg viewBox="0 0 220 220" role="img" aria-label="' + t.orCompasAlt + '">' +
+    '<circle cx="' + cx + '" cy="' + cy + '" r="' + R + '" fill="none" stroke="currentColor" opacity=".3"/>' +
+    marcas +
+    '<text x="' + cx + '" y="18" text-anchor="middle" font-size="12" fill="currentColor" opacity=".6">' + t.orN + '</text>' +
+    '<line x1="' + cx + '" y1="' + cy + '" x2="' + ax + '" y2="' + ay +
+    '" stroke="var(--acento)" stroke-width="3" stroke-linecap="round"/>' +
+    '<circle cx="' + ax + '" cy="' + ay + '" r="5" fill="var(--acento)"/>' +
+    '<circle cx="' + cx + '" cy="' + cy + '" r="3.5" fill="currentColor"/></svg>';
+  document.getElementById("orQuibla").innerHTML =
+    t.orQuiblaTxt.replace("{g}", hhmmGrados(q, t)).replace("{c}", ciudad.n);
+
+  /* ── la línea del día ── */
+  pintarLineaDia(t, h);
+}
+
+function hhmmGrados(g, t){
+  var txt = g.toFixed(1).replace(".", t._lang === "en" ? "." : ",") + "°";
+  return t._lang === "ar" ? txt.replace(/[0-9]/g, function(d){ return "٠١٢٣٤٥٦٧٨٩"[+d]; }) : txt;
+}
+
+function pintarLineaDia(t, h){
+  var caja = document.getElementById("orLinea");
+  if (!caja) return;
+  var rtl = t._dir === "rtl";
+  var W = 760, H = 130, izq = 8, der = 8, ini = 4, fin = 22;
+  var x = function(hora){
+    var p = (hora - ini) / (fin - ini);
+    return izq + (rtl ? (1 - p) : p) * (W - izq - der);
+  };
+  var partes = [];
+
+  /* bloques del día */
+  PLAN.forEach(function(b){
+    var x1 = Math.min(x(b.ini), x(b.fin)), an = Math.abs(x(b.fin) - x(b.ini));
+    partes.push('<rect x="' + x1 + '" y="46" width="' + an + '" height="34" rx="3" ' +
+                'fill="currentColor" opacity=".10"/>');
+    if (an > 62)
+      partes.push('<text x="' + (x1 + an / 2) + '" y="67" text-anchor="middle" ' +
+                  'font-size="11" fill="currentColor" opacity=".72">' + t[b.k] + "</text>");
+  });
+
+  /* horas */
+  for (var hh = ini; hh <= fin; hh += 2){
+    partes.push('<line x1="' + x(hh) + '" y1="40" x2="' + x(hh) + '" y2="86" ' +
+                'stroke="currentColor" opacity=".13"/>');
+    partes.push('<text x="' + x(hh) + '" y="100" text-anchor="middle" font-size="10" ' +
+                'fill="currentColor" opacity=".5">' + hhmm(hh, t) + "</text>");
+  }
+
+  /* los rezos */
+  var choques = [];
+  REZOS.forEach(function(k){
+    if (NO_ES_REZO[k] || h[k] === null) return;
+    var hx = x(h[k]);
+    var dentro = PLAN.filter(function(b){ return h[k] >= b.ini && h[k] <= b.fin; })[0];
+    var color = dentro && (dentro.k === "pTraslado" || dentro.k === "pTraslado2" || dentro.k === "pVuelta")
+                ? "var(--alerta, #c8641a)" : "var(--acento)";
+    partes.push('<line x1="' + hx + '" y1="30" x2="' + hx + '" y2="86" stroke="' + color +
+                '" stroke-width="2"/>');
+    partes.push('<circle cx="' + hx + '" cy="30" r="4" fill="' + color + '"/>');
+    partes.push('<text x="' + hx + '" y="20" text-anchor="middle" font-size="11" fill="' +
+                color + '">' + t["or_" + k] + "</text>");
+    if (dentro) choques.push({rezo: k, bloque: dentro.k, hora: h[k], transito: color !== "var(--acento)"});
+  });
+
+  caja.innerHTML = '<svg viewBox="0 0 ' + W + " " + H + '" role="img" aria-label="' +
+                   t.orLineaAlt + '">' + partes.join("") + "</svg>";
+
+  var conflictivos = choques.filter(function(c){ return c.transito; });
+  var cajaC = document.getElementById("orChoques");
+  if (!cajaC) return;
+  if (!conflictivos.length){
+    cajaC.innerHTML = '<div class="or-choque"><b>' + t.orSinChoque + "</b>" + t.orSinChoqueP + "</div>";
+    return;
+  }
+  cajaC.innerHTML = conflictivos.map(function(c){
+    return '<div class="or-choque"><b>' + t.orChoqueT
+             .replace("{rezo}", t["or_" + c.rezo])
+             .replace("{hora}", hhmm(c.hora, t))
+             .replace("{bloque}", t[c.bloque]) + "</b>" + t.orChoqueP + "</div>";
+  }).join("");
+}
+
+['orCiudad', 'orFecha', 'orEscuela'].forEach(function(id){
+  var e = document.getElementById(id);
+  if (e) e.addEventListener("change", function(){ pintarOracion(T[idioma]); });
+});
+
 function pintarMercado(t){
   var caja = document.getElementById("meGrafico");
   if (!caja || typeof MERCADO === "undefined") return;
@@ -2329,6 +2769,7 @@ function aplicar(codigo){
     });
   }
   pintarMercado(t);
+  pintarOracion(t);
   pintarLegal(t);
   pintarMapa(t);
   pintarCreditos(t);
