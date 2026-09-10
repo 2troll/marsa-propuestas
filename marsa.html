@@ -603,138 +603,233 @@ html[lang="ar"] .cifra-monumental b{letter-spacing:0;font-size:clamp(3rem,7vw,5.
 }
 .cifras-fuente{margin-top:2.6rem;font-size:.78rem;max-width:62ch;
   color:color-mix(in srgb,var(--hondo-texto) 52%,transparent);}
+
+/* ══════════════════════════════════════════════════════════════════
+   ARMAZÓN DE APLICACIÓN
+   El menú deja de ser una fila de once enlaces apretados y pasa a un
+   raíl lateral fijo, agrupado por bloques. El contenido va AL LADO, no
+   debajo, y en rejilla de doce columnas: los paneles ocupan distinto
+   ancho y se ponen unos junto a otros. Todo en propiedades lógicas, así
+   que en árabe el raíl se va solo a la derecha.
+   ══════════════════════════════════════════════════════════════════ */
+/* Colocación EXPLÍCITA. Confiar en el orden de los hijos no funciona: el
+   velo y el botón salen del flujo y «main» acababa en una columna de ancho
+   cero, con la página entera invisible. Cada pieza dice dónde va. */
+body{display:grid;grid-template-columns:15.5rem minmax(0,1fr);
+  grid-template-rows:1fr auto;min-height:100vh;}
+.app-lateral{grid-column:1;grid-row:1 / -1;}
+.app-panel{grid-column:2;grid-row:1;}
+body > footer{grid-column:2;grid-row:2;}
+
+.app-lateral{
+  position:sticky;top:0;align-self:start;height:100vh;overflow-y:auto;
+  width:15.5rem;padding:1.6rem 1.2rem 1.4rem;
+  background:var(--fondo-2);border-inline-end:1px solid var(--linea);
+  display:flex;flex-direction:column;gap:.2rem;z-index:60;
+}
+.app-lateral .marca{display:block;margin-bottom:1.4rem;font-size:1.15rem;}
+.app-eti{font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--texto-3);margin:1.3rem 0 .45rem;}
+html[dir="rtl"] .app-eti{letter-spacing:0;text-transform:none;font-size:.78rem;}
+.app-nav{display:flex;flex-direction:column;gap:.1rem;}
+.app-nav a{display:block;padding:.42rem .6rem;text-align:start;margin:0;border-radius:4px;font-size:.87rem;
+  color:var(--texto-2);text-decoration:none;border:0;
+  border-inline-start:2px solid transparent;}
+.app-nav a:hover{background:var(--fondo);color:var(--texto);}
+.app-nav a[aria-current="page"]{background:var(--fondo);color:var(--texto);
+  border-inline-start-color:var(--acento);font-weight:500;}
+.app-lateral .idiomas{margin-top:auto;padding-top:1.4rem;display:flex;gap:.2rem;}
+
+.app-panel{min-width:0;}
+.app-abrir{display:none;position:fixed;top:.8rem;inset-inline-start:.8rem;z-index:80;
+  background:var(--fondo-2);color:var(--texto);border:1px solid var(--linea);
+  border-radius:5px;padding:.5rem .6rem;cursor:pointer;}
+.app-velo{display:none;}
+
+@media(max-width:900px){
+  body{grid-template-columns:minmax(0,1fr);}
+  .app-abrir{display:block;}
+  .app-lateral{position:fixed;inset-block:0;inset-inline-start:0;
+    width:min(80vw,15.5rem);transform:translateX(-100%);transition:transform .22s ease;}
+  .app-panel,body > footer{grid-column:1;}
+  html[dir="rtl"] .app-lateral{transform:translateX(100%);}
+  .app-lateral.abierto{transform:none;}
+  .app-velo{display:block;position:fixed;inset:0;background:rgba(0,0,0,.45);
+    opacity:0;pointer-events:none;transition:opacity .22s;z-index:55;}
+  .app-velo.abierto{opacity:1;pointer-events:auto;}
+  main.app-panel{padding-top:3.4rem;}
+}
+
+/* Rejilla de doce columnas: es lo que rompe la columna única. */
+.rej12{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));
+  gap:clamp(.9rem,1.6vw,1.4rem);}
+.c3{grid-column:span 3}.c4{grid-column:span 4}.c5{grid-column:span 5}
+.c6{grid-column:span 6}.c7{grid-column:span 7}.c8{grid-column:span 8}
+.c9{grid-column:span 9}.c12{grid-column:span 12}
+@media(max-width:1100px){.c3,.c4,.c5{grid-column:span 6}.c7,.c8,.c9{grid-column:span 12}}
+@media(max-width:640px){.rej12 > *{grid-column:span 12 !important}}
+
+/* Panel: la unidad de la interfaz. Caja de información, no adorno. */
+.panel{background:var(--fondo-2);border:1px solid var(--linea);border-radius:6px;
+  overflow:hidden;display:flex;flex-direction:column;min-width:0;}
+.panel-cab{display:flex;align-items:center;gap:.6rem;justify-content:space-between;
+  padding:.7rem .9rem;border-block-end:1px solid var(--linea);
+  font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--texto-3);}
+html[dir="rtl"] .panel-cab{letter-spacing:0;text-transform:none;font-size:.84rem;}
+.panel-cuerpo{padding:.9rem;flex:1;min-width:0;}
+/* La proporción va en la imagen y no en el marco: si la proporción se pone en
+   el marco, Chrome deja de estirarlo dentro de la fila de la rejilla y la
+   fotografía queda flotando arriba con un hueco gris debajo. */
+/* La proporción se fija con un relleno porcentual y no con `aspect-ratio`.
+   Motivo medido, no de estilo: en una celda de rejilla estirada la altura pasa
+   a ser definida, y entonces `aspect-ratio` calcula el ANCHO a partir de ella
+   y la fotografía se sale de su columna — 362 px en la portada a 1440. El
+   relleno porcentual siempre deriva del ancho, nunca al revés. */
+.panel-foto{padding:0;position:relative;overflow:hidden;}
+.panel-foto::before{content:"";display:block;padding-block-start:75%;}
+.panel-foto.alta::before{padding-block-start:133.33%;}
+.panel-foto.ancha::before{padding-block-start:56.25%;}
+.panel-foto img{position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;display:block;}
+.panel-foto figcaption{position:absolute;inset-inline:0;bottom:0;padding:.7rem .9rem;
+  background:linear-gradient(to top,rgba(6,12,16,.9),rgba(6,12,16,.55) 60%,transparent);
+  color:#f2efe9;font-size:.8rem;line-height:1.4;}
+.etq{font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;
+  padding:.15rem .45rem;border-radius:3px;background:var(--acento);
+  color:var(--fondo);white-space:nowrap;}
+html[dir="rtl"] .etq{letter-spacing:0;text-transform:none;font-size:.76rem;}
+.panel .dato-g{font-family:var(--display);font-size:clamp(1.8rem,3.4vw,2.6rem);
+  line-height:1;font-variant-numeric:tabular-nums;}
+.panel .dato-p{font-size:.82rem;color:var(--texto-2);margin-top:.4rem;line-height:1.45;}
+.panel-cuerpo h3{font-size:1.1rem;margin:0 0 .5rem;line-height:1.2;}
+.panel-cuerpo h3 + p{color:var(--texto-2);font-size:.9rem;margin:0;}
+
+/* Panel de portada: el titular manda, pero sigue siendo un panel del tablero
+   y no una franja aparte a todo lo ancho. */
+.panel.horizonte{padding-block:0;}
+.panel-portada{background:var(--hondo);color:var(--hondo-texto);
+  border-color:var(--hondo-linea);justify-content:center;}
+.panel-portada .rot{color:var(--acento);}
+.panel-portada .entrada{color:var(--hondo-texto);opacity:.85;}
+.panel-portada .panel-cuerpo{padding:clamp(1.2rem,2.6vw,2.2rem);}
+.panel-portada h1{font-size:clamp(1.7rem,3.6vw,2.7rem);line-height:1.12;margin:.5rem 0 .8rem;}
+.panel-portada .entrada{color:var(--texto-2);max-width:46ch;}
+.panel-portada .acciones{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.2rem;}
+/* Rótulo suelto entre bloques del tablero: sin caja, sólo el letrero. */
+.panel.sin-fondo{background:none;border:0;border-radius:0;}
+.panel.sin-fondo .rot{margin:.6rem 0 0;}
+.tablero{padding-block:clamp(1.2rem,2.4vw,2rem);}
+.tablero .cifras-fuente{font-size:.74rem;color:var(--texto-3);line-height:1.5;margin:0;}
 </style>
 </head>
 <body>
-<header class="sitio">
-  <div class="env barra">
-    <a class="marca" href="#/inicio" data-t="marca">MARSA</a>
-    <nav class="principal" data-t-attr="aria-label:ariaMenu" aria-label="Menú principal">
-      <a href="#/inicio"         data-t="nInicio">Inicio</a>
-      <a href="#/servicios"      data-t="nServicios">Servicios</a>
-      <a href="#/metodo"         data-t="nMetodo">Método</a>
-      <a href="#/destinos"       data-t="nDestinos">Destinos</a>
-      <a href="#/estacionalidad" data-t="nEstacion">Cuándo viajar</a>
-      <a href="#/dia"            data-t="nDia">Un día real</a>
-      <a href="#/oracion"       data-t="nOracion">Las horas del rezo</a>
-      <a href="#/halal"          data-t="nHalal">Halal de verdad</a>
-      <a href="#/nosotros"       data-t="nNosotros">Quiénes somos</a>
-      <a href="#/preguntas"      data-t="nPreguntas">Preguntas</a>
-      <a href="#/contacto"       data-t="nContacto">Contacto</a>
-    </nav>
-    <div class="idiomas" role="group" data-t-attr="aria-label:ariaIdioma" aria-label="Idioma">
-      <button type="button" data-lang="es" aria-pressed="true">ES</button>
-      <button type="button" data-lang="en" aria-pressed="false">EN</button>
-      <button type="button" data-lang="ar" aria-pressed="false" lang="ar">العربية</button>
-    </div>
-  </div>
-</header>
+<!-- ══════════════════════════════════════════════════════════════
+     ARMAZÓN DE APLICACIÓN
+     Fuera la barra superior con once enlaces apretados. El menú pasa a
+     un raíl lateral fijo con el apartado activo marcado, como un
+     programa: la navegación siempre visible y el contenido a su lado en
+     rejilla, no en una columna centrada.
+     ══════════════════════════════════════════════════════════════ -->
+<button class="app-abrir" id="appAbrir" aria-expanded="false" aria-controls="appLateral"
+        data-t-attr="aria-label:ariaMenu">
+  <svg width="18" height="12" viewBox="0 0 18 12" aria-hidden="true">
+    <path d="M0 1h18M0 6h18M0 11h18" stroke="currentColor" stroke-width="1.6"/></svg>
+</button>
 
-<main id="app">
+<aside class="app-lateral" id="appLateral">
+  <a class="marca" href="#/inicio" data-t="marca">MARSA</a>
+  <p class="app-eti" data-t="nlSitio">El viaje</p>
+  <nav class="app-nav principal" data-t-attr="aria-label:ariaMenu" aria-label="Menú principal">
+    <a href="#/inicio"         data-t="nInicio">Inicio</a>
+    <a href="#/servicios"      data-t="nServicios">Servicios</a>
+    <a href="#/metodo"         data-t="nMetodo">Método</a>
+    <a href="#/destinos"       data-t="nDestinos">Destinos</a>
+    <a href="#/nosotros"       data-t="nNosotros">Quiénes somos</a>
+  </nav>
+  <p class="app-eti" data-t="nlHerramientas">Herramientas</p>
+  <nav class="app-nav principal" aria-label="Herramientas">
+    <a href="#/estacionalidad" data-t="nEstacion">Cuándo viajar</a>
+    <a href="#/dia"            data-t="nDia">Un día real</a>
+    <a href="#/oracion"        data-t="nOracion">Las horas del rezo</a>
+    <a href="#/halal"          data-t="nHalal">Halal de verdad</a>
+  </nav>
+  <p class="app-eti" data-t="nlContacto">Contacto</p>
+  <nav class="app-nav principal" aria-label="Contacto">
+    <a href="#/preguntas"      data-t="nPreguntas">Preguntas</a>
+    <a href="#/contacto"       data-t="nContacto">Contacto</a>
+    <a href="#/legal"          data-t="nLegal">Información legal</a>
+  </nav>
+  <div class="idiomas" role="group" data-t-attr="aria-label:ariaIdioma" aria-label="Idioma">
+    <button type="button" data-lang="es" aria-pressed="true">ES</button>
+    <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    <button type="button" data-lang="ar" aria-pressed="false" lang="ar">العربية</button>
+  </div>
+</aside>
+<div class="app-velo" id="appVelo"></div>
+
+<main id="app" class="app-panel">
 
 <!-- ═══ INICIO ═══ -->
 <section data-ruta="inicio">
-  <div class="horizonte portada-plena">
-    <div class="fondo" style="background-image:url(img/torii-fushimi.jpg)" role="img" data-t-attr="aria-label:altTorii" aria-label="Sendero de torii en Fushimi Inari, Kioto"></div>
-    <div class="velo"></div>
-    <div class="env">
-      <p class="rot" data-t="iRot">Consultoría de viajes privados</p>
-      <h1 data-t="iH1">Los viajes no se reservan. Se diseñan.</h1>
-      <p class="entrada" data-t="iEntrada">No vendemos itinerarios hechos. Escuchamos primero, y después construimos un viaje que sólo tiene sentido para quien lo va a hacer.</p>
-      <div class="acciones">
-        <a class="btn solido" href="#/contacto" data-t="bHablemos">Hablemos de su viaje</a>
-        <a class="btn hueco"  href="#/metodo"   data-t="bMetodo">Cómo trabajamos</a>
-      </div>
-    </div>
-    <div class="pie-portada">
-      <span class="linea-vertical" aria-hidden="true"></span>
-      <span data-t="iDesliza">Siga bajando</span>
-    </div>
-  </div>
-
-  <!-- Banda de cifras: lo que este mercado hace de verdad, en grande.
-       Los números salen del análisis, no son adorno tipográfico. -->
-  <div class="banda-cifras">
-    <div class="env">
-      <p class="rot" data-t="cfRot">El mercado, en tres cifras</p>
-      <div class="cifras-monumentales">
-        <figure class="cifra-monumental">
-          <b>12,5</b><figcaption data-t="cf1">noches de estancia media del viajero de Oriente Medio en Japón, frente a 8,7 del conjunto de mercados</figcaption>
-        </figure>
-        <figure class="cifra-monumental">
-          <b>482.836<span>¥</span></b><figcaption data-t="cf2">de gasto por visitante dentro de Japón. Es el segundo mercado de los veinticuatro que publica la encuesta oficial</figcaption>
-        </figure>
-        <figure class="cifra-monumental">
-          <b>5</b><figcaption data-t="cf3">días de fiesta nacional del Golfo caen en diciembre, el mismo mes que gana por llegadas. Dos caminos, un mes</figcaption>
-        </figure>
-      </div>
-      <p class="cifras-fuente" data-t="cfFuente">Agencia de Turismo de Japón, encuesta de consumo del turismo receptor, abril-junio de 2026. Objetivo de error estándar del 10 % declarado por el organismo.</p>
-    </div>
-  </div>
-
-  <div class="env seccion">
-    <p class="rot" data-t="nServicios">Servicios</p>
-    <div class="rejilla g3">
-      <article class="tarjeta">
-        <span class="marca-orden" data-t="oDiseno">Diseño</span>
-        <h3 data-t="s1t">Diseño de itinerario</h3>
-        <p data-t="s1p">Un viaje construido desde cero sobre su calendario, su ritmo y lo que de verdad le interesa ver.</p>
-      </article>
-      <article class="tarjeta">
-        <span class="marca-orden" data-t="oReserva">Reserva</span>
-        <h3 data-t="s2t">Acceso y reservas</h3>
-        <p data-t="s2p">Alojamiento, mesas, visitas privadas y guías locales. Lo que no se reserva por internet.</p>
-      </article>
-      <article class="tarjeta">
-        <span class="marca-orden" data-t="oViaje">Viaje</span>
-        <h3 data-t="s3t">Acompañamiento</h3>
-        <p data-t="s3p">Un interlocutor localizable en su idioma y en su huso horario, desde la salida hasta la vuelta.</p>
-      </article>
-    </div>
-    <div class="acciones">
-      <a class="btn hueco" href="#/servicios" data-t="bVerServicios">Ver los servicios en detalle</a>
-    </div>
-  </div>
-
-  <div class="cita">
-    <div class="env seccion">
-      <blockquote data-t="iCita">Un buen viaje no se mide en lugares vistos, sino en decisiones que usted no tuvo que tomar.</blockquote>
-      <p class="firma" data-t="firma">MARSA — Dubái</p>
-    </div>
-  </div>
-
-  <div class="env seccion">
-    <p class="rot" data-t="nDestinos">Destinos</p>
-    <div class="rejilla g2">
-      <div>
-        <h2 class="grande" data-t="iDestH">Cuatro regiones que conocemos de primera mano.</h2>
-      </div>
-      <div>
-        <p style="color:var(--texto-2)" data-t="iDestP">No trabajamos el mundo entero. Trabajamos donde tenemos gente de confianza sobre el terreno y podemos responder de lo que prometemos.</p>
-        <div class="acciones" style="margin-top:1.6rem">
-          <a class="btn hueco" href="#/destinos" data-t="bVerDestinos">Ver los destinos</a>
+  <!-- Portada en rejilla: el titular ocupa siete columnas y la fotografía las
+       otras cinco. Ya no es una columna centrada con todo debajo. -->
+  <div class="env tablero">
+    <div class="rej12">
+      <div class="panel c7 panel-portada horizonte">
+        <div class="panel-cuerpo">
+          <p class="rot" data-t="iRot">Consultoría de viajes privados</p>
+          <h1 data-t="iH1">Los viajes no se reservan. Se diseñan.</h1>
+          <p class="entrada" data-t="iEntrada">No vendemos itinerarios hechos. Escuchamos primero, y después construimos un viaje que sólo tiene sentido para quien lo va a hacer.</p>
+          <div class="acciones">
+            <a class="btn solido" href="#/contacto" data-t="bHablemos">Hablemos de su viaje</a>
+            <a class="btn hueco"  href="#/metodo"   data-t="bMetodo">Cómo trabajamos</a>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
+      <figure class="panel c5 panel-foto ancha">
+        <img src="img/torii-fushimi.jpg" loading="eager" decoding="async"
+             data-t-attr="alt:altTorii" alt="Sendero de torii en Fushimi Inari, Kioto">
+        <figcaption data-t="fpTorii">Fushimi Inari, Kioto. A primera hora, antes de que abra el autobús.</figcaption>
+      </figure>
 
-  <div class="env seccion raya">
-    <div class="rejilla g2">
-      <div>
-        <p class="rot" data-t="rEmpezar">Empezar</p>
-        <h2 class="grande" data-t="iCierreH">Una conversación no compromete a nada.</h2>
-      </div>
-      <div>
-        <p style="color:var(--texto-2)" data-t="iCierreP">Cuéntenos qué viaje tiene en la cabeza y le respondemos personalmente, en español, inglés o árabe.</p>
-        <div class="acciones" style="margin-top:1.6rem">
-          <a class="btn solido" href="#/contacto" data-t="bHablemos">Hablemos de su viaje</a>
-        </div>
-      </div>
+      <!-- Cuatro paneles de dato, uno junto a otro -->
+      <div class="panel c3"><div class="panel-cab"><span data-t="pnEstancia">Estancia</span><span class="etq" data-t="etqOficial">Oficial</span></div>
+        <div class="panel-cuerpo"><div class="dato-g" id="cifEstancia">12,5</div><p class="dato-p" data-t="cf1"></p></div></div>
+      <div class="panel c3"><div class="panel-cab"><span data-t="pnGasto">Gasto</span><span class="etq" data-t="etqOficial">Oficial</span></div>
+        <div class="panel-cuerpo"><div class="dato-g"><span id="cifGasto">482.836</span><small> ¥</small></div><p class="dato-p" data-t="cf2"></p></div></div>
+      <div class="panel c3"><div class="panel-cab"><span data-t="pnVentana">Ventana</span><span class="etq" data-t="etqCalculado">Calculado</span></div>
+        <div class="panel-cuerpo"><div class="dato-g" id="cifVentana">5</div><p class="dato-p" data-t="cf3"></p></div></div>
+      <div class="panel c3"><div class="panel-cab"><span data-t="pnIdiomas">Idiomas</span></div>
+        <div class="panel-cuerpo"><div class="dato-g" id="cifIdiomas">3</div><p class="dato-p" data-t="pnIdiomasP"></p></div></div>
+
+      <!-- Servicios, en paneles, no en tarjetas apiladas -->
+      <div class="panel c4"><div class="panel-cab"><span data-t="oDiseno">Diseño</span></div>
+        <div class="panel-cuerpo"><h3 data-t="s1t">Diseño de itinerario</h3><p data-t="s1p"></p></div></div>
+      <div class="panel c4"><div class="panel-cab"><span data-t="oReserva">Reserva</span></div>
+        <div class="panel-cuerpo"><h3 data-t="s2t">Acceso y reservas</h3><p data-t="s2p"></p></div></div>
+      <div class="panel c4"><div class="panel-cab"><span data-t="oViaje">Viaje</span></div>
+        <div class="panel-cuerpo"><h3 data-t="s3t">Acompañamiento</h3><p data-t="s3p"></p></div></div>
+
+      <!-- Rejilla de destinos: seis fotografías de distinto tamaño -->
+      <div class="panel c12 sin-fondo"><p class="rot" data-t="rDestinosFoto">Dónde se va</p></div>
+      <figure class="panel c5 panel-foto"><img src="img/osaka-noche.jpg" loading="lazy" decoding="async" data-t-attr="alt:altOsaka" alt="Osaka de noche">
+        <figcaption data-t="fpOsaka"></figcaption></figure>
+      <figure class="panel c4 panel-foto"><img src="img/nara-ciervos.jpg" loading="lazy" decoding="async" data-t-attr="alt:altNara" alt="Ciervos en Nara">
+        <figcaption data-t="fpNara"></figcaption></figure>
+      <figure class="panel c3 panel-foto alta"><img src="img/bambu-arashiyama.jpg" loading="lazy" decoding="async" data-t-attr="alt:altBambu" alt="Bosque de bambú de Arashiyama">
+        <figcaption data-t="fpBambu"></figcaption></figure>
+      <figure class="panel c4 panel-foto"><img src="img/himeji.jpg" loading="lazy" decoding="async" data-t-attr="alt:altHimeji" alt="Castillo de Himeji">
+        <figcaption data-t="fpHimeji"></figcaption></figure>
+      <figure class="panel c5 panel-foto"><img src="img/jardin-enkoji.jpg" loading="lazy" decoding="async" data-t-attr="alt:altJardin" alt="Jardín del templo Enkoji, Kioto">
+        <figcaption data-t="fpJardin"></figcaption></figure>
+      <figure class="panel c3 panel-foto alta"><img src="img/mezquita-kobe.jpg" loading="lazy" decoding="async" data-t-attr="alt:altMezquita" alt="Mezquita de Kobe">
+        <figcaption data-t="fpMezquita"></figcaption></figure>
+
+      <p class="cifras-fuente c12" data-t="cfFuente"></p>
     </div>
   </div>
 </section>
 
-<!-- ═══ SERVICIOS ═══ -->
 <section data-ruta="servicios">
   <div class="env cabecera">
     <p class="rot" data-t="nServicios">Servicios</p>
@@ -1328,6 +1423,9 @@ var T = {
 
 es:{
   _dir:"ltr", _lang:"es",
+  nlSitio:"El viaje",
+  nlHerramientas:"Herramientas",
+  nlContacto:"Contacto",
   iDesliza:"Siga bajando",
   cfRot:"El mercado, en tres cifras",
   cf1:"noches de estancia media del viajero de Oriente Medio en Japón, frente a 8,7 del conjunto de mercados",
@@ -1421,6 +1519,22 @@ es:{
     {t:"Accesibilidad, ley aplicable y reclamaciones", p:["<b>Accesibilidad.</b> Este sitio se construye buscando cumplir las pautas WCAG 2.2 en nivel AA: navegación completa con teclado, foco siempre visible, contraste medido y texto alternativo en los tres idiomas. Si encuentra una barrera, díganos qué pasó y con qué navegador; se corrige y le contamos qué se cambió.", "<b>Ley aplicable.</b> La relación se rige por la legislación de los Emiratos Árabes Unidos y del Emirato de Dubái, y son competentes sus tribunales. Un cliente consumidor conserva siempre los derechos que le reconozca la ley de su país de residencia, y nada de lo escrito aquí se los quita.", "<b>Reclamaciones.</b> Antes de llegar a un tribunal preferimos hablarlo. Escríbanos describiendo qué ha pasado, con las fechas y lo que espera como solución. Contestamos por escrito en un plazo de <b>catorce días</b>, y si la respuesta es que no, decimos por qué."]}
   ],
   altTorii:"Sendero de torii en el santuario de Fushimi Inari, Kioto",
+  altOsaka:"El río Dōtonbori de Osaka al anochecer, con los rótulos encendidos",
+  altNara:"Un ciervo entre los arces de Nara en otoño",
+  altBambu:"El bambudal de Arashiyama visto desde el sendero",
+  altHimeji:"La avenida de acceso al castillo de Himeji",
+  altJardin:"El jardín del templo Enkōji, en el norte de Kioto",
+  fpTorii:"Fushimi Inari, Kioto. A primera hora, antes de que llegue el primer autobús.",
+  fpOsaka:"Osaka. La ciudad se ve mejor de noche y desde el agua que de día y a pie.",
+  fpNara:"Nara. Los ciervos están todo el año; los arces, tres semanas.",
+  fpBambu:"Arashiyama, Kioto. Se entra a las siete de la mañana o no se entra.",
+  fpHimeji:"Himeji. Cuarenta minutos en tren desde Osaka, medio día bien hecho.",
+  fpJardin:"Enkōji, Kioto. Un jardín pequeño y sin cola, a diez minutos de uno con cola.",
+  fpMezquita:"Kobe. La mezquita más antigua de Japón, abierta en 1935.",
+  rDestinosFoto:"Dónde se va",
+  pnEstancia:"Estancia", pnGasto:"Gasto", pnVentana:"Ventana",
+  pnIdiomas:"Idiomas", pnIdiomasP:"idiomas de trabajo: árabe, español e inglés. Un interlocutor, no una centralita.",
+  etqOficial:"Oficial", etqCalculado:"Calculado",
   altMezquita:"La mezquita de Kobe, de 1935, entre cables y pinos podados",
   pieMezquita:"La mezquita de Kobe, en el barrio de Kitano, abierta en 1935: la más antigua de Japón. Es una de las paradas que se planifican desde el principio, no sobre la marcha.",
   credRot:"Fotografías",
@@ -1638,6 +1752,9 @@ es:{
 
 en:{
   _dir:"ltr", _lang:"en",
+  nlSitio:"The trip",
+  nlHerramientas:"Tools",
+  nlContacto:"Contact",
   iDesliza:"Keep scrolling",
   cfRot:"The market, in three figures",
   cf1:"nights of average stay for the Middle East traveller in Japan, against 8.7 across all markets",
@@ -1731,6 +1848,22 @@ en:{
     {t:"Accessibility, governing law and complaints", p:["<b>Accessibility.</b> This site is built aiming to meet the WCAG 2.2 guidelines at level AA: full keyboard navigation, focus always visible, measured contrast and alternative text in all three languages. If you hit a barrier, tell us what happened and in which browser; it gets fixed and we tell you what changed.", "<b>Governing law.</b> The relationship is governed by the law of the United Arab Emirates and the Emirate of Dubai, whose courts have jurisdiction. A consumer client always keeps the rights granted by the law of their country of residence, and nothing written here takes those away.", "<b>Complaints.</b> Before it reaches a court we would rather talk. Write describing what happened, with dates and what you expect as a remedy. We answer in writing within <b>fourteen days</b>, and if the answer is no, we say why."]}
   ],
   altTorii:"Torii path at the Fushimi Inari shrine, Kyoto",
+  altOsaka:"The Dōtonbori river in Osaka at dusk, signs lit",
+  altNara:"A deer among the maples of Nara in autumn",
+  altBambu:"The Arashiyama bamboo grove seen from the path",
+  altHimeji:"The approach avenue to Himeji castle",
+  altJardin:"The garden of Enkōji temple, northern Kyoto",
+  fpTorii:"Fushimi Inari, Kyoto. First thing, before the first coach arrives.",
+  fpOsaka:"Osaka. The city looks better at night from the water than by day on foot.",
+  fpNara:"Nara. The deer are there all year; the maples, three weeks.",
+  fpBambu:"Arashiyama, Kyoto. You go in at seven in the morning or you do not go in.",
+  fpHimeji:"Himeji. Forty minutes by train from Osaka, half a day done properly.",
+  fpJardin:"Enkōji, Kyoto. A small garden with no queue, ten minutes from one with a queue.",
+  fpMezquita:"Kobe. The oldest mosque in Japan, opened in 1935.",
+  rDestinosFoto:"Where you go",
+  pnEstancia:"Stay", pnGasto:"Spend", pnVentana:"Window",
+  pnIdiomas:"Languages", pnIdiomasP:"working languages: Arabic, Spanish and English. One person, not a switchboard.",
+  etqOficial:"Official", etqCalculado:"Calculated",
   altMezquita:"The Kobe mosque, built in 1935, among cables and clipped pines",
   pieMezquita:"The Kobe mosque, in the Kitano district, opened in 1935: the oldest in Japan. It is one of the stops planned from the outset, not improvised on the day.",
   credRot:"Photographs",
@@ -1948,6 +2081,9 @@ en:{
 
 ar:{
   _dir:"rtl", _lang:"ar",
+  nlSitio:"الرحلة",
+  nlHerramientas:"أدوات",
+  nlContacto:"التواصل",
   iDesliza:"تابع النزول",
   cfRot:"السوق في ثلاثة أرقام",
   cf1:"ليلة متوسّط إقامة المسافر من الشرق الأوسط في اليابان، مقابل ٨٫٧ لمجموع الأسواق",
@@ -2041,6 +2177,22 @@ ar:{
     {t:"سهولة الوصول والقانون الواجب التطبيق والشكاوى", p:["<b>سهولة الوصول.</b> بُني هذا الموقع سعيًا إلى استيفاء إرشادات WCAG 2.2 عند المستوى AA: تصفّح كامل بلوحة المفاتيح، وتركيز مرئيّ دائمًا، وتباين مقيس، ونصّ بديل باللغات الثلاث. وإن صادفت عائقًا فأخبرنا بما حدث وبأي متصفّح؛ يُصلَح ونخبرك بما تغيّر.", "<b>القانون الواجب التطبيق.</b> تخضع العلاقة لقوانين الإمارات العربية المتحدة وإمارة دبي، ولمحاكمها الاختصاص. ويحتفظ العميل المستهلك دائمًا بالحقوق التي يمنحها له قانون بلد إقامته، ولا شيء ممّا كُتب هنا يسلبه إيّاها.", "<b>الشكاوى.</b> قبل الوصول إلى محكمة نفضّل الحديث. اكتب واصفًا ما جرى، بالتواريخ وبما تتوقّعه حلًّا. ونردّ كتابةً خلال <b>أربعة عشر يومًا</b>، وإن كان الجواب لا، قلنا لماذا."]}
   ],
   altTorii:"درب البوابات في معبد فوشيمي إيناري، كيوتو",
+  altOsaka:"نهر دوتونبوري في أوساكا عند الغروب واللافتات مضاءة",
+  altNara:"غزال بين أشجار القيقب في نارا خريفًا",
+  altBambu:"غابة الخيزران في أراشياما من الممشى",
+  altHimeji:"الطريق المؤدّي إلى قلعة هيميجي",
+  altJardin:"حديقة معبد إنكوجي في شمال كيوتو",
+  fpTorii:"فوشيمي إيناري، كيوتو. باكرًا، قبل وصول أول حافلة.",
+  fpOsaka:"أوساكا. المدينة أجمل ليلًا من الماء منها نهارًا على الأقدام.",
+  fpNara:"نارا. الغزلان طوال العام، أمّا القيقب فثلاثة أسابيع.",
+  fpBambu:"أراشياما، كيوتو. تُدخَل في السابعة صباحًا أو لا تُدخَل.",
+  fpHimeji:"هيميجي. أربعون دقيقة بالقطار من أوساكا، نصف يوم كما ينبغي.",
+  fpJardin:"إنكوجي، كيوتو. حديقة صغيرة بلا طابور، على بعد عشر دقائق من أخرى بطابور.",
+  fpMezquita:"كوبه. أقدم مساجد اليابان، افتُتح عام ١٩٣٥.",
+  rDestinosFoto:"إلى أين",
+  pnEstancia:"الإقامة", pnGasto:"الإنفاق", pnVentana:"النافذة",
+  pnIdiomas:"اللغات", pnIdiomasP:"لغات عمل: العربية والإسبانية والإنجليزية. مُحاوِر واحد لا مقسم هاتفي.",
+  etqOficial:"رسمي", etqCalculado:"محسوب",
   altMezquita:"مسجد كوبه، المبني عام ١٩٣٥، بين الأسلاك وأشجار الصنوبر المشذّبة",
   pieMezquita:"مسجد كوبه في حيّ كيتانو، افتُتح عام ١٩٣٥، وهو أقدم مساجد اليابان. وهو من المحطات التي تُخطَّط من البداية، لا في يومها.",
   credRot:"الصور",
@@ -2596,10 +2748,22 @@ function rutaActual(){
    el autor de una obra NO se traducen, porque traducirlos rompe la atribución
    que pide la licencia. Sale de img/creditos.json, escrito por commons.py. */
 var FOTOS = [
-  {t:"Torii path at Fushimi Inari-taisha", a:"Maarten Heerlien",
+  {t:"Torii path at Fushimi Inari-taisha (48885821127)", a:"Maarten Heerlien from Voorschoten, The Netherlands",
    l:"CC BY 2.0", u:"https://creativecommons.org/licenses/by/2.0/"},
-  {t:"Mosque in Japan (Kobe Muslim Mosque)", a:"Lmadcap",
-   l:"CC0", u:"https://creativecommons.org/publicdomain/zero/1.0/"}
+  {t:"Osaka Blue 2016 (33038291204)", a:"zaopharm",
+   l:"CC BY 2.0", u:"https://creativecommons.org/licenses/by/2.0/"},
+  {t:"Autumn deer (52541974760)", a:"Raita Futo from Tokyo, Japan",
+   l:"CC BY 2.0", u:"https://creativecommons.org/licenses/by/2.0/"},
+  {t:"Arashiyama Bamboo Grove (Unsplash)", a:"Erol Ahmed erol",
+   l:"CC0", u:"https://creativecommons.org/publicdomain/zero/1.0/"},
+  {t:"Throngs of people walking towards Himeji Castle, Himeji, 2016", a:"DimiTalen",
+   l:"CC0", u:"https://creativecommons.org/publicdomain/zero/1.0/"},
+  {t:"Enko-ji, Kyoto - Enkoji7725", a:"lumoplank",
+   l:"CC0", u:"https://creativecommons.org/publicdomain/zero/1.0/"},
+  {t:"Mosque in Japan (4842905209)", a:"Lmadcap from Tokyo, Japan",
+   l:"CC0", u:"https://creativecommons.org/publicdomain/zero/1.0/"},
+  {t:"Mount Fuji at night, Kawaguchiko", a:"Sergiy Galyonkin",
+   l:"CC BY-SA 2.0", u:"https://creativecommons.org/licenses/by-sa/2.0/"}
 ];
 
 /* La numeración sigue al idioma: «ar» a secas devuelve dígitos latinos, hay que
@@ -2970,6 +3134,18 @@ function pintarMapa(t){
   }).join("");
 }
 
+/* Las cuatro cifras de portada. Van fuera del diccionario —son datos, no
+   texto— y se formatean con la numeración del idioma: «ar» a secas devolvería
+   dígitos latinos dentro de una frase árabe. */
+var CIFRAS = { cifEstancia:12.5, cifGasto:482836, cifVentana:5, cifIdiomas:3 };
+
+function pintarCifras(t){
+  for (var id in CIFRAS){
+    var n = document.getElementById(id);
+    if (n) n.textContent = numero(t, CIFRAS[id]);
+  }
+}
+
 function pintarCreditos(t){
   var caja = document.getElementById("credFotos");
   if (!caja) return;
@@ -3003,6 +3179,7 @@ function aplicar(codigo){
   pintarOracion(t);
   pintarLegal(t);
   pintarMapa(t);
+  pintarCifras(t);
   pintarCreditos(t);
   var bs = document.querySelectorAll(".idiomas button");
   for (var b=0;b<bs.length;b++) bs[b].setAttribute("aria-pressed", String(bs[b].dataset.lang === codigo));
@@ -3053,6 +3230,27 @@ document.addEventListener("click", function(e){
     if (el) window.scrollTo(0, el.getBoundingClientRect().top + window.pageYOffset - 24);
   }, 30);
 });
+
+
+/* Raíl lateral en pantalla estrecha: se abre, se cierra con Escape, con el
+   velo o al pulsar un enlace, y devuelve el foco al primer enlace al abrir. */
+(function(){
+  var lat = document.getElementById("appLateral");
+  var vel = document.getElementById("appVelo");
+  var bot = document.getElementById("appAbrir");
+  if (!lat || !bot) return;
+  function abrir(si){
+    lat.classList.toggle("abierto", si);
+    vel.classList.toggle("abierto", si);
+    bot.setAttribute("aria-expanded", si ? "true" : "false");
+    if (si){ var a = lat.querySelector("a"); if (a) a.focus(); }
+  }
+  bot.addEventListener("click", function(){ abrir(!lat.classList.contains("abierto")); });
+  vel.addEventListener("click", function(){ abrir(false); });
+  lat.addEventListener("click", function(e){ if (e.target.closest("a")) abrir(false); });
+  document.addEventListener("keydown", function(e){ if (e.key === "Escape") abrir(false); });
+  window.addEventListener("resize", function(){ if (innerWidth > 900) abrir(false); });
+})();
 
 var botones = document.querySelectorAll(".idiomas button");
 for (var n=0;n<botones.length;n++){
