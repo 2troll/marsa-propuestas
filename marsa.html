@@ -112,12 +112,7 @@ p:last-child{margin-bottom:0;}
 a{color:inherit;}
 :focus-visible{outline:2px solid var(--acento);outline-offset:3px;border-radius:1px;}
 
-.env{width:min(var(--env),100% - var(--paso)*2);margin-inline:auto;}
-.seccion{padding-block:clamp(3.5rem,8vw,6.5rem);}
-.fina{padding-block:clamp(2rem,5vw,3.5rem);}
-.raya{border-top:1px solid var(--linea);}
-
-/* ── Eyebrow ─────────────────────────────────────────────────────── */
+.env{width:min(var(--env),100% - var(--paso)*2);margin-inline:auto;}/* ── Eyebrow ─────────────────────────────────────────────────────── */
 .rot{
   font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;
   color:var(--acento);font-weight:500;margin:0 0 1.35rem;
@@ -132,9 +127,7 @@ html[dir="rtl"] .rot{letter-spacing:0;text-transform:none;font-size:.85rem;}
 header.sitio{
   position:sticky;top:0;z-index:60;background:color-mix(in srgb,var(--fondo) 90%,transparent);
   backdrop-filter:blur(14px);border-bottom:1px solid var(--linea);
-}
-.barra{display:flex;align-items:center;gap:1.25rem;padding-block:1rem;}
-.marca{
+}.marca{
   font-family:var(--display);font-size:1.45rem;letter-spacing:.34em;
   text-decoration:none;white-space:nowrap;line-height:1;font-weight:500;
   background:none;border:0;cursor:pointer;color:inherit;padding:0;
@@ -207,12 +200,7 @@ nav.principal a[aria-current="page"]{color:var(--texto);border-bottom-color:var(
   position:absolute;inset:0;z-index:1;
   background:linear-gradient(105deg,var(--hondo) 22%,color-mix(in srgb,var(--hondo) 62%,transparent) 62%,color-mix(in srgb,var(--hondo) 30%,transparent));
 }
-.horizonte .env{position:relative;z-index:2;}
-.foto-seccion{margin:2.5rem 0 0;}
-.foto-seccion img{width:100%;height:auto;display:block;border-radius:2px;}
-.foto-seccion figcaption{font-size:.78rem;color:var(--tenue,#8a8378);margin-top:.6rem;line-height:1.6;}
-.foto-seccion figcaption a{color:inherit;}
-.creditos-foto{font-size:.78rem;line-height:1.7;}
+.horizonte .env{position:relative;z-index:2;}.creditos-foto{font-size:.78rem;line-height:1.7;}
 .creditos-foto li{margin-bottom:.3rem;}
 .horizonte::after{
   content:"";position:absolute;inset-inline:0;bottom:0;height:38%;
@@ -224,12 +212,7 @@ nav.principal a[aria-current="page"]{color:var(--texto);border-bottom-color:var(
 .horizonte h1{font-size:clamp(2.5rem,7.5vw,5.4rem);max-width:15ch;}
 html[dir="rtl"] .horizonte h1{max-width:19ch;}
 .horizonte .entrada{color:color-mix(in srgb,var(--hondo-texto) 74%,transparent);}
-.entrada{font-size:clamp(1.02rem,1.5vw,1.2rem);color:var(--texto-2);max-width:50ch;margin-top:1.6rem;}
-
-.cabecera{padding-block:clamp(2.75rem,7vw,5rem) clamp(1.5rem,4vw,2.5rem);}
-.cabecera h1{font-size:clamp(2rem,5.2vw,3.7rem);max-width:19ch;}
-html[dir="rtl"] .cabecera h1{max-width:23ch;}
-h2.grande{font-size:clamp(1.75rem,4vw,2.7rem);max-width:20ch;}
+.entrada{font-size:clamp(1.02rem,1.5vw,1.2rem);color:var(--texto-2);max-width:50ch;margin-top:1.6rem;}h2.grande{font-size:clamp(1.75rem,4vw,2.7rem);max-width:20ch;}
 html[dir="rtl"] h2.grande{max-width:24ch;}
 
 /* ── Botones ─────────────────────────────────────────────────────── */
@@ -253,19 +236,7 @@ html[dir="rtl"] .btn{letter-spacing:0;text-transform:none;font-size:.95rem;}
 /* ── Rejillas ────────────────────────────────────────────────────── */
 .rejilla{display:grid;gap:clamp(1.5rem,3.4vw,3rem);}
 .g3{grid-template-columns:repeat(auto-fit,minmax(245px,1fr));}
-.g2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr));align-items:start;}
-.g2d{grid-template-columns:repeat(auto-fit,minmax(min(100%,26rem),1fr));align-items:start;}
-
-.tarjeta{border-top:1px solid var(--linea);padding-top:1.5rem;}
-.tarjeta h3{font-size:1.5rem;margin-bottom:.65rem;}
-.tarjeta p{color:var(--texto-2);}
-.marca-orden{
-  font-family:var(--display);font-size:.8rem;color:var(--acento);
-  display:block;margin-bottom:.85rem;letter-spacing:.1em;
-}
-html[dir="rtl"] .marca-orden{letter-spacing:0;font-size:.95rem;}
-
-/* ── Bloques de detalle ──────────────────────────────────────────── */
+.g2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr));align-items:start;}/* ── Bloques de detalle ──────────────────────────────────────────── */
 .detalle{
   display:grid;grid-template-columns:minmax(0,6.5rem) minmax(0,1fr);
   gap:clamp(1rem,3vw,2.5rem);align-items:start;
@@ -307,16 +278,7 @@ html[dir="rtl"] .pasos > li::before{content:"٠" counter(p,arabic-indic);}
   border-radius:0;box-shadow:none;}
 .destino h3{font-size:1.6rem;}
 .destino p{color:var(--texto-2);font-size:.96rem;}
-.destino .apunte{color:var(--texto-3);font-size:.86rem;}
-
-/* ── Cita ────────────────────────────────────────────────────────── */
-.cita{background:var(--hondo);color:var(--hondo-texto);}
-.cita blockquote{
-  margin:0;font-family:var(--display);font-weight:400;
-  font-size:clamp(1.4rem,3.2vw,2.35rem);line-height:1.35;max-width:25ch;
-}
-html[dir="rtl"] .cita blockquote{line-height:1.75;max-width:29ch;}
-.cita .firma{margin-top:1.6rem;font-size:.8rem;color:color-mix(in srgb,var(--hondo-texto) 55%,transparent);letter-spacing:.12em;}
+.destino .apunte{color:var(--texto-3);font-size:.86rem;}.cita .firma{margin-top:1.6rem;font-size:.8rem;color:color-mix(in srgb,var(--hondo-texto) 55%,transparent);letter-spacing:.12em;}
 html[dir="rtl"] .cita .firma{letter-spacing:0;}
 
 /* ── Preguntas ───────────────────────────────────────────────────── */
@@ -499,10 +461,7 @@ html[dir="rtl"] .eje-meses span{letter-spacing:0;font-size:.72rem;}
 html[dir="rtl"] .or-campo label{text-transform:none;letter-spacing:0;}
 .or-campo select,.or-campo input{font:inherit;font-size:.95rem;padding:.5rem .6rem;
   background:var(--fondo-2);color:var(--texto);border:1px solid var(--linea);
-  border-radius:3px;}
-.or-rejilla{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);
-  gap:2.4rem;margin-top:2rem;align-items:start;}
-@media(max-width:820px){.or-rejilla{grid-template-columns:1fr}}
+  border-radius:3px;}@media(max-width:820px){.or-rejilla{grid-template-columns:1fr}}
 .or-tabla table{width:100%;border-collapse:collapse;}
 .or-tabla th,.or-tabla td{text-align:start;padding:.6rem .5rem;
   border-bottom:1px solid var(--linea);}
@@ -537,71 +496,10 @@ html[dir="rtl"] .or-choque{padding:.7rem 1rem .7rem 0;}
 .fiestas-rejilla span{font-size:.7rem;color:var(--texto-3);display:block;margin-top:.3rem;}
 .fiestas-lista{list-style:none;padding:0;margin:1.2rem 0 0;font-size:.9rem;color:var(--texto-2);}
 .fiestas-lista li{padding-block:.3rem;border-bottom:1px solid rgba(127,127,127,.16);
-  display:flex;gap:1rem;justify-content:space-between;}
-
-/* ══════════════════════════════════════════════════════════════════
-   PORTADA A SANGRE Y BANDA DE CIFRAS
-   El problema del diseño anterior no era el color: era el ritmo. Todo
-   eran rectángulos del mismo alto apilados. Aquí la portada ocupa la
-   pantalla entera y detrás entra una banda oscura con tres cifras a un
-   tamaño que no admite discusión. Ese salto de escala es lo que hace
-   que una página se lea como una publicación y no como un folleto.
-   ══════════════════════════════════════════════════════════════════ */
-.portada-plena{
-  min-height:min(88vh, 760px);
-  display:flex;flex-direction:column;justify-content:center;
-  padding-block:clamp(5rem,12vw,9rem) clamp(3rem,7vw,5rem);
-}
-.portada-plena .fondo{opacity:.42;}
-.portada-plena h1{
-  font-size:clamp(2.6rem,6.6vw,5.2rem);line-height:1.02;letter-spacing:-.02em;
-  max-width:15ch;
-}
-html[lang="ar"] .portada-plena h1{letter-spacing:0;line-height:1.28;}
-.portada-plena .entrada{max-width:44ch;font-size:clamp(1rem,1.6vw,1.22rem);}
-
-/* La marca de «sigue bajando»: una línea que respira. Es el único
-   movimiento de la página y se apaga si el sistema pide menos. */
-.pie-portada{
-  position:relative;z-index:2;margin-top:auto;padding-top:3rem;
-  display:flex;align-items:center;gap:.9rem;
-  font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;
-  color:color-mix(in srgb,var(--hondo-texto) 62%,transparent);
-  padding-inline:clamp(1.2rem,5vw,4rem);
-}
-html[dir="rtl"] .pie-portada{text-transform:none;letter-spacing:0;}
-.pie-portada .linea-vertical{
-  width:1px;height:46px;background:currentColor;opacity:.5;
-  transform-origin:top;animation:respira 2.8s ease-in-out infinite;
-}
-@keyframes respira{0%,100%{transform:scaleY(.35);opacity:.25}50%{transform:scaleY(1);opacity:.7}}
+  display:flex;gap:1rem;justify-content:space-between;}.portada-plena .fondo{opacity:.42;}.portada-plena .entrada{max-width:44ch;font-size:clamp(1rem,1.6vw,1.22rem);}@keyframes respira{0%,100%{transform:scaleY(.35);opacity:.25}50%{transform:scaleY(1);opacity:.7}}
 @media(prefers-reduced-motion:reduce){
   .pie-portada .linea-vertical{animation:none;transform:none;opacity:.5}
-}
-
-/* Banda de cifras: fondo hondo, números enormes, texto pequeño debajo.
-   El contraste de tamaño ES el diseño; sin él son tres párrafos más. */
-.banda-cifras{background:var(--hondo);color:var(--hondo-texto);
-  padding-block:clamp(3.4rem,8vw,6rem);}
-.banda-cifras .rot{color:color-mix(in srgb,var(--acento) 78%,#fff);}
-.cifras-monumentales{
-  display:grid;gap:clamp(2rem,4vw,3.4rem);margin-top:2.6rem;
-  grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr));
-}
-.cifra-monumental{margin:0;border-top:2px solid color-mix(in srgb,var(--hondo-texto) 30%,transparent);
-  padding-top:1.2rem;}
-.cifra-monumental b{
-  display:block;font-family:var(--display);font-weight:400;
-  font-size:clamp(3.4rem,8vw,6.2rem);line-height:.92;letter-spacing:-.03em;
-  font-variant-numeric:tabular-nums;
-}
-html[lang="ar"] .cifra-monumental b{letter-spacing:0;font-size:clamp(3rem,7vw,5.4rem);}
-.cifra-monumental b span{font-size:.42em;margin-inline-start:.12em;opacity:.62;}
-.cifra-monumental figcaption{
-  margin-top:.9rem;font-size:.93rem;line-height:1.55;max-width:30ch;
-  color:color-mix(in srgb,var(--hondo-texto) 76%,transparent);
-}
-.cifras-fuente{margin-top:2.6rem;font-size:.78rem;max-width:62ch;
+}.banda-cifras .rot{color:color-mix(in srgb,var(--acento) 78%,#fff);}.cifras-fuente{margin-top:2.6rem;font-size:.78rem;max-width:62ch;
   color:color-mix(in srgb,var(--hondo-texto) 52%,transparent);}
 
 /* ══════════════════════════════════════════════════════════════════
@@ -720,6 +618,25 @@ html[dir="rtl"] .etq{letter-spacing:0;text-transform:none;font-size:.76rem;}
 .panel.sin-fondo .rot{margin:.6rem 0 0;}
 .tablero{padding-block:clamp(1.2rem,2.4vw,2rem);}
 .tablero .cifras-fuente{font-size:.74rem;color:var(--texto-3);line-height:1.5;margin:0;}
+/* Una tabla ancha no debe empujar la página: se desliza dentro de su panel. */
+.desliza{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.desliza table{min-width:34rem;}
+/* Formulario a dos columnas dentro de su panel: los campos cortos comparten
+   fila y sólo las fechas y el mensaje ocupan el ancho entero. */
+.rej-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.9rem 1rem;}
+.rej-form .ancho2{grid-column:1 / -1;}
+@media(max-width:640px){.rej-form{grid-template-columns:1fr}}
+/* Dentro de un panel, el destino ya no necesita su filete superior propio. */
+.panel.destino{border-top:1px solid var(--linea);padding-top:0;display:flex;gap:0;}
+.panel.destino .banda{height:4px;}
+.panel.destino h3{font-size:1.15rem;}
+/* La cita, cuando vive en un panel y no en una franja a todo lo ancho. */
+.panel-portada blockquote{margin:0;font-family:var(--display);
+  font-size:clamp(1.15rem,2.2vw,1.65rem);line-height:1.35;}
+html[dir="rtl"] .panel-portada blockquote{line-height:1.75;}
+.panel-portada .firma{margin-top:1.2rem;font-size:.78rem;letter-spacing:.12em;
+  color:color-mix(in srgb,var(--hondo-texto) 55%,transparent);}
+html[dir="rtl"] .panel-portada .firma{letter-spacing:0;}
 </style>
 </head>
 <body>
@@ -831,71 +748,66 @@ html[dir="rtl"] .etq{letter-spacing:0;text-transform:none;font-size:.76rem;}
 </section>
 
 <section data-ruta="servicios">
-  <div class="env cabecera">
-    <p class="rot" data-t="nServicios">Servicios</p>
-    <h1 data-t="svH1">Tres cosas, hechas bien.</h1>
-    <p class="entrada" data-t="svEntrada">No hacemos de todo. Hacemos lo que un viaje bien resuelto necesita de verdad, y lo hace una sola persona de principio a fin.</p>
-  </div>
-
-  <div class="env fina">
-    <article class="detalle">
-      <div class="idx" data-t="oDiseno">Diseño</div>
-      <div>
-        <h3 data-t="s1t">Diseño de itinerario</h3>
-        <p data-t="sv1p">Partimos de una conversación, no de un catálogo. De ahí sale un itinerario escrito, día a día, con los tiempos reales de desplazamiento y el margen suficiente para que el viaje no se convierta en una lista de tareas.</p>
-        <ul class="lista">
-          <li data-t="sv1a">Ruta y calendario ajustados a su ritmo, no al de un grupo</li>
-          <li data-t="sv1b">Tiempos de traslado comprobados, no estimados</li>
-          <li data-t="sv1c">Alternativas para los días de lluvia y los cambios de última hora</li>
-          <li data-t="sv1d">Requisitos alimentarios y de culto contemplados desde el primer borrador</li>
-        </ul>
+  <div class="env tablero">
+    <div class="rej12">
+      <div class="panel c8">
+        <div class="panel-cab"><span data-t="nServicios">Servicios</span><span class="etq" data-t="etqTres">Tres</span></div>
+        <div class="panel-cuerpo">
+          <h1 data-t="svH1">Tres cosas, hechas bien.</h1>
+          <p class="entrada" data-t="svEntrada">No hacemos de todo. Hacemos lo que un viaje bien resuelto necesita de verdad, y lo hace una sola persona de principio a fin.</p>
+        </div>
       </div>
-    </article>
+      <figure class="panel c4 panel-foto">
+        <img src="img/fuji-noche.jpg" loading="lazy" decoding="async" data-t-attr="alt:altFuji" alt="El monte Fuji de noche desde Kawaguchiko">
+        <figcaption data-t="fpFuji"></figcaption>
+      </figure>
 
-    <article class="detalle">
-      <div class="idx" data-t="oReserva">Reserva</div>
-      <div>
-        <h3 data-t="s2t">Acceso y reservas</h3>
-        <p data-t="sv2p">La parte del viaje que no aparece en ningún buscador. Trabajamos con contactos locales en cada destino y reservamos a su nombre: usted es siempre el cliente del hotel, no un número dentro de un bloque.</p>
-        <ul class="lista">
-          <li data-t="sv2a">Alojamiento elegido uno a uno, hasta la habitación concreta</li>
-          <li data-t="sv2b">Mesas y visitas privadas fuera del horario público</li>
-          <li data-t="sv2c">Guías locales que hablan su idioma</li>
-          <li data-t="sv2d">Traslados privados y conductor cuando el trayecto lo justifica</li>
-        </ul>
-        <ul class="lista no">
-          <li data-t="sv2n1">No trabajamos con comisiones ocultas del proveedor</li>
-          <li data-t="sv2n2">No revendemos paquetes de terceros</li>
-        </ul>
+      <div class="panel c4">
+        <div class="panel-cab"><span data-t="oDiseno">Diseño</span><span class="etq" data-t="etqUno">1</span></div>
+        <div class="panel-cuerpo">
+          <h3 data-t="s1t">Diseño de itinerario</h3>
+          <p data-t="sv1p"></p>
+          <ul class="lista">
+            <li data-t="sv1a"></li><li data-t="sv1b"></li><li data-t="sv1c"></li><li data-t="sv1d"></li>
+          </ul>
+        </div>
       </div>
-    </article>
+      <div class="panel c4">
+        <div class="panel-cab"><span data-t="oReserva">Reserva</span><span class="etq" data-t="etqDos">2</span></div>
+        <div class="panel-cuerpo">
+          <h3 data-t="s2t">Acceso y reservas</h3>
+          <p data-t="sv2p"></p>
+          <ul class="lista">
+            <li data-t="sv2a"></li><li data-t="sv2b"></li><li data-t="sv2c"></li><li data-t="sv2d"></li>
+          </ul>
+        </div>
+      </div>
+      <div class="panel c4">
+        <div class="panel-cab"><span data-t="oViaje">Viaje</span><span class="etq" data-t="etqTresN">3</span></div>
+        <div class="panel-cuerpo">
+          <h3 data-t="s3t">Acompañamiento</h3>
+          <p data-t="sv3p"></p>
+          <ul class="lista">
+            <li data-t="sv3a"></li><li data-t="sv3b"></li><li data-t="sv3c"></li><li data-t="sv3d"></li>
+          </ul>
+        </div>
+      </div>
 
-    <article class="detalle">
-      <div class="idx" data-t="oViaje">Viaje</div>
-      <div>
-        <h3 data-t="s3t">Acompañamiento</h3>
-        <p data-t="sv3p">Un viaje bien planificado también se tuerce. La diferencia está en cuánto tarda alguien en resolverlo. Durante todo el trayecto tiene un número directo y una persona que ya conoce su itinerario de memoria.</p>
-        <ul class="lista">
-          <li data-t="sv3a">Un solo interlocutor, el mismo de principio a fin</li>
-          <li data-t="sv3b">Disponible en su huso horario, no en el nuestro</li>
-          <li data-t="sv3c">Cambios y cancelaciones gestionados por nosotros</li>
-          <li data-t="sv3d">Español, inglés y árabe, sin intermediarios ni traductores</li>
-        </ul>
+      <div class="panel c5">
+        <div class="panel-cab"><span data-t="pnNoHacemos">Lo que no hacemos</span></div>
+        <div class="panel-cuerpo">
+          <ul class="lista no"><li data-t="sv2n1"></li><li data-t="sv2n2"></li></ul>
+        </div>
       </div>
-    </article>
-  </div>
-
-  <div class="env seccion raya">
-    <div class="rejilla g2">
-      <div>
-        <p class="rot" data-t="rSiguiente">Siguiente paso</p>
-        <h2 class="grande" data-t="svCierreH">El método, paso a paso.</h2>
-      </div>
-      <div>
-        <p style="color:var(--texto-2)" data-t="svCierreP">Si quiere ver cómo se convierte una conversación en un viaje cerrado, está explicado entero y sin letra pequeña.</p>
-        <div class="acciones" style="margin-top:1.6rem">
-          <a class="btn solido" href="#/metodo"   data-t="bMetodo">Cómo trabajamos</a>
-          <a class="btn hueco"  href="#/contacto" data-t="bHablemos">Hablemos de su viaje</a>
+      <div class="panel c7">
+        <div class="panel-cab"><span data-t="rSiguiente">Siguiente paso</span></div>
+        <div class="panel-cuerpo">
+          <h3 data-t="svCierreH">El método, paso a paso.</h3>
+          <p data-t="svCierreP"></p>
+          <div class="acciones">
+            <a class="btn solido" href="#/metodo"   data-t="bMetodo">Cómo trabajamos</a>
+            <a class="btn hueco"  href="#/contacto" data-t="bHablemos">Hablemos de su viaje</a>
+          </div>
         </div>
       </div>
     </div>
@@ -904,69 +816,51 @@ html[dir="rtl"] .etq{letter-spacing:0;text-transform:none;font-size:.76rem;}
 
 <!-- ═══ MÉTODO ═══ -->
 <section data-ruta="metodo">
-  <div class="env cabecera">
-    <p class="rot" data-t="nMetodo">Método</p>
-    <h1 data-t="meH1">Cuatro pasos, sin prisa y sin formularios interminables.</h1>
-    <p class="entrada" data-t="mktEntrada">Nada se reserva hasta que usted ha visto el viaje entero por escrito y ha dicho que sí. Ese es todo el secreto.</p>
-  </div>
-
-  <div class="env fina">
-    <ol class="pasos">
-      <li><div>
-        <h3 data-t="p1t">Conversación</h3>
-        <p data-t="p1p">Una llamada de media hora, sin cuestionario. Queremos saber qué le apetece, qué le cansa, con quién viaja y qué le hizo disfrutar del último viaje bueno que hizo. Con eso ya se puede trabajar.</p>
-      </div></li>
-      <li><div>
-        <h3 data-t="p2t">Propuesta</h3>
-        <p data-t="p2p">Un itinerario escrito, día a día, con presupuesto cerrado y dos o tres alternativas reales en los puntos donde la decisión cambia el viaje. Sin fotos de catálogo y sin adjetivos de más.</p>
-      </div></li>
-      <li><div>
-        <h3 data-t="p3t">Ajuste</h3>
-        <p data-t="p3p">Se cambia lo que haga falta, tantas veces como haga falta, y sin coste. Aquí es donde el viaje se vuelve suyo. Sólo cuando el documento le parece bien entero se reserva algo.</p>
-      </div></li>
-      <li><div>
-        <h3 data-t="p4t">Viaje</h3>
-        <p data-t="p4p">Todo confirmado, con los localizadores en un solo documento, y un número directo disponible durante todo el trayecto. Si algo se tuerce, lo resolvemos nosotros mientras usted sigue de viaje.</p>
-      </div></li>
-    </ol>
-  </div>
-
-  <div class="cita">
-    <div class="env seccion">
-      <blockquote data-t="meCita">Nada se reserva hasta que usted ha dicho que sí al viaje entero.</blockquote>
-      <p class="firma" data-t="firma">MARSA — Dubái</p>
-    </div>
-  </div>
-
-  <div class="env seccion">
-    <div class="rejilla g2">
-      <div>
-        <p class="rot" data-t="rUsted">Qué necesitamos de usted</p>
-        <h2 class="grande" data-t="meUstedH">Muy poco, y sólo al principio.</h2>
+  <div class="env tablero">
+    <div class="rej12">
+      <div class="panel c7">
+        <div class="panel-cab"><span data-t="nMetodo">Método</span><span class="etq" data-t="etqCuatroPasos">4 pasos</span></div>
+        <div class="panel-cuerpo">
+          <h1 data-t="meH1">Cuatro pasos, sin prisa y sin formularios interminables.</h1>
+          <p class="entrada" data-t="meEntrada"></p>
+        </div>
       </div>
-      <div>
-        <ul class="lista">
-          <li data-t="u1">Las fechas, aunque sean aproximadas</li>
-          <li data-t="u2">Cuántos viajan y qué relación hay entre ustedes</li>
-          <li data-t="u3">Un orden de magnitud del presupuesto, para no hacerle perder el tiempo</li>
-          <li data-t="u4">Lo que no quiere: madrugar, andar mucho, comer fuera todos los días</li>
-        </ul>
-        <p style="color:var(--texto-2);margin-top:1.4rem" data-t="meUstedP">Lo demás lo averiguamos hablando. No hay formulario de treinta campos ni cuestionario de personalidad.</p>
+      <div class="panel c5 panel-portada horizonte">
+        <div class="panel-cuerpo">
+          <p class="rot" data-t="rGarantia">La regla</p>
+          <blockquote data-t="meCita"></blockquote>
+          <p class="firma" data-t="firma"></p>
+        </div>
       </div>
-    </div>
-  </div>
 
-  <div class="env seccion raya">
-    <div class="rejilla g2">
-      <div>
-        <p class="rot" data-t="rEmpezar">Empezar</p>
-        <h2 class="grande" data-t="meCierreH">El primer paso es sólo una conversación.</h2>
+      <div class="panel c3"><div class="panel-cab"><span data-t="p1t">Conversación</span><span class="etq" data-t="etqUno">1</span></div>
+        <div class="panel-cuerpo"><p data-t="p1p"></p></div></div>
+      <div class="panel c3"><div class="panel-cab"><span data-t="p2t">Propuesta</span><span class="etq" data-t="etqDos">2</span></div>
+        <div class="panel-cuerpo"><p data-t="p2p"></p></div></div>
+      <div class="panel c3"><div class="panel-cab"><span data-t="p3t">Ajuste</span><span class="etq" data-t="etqTresN">3</span></div>
+        <div class="panel-cuerpo"><p data-t="p3p"></p></div></div>
+      <div class="panel c3"><div class="panel-cab"><span data-t="p4t">Viaje</span><span class="etq" data-t="etqCuatroN">4</span></div>
+        <div class="panel-cuerpo"><p data-t="p4p"></p></div></div>
+
+      <div class="panel c5">
+        <div class="panel-cab"><span data-t="rUsted">Qué necesitamos de usted</span></div>
+        <div class="panel-cuerpo">
+          <ul class="lista"><li data-t="u1"></li><li data-t="u2"></li><li data-t="u3"></li><li data-t="u4"></li></ul>
+          <p class="dato-p" data-t="meUstedP"></p>
+        </div>
       </div>
-      <div>
-        <p style="color:var(--texto-2)" data-t="meCierreP">Sin compromiso, sin presupuesto por delante y sin que nadie le llame después para insistir.</p>
-        <div class="acciones" style="margin-top:1.6rem">
-          <a class="btn solido" href="#/contacto"  data-t="bHablemos">Hablemos de su viaje</a>
-          <a class="btn hueco"  href="#/servicios" data-t="nServicios">Servicios</a>
+      <figure class="panel c4 panel-foto">
+        <img src="img/jardin-enkoji.jpg" loading="lazy" decoding="async" data-t-attr="alt:altJardin" alt="Jardín del templo Enkoji, Kioto">
+        <figcaption data-t="fpJardin"></figcaption>
+      </figure>
+      <div class="panel c3">
+        <div class="panel-cab"><span data-t="rEmpezar">Empezar</span></div>
+        <div class="panel-cuerpo">
+          <h3 data-t="meCierreH">El primer paso es sólo una conversación.</h3>
+          <p data-t="meCierreP"></p>
+          <div class="acciones">
+            <a class="btn solido" href="#/contacto" data-t="bHablemos">Hablemos de su viaje</a>
+          </div>
         </div>
       </div>
     </div>
@@ -975,217 +869,184 @@ html[dir="rtl"] .etq{letter-spacing:0;text-transform:none;font-size:.76rem;}
 
 <!-- ═══ DESTINOS ═══ -->
 <section data-ruta="destinos">
-  <div class="env cabecera">
-    <p class="rot" data-t="nDestinos">Destinos</p>
-    <h1 data-t="deH1">Cuatro regiones, no el mundo entero.</h1>
-    <p class="entrada" data-t="deEntrada">Trabajamos sólo donde tenemos gente de confianza sobre el terreno. Prometer más que eso sería vender un catálogo, que es justo lo que no hacemos.</p>
-  </div>
-
-  <div class="env fina">
-    <div class="rejilla g2d">
-      <article class="destino" style="--tono:#2f4f5e">
-        <div class="banda"></div>
-        <h3 data-t="d1t">Japón</h3>
-        <p data-t="d1p">El país donde peor funciona el viaje improvisado y mejor funciona el planificado. Trabajamos fuera de la ruta de Tokio y Kioto en temporada alta, y sabemos qué merece madrugar y qué no.</p>
-        <p class="apunte" data-t="d1a">Primavera y otoño se cierran con seis meses de antelación.</p>
-      </article>
-      <article class="destino" style="--tono:#7a6436">
-        <div class="banda"></div>
-        <h3 data-t="d2t">Golfo Arábigo</h3>
-        <p data-t="d2p">Nuestra casa. Emiratos, Omán y Arabia Saudí, con el conocimiento de quien vive aquí y no de quien pasa una semana al año. Y con el calendario islámico contemplado, que mueve la demanda cada año.</p>
-        <p class="apunte" data-t="d2a">Ramadán y las dos fiestas cambian de fecha cada año: lo tenemos en cuenta.</p>
-      </article>
-      <article class="destino" style="--tono:#3f6b4a">
-        <div class="banda"></div>
-        <h3 data-t="d3t">América Latina</h3>
-        <p data-t="d3p">México, Colombia, Perú y Argentina. Distancias grandes, información poco fiable en internet y una diferencia enorme entre el operador bueno y el operador cualquiera. Ahí es donde valemos la pena.</p>
-        <p class="apunte" data-t="d3a">Atención en español peninsular y latinoamericano.</p>
-      </article>
-      <article class="destino" style="--tono:#5a4a63">
-        <div class="banda"></div>
-        <h3 data-t="d4t">Europa</h3>
-        <p data-t="d4p">Menos previsible de lo que parece en verano. Trabajamos las temporadas intermedias, cuando lo mismo cuesta la mitad y se disfruta el doble, y las ciudades pequeñas que no salen en las listas.</p>
-        <p class="apunte" data-t="d4a">Mejor relación entre precio y experiencia de mayo a junio y de septiembre a octubre.</p>
-      </article>
-    </div>
-  </div>
-
-  <div class="env seccion raya">
-    <div class="rejilla g2">
-      <div>
-        <p class="rot" data-t="rSiguiente">Siguiente paso</p>
-        <h2 class="grande" data-t="deCierreH">¿Su destino no está en la lista?</h2>
+  <div class="env tablero">
+    <div class="rej12">
+      <div class="panel c7">
+        <div class="panel-cab"><span data-t="nDestinos">Destinos</span><span class="etq" data-t="etqCuatroRegiones">4 regiones</span></div>
+        <div class="panel-cuerpo">
+          <h1 data-t="deH1">Cuatro regiones, no el mundo entero.</h1>
+          <p class="entrada" data-t="deEntrada"></p>
+        </div>
       </div>
-      <div>
-        <p style="color:var(--texto-2)" data-t="deCierreP">Escríbanos igualmente. Si no podemos hacerlo bien, se lo diremos y le indicaremos a quién acudir. Es más rentable para todos que hacerlo a medias.</p>
-        <div class="acciones" style="margin-top:1.6rem">
-          <a class="btn solido" href="#/contacto" data-t="bHablemos">Hablemos de su viaje</a>
+      <figure class="panel c5 panel-foto ancha">
+        <img src="img/himeji.jpg" loading="lazy" decoding="async" data-t-attr="alt:altHimeji" alt="Castillo de Himeji">
+        <figcaption data-t="fpHimeji"></figcaption>
+      </figure>
+
+      <!-- Los cuatro paneles y la tabla salen del mismo sitio: se pintan desde
+           DESTINOS, así que añadir una región es una línea y no cinco bloques. -->
+      <div class="c12 rej12" id="dePaneles"></div>
+
+      <div class="panel c12">
+        <div class="panel-cab"><span data-t="pnComparar">Las cuatro, una al lado de otra</span><span class="etq" data-t="etqCalculado">Calculado</span></div>
+        <div class="panel-cuerpo"><div class="desliza"><table class="tabla-dat" id="deTabla"></table></div></div>
+      </div>
+
+      <div class="panel c12">
+        <div class="panel-cab"><span data-t="rSiguiente">Siguiente paso</span></div>
+        <div class="panel-cuerpo">
+          <h3 data-t="deCierreH">¿Su destino no está en la lista?</h3>
+          <p data-t="deCierreP"></p>
+          <div class="acciones">
+            <a class="btn solido" href="#/contacto" data-t="bHablemos">Hablemos de su viaje</a>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ QUIÉNES SOMOS ═══ -->
-<section data-ruta="nosotros">
-  <div class="env cabecera">
-    <p class="rot" data-t="nNosotros">Quiénes somos</p>
-    <h1 data-t="noH1">Una casa pequeña, y a mucha honra.</h1>
-    <p class="entrada" data-t="noEntrada">MARSA es la división de viajes privados de HARUNANA TRAVEL AND CONSULTING, constituida en Dubái en 2024.</p>
-  </div>
-
-  <div class="env fina">
-    <div class="rejilla g2">
-      <div>
-        <p style="color:var(--texto-2)" data-t="noP1">Empezamos atendiendo a un puñado de clientes de México y Colombia que ya nos conocían, sin web y sin publicidad, sólo por recomendación. Seguimos siendo pequeños a propósito: cada cliente habla con una persona, y esa persona es la que ha diseñado su viaje.</p>
-        <p style="color:var(--texto-2)" data-t="noP2">Trabajamos en tres idiomas porque nuestros clientes viven en tres mundos distintos, y porque un viaje se cuenta mejor en la lengua en la que uno piensa. No traducimos: escribimos en cada idioma.</p>
+<!-- ═══ QUIÉNES SOMOS ═══ --><section data-ruta="nosotros">
+  <div class="env tablero">
+    <div class="rej12">
+      <div class="panel c7">
+        <div class="panel-cab"><span data-t="nNosotros">Quiénes somos</span><span class="etq" data-t="etqDubai">Dubái</span></div>
+        <div class="panel-cuerpo">
+          <h1 data-t="noH1">Una casa pequeña, y a mucha honra.</h1>
+          <p class="entrada" data-t="noEntrada"></p>
+        </div>
       </div>
-      <div>
-        <dl>
-          <div class="dato"><dt data-t="noD1">Constituida</dt><dd data-t="noD1v">Dubái, 2024</dd></div>
-          <div class="dato"><dt data-t="noD2">Razón social</dt><dd><span class="ltr">HARUNANA TRAVEL AND CONSULTING — FZCO</span></dd></div>
-          <div class="dato"><dt data-t="noD3">Idiomas de trabajo</dt><dd data-t="noD3v">Español · Inglés · Árabe</dd></div>
-          <div class="dato"><dt data-t="noD4">Clientes al año</dt><dd data-t="noD4v">Pocos, y deliberadamente</dd></div>
-        </dl>
+      <div class="panel c5">
+        <div class="panel-cab"><span data-t="pnFicha">Ficha</span></div>
+        <div class="panel-cuerpo">
+          <dl>
+            <div class="dato"><dt data-t="noD1">Constituida</dt><dd data-t="noD1v"></dd></div>
+            <div class="dato"><dt data-t="noD2">Razón social</dt><dd><span class="ltr">HARUNANA TRAVEL AND CONSULTING — FZCO</span></dd></div>
+            <div class="dato"><dt data-t="noD3">Idiomas de trabajo</dt><dd data-t="noD3v"></dd></div>
+            <div class="dato"><dt data-t="noD4">Clientes al año</dt><dd data-t="noD4v"></dd></div>
+          </dl>
+        </div>
       </div>
-    </div>
-  </div>
 
-  <div class="env seccion">
-    <p class="rot" data-t="rPrincipios">Cómo trabajamos</p>
-    <div class="rejilla g3">
-      <article class="tarjeta">
-        <h3 data-t="v1t">Sin comisiones ocultas</h3>
-        <p data-t="v1p">Cobramos honorarios y le pasamos el coste real de cada reserva. Si un hotel nos ofrece comisión, se la descontamos a usted del precio.</p>
-      </article>
-      <article class="tarjeta">
-        <h3 data-t="v2t">Decimos que no</h3>
-        <p data-t="v2p">Si un destino, una fecha o un presupuesto no dan para un buen viaje, lo decimos antes de cobrar, no después.</p>
-      </article>
-      <article class="tarjeta">
-        <h3 data-t="v3t">Una sola persona</h3>
-        <p data-t="v3p">Quien le atiende al principio es quien le atiende durante el viaje. No hay traspaso de expediente ni centralita.</p>
-      </article>
-    </div>
-  </div>
+      <div class="panel c4"><div class="panel-cab"><span data-t="v1t">Sin comisiones ocultas</span></div>
+        <div class="panel-cuerpo"><p data-t="v1p"></p></div></div>
+      <div class="panel c4"><div class="panel-cab"><span data-t="v2t">Decimos que no</span></div>
+        <div class="panel-cuerpo"><p data-t="v2p"></p></div></div>
+      <div class="panel c4"><div class="panel-cab"><span data-t="v3t">Una sola persona</span></div>
+        <div class="panel-cuerpo"><p data-t="v3p"></p></div></div>
 
-  <div class="cita">
-    <div class="env seccion">
-      <blockquote data-t="noCita">Preferimos veinte viajes que se recuerdan a doscientos que se olvidan.</blockquote>
-      <p class="firma" data-t="firma">MARSA — Dubái</p>
+      <div class="panel c7">
+        <div class="panel-cab"><span data-t="rPrincipios">Cómo trabajamos</span></div>
+        <div class="panel-cuerpo">
+          <p data-t="noP1"></p>
+          <p data-t="noP2"></p>
+        </div>
+      </div>
+      <div class="panel c5 panel-portada horizonte">
+        <div class="panel-cuerpo">
+          <blockquote data-t="noCita"></blockquote>
+          <p class="firma" data-t="firma"></p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ═══ PREGUNTAS ═══ -->
 <section data-ruta="preguntas">
-  <div class="env cabecera">
-    <p class="rot" data-t="nPreguntas">Preguntas</p>
-    <h1 data-t="prH1">Lo que nos preguntan antes de decidirse.</h1>
-    <p class="entrada" data-t="prEntrada">Y si falta la suya, escríbanos y se la contestamos sin rodeos.</p>
-  </div>
-
-  <div class="env fina">
-    <details class="faq">
-      <summary data-t="q1">¿Cómo se cobra el servicio?</summary>
-      <p data-t="a1">Con unos honorarios de consultoría acordados por escrito antes de empezar, más el coste real de cada reserva, sin recargo. Usted ve lo que cuesta cada cosa.</p>
-    </details>
-    <details class="faq">
-      <summary data-t="q2">¿Con cuánta antelación hay que escribir?</summary>
-      <p data-t="a2">Lo cómodo son tres meses. Se puede hacer en menos, pero la disponibilidad de lo bueno manda, y en temporada alta manda mucho.</p>
-    </details>
-    <details class="faq">
-      <summary data-t="q3">¿Trabajan con requisitos halal?</summary>
-      <p data-t="a3">Sí, y con verificación real: no damos por halal un restaurante porque lo diga su carta. Horarios de oración, salas disponibles y separación por sexos entran en el itinerario desde el principio, no como añadido.</p>
-    </details>
-    <details class="faq">
-      <summary data-t="q4">¿Qué pasa si quiero cambiar el itinerario a mitad?</summary>
-      <p data-t="a4">Se cambia. Le decimos qué es reversible sin coste y qué no, y usted decide con esa información delante.</p>
-    </details>
-    <details class="faq">
-      <summary data-t="q5">¿Viajan ustedes con nosotros?</summary>
-      <p data-t="a5">No de forma habitual. Lo que sí hay es un guía local seleccionado por nosotros en cada punto del viaje, y un teléfono nuestro disponible todo el tiempo.</p>
-    </details>
-    <details class="faq">
-      <summary data-t="q6">¿Hay un presupuesto mínimo?</summary>
-      <p data-t="a6">No hay una cifra publicada, pero por debajo de cierto punto nuestros honorarios dejan de tener sentido para usted. En la primera llamada se lo decimos con franqueza.</p>
-    </details>
-  </div>
-
-  <div class="env seccion raya">
-    <div class="rejilla g2">
-      <div>
-        <p class="rot" data-t="rEmpezar">Empezar</p>
-        <h2 class="grande" data-t="prCierreH">¿Le queda alguna duda?</h2>
-      </div>
-      <div>
-        <p style="color:var(--texto-2)" data-t="prCierreP">Escríbanos y le contestamos en menos de veinticuatro horas, sin compromiso.</p>
-        <div class="acciones" style="margin-top:1.6rem">
-          <a class="btn solido" href="#/contacto" data-t="bHablemos">Hablemos de su viaje</a>
+  <div class="env tablero">
+    <div class="rej12">
+      <div class="panel c8">
+        <div class="panel-cab"><span data-t="nPreguntas">Preguntas</span><span class="etq" data-t="etqSeis">6</span></div>
+        <div class="panel-cuerpo">
+          <h1 data-t="prH1">Lo que nos preguntan antes de decidirse.</h1>
+          <p class="entrada" data-t="prEntrada"></p>
         </div>
       </div>
+      <div class="panel c4">
+        <div class="panel-cab"><span data-t="rEmpezar">Empezar</span></div>
+        <div class="panel-cuerpo">
+          <h3 data-t="prCierreH">¿Le queda alguna duda?</h3>
+          <p data-t="prCierreP"></p>
+          <div class="acciones"><a class="btn solido" href="#/contacto" data-t="bHablemos">Hablemos de su viaje</a></div>
+        </div>
+      </div>
+
+      <div class="panel c6"><div class="panel-cuerpo">
+        <details class="faq"><summary data-t="q1"></summary><p data-t="a1"></p></details>
+        <details class="faq"><summary data-t="q2"></summary><p data-t="a2"></p></details>
+        <details class="faq"><summary data-t="q3"></summary><p data-t="a3"></p></details>
+      </div></div>
+      <div class="panel c6"><div class="panel-cuerpo">
+        <details class="faq"><summary data-t="q4"></summary><p data-t="a4"></p></details>
+        <details class="faq"><summary data-t="q5"></summary><p data-t="a5"></p></details>
+        <details class="faq"><summary data-t="q6"></summary><p data-t="a6"></p></details>
+      </div></div>
     </div>
   </div>
 </section>
 
 <!-- ═══ CONTACTO ═══ -->
 <section data-ruta="contacto">
-  <div class="env cabecera">
-    <p class="rot" data-t="nContacto">Contacto</p>
-    <h1 data-t="coH1">Cuéntenos qué viaje tiene en la cabeza.</h1>
-    <p class="entrada" data-t="coEntrada">Responde una persona, no un sistema, y siempre en menos de veinticuatro horas.</p>
-  </div>
+  <div class="env tablero">
+    <div class="rej12">
+      <div class="panel c8">
+        <div class="panel-cab"><span data-t="nContacto">Contacto</span><span class="etq" data-t="etq24h">24 h</span></div>
+        <div class="panel-cuerpo">
+          <h1 data-t="coH1">Cuéntenos qué viaje tiene en la cabeza.</h1>
+          <p class="entrada" data-t="coEntrada"></p>
+        </div>
+      </div>
+      <figure class="panel c4 panel-foto">
+        <img src="img/mezquita-kobe.jpg" loading="lazy" decoding="async" data-t-attr="alt:altMezquita" alt="Mezquita de Kobe">
+        <figcaption data-t="fpMezquita"></figcaption>
+      </figure>
 
-  <div class="env fina">
-    <div class="rejilla g2">
-      <form id="f" novalidate>
-        <div>
-          <label for="nombre" data-t="lNombre">Nombre</label>
-          <input id="nombre" name="nombre" autocomplete="name">
+      <div class="panel c7">
+        <div class="panel-cab"><span data-t="pnFormulario">Formulario</span></div>
+        <div class="panel-cuerpo">
+          <form id="f" novalidate>
+            <div class="rej-form">
+              <div><label for="nombre" data-t="lNombre">Nombre</label>
+                <input id="nombre" name="nombre" autocomplete="name"></div>
+              <div><label for="email" data-t="lEmail">Correo electrónico</label>
+                <input id="email" name="email" type="email" autocomplete="email" inputmode="email" dir="ltr"></div>
+              <div><label for="tel" data-t="lTel">Teléfono (opcional)</label>
+                <input id="tel" name="tel" type="tel" autocomplete="tel" dir="ltr"></div>
+              <div><label for="dest" data-t="lDestino">Destino de interés</label>
+                <select id="dest" name="dest">
+                  <option value=""   data-t="oElegir">Seleccione…</option>
+                  <option value="jp" data-t="d1t">Japón</option>
+                  <option value="gu" data-t="d2t">Golfo Arábigo</option>
+                  <option value="la" data-t="d3t">América Latina</option>
+                  <option value="eu" data-t="d4t">Europa</option>
+                  <option value="ot" data-t="oOtro">Otro</option>
+                </select></div>
+              <div class="ancho2"><label for="cuando" data-t="lCuando">Fechas aproximadas</label>
+                <input id="cuando" name="cuando" data-t-attr="placeholder:phCuando" placeholder="Primavera de 2027, dos semanas…"></div>
+              <div class="ancho2"><label for="msg" data-t="lMensaje">Su viaje, en pocas líneas</label>
+                <textarea id="msg" name="msg" rows="4"></textarea></div>
+            </div>
+            <div class="acciones">
+              <button class="btn solido" type="submit" data-t="bEnviar">Enviar</button>
+              <p class="ok" id="ok" role="status" aria-live="polite"></p>
+            </div>
+            <p class="aviso" data-t="coAviso"></p>
+          </form>
         </div>
-        <div>
-          <label for="email" data-t="lEmail">Correo electrónico</label>
-          <input id="email" name="email" type="email" autocomplete="email" inputmode="email" dir="ltr">
-        </div>
-        <div>
-          <label for="tel" data-t="lTel">Teléfono (opcional)</label>
-          <input id="tel" name="tel" type="tel" autocomplete="tel" dir="ltr">
-        </div>
-        <div>
-          <label for="dest" data-t="lDestino">Destino de interés</label>
-          <select id="dest" name="dest">
-            <option value=""   data-t="oElegir">Seleccione…</option>
-            <option value="jp" data-t="d1t">Japón</option>
-            <option value="gu" data-t="d2t">Golfo Arábigo</option>
-            <option value="la" data-t="d3t">América Latina</option>
-            <option value="eu" data-t="d4t">Europa</option>
-            <option value="ot" data-t="oOtro">Otro</option>
-          </select>
-        </div>
-        <div>
-          <label for="cuando" data-t="lCuando">Fechas aproximadas</label>
-          <input id="cuando" name="cuando" data-t-attr="placeholder:phCuando" placeholder="Primavera de 2027, dos semanas…">
-        </div>
-        <div>
-          <label for="msg" data-t="lMensaje">Su viaje, en pocas líneas</label>
-          <textarea id="msg" name="msg" rows="4"></textarea>
-        </div>
-        <div>
-          <button class="btn solido" type="submit" data-t="bEnviar">Enviar</button>
-          <p class="ok" id="ok" role="status" aria-live="polite"></p>
-        </div>
-        <p class="aviso" data-t="coAviso">Sus datos se usan únicamente para responder a esta consulta. No se ceden a terceros.</p>
-      </form>
+      </div>
 
-      <div>
-        <p class="rot" data-t="rOtras">Otras formas</p>
-        <dl>
-          <div class="dato"><dt data-t="coCorreo">Correo</dt><dd><span class="ltr">hola@marsa.example</span></dd></div>
-          <div class="dato"><dt data-t="coOficina">Oficina</dt><dd data-t="coOficinaV">Dubái, Emiratos Árabes Unidos</dd></div>
-          <div class="dato"><dt data-t="coIdiomas">Idiomas</dt><dd data-t="coIdiomasV">Español · Inglés · Árabe</dd></div>
-          <div class="dato"><dt data-t="coRespuesta">Respuesta</dt><dd data-t="coRespuestaV">Menos de 24 horas, todos los días</dd></div>
-        </dl>
-        <p style="color:var(--texto-2);margin-top:1.8rem" data-t="coNota">Si prefiere hablar antes de escribir nada, díganoslo y le llamamos a la hora que le venga bien, en su huso horario.</p>
+      <div class="panel c5">
+        <div class="panel-cab"><span data-t="rOtras">Otras formas</span></div>
+        <div class="panel-cuerpo">
+          <dl>
+            <div class="dato"><dt data-t="coCorreo">Correo</dt><dd><span class="ltr">hola@marsa.example</span></dd></div>
+            <div class="dato"><dt data-t="coOficina">Oficina</dt><dd data-t="coOficinaV"></dd></div>
+            <div class="dato"><dt data-t="coIdiomas">Idiomas</dt><dd data-t="coIdiomasV"></dd></div>
+            <div class="dato"><dt data-t="coRespuesta">Respuesta</dt><dd data-t="coRespuestaV"></dd></div>
+          </dl>
+          <p class="dato-p" data-t="coNota"></p>
+        </div>
       </div>
     </div>
   </div>
@@ -1194,201 +1055,276 @@ html[dir="rtl"] .etq{letter-spacing:0;text-transform:none;font-size:.76rem;}
 
 <!-- ═══ ESTACIONALIDAD ═══ -->
 <section data-ruta="estacionalidad">
-  <div class="env cabecera">
-    <p class="rot" data-t="nEstacion">Cuándo viajar</p>
-    <h1 data-t="esH1">El Golfo no viaja por el calendario que usted mira.</h1>
-    <p class="entrada" data-t="esEntrada">Ramadán y las dos fiestas se adelantan unos once días cada año. Eso desplaza la demanda entera y no se ve en ninguna estadística anual.</p>
-  </div>
-  <div class="env fina">
-    <div class="mandos" id="esAnios" role="group" data-t-attr="aria-label:esAriaAnios" aria-label="Año"></div>
-    <div class="leyenda" id="esLeyenda"></div>
-    <div class="lienzo"><div class="lienzo-int" id="esLienzo"></div></div>
-    <p class="hallazgo" id="esHallazgo"></p>
-    <details class="faq" style="margin-top:1.6rem">
-      <summary data-t="esVerTabla">Ver las fechas como tabla</summary>
-      <div id="esTabla"></div>
-    </details>
-    <p class="metodo" data-t="esMetodo">Fechas calculadas con el calendario islámico tabular. El inicio real depende del avistamiento lunar y puede variar uno o dos días. Las vacaciones escolares del Golfo y las temporadas altas de Japón son las habituales, no fechas oficiales.</p>
-  </div>
-  <div class="env seccion raya" id="mercado">
-    <p class="rot" data-t="mktRot">El año del Golfo, medido</p>
-    <h2 class="grande" data-t="mktH2">Esto no es una impresión del sector: son las llegadas reales.</h2>
-    <p style="max-width:52ch;color:var(--texto-2);margin-top:1rem" data-t="mktEntrada"></p>
-
-    <div class="grafico-mercado" id="meGrafico"></div>
-
-    <div class="rejilla g2" style="margin-top:2.4rem">
-      <div>
-        <p class="rot" data-t="mktRobustoRot">Meses que aguantan cualquier criterio</p>
-        <p data-t="mktRobustoP" style="color:var(--texto-2)"></p>
-        <ul class="lista" id="meRobustos"></ul>
+  <div class="env tablero">
+    <div class="rej12">
+      <div class="panel c8">
+        <div class="panel-cab"><span data-t="nEstacion">Cuándo viajar</span><span class="etq" data-t="etqCalculado">Calculado</span></div>
+        <div class="panel-cuerpo">
+          <h1 data-t="esH1">El Golfo no viaja por el calendario que usted mira.</h1>
+          <p class="entrada" data-t="esEntrada"></p>
+        </div>
       </div>
-      <div>
-        <p class="rot" data-t="mktDescartaRot">Meses que no ganan con ningún criterio</p>
-        <p data-t="mktDescartaP" style="color:var(--texto-2)"></p>
-        <ul class="lista" id="meDescartables"></ul>
-      </div>
-    </div>
-    <div class="fiestas" id="mktFiestas"></div>
-    <p class="metodo" data-t="mktMetodo"></p>
-  </div>
+      <figure class="panel c4 panel-foto">
+        <img src="img/nara-ciervos.jpg" loading="lazy" decoding="async" data-t-attr="alt:altNara" alt="Ciervos en Nara">
+        <figcaption data-t="fpNara"></figcaption>
+      </figure>
 
-  <div class="env seccion raya">
-    <div class="rejilla g2">
-      <div><p class="rot" data-t="rSiguiente">Siguiente paso</p>
-        <h2 class="grande" data-t="esCierreH">Un día bien montado vale más que un mes bien vendido.</h2></div>
-      <div><p style="color:var(--texto-2)" data-t="esCierreP">Sabiendo cuándo viene el cliente, queda lo difícil: que el día le cunda. Eso se ve mejor con un ejemplo real.</p>
-        <div class="acciones" style="margin-top:1.6rem">
-          <a class="btn solido" href="#/dia" data-t="bVerDia">Ver un día real</a></div></div>
+      <div class="panel c12">
+        <div class="panel-cab"><span data-t="pnCalendario">Calendario islámico sobre el año japonés</span></div>
+        <div class="panel-cuerpo">
+          <div class="mandos" id="esAnios" role="group" data-t-attr="aria-label:esAriaAnios" aria-label="Año"></div>
+          <div class="leyenda" id="esLeyenda"></div>
+          <div class="lienzo"><div class="lienzo-int" id="esLienzo"></div></div>
+          <p class="hallazgo" id="esHallazgo"></p>
+          <details class="faq"><summary data-t="esVerTabla">Ver las fechas como tabla</summary>
+            <div id="esTabla"></div></details>
+          <p class="metodo" data-t="esMetodo"></p>
+        </div>
+      </div>
+
+      <div class="panel c12" id="mercado">
+        <div class="panel-cab"><span data-t="mktRot">El año del Golfo, medido</span><span class="etq" data-t="etqOficial">Oficial</span></div>
+        <div class="panel-cuerpo">
+          <h2 data-t="mktH2">Esto no es una impresión del sector: son las llegadas reales.</h2>
+          <p data-t="mktEntrada"></p>
+          <div class="grafico-mercado" id="meGrafico"></div>
+        </div>
+      </div>
+
+      <div class="panel c6">
+        <div class="panel-cab"><span data-t="mktRobustoRot">Meses que aguantan cualquier criterio</span></div>
+        <div class="panel-cuerpo"><p data-t="mktRobustoP"></p><ul class="lista" id="meRobustos"></ul></div>
+      </div>
+      <div class="panel c6">
+        <div class="panel-cab"><span data-t="mktDescartaRot">Meses que no ganan con ningún criterio</span></div>
+        <div class="panel-cuerpo"><p data-t="mktDescartaP"></p><ul class="lista" id="meDescartables"></ul></div>
+      </div>
+
+      <div class="panel c12">
+        <div class="panel-cab"><span data-t="pnFiestas">Las fiestas del Golfo, mes a mes</span></div>
+        <div class="panel-cuerpo">
+          <div class="fiestas" id="mktFiestas"></div>
+          <p class="metodo" data-t="mktMetodo"></p>
+        </div>
+      </div>
+
+      <div class="panel c12">
+        <div class="panel-cab"><span data-t="rSiguiente">Siguiente paso</span></div>
+        <div class="panel-cuerpo">
+          <h3 data-t="esCierreH">Un día bien montado vale más que un mes bien vendido.</h3>
+          <p data-t="esCierreP"></p>
+          <div class="acciones"><a class="btn solido" href="#/dia" data-t="bVerDia">Ver un día real</a></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ═══ UN DÍA REAL ═══ -->
 <section data-ruta="dia">
-  <div class="env cabecera">
-    <p class="rot" data-t="nDia">Un día real</p>
-    <h1 data-t="diH1">El mismo día en Kioto, montado de dos maneras.</h1>
-    <p class="entrada" data-t="diEntrada">La creencia común es que atender las oraciones recorta el día. Es al revés: lo que lo recorta es no haberlas previsto y tener que improvisar a media tarde.</p>
-  </div>
-  <div class="env fina">
-    <div class="mandos" id="diMandos" role="group" data-t-attr="aria-label:diAriaPlan" aria-label="Plan"></div>
-    <div class="jornada" id="diJornada"></div>
-    <p class="hallazgo" id="diHallazgo"></p>
-    <p class="metodo" data-t="diMetodo">Horas de oración orientativas para Kioto a mediados de abril. Varían cada día y con la estación; en el itinerario real se calculan fecha a fecha.</p>
-  </div>
-  <div class="env seccion raya">
-    <div class="rejilla g2">
-      <div><p class="rot" data-t="rSiguiente">Siguiente paso</p>
-        <h2 class="grande" data-t="diCierreH">Y la comida, que es donde se rompe el viaje.</h2></div>
-      <div><p style="color:var(--texto-2)" data-t="diCierreP">La logística de la oración se resuelve con planificación. La comida no: hay que ir y comprobarlo.</p>
-        <div class="acciones" style="margin-top:1.6rem">
-          <a class="btn solido" href="#/halal" data-t="bVerHalal">Qué significa halal de verdad</a></div></div>
+  <div class="env tablero">
+    <div class="rej12">
+      <div class="panel c8">
+        <div class="panel-cab"><span data-t="nDia">Un día real</span><span class="etq" data-t="etqKioto">Kioto</span></div>
+        <div class="panel-cuerpo">
+          <h1 data-t="diH1">El mismo día en Kioto, montado de dos maneras.</h1>
+          <p class="entrada" data-t="diEntrada"></p>
+        </div>
+      </div>
+      <figure class="panel c4 panel-foto">
+        <img src="img/bambu-arashiyama.jpg" loading="lazy" decoding="async" data-t-attr="alt:altBambu" alt="Bosque de bambú de Arashiyama">
+        <figcaption data-t="fpBambu"></figcaption>
+      </figure>
+
+      <div class="panel c12">
+        <div class="panel-cab"><span data-t="pnJornada">La jornada, hora a hora</span></div>
+        <div class="panel-cuerpo">
+          <div class="mandos" id="diMandos" role="group" data-t-attr="aria-label:diAriaPlan" aria-label="Plan"></div>
+          <div class="jornada" id="diJornada"></div>
+          <p class="hallazgo" id="diHallazgo"></p>
+          <p class="metodo" data-t="diMetodo"></p>
+        </div>
+      </div>
+
+      <div class="panel c12">
+        <div class="panel-cab"><span data-t="rSiguiente">Siguiente paso</span></div>
+        <div class="panel-cuerpo">
+          <h3 data-t="diCierreH">Y la comida, que es donde se rompe el viaje.</h3>
+          <p data-t="diCierreP"></p>
+          <div class="acciones"><a class="btn solido" href="#/halal" data-t="bVerHalal">Qué significa halal de verdad</a></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ═══ HALAL ═══ -->
 <section data-ruta="oracion">
-  <div class="env cabecera">
-    <p class="rot" data-t="nOracion">Las horas del rezo</p>
-    <h1 data-t="orH1">Cinco paradas al día que nadie pone en el itinerario.</h1>
-    <p class="entrada" data-t="orEntrada">Ponga las fechas de su viaje y la ciudad. Las horas se calculan aquí mismo con la posición del sol, no salen de una tabla, y se ven encima del día para que sepa cuáles caen en un traslado y cuáles no.</p>
-  </div>
-
-  <div class="env fina">
-    <div class="or-mandos">
-      <div class="or-campo">
-        <label for="orCiudad" data-t="orLCiudad">Ciudad</label>
-        <select id="orCiudad"></select>
+  <div class="env tablero">
+    <div class="rej12">
+      <div class="panel c8">
+        <div class="panel-cab"><span data-t="nOracion">Las horas del rezo</span><span class="etq" data-t="etqEnVivo">En vivo</span></div>
+        <div class="panel-cuerpo">
+          <h1 data-t="orH1">Cinco paradas al día que nadie pone en el itinerario.</h1>
+          <p class="entrada" data-t="orEntrada"></p>
+        </div>
       </div>
-      <div class="or-campo">
-        <label for="orFecha" data-t="orLFecha">Día del viaje</label>
-        <input id="orFecha" type="date" value="2026-12-15">
+      <div class="panel c4">
+        <div class="panel-cab"><span data-t="pnAjustes">Ajustes</span></div>
+        <div class="panel-cuerpo">
+          <div class="or-mandos">
+            <div class="or-campo"><label for="orCiudad" data-t="orLCiudad">Ciudad</label>
+              <select id="orCiudad"></select></div>
+            <div class="or-campo"><label for="orFecha" data-t="orLFecha">Día del viaje</label>
+              <input id="orFecha" type="date" value="2026-12-15"></div>
+            <div class="or-campo"><label for="orEscuela" data-t="orLEscuela">Cálculo del asr</label>
+              <select id="orEscuela">
+                <option value="1" data-t="orMayoria">Mayoría de escuelas</option>
+                <option value="2" data-t="orHanafi">Escuela hanafí</option>
+              </select></div>
+          </div>
+        </div>
       </div>
-      <div class="or-campo">
-        <label for="orEscuela" data-t="orLEscuela">Cálculo del asr</label>
-        <select id="orEscuela">
-          <option value="1" data-t="orMayoria">Mayoría de escuelas</option>
-          <option value="2" data-t="orHanafi">Escuela hanafí</option>
-        </select>
+
+      <div class="panel c7">
+        <div class="panel-cab"><span data-t="pnHorario">Horario del día</span></div>
+        <div class="panel-cuerpo">
+          <div class="or-tabla" id="orTabla"></div>
+          <p class="or-nota" data-t="orNota"></p>
+        </div>
       </div>
-    </div>
-
-    <div class="or-rejilla">
-      <div>
-        <div class="or-tabla" id="orTabla"></div>
-        <p class="or-nota" data-t="orNota"></p>
+      <div class="panel c5">
+        <div class="panel-cab"><span data-t="pnQuibla">Quibla</span></div>
+        <div class="panel-cuerpo or-brujula">
+          <div id="orCompas"></div>
+          <p class="or-quibla" id="orQuibla"></p>
+        </div>
       </div>
-      <div class="or-brujula">
-        <div id="orCompas"></div>
-        <p class="or-quibla" id="orQuibla"></p>
+
+      <div class="panel c12">
+        <div class="panel-cab"><span data-t="orLineaRot">El día, con los rezos encima</span></div>
+        <div class="panel-cuerpo">
+          <div class="or-linea" id="orLinea"></div>
+          <div id="orChoques"></div>
+          <p class="metodo" data-t="orMetodo"></p>
+        </div>
       </div>
-    </div>
 
-    <p class="rot" style="margin-top:2.6rem" data-t="orLineaRot">El día, con los rezos encima</p>
-    <div class="or-linea" id="orLinea"></div>
-    <div id="orChoques"></div>
-
-    <p class="metodo" data-t="orMetodo"></p>
-  </div>
-
-  <div class="env seccion raya">
-    <div class="rejilla g2">
-      <div><p class="rot" data-t="rSiguiente">Siguiente paso</p>
-        <h2 class="grande" data-t="orCierreH">Saber la hora es fácil. Estar en el sitio adecuado, no.</h2></div>
-      <div><p style="color:var(--texto-2)" data-t="orCierreP">La hora la calcula cualquiera. Lo que cuesta es que a esa hora haya un sitio donde rezar y que el coche esté parado ahí.</p>
-        <div class="acciones" style="margin-top:1.6rem">
-          <a class="btn solido" href="#/halal" data-t="bVerHalal">Qué significa halal de verdad</a></div></div>
+      <div class="panel c12">
+        <div class="panel-cab"><span data-t="rSiguiente">Siguiente paso</span></div>
+        <div class="panel-cuerpo">
+          <h3 data-t="orCierreH">Saber la hora es fácil. Estar en el sitio adecuado, no.</h3>
+          <p data-t="orCierreP"></p>
+          <div class="acciones"><a class="btn solido" href="#/halal" data-t="bVerHalal">Qué significa halal de verdad</a></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <section data-ruta="halal">
-  <div class="env cabecera">
-    <p class="rot" data-t="nHalal">Halal de verdad</p>
-    <h1 data-t="haH1">Tres cosas distintas se anuncian con la misma palabra.</h1>
-    <p class="entrada" data-t="haEntrada">Para un cliente del Golfo la diferencia entre estas tres no es un matiz: es si puede comer o no. Pulse cada una.</p>
-  </div>
-  <div class="env fina">
-    <div class="mandos" id="haMandos" role="group" data-t-attr="aria-label:haAriaNivel" aria-label="Nivel"></div>
-    <div class="detalle-nivel" id="haDetalle"></div>
-    <div style="margin-top:2.5rem">
-      <p class="rot" data-t="haListaRot">Lo que una familia da por supuesto</p>
-      <ul class="lista" id="haLista"></ul>
-    </div>
-    <figure class="foto-seccion">
-      <img src="img/mezquita-kobe.jpg" loading="lazy" decoding="async" width="1000" height="1333"
-           data-t-attr="alt:altMezquita" alt="La mezquita de Kobe, la más antigua de Japón, abierta en 1935">
-      <figcaption data-t="pieMezquita">La mezquita de Kobe, en el barrio de Kitano, abierta en 1935: la más antigua de Japón y una de las paradas que planificamos desde el principio, no sobre la marcha.</figcaption>
-    </figure>
-    <p class="metodo" data-t="haMetodo">No existe una autoridad única de certificación halal en Japón: conviven varios organismos con criterios distintos. Por eso comprobamos establecimiento por establecimiento y no nos fiamos del rótulo.</p>
-  </div>
-  <div class="env seccion raya">
-    <div class="rejilla g2">
-      <div><p class="rot" data-t="rEmpezar">Empezar</p>
-        <h2 class="grande" data-t="haCierreH">Esto no se improvisa el día antes.</h2></div>
-      <div><p style="color:var(--texto-2)" data-t="haCierreP">Si viaja con su familia y esto le importa, hablemos antes de que reserve nada.</p>
-        <div class="acciones" style="margin-top:1.6rem">
-          <a class="btn solido" href="#/contacto" data-t="bHablemos">Hablemos de su viaje</a></div></div>
-    </div>
-  </div>
-</section>
+  <div class="env tablero">
+    <div class="rej12">
+      <div class="panel c7">
+        <div class="panel-cab"><span data-t="nHalal">Halal de verdad</span><span class="etq" data-t="etqTres">Tres</span></div>
+        <div class="panel-cuerpo">
+          <h1 data-t="haH1">Tres cosas distintas se anuncian con la misma palabra.</h1>
+          <p class="entrada" data-t="haEntrada"></p>
+        </div>
+      </div>
+      <figure class="panel c5 panel-foto ancha">
+        <img src="img/mezquita-kobe.jpg" loading="lazy" decoding="async"
+             data-t-attr="alt:altMezquita" alt="La mezquita de Kobe, la más antigua de Japón, abierta en 1935">
+        <figcaption data-t="pieMezquita"></figcaption>
+      </figure>
 
+      <div class="panel c7">
+        <div class="panel-cab"><span data-t="pnNiveles">Los tres niveles</span></div>
+        <div class="panel-cuerpo">
+          <div class="mandos" id="haMandos" role="group" data-t-attr="aria-label:haAriaNivel" aria-label="Nivel"></div>
+          <div class="detalle-nivel" id="haDetalle"></div>
+        </div>
+      </div>
+      <div class="panel c5">
+        <div class="panel-cab"><span data-t="haListaRot">Lo que una familia da por supuesto</span></div>
+        <div class="panel-cuerpo"><ul class="lista" id="haLista"></ul></div>
+      </div>
 
-<section data-ruta="legal">
-  <div class="env cabecera">
-    <p class="rot" data-t="nLegal">Información legal</p>
-    <h1 data-t="leH1">Las condiciones, escritas para leerse.</h1>
-    <p class="entrada" data-t="leEntrada">Un viaje se contrata con dinero por delante y con fechas que no se mueven. Estas son las reglas, dichas antes de que usted pague nada y sin letra pequeña.</p>
+      <div class="panel c12">
+        <div class="panel-cab"><span data-t="rEmpezar">Empezar</span></div>
+        <div class="panel-cuerpo">
+          <p class="metodo" data-t="haMetodo"></p>
+          <h3 data-t="haCierreH">Esto no se improvisa el día antes.</h3>
+          <p data-t="haCierreP"></p>
+          <div class="acciones"><a class="btn solido" href="#/contacto" data-t="bHablemos">Hablemos de su viaje</a></div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="env fina">
-    <div class="indice-legal" id="leIndice"></div>
-    <div id="leCuerpo"></div>
-    <p class="metodo" data-t="leMaqueta">Aviso: esto es una maqueta de propuesta. Los textos siguen la estructura de unas condiciones reales, pero los datos registrales de la sociedad están sin rellenar a propósito, y no constituyen asesoramiento jurídico.</p>
+</section><section data-ruta="legal">
+  <div class="env tablero">
+    <div class="rej12">
+      <div class="panel c12">
+        <div class="panel-cab"><span data-t="nLegal">Información legal</span><span class="etq" data-t="etqOcho">8 bloques</span></div>
+        <div class="panel-cuerpo">
+          <h1 data-t="leH1">Las condiciones, escritas para leerse.</h1>
+          <p class="entrada" data-t="leEntrada"></p>
+        </div>
+      </div>
+      <div class="panel c4">
+        <div class="panel-cab"><span data-t="pnIndice">Índice</span></div>
+        <div class="panel-cuerpo"><div class="indice-legal" id="leIndice"></div></div>
+      </div>
+      <div class="panel c8">
+        <div class="panel-cab"><span data-t="pnCondiciones">Condiciones</span></div>
+        <div class="panel-cuerpo">
+          <div id="leCuerpo"></div>
+          <p class="metodo" data-t="leMaqueta"></p>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
 <section data-ruta="mapa">
-  <div class="env cabecera">
-    <p class="rot" data-t="nMapa">Mapa del sitio</p>
-    <h1 data-t="maH1">Todo lo que hay, en una página.</h1>
-  </div>
-  <div class="env fina"><ul class="lista" id="maLista"></ul></div>
-</section>
-
-<section data-ruta="err">
-  <div class="env cabecera">
-    <p class="rot" data-t="erRot">Error 404</p>
-    <h1 data-t="erH1">Esta página no existe.</h1>
-    <p class="entrada"><span data-t="erP">Ha pedido la dirección</span> <code id="erRuta" class="ltr"></code></p>
-    <div class="acciones">
-      <a class="btn solido" href="#/inicio" data-t="erCta1">Ir a la portada</a>
-      <a class="btn hueco"  href="#/mapa"   data-t="erCta2">Ver el mapa del sitio</a>
+  <div class="env tablero">
+    <div class="rej12">
+      <div class="panel c8">
+        <div class="panel-cab"><span data-t="nMapa">Mapa del sitio</span></div>
+        <div class="panel-cuerpo">
+          <h1 data-t="maH1">Todo lo que hay, en una página.</h1>
+          <ul class="lista" id="maLista"></ul>
+        </div>
+      </div>
+      <figure class="panel c4 panel-foto">
+        <img src="img/osaka-noche.jpg" loading="lazy" decoding="async" data-t-attr="alt:altOsaka" alt="Osaka de noche">
+        <figcaption data-t="fpOsaka"></figcaption>
+      </figure>
     </div>
   </div>
 </section>
 
+<section data-ruta="err">
+  <div class="env tablero">
+    <div class="rej12">
+      <div class="panel c7 panel-portada horizonte">
+        <div class="panel-cuerpo">
+          <p class="rot" data-t="erRot">Error 404</p>
+          <h1 data-t="erH1">Esta página no existe.</h1>
+          <p class="entrada"><span data-t="erP">Ha pedido la dirección</span> <code id="erRuta" class="ltr"></code></p>
+          <div class="acciones">
+            <a class="btn solido" href="#/inicio" data-t="erCta1">Ir a la portada</a>
+            <a class="btn hueco"  href="#/mapa"   data-t="erCta2">Ver el mapa del sitio</a>
+          </div>
+        </div>
+      </div>
+      <figure class="panel c5 panel-foto ancha">
+        <img src="img/torii-fushimi.jpg" loading="lazy" decoding="async" data-t-attr="alt:altTorii" alt="Sendero de torii en Fushimi Inari, Kioto">
+        <figcaption data-t="fpTorii"></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
 </main>
 
 <footer class="sitio">
@@ -1520,6 +1456,28 @@ es:{
   ],
   altTorii:"Sendero de torii en el santuario de Fushimi Inari, Kioto",
   altOsaka:"El río Dōtonbori de Osaka al anochecer, con los rótulos encendidos",
+  altFuji:"El monte Fuji de noche visto desde el lago Kawaguchi",
+  etqCuatroPasos:"4 pasos", etqCuatroN:"4", etqCuatroRegiones:"4 regiones",
+  etqDubai:"Dubái", etqSeis:"6", etq24h:"24 h",
+  etqKioto:"Kioto", etqEnVivo:"En vivo",
+  etqOcho:"8 bloques", pnIndice:"Índice", pnCondiciones:"Condiciones",
+  pnCalendario:"Calendario islámico sobre el año japonés",
+  pnFiestas:"Las fiestas del Golfo, mes a mes",
+  pnJornada:"La jornada, hora a hora",
+  pnAjustes:"Ajustes", pnHorario:"Horario del día", pnQuibla:"Quibla",
+  pnNiveles:"Los tres niveles",
+  pnFicha:"Ficha", pnFormulario:"Formulario",
+  rGarantia:"La regla",
+  pnComparar:"Las cuatro, una al lado de otra",
+  deThRegion:"Región", deThVentana:"Mejor ventana",
+  deThAntelacion:"Antelación", deThIdioma:"Atención en",
+  d1v:"Marzo-abril y octubre-noviembre", d1n:"6 meses", d1i:"Español, inglés, árabe",
+  d2v:"Noviembre-marzo",                 d2n:"2 meses", d2i:"Árabe, inglés, español",
+  d3v:"Mayo-septiembre",                 d3n:"3 meses", d3i:"Español",
+  d4v:"Mayo-junio y septiembre-octubre", d4n:"3 meses", d4i:"Español, inglés",
+  fpFuji:"El Fuji desde Kawaguchiko. Se ve tres de cada diez días; por eso no se promete, se intenta.",
+  pnNoHacemos:"Lo que no hacemos",
+  etqTres:"Tres", etqUno:"1", etqDos:"2", etqTresN:"3",
   altNara:"Un ciervo entre los arces de Nara en otoño",
   altBambu:"El bambudal de Arashiyama visto desde el sendero",
   altHimeji:"La avenida de acceso al castillo de Himeji",
@@ -1849,6 +1807,28 @@ en:{
   ],
   altTorii:"Torii path at the Fushimi Inari shrine, Kyoto",
   altOsaka:"The Dōtonbori river in Osaka at dusk, signs lit",
+  altFuji:"Mount Fuji at night seen from lake Kawaguchi",
+  etqCuatroPasos:"4 steps", etqCuatroN:"4", etqCuatroRegiones:"4 regions",
+  etqDubai:"Dubai", etqSeis:"6", etq24h:"24 h",
+  etqKioto:"Kyoto", etqEnVivo:"Live",
+  etqOcho:"8 blocks", pnIndice:"Index", pnCondiciones:"Terms",
+  pnCalendario:"The Islamic calendar over the Japanese year",
+  pnFiestas:"Gulf holidays, month by month",
+  pnJornada:"The day, hour by hour",
+  pnAjustes:"Settings", pnHorario:"Times for the day", pnQuibla:"Qibla",
+  pnNiveles:"The three levels",
+  pnFicha:"Company card", pnFormulario:"Form",
+  rGarantia:"The rule",
+  pnComparar:"The four, side by side",
+  deThRegion:"Region", deThVentana:"Best window",
+  deThAntelacion:"Lead time", deThIdioma:"Support in",
+  d1v:"March-April and October-November", d1n:"6 months", d1i:"Spanish, English, Arabic",
+  d2v:"November-March",                   d2n:"2 months", d2i:"Arabic, English, Spanish",
+  d3v:"May-September",                    d3n:"3 months", d3i:"Spanish",
+  d4v:"May-June and September-October",   d4n:"3 months", d4i:"Spanish, English",
+  fpFuji:"Fuji from Kawaguchiko. Visible three days in ten, which is why it is attempted, not promised.",
+  pnNoHacemos:"What we do not do",
+  etqTres:"Three", etqUno:"1", etqDos:"2", etqTresN:"3",
   altNara:"A deer among the maples of Nara in autumn",
   altBambu:"The Arashiyama bamboo grove seen from the path",
   altHimeji:"The approach avenue to Himeji castle",
@@ -2178,6 +2158,28 @@ ar:{
   ],
   altTorii:"درب البوابات في معبد فوشيمي إيناري، كيوتو",
   altOsaka:"نهر دوتونبوري في أوساكا عند الغروب واللافتات مضاءة",
+  altFuji:"جبل فوجي ليلًا من بحيرة كاواغوتشي",
+  etqCuatroPasos:"٤ خطوات", etqCuatroN:"٤", etqCuatroRegiones:"٤ مناطق",
+  etqDubai:"دبي", etqSeis:"٦", etq24h:"٢٤ ساعة",
+  etqKioto:"كيوتو", etqEnVivo:"مباشر",
+  etqOcho:"٨ أقسام", pnIndice:"الفهرس", pnCondiciones:"الشروط",
+  pnCalendario:"التقويم الهجري فوق السنة اليابانية",
+  pnFiestas:"عطل الخليج شهرًا بشهر",
+  pnJornada:"اليوم ساعةً بساعة",
+  pnAjustes:"الإعدادات", pnHorario:"مواقيت اليوم", pnQuibla:"القِبلة",
+  pnNiveles:"المستويات الثلاثة",
+  pnFicha:"البطاقة", pnFormulario:"الاستمارة",
+  rGarantia:"القاعدة",
+  pnComparar:"الأربع جنبًا إلى جنب",
+  deThRegion:"المنطقة", deThVentana:"أفضل موسم",
+  deThAntelacion:"مدة الحجز المسبق", deThIdioma:"لغة الخدمة",
+  d1v:"آذار–نيسان وتشرين الأول–تشرين الثاني", d1n:"٦ أشهر", d1i:"الإسبانية والإنجليزية والعربية",
+  d2v:"تشرين الثاني–آذار",                    d2n:"شهران", d2i:"العربية والإنجليزية والإسبانية",
+  d3v:"أيار–أيلول",                           d3n:"٣ أشهر", d3i:"الإسبانية",
+  d4v:"أيار–حزيران وأيلول–تشرين الأول",       d4n:"٣ أشهر", d4i:"الإسبانية والإنجليزية",
+  fpFuji:"فوجي من كاواغوتشيكو. يظهر ثلاثة أيام من كل عشرة، ولذلك يُحاوَل ولا يُوعَد به.",
+  pnNoHacemos:"ما لا نفعله",
+  etqTres:"ثلاثة", etqUno:"١", etqDos:"٢", etqTresN:"٣",
   altNara:"غزال بين أشجار القيقب في نارا خريفًا",
   altBambu:"غابة الخيزران في أراشياما من الممشى",
   altHimeji:"الطريق المؤدّي إلى قلعة هيميجي",
@@ -3139,6 +3141,38 @@ function pintarMapa(t){
    dígitos latinos dentro de una frase árabe. */
 var CIFRAS = { cifEstancia:12.5, cifGasto:482836, cifVentana:5, cifIdiomas:3 };
 
+/* Las cuatro regiones. Aquí sólo va lo que NO se traduce: el prefijo de las
+   claves y el color de la banda. El texto vive en el diccionario, que es donde
+   se comprueba la paridad. */
+var DESTINOS = [
+  {k:"d1", tono:"#2f4f5e"},
+  {k:"d2", tono:"#7a6436"},
+  {k:"d3", tono:"#3f6b4a"},
+  {k:"d4", tono:"#5a4a63"}
+];
+
+function pintarDestinos(t){
+  var caja = document.getElementById("dePaneles");
+  var tabla = document.getElementById("deTabla");
+  if (!caja || !tabla) return;
+
+  caja.innerHTML = DESTINOS.map(function(d){
+    return '<article class="panel c3 destino" style="--tono:' + d.tono + '">' +
+             '<div class="banda"></div>' +
+             '<div class="panel-cab"><span>' + t[d.k+"t"] + "</span></div>" +
+             '<div class="panel-cuerpo"><p>' + t[d.k+"p"] + "</p>" +
+             '<p class="apunte">' + t[d.k+"a"] + "</p></div></article>";
+  }).join("");
+
+  tabla.innerHTML =
+    "<thead><tr><th>" + t.deThRegion + "</th><th>" + t.deThVentana +
+    "</th><th>" + t.deThAntelacion + "</th><th>" + t.deThIdioma + "</th></tr></thead><tbody>" +
+    DESTINOS.map(function(d){
+      return "<tr><th>" + t[d.k+"t"] + "</th><td>" + t[d.k+"v"] +
+             "</td><td>" + t[d.k+"n"] + "</td><td>" + t[d.k+"i"] + "</td></tr>";
+    }).join("") + "</tbody>";
+}
+
 function pintarCifras(t){
   for (var id in CIFRAS){
     var n = document.getElementById(id);
@@ -3180,6 +3214,7 @@ function aplicar(codigo){
   pintarLegal(t);
   pintarMapa(t);
   pintarCifras(t);
+  pintarDestinos(t);
   pintarCreditos(t);
   var bs = document.querySelectorAll(".idiomas button");
   for (var b=0;b<bs.length;b++) bs[b].setAttribute("aria-pressed", String(bs[b].dataset.lang === codigo));
