@@ -22,7 +22,7 @@ import urllib.request
 
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
-PUERTO = 9412
+PUERTO = None   # se elige uno libre en cada ejecución
 
 
 # ------------------------------------------------------------ WebSocket mínimo
@@ -89,6 +89,25 @@ class WS:
             partes.append(carga)
             if fin:
                 return json.loads(b''.join(partes).decode())
+
+
+
+def puerto_libre():
+    """Un puerto que nadie esté usando ahora mismo."""
+    import socket
+    s = socket.socket()
+    s.bind(('127.0.0.1', 0))
+    p = s.getsockname()[1]
+    s.close()
+    return p
+
+
+def perfil_nuevo(nombre):
+    """Un directorio de perfil propio, que se borra al salir."""
+    import atexit, shutil, tempfile
+    d = tempfile.mkdtemp(prefix='chrome-%s-' % nombre)
+    atexit.register(shutil.rmtree, d, True)
+    return d
 
 
 def espera_listo(ev, intentos=40):
@@ -255,15 +274,17 @@ def main():
     if una_hoja:
         rutas = ['']
 
-    perfil = '/tmp/.chrome-sonda-marsa'
+    
+    puerto = puerto_libre()
+    perfil = perfil_nuevo('sonda')
     proc = subprocess.Popen(
-        [CHROME, '--headless=new', f'--remote-debugging-port={PUERTO}',
+        [CHROME, '--headless=new', f'--remote-debugging-port={puerto}',
          f'--user-data-dir={perfil}', '--disable-gpu', '--no-first-run',
          '--no-default-browser-check', '--hide-scrollbars', 'about:blank'],
         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     fallos = 0
     try:
-        ws = WS(espera_chrome(PUERTO))
+        ws = WS(espera_chrome(puerto))
         n = [0]
 
         def llama(metodo, **params):

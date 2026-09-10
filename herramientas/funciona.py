@@ -18,7 +18,26 @@ import os, subprocess, sys, time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import sonda
 
-PUERTO = 9431
+PUERTO = None   # se elige uno libre en cada ejecución
+
+
+
+def puerto_libre():
+    """Un puerto que nadie esté usando ahora mismo."""
+    import socket
+    s = socket.socket()
+    s.bind(('127.0.0.1', 0))
+    p = s.getsockname()[1]
+    s.close()
+    return p
+
+
+def perfil_nuevo(nombre):
+    """Un directorio de perfil propio, que se borra al salir."""
+    import atexit, shutil, tempfile
+    d = tempfile.mkdtemp(prefix='chrome-%s-' % nombre)
+    atexit.register(shutil.rmtree, d, True)
+    return d
 
 
 def main():
@@ -27,14 +46,16 @@ def main():
     base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     archivo = os.path.join(base, sys.argv[1])
 
+    puerto = puerto_libre()
+    perfil = perfil_nuevo('funciona')
     proc = subprocess.Popen(
-        [sonda.CHROME, '--headless=new', f'--remote-debugging-port={PUERTO}',
-         '--user-data-dir=/tmp/.chrome-funciona', '--disable-gpu', '--no-first-run',
+        [sonda.CHROME, '--headless=new', f'--remote-debugging-port={puerto}',
+         f'--user-data-dir={perfil}', '--disable-gpu', '--no-first-run',
          '--no-default-browser-check', '--hide-scrollbars', 'about:blank'],
         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     fallos = 0
     try:
-        ws = sonda.WS(sonda.espera_chrome(PUERTO))
+        ws = sonda.WS(sonda.espera_chrome(puerto))
         n = [0]
 
         def llama(metodo, **params):

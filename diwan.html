@@ -361,6 +361,27 @@ html[dir="rtl"] .etq{letter-spacing:0;text-transform:none;font-size:.76rem;}
 .rej-form .ancho2{grid-column:1 / -1;}
 @media(max-width:640px){.rej-form{grid-template-columns:1fr}}
 /* ══ kit-tablero: final ══ */
+
+/* ══════════════════════════════════════════════════════════════════
+   LA VOZ DE DIWAN — bloque de un volumen
+   El kit se ata al papel y a la tinta de la casa. La forma no es una caja:
+   es un bloque de texto, abierto por los lados y cerrado por dos filetes,
+   como un párrafo compuesto en una página.
+   ══════════════════════════════════════════════════════════════════ */
+:root{
+  --kit-fondo:var(--papel); --kit-panel:var(--papel-2);
+  --kit-sup:var(--papel-2); --kit-linea:var(--filete);
+  --kit-texto:var(--tinta); --kit-texto-2:var(--tinta-2); --kit-texto-3:var(--tinta-3);
+  --kit-acento:var(--rubrica);
+  --kit-hondo:var(--tinta); --kit-hondo-texto:var(--papel);
+  --kit-hondo-linea:rgba(228,227,222,.18);
+}
+.panel{background:none;border:0;border-radius:0;
+  border-block:1px solid var(--filete);padding-block:.2rem;}
+.panel .folio{color:var(--rubrica);font-family:var(--display);}
+.panel-cuerpo{padding-inline:0;}
+.panel-foto{border-radius:0;border-block:0;}
+
 </style>
 <style>
 /* Lámina: en un manuscrito la imagen va encajada en la caja de texto, con su

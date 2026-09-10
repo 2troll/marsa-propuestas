@@ -359,6 +359,27 @@ html[dir="rtl"] .etq{letter-spacing:0;text-transform:none;font-size:.76rem;}
 .rej-form .ancho2{grid-column:1 / -1;}
 @media(max-width:640px){.rej-form{grid-template-columns:1fr}}
 /* ══ kit-tablero: final ══ */
+
+/* ══════════════════════════════════════════════════════════════════
+   LA VOZ DE MERIDIANO — ficha de dossier
+   Esquina viva, regla fina y monoespaciada: lo mismo que ya hacen las
+   claves 001, 002, 003 del resto de la página.
+   ══════════════════════════════════════════════════════════════════ */
+:root{
+  --kit-fondo:var(--papel); --kit-panel:var(--papel-2);
+  --kit-sup:var(--papel-2); --kit-linea:var(--regla);
+  --kit-texto:var(--tinta); --kit-texto-2:var(--gris); --kit-texto-3:var(--gris-2);
+  --kit-acento:var(--senal);
+  --kit-hondo:var(--tinta); --kit-hondo-texto:var(--papel);
+  --kit-hondo-linea:rgba(241,242,239,.18);
+}
+.panel{border-radius:0;background:none;border:1px solid var(--regla);}
+.panel-cab{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;}
+html[dir="rtl"] .panel-cab{letter-spacing:0;font-size:.82rem;}
+.panel-foto{border-radius:0;}
+.panel-foto figcaption{font-family:var(--mono);font-size:.7rem;letter-spacing:.04em;}
+html[dir="rtl"] .panel-foto figcaption{font-family:var(--cuerpo);letter-spacing:0;font-size:.84rem;}
+
 </style>
 </head>
 <body>

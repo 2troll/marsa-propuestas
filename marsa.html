@@ -646,13 +646,15 @@ html[dir="rtl"] .etq{letter-spacing:0;text-transform:none;font-size:.76rem;}
 /* Panel de portada: el titular manda, pero sigue siendo un panel del tablero
    y no una franja aparte a todo lo ancho. */
 .panel.horizonte{padding-block:0;}
-.panel-portada{background:var(--kit-hondo);color:var(--kit-hondo-texto);
+.panel.panel-portada{background:var(--kit-hondo);color:var(--kit-hondo-texto);
   border-color:var(--kit-hondo-linea);justify-content:center;}
-.panel-portada .rot{color:var(--kit-acento);}
-.panel-portada .entrada{color:var(--kit-hondo-texto);opacity:.85;}
-.panel-portada .panel-cuerpo{padding:clamp(1.2rem,2.6vw,2.2rem);}
-.panel-portada h1{font-size:clamp(1.7rem,3.6vw,2.7rem);line-height:1.12;margin:.5rem 0 .8rem;}
-.panel-portada .entrada{color:var(--kit-texto-2);max-width:46ch;}
+.panel.panel-portada .rot,.panel.panel-portada .eti,.panel.panel-portada .epig,
+.panel.panel-portada .rubrica,.panel.panel-portada .rotulo{
+  color:color-mix(in srgb,var(--kit-acento) 55%,var(--kit-hondo-texto));}
+.panel.panel-portada .entrada{color:var(--kit-hondo-texto);opacity:.85;}
+.panel.panel-portada .panel-cuerpo{padding:clamp(1.2rem,2.6vw,2.2rem);}
+.panel.panel-portada h1{font-size:clamp(1.7rem,3.6vw,2.7rem);line-height:1.12;margin:.5rem 0 .8rem;}
+.panel.panel-portada .entrada{max-width:46ch;}
 .panel-portada .acciones{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.2rem;}
 /* Los botones dentro del panel oscuro. No se puede dar por buena la clase de
    ningún sitio —uno los llama `.solido` y otro `.sol`—, así que el kit los
@@ -667,7 +669,7 @@ html[dir="rtl"] .etq{letter-spacing:0;text-transform:none;font-size:.76rem;}
 .panel-portada .btn.sol:hover,.panel-portada .btn.solido:hover,.panel-portada .acc a.sol:hover{
   background:transparent;color:var(--kit-hondo-texto);}
 /* Y el texto suelto: párrafos, listas y rótulos secundarios. */
-.panel-portada p,.panel-portada li,.panel-portada dd{color:var(--kit-hondo-texto);}
+.panel.panel-portada p,.panel.panel-portada li,.panel.panel-portada dd{color:var(--kit-hondo-texto);}
 .panel-portada .metodo,.panel-portada .dato-p{
   color:color-mix(in srgb,var(--kit-hondo-texto) 66%,transparent);}
 /* Rótulo suelto entre bloques del tablero: sin caja, sólo el letrero. */
@@ -684,6 +686,47 @@ html[dir="rtl"] .etq{letter-spacing:0;text-transform:none;font-size:.76rem;}
 .rej-form .ancho2{grid-column:1 / -1;}
 @media(max-width:640px){.rej-form{grid-template-columns:1fr}}
 /* ══ kit-tablero: final ══ */
+
+/* ══════════════════════════════════════════════════════════════════
+   LA VOZ DE MARSA — cuaderno de consultor
+   El kit trae la rejilla; el carácter lo pone cada sitio. Aquí: superficie
+   de papel sin borde, esquina casi viva, y el rótulo del panel en Bodoni
+   cursiva y en caja baja, subrayado por un filete corto de acento. Las
+   versalitas espaciadas que trae el kit son de interfaz de aplicación
+   genérica: aquí el papel manda.
+   ══════════════════════════════════════════════════════════════════ */
+.panel{background:var(--sup);border:0;border-radius:2px;box-shadow:none;}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) .panel{background:var(--fondo-2);}
+}
+:root[data-theme="dark"] .panel{background:var(--fondo-2);}
+.panel > .panel-cab{
+  border-block-end:0;padding:.95rem 1rem .1rem;
+  font-family:var(--display);font-style:italic;font-weight:400;
+  font-size:1.06rem;letter-spacing:0;text-transform:none;
+  color:var(--texto-2);align-items:baseline;}
+/* El filete corto sustituye a la línea de lado a lado: marca el arranque del
+   panel sin dibujar una cuadrícula de 190 casillas. */
+.panel > .panel-cab > span:first-child{position:relative;padding-block-end:.45rem;}
+.panel > .panel-cab > span:first-child::after{content:"";position:absolute;
+  inset-inline-start:0;bottom:0;width:1.6rem;height:2px;background:var(--acento);}
+html[dir="rtl"] .panel > .panel-cab{font-style:normal;font-size:1.12rem;}
+.panel-cuerpo{padding:.9rem 1rem 1.1rem;}
+/* La etiqueta de procedencia, perfilada y no maciza: pesa menos en una página
+   que ya lleva mucha información. */
+.etq{background:none;color:var(--acento);border:1px solid var(--acento);
+  border-radius:2px;font-family:var(--texto-f);font-size:.62rem;
+  letter-spacing:.12em;padding:.16rem .5rem;}
+html[dir="rtl"] .etq{letter-spacing:0;font-size:.78rem;}
+.panel-foto{border-radius:2px;}
+.panel-cuerpo h3{font-family:var(--display);font-weight:400;font-size:1.28rem;
+  letter-spacing:-.005em;}
+.panel .dato-g{font-weight:400;}
+/* El raíl, con la misma letra que el resto de la casa */
+.app-eti{font-family:var(--display);font-style:italic;text-transform:none;
+  letter-spacing:0;font-size:.92rem;color:var(--texto-3);}
+html[dir="rtl"] .app-eti{font-style:normal;}
+
 /* Dentro de un panel, el destino ya no necesita su filete superior propio. */
 .panel.destino{border-top:1px solid var(--linea);padding-top:0;display:flex;gap:0;}
 .panel.destino .banda{height:4px;}

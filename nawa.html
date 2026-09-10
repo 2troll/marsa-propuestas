@@ -315,6 +315,26 @@ html[dir="rtl"] .etq{letter-spacing:0;text-transform:none;font-size:.76rem;}
 .rej-form .ancho2{grid-column:1 / -1;}
 @media(max-width:640px){.rej-form{grid-template-columns:1fr}}
 /* ══ kit-tablero: final ══ */
+
+/* ══════════════════════════════════════════════════════════════════
+   LA VOZ DE NAWA — caja de noche
+   Sitio nocturno: sin esto el kit le ponía paneles claros con texto oscuro
+   encima, que es sencillamente ilegible. Y la forma, redonda y sin filete,
+   como todo lo demás de esta propuesta.
+   ══════════════════════════════════════════════════════════════════ */
+:root{
+  --kit-fondo:var(--noche); --kit-panel:var(--noche-2);
+  --kit-sup:var(--noche-3); --kit-linea:var(--hilo);
+  --kit-texto:var(--luz); --kit-texto-2:var(--luz-2); --kit-texto-3:var(--luz-3);
+  --kit-acento:var(--arena);
+  --kit-hondo:var(--noche-3); --kit-hondo-texto:var(--luz);
+  --kit-hondo-linea:var(--hilo);
+}
+.panel{background:var(--noche-2);border:0;border-radius:20px;}
+.panel .cifra{color:var(--arena);font-family:var(--disp);}
+.panel-foto{border-radius:20px;}
+.panel-cuerpo h3{font-family:var(--disp);font-weight:400;}
+
 </style>
 <style>
 /* La portada de NAWA es el mapa de estrellas dibujado en canvas; una foto
