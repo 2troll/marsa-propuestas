@@ -523,6 +523,21 @@ html[dir="rtl"] .or-tabla th{text-transform:none;letter-spacing:0;}
   margin-top:1rem;font-size:.92rem;}
 html[dir="rtl"] .or-choque{padding:.7rem 1rem .7rem 0;}
 .or-choque b{display:block;}
+
+/* Fiestas nacionales: la segunda vía, independiente del índice de llegadas.
+   Se enseña al lado porque las dos apuntan al mismo mes y eso es el hallazgo. */
+.fiestas{margin-top:2.6rem;padding-top:1.6rem;border-top:1px solid rgba(127,127,127,.26);}
+.fiestas h3{font-size:1.05rem;margin-bottom:.5rem;}
+.fiestas p{color:var(--texto-2);max-width:54ch;}
+.fiestas-rejilla{display:grid;grid-template-columns:repeat(12,1fr);gap:3px;margin:1.4rem 0 .6rem;}
+.fiestas-rejilla div{text-align:center;}
+.fiestas-rejilla b{display:block;height:52px;position:relative;background:rgba(127,127,127,.13);
+  border-radius:2px;overflow:hidden;}
+.fiestas-rejilla b i{position:absolute;inset-inline:0;bottom:0;background:var(--acento);display:block;}
+.fiestas-rejilla span{font-size:.7rem;color:var(--texto-3);display:block;margin-top:.3rem;}
+.fiestas-lista{list-style:none;padding:0;margin:1.2rem 0 0;font-size:.9rem;color:var(--texto-2);}
+.fiestas-lista li{padding-block:.3rem;border-bottom:1px solid rgba(127,127,127,.16);
+  display:flex;gap:1rem;justify-content:space-between;}
 </style>
 </head>
 <body>
@@ -1030,6 +1045,7 @@ html[dir="rtl"] .or-choque{padding:.7rem 1rem .7rem 0;}
         <ul class="lista" id="meDescartables"></ul>
       </div>
     </div>
+    <div class="fiestas" id="mktFiestas"></div>
     <p class="metodo" data-t="mktMetodo"></p>
   </div>
 
@@ -1223,6 +1239,10 @@ var T = {
 
 es:{
   _dir:"ltr", _lang:"es",
+  fiH3:"Y hay una segunda razón, que no sale de las llegadas",
+  fiP:"Las fiestas nacionales del Golfo son días libres que no gastan vacaciones. Contadas para {anio}, se reparten así:",
+  fiHallazgo:"{mes} concentra {n} días de fiesta nacional del Golfo — y es el mismo mes que ganaba antes por las llegadas, sin que ese cálculo supiera nada de fiestas. Dos caminos distintos, el mismo mes.",
+  paises:{"Emiratos": "Emiratos Árabes Unidos", "Baréin": "Baréin", "Catar": "Catar", "Kuwait": "Kuwait", "Omán": "Omán", "Arabia Saudí": "Arabia Saudí"},
   ciudades:["Osaka", "Kioto", "Nara", "Kobe", "Tokio", "Hiroshima"],
   nOracion:"Las horas del rezo",
   tOracion:"Las horas del rezo — MARSA",
@@ -1523,6 +1543,10 @@ es:{
 
 en:{
   _dir:"ltr", _lang:"en",
+  fiH3:"And there is a second reason, which does not come from the arrivals",
+  fiP:"Gulf national holidays are free days that do not eat into annual leave. Counted for {anio}, they fall like this:",
+  fiHallazgo:"{mes} holds {n} days of Gulf national holiday — and it is the same month that already won on arrivals, in a calculation that knew nothing about holidays. Two different routes, one month.",
+  paises:{"Emiratos": "United Arab Emirates", "Baréin": "Bahrain", "Catar": "Qatar", "Kuwait": "Kuwait", "Omán": "Oman", "Arabia Saudí": "Saudi Arabia"},
   ciudades:["Osaka", "Kyoto", "Nara", "Kobe", "Tokyo", "Hiroshima"],
   nOracion:"Prayer times",
   tOracion:"Prayer times — MARSA",
@@ -1823,6 +1847,10 @@ en:{
 
 ar:{
   _dir:"rtl", _lang:"ar",
+  fiH3:"وثمّة سبب ثانٍ لا يأتي من أعداد الوافدين",
+  fiP:"الأعياد الوطنية الخليجية أيام عطلة لا تُقتطع من الإجازة السنوية. محسوبةً لعام {anio}، تتوزّع هكذا:",
+  fiHallazgo:"{mes} يجمع {n} أيام عطلة وطنية خليجية — وهو الشهر نفسه الذي فاز سابقًا بأعداد الوافدين، في حساب لا يعرف شيئًا عن الأعياد. طريقان مختلفان، وشهر واحد.",
+  paises:{"Emiratos": "الإمارات العربية المتحدة", "Baréin": "البحرين", "Catar": "قطر", "Kuwait": "الكويت", "Omán": "عُمان", "Arabia Saudí": "السعودية"},
   ciudades:["أوساكا", "كيوتو", "نارا", "كوبه", "طوكيو", "هيروشيما"],
   nOracion:"مواقيت الصلاة",
   tOracion:"مواقيت الصلاة — مَرْسى",
@@ -2376,7 +2404,66 @@ var MERCADO = {
     2,
     7
   ],
-  "repartos": 10000
+  "repartos": 10000,
+  "fiestas": [
+    0,
+    2,
+    4,
+    0,
+    4,
+    0,
+    0,
+    0,
+    1,
+    0,
+    2,
+    5
+  ],
+  "fiestasAnio": 2027,
+  "fiestasLista": [
+    {
+      "pais": "Kuwait",
+      "fiesta": "Día Nacional y Liberación",
+      "fecha": "2027-02-25",
+      "dias": 2,
+      "tipo": "nacional"
+    },
+    {
+      "pais": "Arabia Saudí",
+      "fiesta": "Día Nacional",
+      "fecha": "2027-09-23",
+      "dias": 1,
+      "tipo": "nacional"
+    },
+    {
+      "pais": "Omán",
+      "fiesta": "Día Nacional",
+      "fecha": "2027-11-18",
+      "dias": 2,
+      "tipo": "nacional"
+    },
+    {
+      "pais": "Emiratos",
+      "fiesta": "Día de la Unión",
+      "fecha": "2027-12-02",
+      "dias": 2,
+      "tipo": "nacional"
+    },
+    {
+      "pais": "Baréin",
+      "fiesta": "Día Nacional",
+      "fecha": "2027-12-16",
+      "dias": 2,
+      "tipo": "nacional"
+    },
+    {
+      "pais": "Catar",
+      "fiesta": "Día Nacional",
+      "fecha": "2027-12-18",
+      "dias": 1,
+      "tipo": "nacional"
+    }
+  ]
 };
 
 var RUTAS = ["inicio","servicios","metodo","destinos","estacionalidad","dia","oracion","halal","nosotros","preguntas","contacto","legal","mapa","err"];
@@ -2719,6 +2806,37 @@ function pintarMercado(t){
   };
   lista("meRobustos", MERCADO.robustos);
   lista("meDescartables", MERCADO.descartables);
+  pintarFiestas(t);
+}
+
+/* Las fiestas nacionales del Golfo son una vía INDEPENDIENTE del índice de
+   llegadas: dicen cuándo una familia tiene días libres sin gastar vacaciones.
+   Que las dos apunten al mismo mes es el hallazgo, y por eso van juntas. */
+function pintarFiestas(t){
+  var caja = document.getElementById("mktFiestas");
+  if (!caja || !MERCADO.fiestas) return;
+  var max = Math.max.apply(null, MERCADO.fiestas) || 1;
+  var mejor = MERCADO.fiestas.indexOf(max);
+
+  var rejilla = MERCADO.fiestas.map(function(d, i){
+    var alto = Math.round(d / max * 100);
+    return '<div><b><i style="height:' + alto + '%"></i></b><span>' +
+           t.meses[i] + (d ? " · " + d : "") + "</span></div>";
+  }).join("");
+
+  var filas = MERCADO.fiestasLista.map(function(f){
+    var m = parseInt(f.fecha.slice(5, 7), 10) - 1;
+    var dia = parseInt(f.fecha.slice(8, 10), 10);
+    return "<li><span>" + t.paises[f.pais] + "</span><span>" +
+           dia + " " + t.meses[m] + "</span></li>";
+  }).join("");
+
+  caja.innerHTML =
+    "<h3>" + t.fiH3 + "</h3>" +
+    "<p>" + t.fiP.replace("{anio}", MERCADO.fiestasAnio) + "</p>" +
+    '<div class="fiestas-rejilla">' + rejilla + "</div>" +
+    "<p><b>" + t.fiHallazgo.replace("{mes}", t.mesesLargos[mejor]).replace("{n}", max) + "</b></p>" +
+    '<ul class="fiestas-lista">' + filas + "</ul>";
 }
 
 function pintarLegal(t){
