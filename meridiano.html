@@ -233,6 +233,132 @@ html[dir="rtl"] footer.mesa{letter-spacing:0; font-size:.85rem;}
 #legal summary:hover{opacity:.85;}
 #legal summary:focus-visible{outline:2px solid currentColor;outline-offset:3px;}
 #legal .maqueta{max-width:38rem;font-size:.82rem;opacity:.7;margin-top:2.4rem;}
+/* ══ kit-tablero: principio ══ */
+/* ══════════════════════════════════════════════════════════════════
+   KIT TABLERO — armazón de aplicación, rejilla de doce y paneles
+   ------------------------------------------------------------------
+   Se copia entero dentro de la hoja de estilos del sitio, entre las dos
+   marcas `kit-tablero`. No trae colores propios: usa las variables que
+   ya define cada sitio, con alternativa por si alguna falta.
+
+     --fondo   fondo de la página        --texto    texto principal
+     --fondo-2 fondo de panel            --texto-2  texto secundario
+     --sup     superficie elevada        --texto-3  texto tenue
+     --linea   línea de separación       --acento   color de marca
+     --hondo / --hondo-texto / --hondo-linea   franja oscura
+
+   Todo el reflejo en árabe sale de propiedades lógicas. Las excepciones
+   van marcadas una a una.
+   ══════════════════════════════════════════════════════════════════ */
+
+/* ── Puente de variables ───────────────────────────────────────────
+   El kit no impone paleta: toma la del sitio, sea cual sea el nombre que
+   use, y sólo pone un último recurso para que nada quede sin color. */
+:root{
+  /* Tres vocabularios conviven en la carpeta: `--fondo/--texto` (MARSA),
+     `--fondo/--tinta` (NAHAR) y `--f/--t` (BUNN, ATLAS). Se prueban en ese
+     orden y sólo al final entra un color fijo, para que ningún sitio herede
+     una paleta que no es la suya. Si un sitio quiere mandar, redefine
+     cualquiera de estas variables después del kit. */
+  --kit-fondo:var(--fondo,var(--f,#eef0ef));
+  --kit-panel:var(--fondo-2,var(--f2,#e4e8e7));
+  --kit-sup:var(--sup,var(--kit-panel));
+  --kit-linea:var(--linea,var(--l,rgba(20,24,27,.14)));
+  --kit-texto:var(--texto,var(--tinta,var(--t,#14181b)));
+  --kit-texto-2:var(--texto-2,var(--tinta-2,var(--t2,#525a5e)));
+  --kit-texto-3:var(--texto-3,var(--tinta-3,var(--t3,#858c8f)));
+  --kit-acento:var(--acento,var(--ocre,var(--verde,#0f5f7a)));
+  --kit-hondo:var(--hondo,#101619);
+  --kit-hondo-texto:var(--hondo-texto,#e7ecec);
+  --kit-hondo-linea:var(--hondo-linea,rgba(231,236,236,.18));
+}
+
+
+/* Rejilla de doce columnas: es lo que rompe la columna única. */
+.rej12{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));
+  gap:clamp(.9rem,1.6vw,1.4rem);}
+.c3{grid-column:span 3}.c4{grid-column:span 4}.c5{grid-column:span 5}
+.c6{grid-column:span 6}.c7{grid-column:span 7}.c8{grid-column:span 8}
+.c9{grid-column:span 9}.c12{grid-column:span 12}
+@media(max-width:1100px){.c3,.c4,.c5{grid-column:span 6}.c7,.c8,.c9{grid-column:span 12}}
+@media(max-width:640px){.rej12 > *{grid-column:span 12 !important}}
+
+/* Panel: la unidad de la interfaz. Caja de información, no adorno. */
+.panel{background:var(--kit-panel);border:1px solid var(--kit-linea);border-radius:6px;
+  overflow:hidden;display:flex;flex-direction:column;min-width:0;}
+.panel-cab{display:flex;align-items:center;gap:.6rem;justify-content:space-between;
+  padding:.7rem .9rem;border-block-end:1px solid var(--kit-linea);
+  font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--kit-texto-3);}
+html[dir="rtl"] .panel-cab{letter-spacing:0;text-transform:none;font-size:.84rem;}
+.panel-cuerpo{padding:.9rem;flex:1;min-width:0;}
+/* La proporción va en la imagen y no en el marco: si la proporción se pone en
+   el marco, Chrome deja de estirarlo dentro de la fila de la rejilla y la
+   fotografía queda flotando arriba con un hueco gris debajo. */
+/* La proporción se fija con un relleno porcentual y no con `aspect-ratio`.
+   Motivo medido, no de estilo: en una celda de rejilla estirada la altura pasa
+   a ser definida, y entonces `aspect-ratio` calcula el ANCHO a partir de ella
+   y la fotografía se sale de su columna — 362 px en la portada a 1440. El
+   relleno porcentual siempre deriva del ancho, nunca al revés. */
+.panel-foto{padding:0;position:relative;overflow:hidden;}
+.panel-foto::before{content:"";display:block;padding-block-start:75%;}
+.panel-foto.alta::before{padding-block-start:133.33%;}
+.panel-foto.ancha::before{padding-block-start:56.25%;}
+.panel-foto img{position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;display:block;}
+.panel-foto figcaption{position:absolute;inset-inline:0;bottom:0;padding:.7rem .9rem;
+  background:linear-gradient(to top,rgba(6,12,16,.9),rgba(6,12,16,.55) 60%,transparent);
+  color:#f2efe9;font-size:.8rem;line-height:1.4;}
+.etq{font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;
+  padding:.15rem .45rem;border-radius:3px;background:var(--kit-acento);
+  color:var(--kit-fondo);white-space:nowrap;}
+html[dir="rtl"] .etq{letter-spacing:0;text-transform:none;font-size:.76rem;}
+.panel .dato-g{font-family:var(--display,var(--disp,inherit));font-size:clamp(1.8rem,3.4vw,2.6rem);
+  line-height:1;font-variant-numeric:tabular-nums;}
+.panel .dato-p{font-size:.82rem;color:var(--kit-texto-2);margin-top:.4rem;line-height:1.45;}
+.panel-cuerpo h3{font-size:1.1rem;margin:0 0 .5rem;line-height:1.2;}
+.panel-cuerpo h3 + p{color:var(--kit-texto-2);font-size:.9rem;margin:0;}
+
+/* Panel de portada: el titular manda, pero sigue siendo un panel del tablero
+   y no una franja aparte a todo lo ancho. */
+.panel.horizonte{padding-block:0;}
+.panel-portada{background:var(--kit-hondo);color:var(--kit-hondo-texto);
+  border-color:var(--kit-hondo-linea);justify-content:center;}
+.panel-portada .rot{color:var(--kit-acento);}
+.panel-portada .entrada{color:var(--kit-hondo-texto);opacity:.85;}
+.panel-portada .panel-cuerpo{padding:clamp(1.2rem,2.6vw,2.2rem);}
+.panel-portada h1{font-size:clamp(1.7rem,3.6vw,2.7rem);line-height:1.12;margin:.5rem 0 .8rem;}
+.panel-portada .entrada{color:var(--kit-texto-2);max-width:46ch;}
+.panel-portada .acciones{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.2rem;}
+/* Los botones dentro del panel oscuro. No se puede dar por buena la clase de
+   ningún sitio —uno los llama `.solido` y otro `.sol`—, así que el kit los
+   repinta por su cuenta: sobre la franja oscura, cualquier botón se ve. */
+.panel-portada .btn,.panel-portada .acc a{
+  background:transparent;color:var(--kit-hondo-texto);
+  border:1px solid var(--kit-hondo-texto);}
+.panel-portada .btn.sol,.panel-portada .btn.solido,.panel-portada .acc a.sol{
+  background:var(--kit-hondo-texto);color:var(--kit-hondo);}
+.panel-portada .btn:hover,.panel-portada .acc a:hover{
+  background:var(--kit-hondo-texto);color:var(--kit-hondo);}
+.panel-portada .btn.sol:hover,.panel-portada .btn.solido:hover,.panel-portada .acc a.sol:hover{
+  background:transparent;color:var(--kit-hondo-texto);}
+/* Y el texto suelto: párrafos, listas y rótulos secundarios. */
+.panel-portada p,.panel-portada li,.panel-portada dd{color:var(--kit-hondo-texto);}
+.panel-portada .metodo,.panel-portada .dato-p{
+  color:color-mix(in srgb,var(--kit-hondo-texto) 66%,transparent);}
+/* Rótulo suelto entre bloques del tablero: sin caja, sólo el letrero. */
+.panel.sin-fondo{background:none;border:0;border-radius:0;}
+.panel.sin-fondo .rot{margin:.6rem 0 0;}
+.tablero{padding-block:clamp(1.2rem,2.4vw,2rem);}
+.tablero .cifras-fuente{font-size:.74rem;color:var(--kit-texto-3);line-height:1.5;margin:0;}
+/* Una tabla ancha no debe empujar la página: se desliza dentro de su panel. */
+.desliza{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.desliza table{min-width:34rem;}
+/* Formulario a dos columnas dentro de su panel: los campos cortos comparten
+   fila y sólo las fechas y el mensaje ocupan el ancho entero. */
+.rej-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.9rem 1rem;}
+.rej-form .ancho2{grid-column:1 / -1;}
+@media(max-width:640px){.rej-form{grid-template-columns:1fr}}
+/* ══ kit-tablero: final ══ */
 </style>
 </head>
 <body>
@@ -285,6 +411,27 @@ html[dir="rtl"] footer.mesa{letter-spacing:0; font-size:.85rem;}
         <h3 data-t="m3t">Cobertura</h3>
         <div class="cuerpo" data-t="m3p">Un solo interlocutor, disponible en su huso horario durante todo el trayecto. Los cambios y las cancelaciones los gestionamos nosotros.</div>
       </article>
+    </div>
+  </section>
+
+  <section class="marco bloque">
+    <p class="etq"><span class="clave">002b</span> <span data-t="rLamina">Sobre el terreno</span></p>
+    <div class="rej12">
+      <figure class="panel c4 panel-foto">
+        <img src="img/torii-fushimi.jpg" loading="lazy" decoding="async"
+             data-t-attr="alt:altTorii" alt="Sendero de torii en Fushimi Inari">
+        <figcaption data-t="pieTorii"></figcaption>
+      </figure>
+      <figure class="panel c4 panel-foto">
+        <img src="img/himeji.jpg" loading="lazy" decoding="async"
+             data-t-attr="alt:altHimeji" alt="El castillo de Himeji">
+        <figcaption data-t="pieHimeji"></figcaption>
+      </figure>
+      <figure class="panel c4 panel-foto">
+        <img src="img/osaka-noche.jpg" loading="lazy" decoding="async"
+             data-t-attr="alt:altOsaka" alt="Osaka de noche desde el río">
+        <figcaption data-t="pieOsaka"></figcaption>
+      </figure>
     </div>
   </section>
 
@@ -358,6 +505,13 @@ html[dir="rtl"] footer.mesa{letter-spacing:0; font-size:.85rem;}
 <script>
 var T = {
 es:{
+ rLamina:"Sobre el terreno",
+ altTorii:"Sendero de torii en el santuario de Fushimi Inari, Kioto",
+ pieTorii:"Fushimi Inari, Kioto · 06:40",
+ altHimeji:"La avenida de acceso al castillo de Himeji",
+ pieHimeji:"Himeji · 40 min desde Osaka",
+ altOsaka:"El río Dōtonbori de Osaka al anochecer",
+ pieOsaka:"Osaka · Dōtonbori, 18:20",
   _dir:"ltr", _lang:"es",
   leVer:"Leer las condiciones completas — ocho apartados",
   nLegal:"Información legal",
@@ -411,6 +565,13 @@ es:{
   errCorreo:"› El correo está incompleto."
 },
 en:{
+ rLamina:"On the ground",
+ altTorii:"Torii path at the Fushimi Inari shrine, Kyoto",
+ pieTorii:"Fushimi Inari, Kyoto · 06:40",
+ altHimeji:"The approach avenue to Himeji castle",
+ pieHimeji:"Himeji · 40 min from Osaka",
+ altOsaka:"The Dōtonbori river in Osaka at dusk",
+ pieOsaka:"Osaka · Dōtonbori, 18:20",
   _dir:"ltr", _lang:"en",
   leVer:"Read the full terms — eight sections",
   nLegal:"Legal information",
@@ -464,6 +625,13 @@ en:{
   errCorreo:"› The email is incomplete."
 },
 ar:{
+ rLamina:"على الأرض",
+ altTorii:"درب البوابات في معبد فوشيمي إيناري، كيوتو",
+ pieTorii:"فوشيمي إيناري، كيوتو · ٠٦:٤٠",
+ altHimeji:"الطريق المؤدّي إلى قلعة هيميجي",
+ pieHimeji:"هيميجي · ٤٠ دقيقة من أوساكا",
+ altOsaka:"نهر دوتونبوري في أوساكا عند الغروب",
+ pieOsaka:"أوساكا · دوتونبوري، ١٨:٢٠",
   _dir:"rtl", _lang:"ar",
   leVer:"قراءة الشروط كاملةً — ثمانية أقسام",
   nLegal:"معلومات قانونية",

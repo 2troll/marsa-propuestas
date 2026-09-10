@@ -121,6 +121,7 @@ def espera_chrome(puerto, intentos=60):
 # ------------------------------------------------------- la medición, en la página
 MEDIR = r'''
 (function(){
+  var PERMITIDAS = __PERMITIDAS__;
   var doc = document.documentElement, out = {};
   out.ruta   = location.hash;
   out.lang   = doc.lang;
@@ -155,7 +156,11 @@ MEDIR = r'''
     var im = imgs[j];
     if (im.offsetParent === null) continue;
     out.imgs++;
-    if (!im.complete || im.naturalWidth === 0) out.imgsRotas.push(im.getAttribute("src"));
+    /* Rota es la que TERMINÓ de cargar sin píxeles. Una imagen con
+       loading="lazy" que aún no ha entrado en pantalla no está rota: está
+       esperando, y contarla daba doce avisos falsos. */
+    if (im.complete && im.naturalWidth === 0) out.imgsRotas.push(im.getAttribute("src"));
+    else if (!im.complete) out.imgsLentas = (out.imgsLentas || 0) + 1;
     if (!im.getAttribute("alt")) out.imgsSinAlt.push(im.getAttribute("src"));
   }
 
@@ -200,10 +205,16 @@ MEDIR = r'''
       if (!padre || padre.offsetParent === null) continue;
       if (padre.closest('.ltr,[dir="ltr"],code,.mono')) continue;
       var txt = (nodo.nodeValue || "").trim();
-      // tres o más letras latinas seguidas = palabra, no una unidad ni una sigla
+      /* Una fuga es una PALABRA latina dentro del árabe. Una sigla en
+         mayúsculas —HTML, CSS, PDF, JNTO— no lo es: en árabe técnico se
+         escribe así a propósito, igual que las unidades y los nombres de
+         marca. El filtro exige por tanto alguna minúscula. */
       var m2 = txt.match(/[A-Za-zÁÉÍÓÚÑáéíóúñ]{3,}/g);
       if (m2){
-        var limpias = m2.filter(function(w){ return ["MARSA","km","kWh"].indexOf(w) < 0; });
+        var limpias = m2.filter(function(w){
+          if (w === w.toUpperCase()) return false;          // sigla
+          return PERMITIDAS.indexOf(w) < 0;
+        });
         if (limpias.length) out.fugas.push(limpias.slice(0,3).join(" "));
       }
     }
@@ -230,8 +241,19 @@ def main():
     if '--anchos' in args:
         anchos = [int(x) for x in args[args.index('--anchos') + 1].split(',')]
 
+    # Palabras latinas que SÍ pueden aparecer dentro del árabe: unidades,
+    # nombres propios de producto y órdenes de terminal. Las siglas en
+    # mayúsculas ya se descartan solas.
+    permitidas = ['km', 'kWh', 'kWp']
+    if '--permitir' in args:
+        permitidas += [x.strip() for x in args[args.index('--permitir') + 1].split(',')]
+
     rutas = json.loads(subprocess.run(
         [sys.executable, '-c', RUTAS_PY, archivo], capture_output=True, text=True, check=True).stdout)
+    # Las páginas de una sola hoja no tienen rutas: se mide la página entera.
+    una_hoja = not rutas
+    if una_hoja:
+        rutas = ['']
 
     perfil = '/tmp/.chrome-sonda-marsa'
     proc = subprocess.Popen(
@@ -271,11 +293,12 @@ def main():
                 peor = {'desborde': 0}
                 aviso = []
                 for ruta in rutas:
-                    llama('Page.navigate', url=f'file://{archivo}#/{ruta}')
+                    llama('Page.navigate',
+                          url=f'file://{archivo}' + (f'#/{ruta}' if ruta else ''))
                     espera_listo(ev)
                     ev(f'aplicar("{idioma}")')
                     time.sleep(0.25)
-                    d = ev(MEDIR)
+                    d = ev(MEDIR.replace('__PERMITIDAS__', json.dumps(permitidas)))
                     if d['lang'] != idioma:
                         aviso.append(f'{ruta}: el idioma no cambió ({d["lang"]})'); fallos += 1
                     if d['desborde'] > peor['desborde']:
@@ -312,7 +335,7 @@ RUTAS_PY = r'''
 import re, sys, json
 s = open(sys.argv[1], encoding="utf-8").read()
 m = re.search(r"var RUTAS\s*=\s*\[(.*?)\]", s, re.S)
-print(json.dumps([x for x in re.findall(r'"([a-z0-9\-]+)"', m.group(1))]))
+print(json.dumps([x for x in re.findall(r'"([a-z0-9\-]+)"', m.group(1))] if m else []))
 '''
 
 if __name__ == '__main__':
