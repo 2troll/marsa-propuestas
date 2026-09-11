@@ -1,0 +1,828 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<!-- Maqueta de propuesta. No es el sitio público de la empresa. -->
+<title>MARSA · Mesa de cotización — Kansai para el Golfo</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230e1a24'/%3E%3Cpath d='M6 21c3-6 7-9 10-9s7 3 10 9' stroke='%232f6d5e' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='16' cy='9' r='2.2' fill='%232f6d5e'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=Karla:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Reem+Kufi:wght@400;500&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════════════════════════════════════════
+   MESA DE COTIZACIÓN · MARSA
+   Una página que calcula, no que describe. Todas las tarifas son las mismas
+   que sostienen el estudio de viabilidad: llevan su origen marcado como
+   «dato» (tarifa publicada), «observado» (precio consultado con fecha) o
+   «supuesto» (puesto por nosotros), y ese origen se enseña en pantalla al
+   lado de cada línea. Un presupuesto que no dice de dónde sale cada número
+   no se puede discutir, y uno que no se puede discutir no se firma.
+   ══════════════════════════════════════════════════════════════════════════ */
+:root{
+  --fondo:#e8ebea; --fondo-2:#dde2e1; --sup:#f5f7f6;
+  --texto:#0e1a24; --texto-2:#4a5a62; --texto-3:#58666f;
+  --linea:rgba(14,26,36,.14); --linea-2:rgba(14,26,36,.07);
+  --acento:#2f6d5e; --acento-claro:#e3efe9;
+  --hondo:#0e1a24; --hondo-texto:#dfe6e4;
+  --alarma:#8c3a2b; --aviso:#8a6a2c;
+  --display:"Bodoni Moda",Didot,"Times New Roman",serif;
+  --cuerpo:"Karla",system-ui,-apple-system,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+  --marco:min(1340px,100% - 3rem);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --fondo:#0b1319; --fondo-2:#12202a; --sup:#16252f;
+  --texto:#e4e9e8; --texto-2:#9fb0b4; --texto-3:#6f8189;
+  --linea:rgba(228,233,232,.14); --linea-2:rgba(228,233,232,.07);
+  --acento:#6ebeaa; --acento-claro:#12302a;
+  --hondo:#06101a; --hondo-texto:#dfe6e4;
+  --alarma:#e08a76; --aviso:#c9a45e;
+}}
+html[dir="rtl"]{ --display:"Reem Kufi",sans-serif; --cuerpo:"IBM Plex Sans Arabic",sans-serif; --mono:"IBM Plex Sans Arabic",monospace; }
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;} *{transition:none!important;animation:none!important;}}
+body{
+  margin:0;background:var(--fondo);color:var(--texto);
+  font-family:var(--cuerpo);font-weight:400;
+  font-size:clamp(16px,1.05vw,17.5px);line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+html[dir="rtl"] body{line-height:2;}
+h1,h2,h3{font-family:var(--display);font-weight:400;margin:0;line-height:1.14;text-wrap:balance;}
+html[dir="rtl"] h1,html[dir="rtl"] h2,html[dir="rtl"] h3{font-weight:500;line-height:1.5;}
+p{margin:0 0 1em;max-width:70ch;}
+a{color:inherit;}
+:focus-visible{outline:2px solid var(--acento);outline-offset:3px;}
+.marco{width:var(--marco);margin-inline:auto;}
+.num{font-variant-numeric:tabular-nums;}
+
+/* ─── Cabecera ──────────────────────────────────────────────────────────── */
+.cab{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--fondo) 92%,transparent);
+  backdrop-filter:saturate(1.4) blur(10px);border-block-end:1px solid var(--linea);}
+.cab .marco{display:flex;align-items:center;gap:1.4rem;padding-block:.9rem;flex-wrap:wrap;}
+.logo{font-family:var(--display);font-size:1.25rem;letter-spacing:.24em;text-decoration:none;}
+html[dir="rtl"] .logo{letter-spacing:0;}
+.cab .donde{font-family:var(--mono);font-size:.78rem;color:var(--texto-3);
+  letter-spacing:.1em;text-transform:uppercase;}
+html[dir="rtl"] .cab .donde{letter-spacing:0;text-transform:none;font-size:.86rem;}
+.idiomas{margin-inline-start:auto;display:flex;gap:.2rem;}
+.idiomas button{background:none;border:0;cursor:pointer;font:inherit;font-size:.82rem;
+  color:var(--texto-3);padding:.35rem .6rem;border-radius:3px;transition:color .16s,background-color .16s;}
+.idiomas button:hover{color:var(--texto);background:var(--fondo-2);}
+.idiomas button[aria-pressed="true"]{color:var(--acento);font-weight:600;}
+@media (max-width:700px){.idiomas button{display:inline-flex;align-items:center;justify-content:center;
+  min-inline-size:2.75rem;min-block-size:2.75rem;}}
+
+/* ─── Portada corta: esto es una herramienta, se dice y se entra ─────────── */
+.intro{padding-block:clamp(2.6rem,5vw,4rem);border-block-end:1px solid var(--linea);}
+.rotulo{font-family:var(--mono);font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--acento);margin:0 0 1rem;font-weight:500;}
+html[dir="rtl"] .rotulo{letter-spacing:0;text-transform:none;font-size:.92rem;}
+.intro h1{font-size:clamp(2.1rem,4.4vw,3.5rem);max-width:19ch;letter-spacing:-.015em;}
+html[dir="rtl"] .intro h1{letter-spacing:0;}
+.intro .lede{margin-top:1.3rem;font-size:clamp(1.02rem,1.2vw,1.16rem);color:var(--texto);
+  opacity:.82;max-width:58ch;line-height:1.6;}
+
+/* ─── La mesa: controles a un lado, resultado al otro ───────────────────── */
+.mesa{display:grid;gap:clamp(1.4rem,2.4vw,2.4rem);padding-block:clamp(1.8rem,3vw,2.8rem);
+  grid-template-columns:1fr;align-items:start;}
+@media (min-width:1040px){.mesa{grid-template-columns:20.5rem 1fr;}}
+.mandos{position:sticky;top:5rem;background:var(--sup);border:1px solid var(--linea);
+  border-radius:4px;padding:1.3rem 1.25rem 1.5rem;
+  box-shadow:0 1px 0 var(--linea),0 12px 28px -22px rgba(14,26,36,.5);}
+@media (max-width:1039px){.mandos{position:static;}}
+.mandos h2{font-size:1.12rem;margin-bottom:.2rem;}
+.mandos .sub{font-size:.84rem;color:var(--texto-3);margin:0 0 1.3rem;}
+.campo{margin-bottom:1.15rem;}
+.campo > label,.campo > .etiq{display:block;font-family:var(--mono);font-size:.74rem;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--texto-3);margin-bottom:.45rem;}
+html[dir="rtl"] .campo > label,html[dir="rtl"] .campo > .etiq{letter-spacing:0;text-transform:none;font-size:.86rem;}
+select,input[type=number]{width:100%;font:inherit;font-size:.96rem;color:var(--texto);
+  background:var(--fondo);border:1px solid var(--linea);border-radius:3px;padding:.6rem .7rem;
+  transition:border-color .16s,box-shadow .16s;}
+select:hover,input[type=number]:hover{border-color:var(--texto-3);}
+select:focus,input[type=number]:focus{outline:0;border-color:var(--acento);
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--acento) 18%,transparent);}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;}
+/* Los meses como rejilla pulsable: se elige más rápido que en un desplegable
+   y, sobre todo, deja ver de un vistazo cuáles son buenos. */
+.meses{display:grid;grid-template-columns:repeat(4,1fr);gap:.3rem;}
+.meses button{font:inherit;font-family:var(--mono);font-size:.76rem;cursor:pointer;
+  border:1px solid var(--linea);background:var(--fondo);color:var(--texto-2);
+  padding:.5rem .2rem;border-radius:3px;position:relative;overflow:hidden;
+  transition:border-color .16s,color .16s,background-color .16s;}
+.meses button:hover{border-color:var(--texto-3);color:var(--texto);}
+.meses button[aria-pressed="true"]{background:var(--acento);border-color:var(--acento);
+  color:#fff;font-weight:500;}
+/* Barra de calor: la altura dice el índice de estacionalidad del Golfo. */
+.meses button i{position:absolute;inset-inline:0;bottom:0;display:block;
+  background:color-mix(in srgb,var(--acento) 38%,transparent);pointer-events:none;}
+.meses button[aria-pressed="true"] i{background:rgba(255,255,255,.28);}
+.pista{font-size:.78rem;color:var(--texto-3);margin:.55rem 0 0;line-height:1.5;}
+
+/* ─── Resultado ─────────────────────────────────────────────────────────── */
+.salida{display:grid;gap:clamp(1.2rem,2vw,1.8rem);min-width:0;}
+.bloque{background:var(--sup);border:1px solid var(--linea);border-radius:4px;overflow:hidden;
+  box-shadow:0 1px 0 var(--linea),0 14px 30px -26px rgba(14,26,36,.55);}
+.bloque > header{display:flex;align-items:baseline;gap:.8rem;flex-wrap:wrap;
+  padding:1.05rem 1.25rem .2rem;}
+.bloque > header h2{font-size:1.24rem;font-style:italic;}
+html[dir="rtl"] .bloque > header h2{font-style:normal;}
+.bloque > header .clave{font-family:var(--mono);font-size:.74rem;color:var(--acento);
+  letter-spacing:.1em;}
+.bloque > header .apunte{margin-inline-start:auto;font-family:var(--mono);font-size:.74rem;
+  color:var(--texto-3);}
+.cuerpo{padding:1rem 1.25rem 1.35rem;}
+
+/* Veredicto del mes */
+.veredicto{display:grid;gap:1rem;grid-template-columns:1fr;}
+@media (min-width:720px){.veredicto{grid-template-columns:auto 1fr;align-items:center;}}
+.nota-mes{display:flex;align-items:baseline;gap:.5rem;font-family:var(--display);
+  font-size:clamp(3rem,6vw,4.4rem);line-height:1.04;letter-spacing:-.03em;}
+html[dir="rtl"] .nota-mes{letter-spacing:0;}
+.nota-mes small{font-family:var(--mono);font-size:.8rem;letter-spacing:.1em;color:var(--texto-3);}
+.medidor{display:grid;gap:.6rem;}
+.medidor .fila{display:grid;grid-template-columns:9.5rem 1fr auto;gap:.7rem;align-items:center;
+  font-size:.86rem;}
+@media (max-width:560px){.medidor .fila{grid-template-columns:1fr auto;}
+  .medidor .fila .barra{grid-column:1 / -1;}}
+.medidor .et{font-family:var(--mono);font-size:.74rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--texto-3);}
+html[dir="rtl"] .medidor .et{letter-spacing:0;text-transform:none;font-size:.84rem;}
+.barra{height:7px;background:var(--fondo-2);border-radius:99px;overflow:hidden;}
+.barra span{display:block;height:100%;border-radius:99px;transition:width .35s cubic-bezier(.4,0,.2,1);}
+.barra.g span{background:var(--acento);}
+.barra.e span{background:var(--aviso);}
+.aviso-mes{margin-top:1rem;padding:.85rem 1rem;border-radius:3px;font-size:.92rem;
+  border-inline-start:3px solid var(--acento);background:var(--acento-claro);}
+.aviso-mes.malo{border-inline-start-color:var(--alarma);
+  background:color-mix(in srgb,var(--alarma) 10%,transparent);}
+.aviso-mes.medio{border-inline-start-color:var(--aviso);
+  background:color-mix(in srgb,var(--aviso) 12%,transparent);}
+.aviso-mes b{font-weight:600;}
+
+/* La cotización */
+table{width:100%;border-collapse:collapse;font-size:.9rem;}
+th,td{text-align:start;padding:.6rem .5rem;border-block-end:1px solid var(--linea-2);
+  vertical-align:top;}
+th{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--texto-3);font-weight:500;border-block-end:1px solid var(--linea);}
+html[dir="rtl"] th{letter-spacing:0;text-transform:none;font-size:.82rem;}
+td.n,th.n{text-align:end;font-variant-numeric:tabular-nums;white-space:nowrap;}
+tr.total td{border-block:1px solid var(--texto);font-weight:600;font-size:1rem;
+  padding-block:.8rem;}
+tr.sub td{background:var(--fondo-2);font-weight:600;}
+.detalle{display:block;font-size:.78rem;color:var(--texto-3);margin-top:.2rem;line-height:1.45;}
+/* La etiqueta de origen es el argumento: dice si el número es tarifa
+   publicada, precio observado o supuesto nuestro. */
+.origen{display:inline-block;font-family:var(--mono);font-size:.64rem;letter-spacing:.08em;
+  text-transform:uppercase;padding:.1rem .38rem;border-radius:2px;margin-inline-start:.4rem;
+  vertical-align:.08em;border:1px solid;}
+html[dir="rtl"] .origen{letter-spacing:0;text-transform:none;font-size:.74rem;}
+.origen.dato{color:var(--acento);border-color:color-mix(in srgb,var(--acento) 45%,transparent);}
+.origen.observado{color:var(--aviso);border-color:color-mix(in srgb,var(--aviso) 45%,transparent);}
+.origen.supuesto{color:var(--texto-3);border-color:var(--linea);}
+.tres-monedas{display:grid;grid-template-columns:repeat(auto-fit,minmax(9rem,1fr));gap:.8rem;
+  margin-top:1.1rem;}
+.moneda{background:var(--fondo);border:1px solid var(--linea);border-radius:3px;padding:.85rem .9rem;}
+.moneda .et{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--texto-3);display:block;margin-bottom:.35rem;}
+html[dir="rtl"] .moneda .et{letter-spacing:0;text-transform:none;font-size:.8rem;}
+.moneda .v{font-family:var(--display);font-size:1.5rem;line-height:1.1;font-variant-numeric:tabular-nums;}
+.moneda.destaca{background:var(--hondo);border-color:var(--hondo);color:var(--hondo-texto);}
+.moneda.destaca .et{color:color-mix(in srgb,var(--hondo-texto) 66%,transparent);}
+
+/* Vuelos y logística */
+.rutas{display:grid;gap:.5rem;}
+.ruta{display:grid;grid-template-columns:auto 1fr auto;gap:.8rem;align-items:center;
+  padding:.7rem .85rem;background:var(--fondo);border:1px solid var(--linea-2);border-radius:3px;
+  font-size:.88rem;transition:border-color .16s;}
+.ruta:hover{border-color:var(--linea);}
+.ruta .via{font-family:var(--mono);font-size:.74rem;color:var(--texto-3);}
+.ruta .frec{font-family:var(--mono);font-weight:500;white-space:nowrap;}
+.ruta.kix{border-inline-start:3px solid var(--acento);}
+.ruta.sin{opacity:.55;}
+.pastilla{display:inline-block;font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;
+  text-transform:uppercase;padding:.12rem .4rem;border-radius:2px;border:1px solid var(--linea);
+  color:var(--texto-3);}
+html[dir="rtl"] .pastilla{letter-spacing:0;text-transform:none;font-size:.76rem;}
+.pastilla.ok{color:var(--acento);border-color:color-mix(in srgb,var(--acento) 45%,transparent);}
+.pastilla.futuro{color:var(--aviso);border-color:color-mix(in srgb,var(--aviso) 45%,transparent);}
+.listado{display:grid;grid-template-columns:repeat(auto-fill,minmax(15rem,1fr));gap:.55rem;}
+.ficha{padding:.7rem .85rem;background:var(--fondo);border:1px solid var(--linea-2);
+  border-radius:3px;font-size:.86rem;}
+.ficha b{display:block;font-weight:600;margin-bottom:.15rem;}
+.ficha .zona{font-family:var(--mono);font-size:.72rem;color:var(--texto-3);}
+
+/* Acciones */
+.acciones{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1.2rem;}
+.btn{font:inherit;font-size:.88rem;cursor:pointer;border:1px solid var(--texto);
+  background:none;color:var(--texto);padding:.65rem 1.2rem;border-radius:3px;
+  transition:background-color .16s,color .16s,transform .1s;}
+.btn:hover{background:var(--texto);color:var(--fondo);}
+.btn:active{transform:translateY(1px);}
+.btn.primario{background:var(--acento);border-color:var(--acento);color:#fff;}
+.btn.primario:hover{background:var(--texto);border-color:var(--texto);}
+.copiado{font-size:.84rem;color:var(--acento);align-self:center;opacity:0;transition:opacity .2s;}
+.copiado.ver{opacity:1;}
+
+footer{border-block-start:1px solid var(--linea);padding-block:2rem 3rem;margin-top:2.5rem;
+  font-size:.84rem;color:var(--texto-3);}
+footer h3{font-family:var(--mono);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--texto-3);margin-bottom:.7rem;}
+html[dir="rtl"] footer h3{letter-spacing:0;text-transform:none;font-size:.84rem;}
+footer ol{margin:0;padding-inline-start:1.2rem;line-height:1.75;}
+.ltr{direction:ltr;display:inline-block;}
+
+@media print{
+  .cab,.mandos,.acciones,.intro .lede{display:none;}
+  body{background:#fff;font-size:11pt;}
+  .bloque{break-inside:avoid;box-shadow:none;border:1px solid #999;}
+  .mesa{grid-template-columns:1fr;}
+}
+</style>
+
+<header class="cab">
+  <div class="marco">
+    <a class="logo" href="marsa.html">MARSA</a>
+    <span class="donde" data-t="donde">Mesa de cotización</span>
+    <div class="idiomas" role="group" aria-label="Idioma">
+      <button data-lang="es" aria-pressed="true">ES</button>
+      <button data-lang="en" aria-pressed="false">EN</button>
+      <button data-lang="ar" aria-pressed="false" lang="ar">العربية</button>
+    </div>
+  </div>
+</header>
+
+<section class="intro">
+  <div class="marco">
+    <p class="rotulo" data-t="rot">Para agencias emisoras del Golfo</p>
+    <h1 data-t="h1">Cotice un viaje a Kansai en treinta segundos, y vea de dónde sale cada yen.</h1>
+    <p class="lede" data-t="lede">Esta mesa calcula con las mismas tarifas que sostienen nuestro estudio de
+      viabilidad: la del gremio de guías titulados, la publicada por la compañía de vehículos, la
+      oficial de JR y precios de hotel consultados con fecha. Cada línea lleva marcado si es tarifa
+      publicada, precio observado o supuesto nuestro. Nada está redondeado a ojo.</p>
+  </div>
+</section>
+
+<div class="marco mesa">
+
+  <form class="mandos" id="mandos" autocomplete="off">
+    <h2 data-t="mTit">El encargo</h2>
+    <p class="sub" data-t="mSub">Cambie lo que quiera: todo se recalcula al instante.</p>
+
+    <div class="campo">
+      <label for="producto" data-t="lProd">Programa</label>
+      <select id="producto"></select>
+      <p class="pista" id="pistaProd"></p>
+    </div>
+
+    <div class="campo dos">
+      <div>
+        <label for="pax" data-t="lPax">Viajeros</label>
+        <input type="number" id="pax" min="2" max="16" step="1" value="6">
+      </div>
+      <div>
+        <label for="hab" data-t="lHab">Habitaciones</label>
+        <input type="number" id="hab" min="1" max="8" step="1" value="3">
+      </div>
+    </div>
+
+    <div class="campo">
+      <span class="etiq" data-t="lMes">Mes de viaje · 2027</span>
+      <div class="meses" id="meses" role="group"></div>
+      <p class="pista" data-t="pistaMes">La altura de cada barra es el índice de llegadas del Golfo
+        a Japón, calculado sobre los datos mensuales del JNTO de 2023 a 2025.</p>
+    </div>
+
+    <div class="campo">
+      <label for="hotel" data-t="lHotel">Nivel de alojamiento</label>
+      <select id="hotel">
+        <option value="10300" data-t="hotSuelo">Suelo observado en Kioto · 10.300 ¥</option>
+        <option value="26400" selected data-t="hotCert">Certificado en Osaka · 26.400 ¥</option>
+        <option value="41000" data-t="hotAlta">Temporada de cerezo · 41.000 ¥</option>
+      </select>
+      <p class="pista" data-t="pistaHotel">Precio por habitación y noche. Los tres valores son
+        observados, no inventados: ver el pie de página.</p>
+    </div>
+
+    <div class="campo">
+      <label for="origen" data-t="lOrigen">Ciudad de origen</label>
+      <select id="origen">
+        <option value="DXB" selected>Dubái (DXB)</option>
+        <option value="DOH">Doha (DOH)</option>
+        <option value="AUH">Abu Dabi (AUH)</option>
+        <option value="RUH">Riad (RUH)</option>
+        <option value="BAH">Baréin (BAH)</option>
+        <option value="KWI">Kuwait (KWI)</option>
+      </select>
+    </div>
+  </form>
+
+  <div class="salida">
+
+    <article class="bloque" id="bVeredicto">
+      <header>
+        <span class="clave">01</span>
+        <h2 data-t="vTit">El mes que ha elegido</h2>
+        <span class="apunte" id="vApunte"></span>
+      </header>
+      <div class="cuerpo">
+        <div class="veredicto">
+          <div class="nota-mes"><span id="vNota">—</span><small data-t="vSobre">sobre 100</small></div>
+          <div class="medidor">
+            <div class="fila">
+              <span class="et" data-t="vGolfo">Demanda del Golfo</span>
+              <span class="barra g"><span id="bG" style="width:0"></span></span>
+              <span class="num" id="nG">—</span>
+            </div>
+            <div class="fila">
+              <span class="et" data-t="vEspana">Choque con España</span>
+              <span class="barra e"><span id="bE" style="width:0"></span></span>
+              <span class="num" id="nE">—</span>
+            </div>
+          </div>
+        </div>
+        <div class="aviso-mes" id="vAviso"></div>
+      </div>
+    </article>
+
+    <article class="bloque" id="bCotiza">
+      <header>
+        <span class="clave">02</span>
+        <h2 data-t="cTit">La cotización</h2>
+        <span class="apunte" id="cApunte"></span>
+      </header>
+      <div class="cuerpo">
+        <div style="overflow-x:auto">
+          <table>
+            <thead><tr>
+              <th data-t="cConcepto">Concepto</th>
+              <th class="n" data-t="cImporte">Importe</th>
+            </tr></thead>
+            <tbody id="lineas"></tbody>
+          </table>
+        </div>
+        <div class="tres-monedas" id="monedas"></div>
+        <div class="acciones">
+          <button type="button" class="btn primario" id="copiar" data-t="bCopiar">Copiar el presupuesto</button>
+          <button type="button" class="btn" id="imprimir" data-t="bImprimir">Imprimir o guardar en PDF</button>
+          <span class="copiado" id="copiado" data-t="bCopiado">Copiado</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="bloque" id="bVuelos">
+      <header>
+        <span class="clave">03</span>
+        <h2 data-t="fTit">Cómo llegan</h2>
+        <span class="apunte" id="fApunte"></span>
+      </header>
+      <div class="cuerpo"><div class="rutas" id="rutas"></div></div>
+    </article>
+
+    <article class="bloque" id="bHalal">
+      <header>
+        <span class="clave">04</span>
+        <h2 data-t="hTit">Lo que hace el viaje entregable</h2>
+        <span class="apunte" id="hApunte"></span>
+      </header>
+      <div class="cuerpo">
+        <p style="font-size:.9rem;color:var(--texto-2)" data-t="hIntro">Cada entrada lleva su nivel de
+          verificación. «Institucional» es la propia entidad o un organismo público; «sectorial», una
+          fuente del ramo. No se llama certificado a lo que sólo es «sin cerdo».</p>
+        <div class="listado" id="halal"></div>
+      </div>
+    </article>
+
+  </div>
+</div>
+
+<footer class="marco">
+  <h3 data-t="fuTit">De dónde sale cada número</h3>
+  <ol id="fuentes"></ol>
+</footer>
+<script>
+const D = {"ins":{"guia_4h":{"v":30800,"u":"grupo","t":"dato","f":"Tarifa publicada por la JFG (協同組合 全日本通訳案内士連盟), IVA incluido","n":"Guía titulado, tarifa base hasta 4 horas (grupo de 1 a 9)"},"guia_hora_extra":{"v":2200,"u":"hora","t":"dato","f":"Tarifa publicada por la JFG","n":"Guía, cada hora adicional a partir de la cuarta"},"guia_pernocta":{"v":5500,"u":"noche","t":"dato","f":"Tarifa publicada por la JFG","n":"Guía, recargo por pernocta fuera de base o desplazamiento largo"},"vehiculo_9_8h":{"v":66400,"u":"día","t":"dato","f":"JPS 京都観光貸切タクシー, tarifa publicada (especial, 9 pasajeros). Peajes y aparcamiento aparte","n":"Jumbo taxi de 9 plazas con conductor, 8 horas"},"vehiculo_9_10h":{"v":83000,"u":"día","t":"dato","f":"JPS 京都観光貸切タクシー, tarifa publicada","n":"Jumbo taxi de 9 plazas con conductor, 10 horas"},"vehiculo_6_8h":{"v":61600,"u":"día","t":"dato","f":"JPS 京都観光貸切タクシー, tarifa publicada","n":"Vehiculo grande de 6 plazas con conductor, 8 horas"},"tren_tokio_kioto":{"v":14170,"u":"persona","t":"dato","f":"Tarifa oficial JR Central (total billete + suplemento). Temporada alta +200 a +400 yenes","n":"Shinkansen Nozomi Tokio-Kioto, asiento reservado, temporada normal"},"hotel_habitacion":{"v":26400,"u":"habitación y noche","t":"observado","f":"Media de los dos hoteles con certificación del directorio (Richmond Namba Daikokucho, 26.064 ¥, y Sheraton Miyako Osaka, 26.767 ¥) para el 10-13 de diciembre de 2026, 3 habitaciones y 6 adultos, consultado el 8 de septiembre de 2026. Tarifa pública más barata disponible: una tarifa contratada debería quedar por debajo, y abril es otra escala. Ver anexo F","n":"Alojamiento, habitación doble o familiar, Osaka, ventana de diciembre"},"comida_halal":{"v":4500,"u":"persona y día","t":"supuesto","f":"Supuesto propio. La oferta halal de Osaka y Kioto es de gama media-alta y no pública menus de grupo; hay que cerrarlo restaurante por restaurante","n":"Almuerzo y cena en restaurante halal certificado o verificado"},"entradas":{"v":2500,"u":"persona y día","t":"supuesto","f":"Supuesto propio sobre el itinerario clásico Kansai (Fushimi Inari gratis, Kinkakuji 500, Nijo 1.300, Todaiji 800, Osaka Castle 1.200)","n":"Entradas, templos, actividades y transporte local suelto"},"traslado_kix":{"v":30000,"u":"trayecto","t":"supuesto","f":"Supuesto propio derivado de la tarifa horaria publicada de jumbo taxi (unas 3,5 horas de servicio con vuelta en vacio)","n":"Traslado aeropuerto de Kansai a hotel de Osaka o Kioto, vehículo de 9 plazas"},"sim_y_extras":{"v":1500,"u":"persona y día","t":"supuesto","f":"Supuesto propio","n":"SIM o eSIM, consigna de equipajes, imprevistos"}},"prod":[{"clave":"kansai4","nombre":"Kansai esencial","subtitulo":"Cuatro días con base única en Osaka, sin cambiar de hotel","dias":4,"noches":3,"pax":6,"habitaciones":3,"bom":{"dias_guia":3,"horas_guia":8,"dias_vehiculo":3,"traslados_kix":2,"trayectos_tren":0,"pernoctas_guia":0,"vehiculo":"vehiculo_9_8h"}},{"clave":"clasica8","nombre":"Ruta clásica de ocho días","subtitulo":"Entra por Tokio, sale por Kansai — o al reves","dias":8,"noches":7,"pax":6,"habitaciones":3,"bom":{"dias_guia":7,"horas_guia":8,"dias_vehiculo":6,"traslados_kix":1,"trayectos_tren":6,"pernoctas_guia":4,"vehiculo":"vehiculo_9_8h"}},{"clave":"familia12","nombre":"Familia extensa, doce días","subtitulo":"El producto que encaja con la estancia media real del mercado: 12,5 noches","dias":12,"noches":11,"pax":9,"habitaciones":5,"bom":{"dias_guia":11,"horas_guia":10,"dias_vehiculo":10,"traslados_kix":1,"trayectos_tren":9,"pernoctas_guia":7,"vehiculo":"vehiculo_9_10h"}}],"idxG":[61.2,62.7,52.5,130.7,110.4,114.3,120.9,74.1,83.2,117.8,139.2,133.2],"idxE":[33.1,41.3,92.0,93.9,92.9,87.9,125.0,168.6,127.6,151.7,118.7,67.2],"estr":{"comision_agencia":0.15,"margen_operador_paquete":0.2,"margen_operador_guia":1.0,"nota":"La comisión de la agencia emisora se aplica sobre la tarifa neta que se le entrega; el margen del operador va dentro de esa tarifa neta. En el modo guía la única línea de coste es el tiempo propio, de ahi que el margen sea practicamente el 100 % del ingreso."},"cambio":{"aed_jpy":41.887,"usd_jpy":154.36,"fecha":"8 de septiembre de 2026","fuente":"tipo medio de mercado publicado el 8-9-2026 (Pluang / Trading Economics). Referencia orientativa: para cotizar en firme hay que fijar el cambio en el contrato."},"rutas":[{"aerolinea":"Emirates","origen":"Dubái (DXB)","destino":"Osaka Kansai (KIX)","frecuencia":7,"equipo":"A380","puerta":"KIX","estado":"operativa","desde":"reanudada el 1 de mayo de 2026 tras la suspensión del corredor","fuente":"AeroRoutes, programa interino Emirates 01-15MAY26, y Emirates media centre"},{"aerolinea":"Emirates","origen":"Dubái (DXB)","destino":"Tokio Narita (NRT)","frecuencia":7,"equipo":"A380","puerta":"Tokio","estado":"operativa","desde":"servicio histórico","fuente":"Emirates media centre, 5 de febrero de 2026"},{"aerolinea":"Emirates","origen":"Dubái (DXB)","destino":"Tokio Narita (NRT) — 2.o diario","frecuencia":7,"equipo":"B777-300ER de cuatro clases (332 plazas)","puerta":"Tokio","estado":"anunciada","desde":"26 de octubre de 2026 (pospuesta desde el 1 de mayo)","fuente":"Emirates media centre; Aerotime, 5 de febrero de 2026"},{"aerolinea":"Emirates","origen":"Dubái (DXB)","destino":"Tokio Haneda (HND)","frecuencia":7,"equipo":"B777-300ER","puerta":"Tokio","estado":"operativa","desde":"servicio histórico","fuente":"Emirates media centre"},{"aerolinea":"Qatar Airways","origen":"Doha (DOH)","destino":"Osaka Kansai (KIX)","frecuencia":5,"equipo":"fuselaje ancho","puerta":"KIX","estado":"operativa","desde":"reanudada el 16 de junio de 2026","fuente":"Qatar Airways vía Travel And Tour World y AeroRoutes, abril de 2026"},{"aerolinea":"Qatar Airways","origen":"Doha (DOH)","destino":"Tokio Haneda (HND)","frecuencia":7,"equipo":"fuselaje ancho","puerta":"Tokio","estado":"operativa","desde":"servicio histórico","fuente":"Qatar Airways, programa abril 2026 (AeroRoutes)"},{"aerolinea":"Etihad Airways","origen":"Abu Dabi (AUH)","destino":"Tokio Narita (NRT)","frecuencia":7,"equipo":"A380 (sustituye al A350-1000 de 371 plazas: +115 asientos por vuelo)","puerta":"Tokio","estado":"operativa","desde":"16 de junio de 2026","fuente":"Etihad Airways; Simple Flying y Aerospace Global News, 2026"},{"aerolinea":"Saudia","origen":"Riad (RUH)","destino":"Tokio Narita (NRT)","frecuencia":3,"equipo":"no publicado","puerta":"Tokio","estado":"anunciada","desde":"17 de noviembre de 2026, martes, jueves y sábado","fuente":"Saudi Press Agency y Saudi Gazette, 2026; sin servicio a Japón desde 2022"},{"aerolinea":"Gulf Air","origen":"Baréin (BAH)","destino":"—","frecuencia":0,"equipo":"—","puerta":"—","estado":"sin ruta a Japón","desde":"operó suspensión total durante el cierre del espacio aéreo de Baréin en 2026","fuente":"Aviation Business ME y Time Out Bahrain, 2026"},{"aerolinea":"Kuwait Airways / Oman Air","origen":"KWI / MCT","destino":"—","frecuencia":0,"equipo":"—","puerta":"—","estado":"sin ruta directa a Japón","desde":"conexion obligatoria por DXB, DOH o AUH","fuente":"programación pública de las compañías"}],"halal":{"mezquitas":[{"nombre":"Osaka Masjid","zona":"Nishiyodogawa, Osaka","nota":"Oración del viernes. A su alrededor hay tres restaurantes halal certificados en la misma calle.","verificacion":"institucional","cocina":""},{"nombre":"Osaka Ibaraki Masjid","zona":"Ibaraki, norte de Osaka","nota":"Oración del viernes. Unos 30 minutos en tren desde el centro.","verificacion":"institucional","cocina":""},{"nombre":"Kyoto Masjid — Centro Cultural Islámico de Kioto","zona":"Sakyo-ku, Kioto","nota":"Sala de oración en el sotano y tienda halal en la planta baja. Abierto de martes a sábado, de 12:00 a 18:00; fuera de ese horario hay que avisar antes. Telefono +81 75 231 3499.","verificacion":"institucional","cocina":""},{"nombre":"Kobe Muslim Mosque","zona":"Kobe","nota":"La mezquita más antigua de Japón (1935). Vale como visita cultural dentro del itinerario, no solo como parada de oración.","verificacion":"sectorial","cocina":""}],"salas_oracion":[{"nombre":"Aeropuerto de Kansai, terminal 1","zona":"KIX","nota":"Tres salas: planta 3, ala norte de la planta 2 y ala sur de la planta 2.","verificacion":"institucional","cocina":""},{"nombre":"Daimaru Shinsaibashi","zona":"Chuo-ku, Osaka","nota":"Planta 7. Salas separadas para hombres y mujeres, esterillas y qibla senalizada.","verificacion":"sectorial","cocina":""},{"nombre":"Namba City","zona":"Namba, Osaka","nota":"Conectado con la estación de Namba.","verificacion":"sectorial","cocina":""},{"nombre":"Estacion de Osaka, South Gate Building, planta 1","zona":"Kita-ku, Osaka","nota":"Con zona de ablución. Exige pedir permiso antes en el mostrador de información de la planta 3: hay que gestionarlo con antelación.","verificacion":"sectorial","cocina":""},{"nombre":"Torre de Kioto, planta 3","zona":"Frente a la estación de Kioto","nota":"Se accede por el Kansai Tourist Information Center rellenando un formulario. Salas separadas y zona de ablución.","verificacion":"sectorial","cocina":""},{"nombre":"LaLaport Expocity","zona":"Suita, Osaka","nota":"Junto al parque conmemorativo de la Expo del 70.","verificacion":"sectorial","cocina":""},{"nombre":"Universal Studios Japan","zona":"Konohana, Osaka","nota":"Disponible previa solicitud en atención al visitante. Hay que pedirlo al entrar, no cuando llega la hora.","verificacion":"sectorial","cocina":""},{"nombre":"Rinku Premium Outlets","zona":"A una estación de KIX","nota":"Encaja bien en el último día, combinado con compras antes del vuelo.","verificacion":"sectorial","cocina":""},{"nombre":"Castillo de Nijo","zona":"Kioto","nota":"Citado en directorios y redes; hay que confirmarlo in situ antes de usarlo en un itinerario.","verificacion":"pendiente","cocina":""}],"restaurantes":[{"nombre":"Gyumon Dotonbori (y sus tres locales de Shinsaibashi y Dotonbori)","zona":"Chuo-ku, Osaka","nota":"Certificado por Malaysia Halal Corporation. Es el sitio al que se lleva a una familia que quiere carne japonesa sin discusión.","verificacion":"sectorial","cocina":"Wagyu, sukiyaki, ramen"},{"nombre":"Halal Wagyu Yakiniku Osaka PANGA","zona":"Namba-Dotonbori","nota":"Verificar la certificación local por local.","verificacion":"sectorial","cocina":"Yakiniku de wagyu A5"},{"nombre":"Ayam-ya","zona":"Dotonbori (Osaka) y Karasuma (Kioto)","nota":"El local de Kioto tiene sala de oración propia. Precio bajo, útil para el almuerzo de un día largo.","verificacion":"sectorial","cocina":"Ramen halal de pollo"},{"nombre":"Ramen Honolu","zona":"Namba (Osaka) y Gion (Kioto)","nota":"Espacio de oración en el local. El de Gion encaja con la tarde de Kioto.","verificacion":"sectorial","cocina":"Ramen"},{"nombre":"Ali's Kitchen","zona":"Shinsaibashi y Namba","nota":"Musalla en el local.","verificacion":"sectorial","cocina":"Cocina del sur de Asia"},{"nombre":"Kineya Mugimaru — terminal 1 de KIX","zona":"Aeropuerto de Kansai","nota":"Certificación MHTC. Resuelve la primera y la última comida del viaje.","verificacion":"sectorial","cocina":"Udon"},{"nombre":"Sojibo (terminal 1 de KIX y Suita)","zona":"KIX y Suita","nota":"Certificado por la NPO Japan Halal Association.","verificacion":"sectorial","cocina":"Soba"},{"nombre":"Restaurante frances Fleuve, Hotel Granvia Osaka","zona":"Umeda, Osaka","nota":"Certificado. Sirve para la cena formal del último día, que es una petición habitual.","verificacion":"sectorial","cocina":"Frances"},{"nombre":"Grupo de Owada: Halal Mughal, Osaka Halal Restaurant y Sitara","zona":"Nishiyodogawa, junto a Osaka Masjid","nota":"Osaka Halal Restaurant declara norma malasia MS1500-2009. Combina bien con la oración del viernes.","verificacion":"sectorial","cocina":"Pakistani e india"},{"nombre":"Yoshiya Oku no Niwa","zona":"Kioto","nota":"Con espacio de oración. Es la opción de cocina japonesa de gama alta; confirmar condiciones antes de reservar para grupo.","verificacion":"pendiente","cocina":"Japonesa tradicional"}],"hoteles":[{"nombre":"Hotel Vischio Osaka by Granvia","zona":"Junto a la estación de Osaka","nota":"Certificación de Japan Islamic Trust. La certificación cubre el restaurante, no el hotel entero: hay que decirlo así al cliente.","verificacion":"sectorial","cocina":""},{"nombre":"Richmond Hotel Namba Daikokucho","zona":"Naniwa, Osaka","nota":"Certificación de Japan Islamic Trust.","verificacion":"sectorial","cocina":""},{"nombre":"Sheraton Miyako Hotel Osaka","zona":"Tennoji, Osaka","nota":"Certificación de la Japan Muslim Association. Categoría superior, con habitaciones para familia.","verificacion":"sectorial","cocina":""},{"nombre":"Hotel Nikko Kansai Airport","zona":"KIX","nota":"Pública una pagina propia de servicios para huespedes musulmanes. Util para llegadas de madrugada.","verificacion":"institucional","cocina":""}]},"hoteles":[{"nombre":"Richmond Hotel Namba Daikokucho","ciudad":"Osaka","categoria":"3 estrellas","certificacion":"Japan Islamic Trust","total":234576,"habitaciones":3,"noches":3},{"nombre":"Sheraton Miyako Hotel Osaka","ciudad":"Osaka","categoria":"5 estrellas","certificacion":"Japan Muslim Association","total":240900,"habitaciones":3,"noches":3},{"nombre":"Rihga Gran Kyoto","ciudad":"Kioto","categoria":"4 estrellas","certificacion":"—","total":122706,"habitaciones":3,"noches":3},{"nombre":"Hotel New Hankyu Kyoto","ciudad":"Kioto","categoria":"4 estrellas","certificacion":"— (habitaciones familiares)","total":100674,"habitaciones":3,"noches":3},{"nombre":"Park Hotel Kyoto","ciudad":"Kioto","categoria":"4 estrellas","certificacion":"—","total":94144,"habitaciones":3,"noches":3},{"nombre":"Henn na Hotel Premier Kyoto Gojo Karasuma","ciudad":"Kioto","categoria":"4 estrellas","certificacion":"—","total":92383,"habitaciones":3,"noches":3},{"nombre":"Hotel Vista Premio Kyoto Nagomi-tei","ciudad":"Kioto","categoria":"4 estrellas","certificacion":"—","total":81473,"habitaciones":3,"noches":3},{"nombre":"Oakwood Hotel Oike Kyoto","ciudad":"Kioto","categoria":"4 estrellas","certificacion":"—","total":80190,"habitaciones":3,"noches":3},{"nombre":"The OneFive Kyoto Shijo","ciudad":"Kioto","categoria":"4 estrellas","certificacion":"—","total":66420,"habitaciones":3,"noches":3},{"nombre":"The Royal Park Canvas Kyoto Nijo","ciudad":"Kioto","categoria":"4 estrellas","certificacion":"—","total":63450,"habitaciones":3,"noches":3}]};
+
+/* ══════════════════════════════════════════════════════════════════════════
+   Todo lo que sigue calcula. No hay ni un importe escrito a mano en la
+   página: los ocho conceptos del presupuesto salen de la misma fórmula que
+   usa el estudio de viabilidad, aplicada a lo que el usuario elija.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+const $ = s => document.querySelector(s);
+const yen = v => Math.round(v).toLocaleString(L._loc) + ' ¥';
+const div = (v, t) => Math.round(v / t).toLocaleString(L._loc);
+/* Un recuento suelto —«7 jornadas», «4 pernoctas»— tiene que ir en la misma
+   cifra que el dinero de su propia línea. Mezclar dígitos latinos y
+   árabe-índicos en un mismo renglón es lo que delata una traducción por
+   encima: el importe traducido y el recuento no. */
+const n = v => Number(v).toLocaleString(L._loc);
+
+/* ── El calendario hiyrí, calculado en el navegador ────────────────────────
+   Sin librería: Intl sabe convertir a umalqura. Se busca, mes a mes de 2027,
+   qué día gregoriano cae 1 de Ramadán (mes 9) y 1 de Shawwal (mes 10, que es
+   Eid al-Fitr), y 10 de Du l-Hiyya (Eid al-Adha). Esto importa comercialmente
+   más que ninguna otra fecha: en Ramadán la demanda del Golfo se desploma y
+   el mes siguiente se dispara. */
+function fechasHiyri(anio){
+  const f = new Intl.DateTimeFormat('en-u-ca-islamic-umalqura-nu-latn',
+    {day:'numeric', month:'numeric', year:'numeric', timeZone:'UTC'});
+  const marcas = {};
+  const d = new Date(Date.UTC(anio, 0, 1));
+  const fin = new Date(Date.UTC(anio, 11, 31));
+  while (d <= fin){
+    const p = Object.fromEntries(f.formatToParts(d).map(x => [x.type, x.value]));
+    const mes = +p.month, dia = +p.day;
+    if (mes === 9  && dia === 1  && !marcas.ramadan)  marcas.ramadan  = new Date(d);
+    if (mes === 10 && dia === 1  && !marcas.fitr)     marcas.fitr     = new Date(d);
+    if (mes === 12 && dia === 10 && !marcas.adha)     marcas.adha     = new Date(d);
+    d.setUTCDate(d.getUTCDate() + 1);
+  }
+  return marcas;
+}
+const HIYRI = fechasHiyri(2027);
+/* Un mes queda "tocado" por Ramadán si el ayuno cubre buena parte de él. */
+function mesesDe(inicio, dias){
+  const s = new Set();
+  const d = new Date(inicio);
+  for (let i = 0; i < dias; i++){ s.add(d.getUTCMonth()); d.setUTCDate(d.getUTCDate()+1); }
+  return s;
+}
+const MESES_RAMADAN = HIYRI.ramadan ? mesesDe(HIYRI.ramadan, 29) : new Set();
+const MES_FITR = HIYRI.fitr ? HIYRI.fitr.getUTCMonth() : -1;
+const MES_ADHA = HIYRI.adha ? HIYRI.adha.getUTCMonth() : -1;
+
+/* ── El presupuesto ────────────────────────────────────────────────────────
+   Misma descomposición que coste_producto() en el informe: ocho líneas, cada
+   una con su unidad y su origen. Se recalcula con el número de viajeros, de
+   habitaciones y el precio de hotel que se elija. */
+function presupuesto(p, pax, hab, hotel){
+  const b = p.bom, I = D.ins;
+  const guiaDia = I.guia_4h.v + Math.max(0, b.horas_guia - 4) * I.guia_hora_extra.v;
+  const L_ = [
+    ['guia', I.guia_4h,
+      b.dias_guia * guiaDia + b.pernoctas_guia * I.guia_pernocta.v,
+      `${n(b.dias_guia)} × ${n(b.horas_guia)} ${T('hora')} · ${yen(guiaDia)}` +
+      (b.pernoctas_guia ? ` + ${n(b.pernoctas_guia)} ${pl(b.pernoctas_guia,'pernocta')}` : '')],
+    ['vehiculo', I[b.vehiculo],
+      b.dias_vehiculo * I[b.vehiculo].v,
+      `${n(b.dias_vehiculo)} ${pl(b.dias_vehiculo,'dia')} · ${yen(I[b.vehiculo].v)}`],
+    ['traslado', I.traslado_kix,
+      b.traslados_kix * I.traslado_kix.v,
+      `${n(b.traslados_kix)} × ${yen(I.traslado_kix.v)}`],
+    ['tren', I.tren_tokio_kioto,
+      b.trayectos_tren * I.tren_tokio_kioto.v * (pax / p.pax),
+      b.trayectos_tren ? `${n(Math.round(b.trayectos_tren*pax/p.pax))} ${pl(Math.round(b.trayectos_tren*pax/p.pax),'billete')} · ${yen(I.tren_tokio_kioto.v)}` : T('noAplica')],
+    ['hotel', {t:'observado', f:I.hotel_habitacion.f},
+      p.noches * hab * hotel,
+      `${n(p.noches)} ${pl(p.noches,'noche')} × ${n(hab)} ${pl(hab,'hab')} · ${yen(hotel)}`],
+    ['comida', I.comida_halal,
+      p.dias * pax * I.comida_halal.v,
+      `${n(p.dias)} ${pl(p.dias,'dia')} × ${n(pax)} ${pl(pax,'pers')} · ${yen(I.comida_halal.v)}`],
+    ['entradas', I.entradas,
+      p.dias * pax * I.entradas.v,
+      `${n(p.dias)} ${pl(p.dias,'dia')} × ${n(pax)} ${pl(pax,'pers')} · ${yen(I.entradas.v)}`],
+    ['extras', I.sim_y_extras,
+      p.dias * pax * I.sim_y_extras.v,
+      `${n(p.dias)} ${pl(p.dias,'dia')} × ${n(pax)} ${pl(pax,'pers')} · ${yen(I.sim_y_extras.v)}`],
+  ];
+  const coste = L_.reduce((a, x) => a + x[2], 0);
+  const margen = coste * D.estr.margen_operador_paquete;
+  const neto = coste + margen;
+  const pvp = neto / (1 - D.estr.comision_agencia);
+  return {lineas:L_, coste, margen, neto, pvp, pvpPax: pvp/pax, netoPax: neto/pax};
+}
+
+/* ── Diccionario trilingüe ─────────────────────────────────────────────── */
+const DIC = {
+es:{_dir:'ltr',_lang:'es',_loc:'es-ES',
+ prods:{kansai4:['Kansai esencial','Osaka, Kioto y Nara sin cambiar de hotel'],
+   clasica8:['Ruta clásica de ocho días','Entra por Tokio, sale por Kansai — o al revés'],
+   familia12:['Familia extensa, doce días','Tres generaciones, un mismo ritmo, nueve personas']},
+ hora:'h',
+ donde:'Mesa de cotización', rot:'Para agencias emisoras del Golfo',
+ h1:'Cotice un viaje a Kansai en treinta segundos, y vea de dónde sale cada yen.',
+ lede:'Esta mesa calcula con las mismas tarifas que sostienen nuestro estudio de viabilidad: la del gremio de guías titulados, la publicada por la compañía de vehículos, la oficial de JR y precios de hotel consultados con fecha. Cada línea lleva marcado si es tarifa publicada, precio observado o supuesto nuestro. Nada está redondeado a ojo.',
+ mTit:'El encargo', mSub:'Cambie lo que quiera: todo se recalcula al instante.',
+ lProd:'Programa', lPax:'Viajeros', lHab:'Habitaciones', lMes:'Mes de viaje · 2027',
+ lHotel:'Nivel de alojamiento', lOrigen:'Ciudad de origen',
+ hotSuelo:'Suelo observado en Kioto · 10.300 ¥', hotCert:'Certificado en Osaka · 26.400 ¥',
+ hotAlta:'Temporada de cerezo · 41.000 ¥',
+ pistaMes:'La altura de cada barra es el índice de llegadas del Golfo a Japón, calculado sobre los datos mensuales del JNTO de 2023 a 2025.',
+ pistaHotel:'Precio por habitación y noche. Los tres valores son observados, no inventados: ver el pie de página.',
+ vTit:'El mes que ha elegido', vSobre:'sobre 100', vGolfo:'Demanda del Golfo', vEspana:'Choque con España',
+ cTit:'La cotización', cConcepto:'Concepto', cImporte:'Importe',
+ fTit:'Cómo llegan', hTit:'Lo que hace el viaje entregable',
+ hIntro:'Cada entrada lleva su nivel de verificación. «Institucional» es la propia entidad o un organismo público; «sectorial», una fuente del ramo. No se llama certificado a lo que sólo es «sin cerdo».',
+ bCopiar:'Copiar el presupuesto', bImprimir:'Imprimir o guardar en PDF', bCopiado:'Copiado',
+ fuTit:'De dónde sale cada número',
+ guia:'Guía titulado en árabe', vehiculo:'Vehículo con conductor', traslado:'Traslados de aeropuerto',
+ tren:'Shinkansen', hotel:'Alojamiento', comida:'Restauración halal',
+ entradas:'Entradas y transporte local', extras:'eSIM, consigna e imprevistos',
+ costeDirecto:'Coste directo', margenOp:'Margen del operador', tarifaNeta:'Tarifa neta a la agencia',
+ pvpSug:'PVP orientativo', porPersona:'por persona',
+ formas:{dia:['día','días','días','días'], noche:['noche','noches','noches','noches'],
+   hab:['hab.','hab.','hab.','hab.'], pers:['pers.','pers.','pers.','pers.'],
+   billete:['billete','billetes','billetes','billetes'],
+   pernocta:['pernocta','pernoctas','pernoctas','pernoctas']},
+ noAplica:'no aplica',
+ dato:'tarifa publicada', observado:'precio observado', supuesto:'supuesto propio',
+ mesesC:['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
+ mesesL:['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'],
+ avBueno:'Buen mes. La demanda del Golfo está por encima de su media anual y el mercado hispanohablante no compite por la misma agenda.',
+ avMedio:'Mes aceptable, pero con competencia interna: el mercado hispanohablante también va fuerte y hay que elegir a quién se atiende.',
+ avMalo:'Mes flojo para el Golfo. Se puede operar, pero no es donde está el dinero.',
+ avRamadan:'Ramadán cubre buena parte de este mes. La demanda cae de forma predecible todos los años: es mes de preparar, no de vender.',
+ avFitr:'Cae el Eid al-Fitr. Históricamente el mes que sigue al Ramadán multiplica las llegadas: es la mejor ventana del año.',
+ avAdha:'Cae el Eid al-Adha, la segunda fiesta grande. Ventana corta y de ticket alto.',
+ sinRuta:'sin ruta directa a Japón', porSemana:'vuelos/semana', anunciada:'anunciada',
+ operativa:'operativa', viaKix:'entra por Kansai', mezquitas:'Mezquitas',
+ salas_oracion:'Salas de oración', restaurantes:'Restaurantes', hoteles:'Hoteles'},
+};
+DIC.en={
+ prods:{kansai4:['Kansai essentials','Osaka, Kyoto and Nara without moving hotel'],
+   clasica8:['The classic eight days','In through Tokyo, out through Kansai — or the other way round'],
+   familia12:['Extended family, twelve days','Three generations, one pace, nine people']},
+ hora:'h',_dir:'ltr',_lang:'en',_loc:'en-GB',
+ donde:'Quoting desk', rot:'For Gulf outbound agencies',
+ h1:'Price a Kansai trip in thirty seconds, and see where every yen comes from.',
+ lede:'This desk runs on the same tariffs that hold up our feasibility study: the licensed guides’ association rate, the vehicle company’s published price, the official JR fare and hotel prices checked on a date. Every line is marked as published tariff, observed price or our own assumption. Nothing is rounded by eye.',
+ mTit:'The brief', mSub:'Change anything: it all recalculates at once.',
+ lProd:'Programme', lPax:'Travellers', lHab:'Rooms', lMes:'Month of travel · 2027',
+ lHotel:'Accommodation level', lOrigen:'City of origin',
+ hotSuelo:'Observed floor in Kyoto · 10,300 ¥', hotCert:'Certified in Osaka · 26,400 ¥',
+ hotAlta:'Cherry blossom season · 41,000 ¥',
+ pistaMes:'The height of each bar is the index of Gulf arrivals to Japan, computed from JNTO monthly data for 2023–2025.',
+ pistaHotel:'Price per room per night. All three values are observed, not invented: see the footnotes.',
+ vTit:'The month you picked', vSobre:'out of 100', vGolfo:'Gulf demand', vEspana:'Clash with Spain',
+ cTit:'The quote', cConcepto:'Item', cImporte:'Amount',
+ fTit:'How they get here', hTit:'What makes the trip deliverable',
+ hIntro:'Every entry carries its level of verification. “Institutional” means the body itself or a public authority; “sectoral”, a trade source. We do not call certified what is merely pork-free.',
+ bCopiar:'Copy the quote', bImprimir:'Print or save as PDF', bCopiado:'Copied',
+ fuTit:'Where every number comes from',
+ guia:'Licensed Arabic-speaking guide', vehiculo:'Vehicle with driver', traslado:'Airport transfers',
+ tren:'Shinkansen', hotel:'Accommodation', comida:'Halal catering',
+ entradas:'Admissions and local transport', extras:'eSIM, luggage and contingency',
+ costeDirecto:'Direct cost', margenOp:'Operator margin', tarifaNeta:'Net rate to the agency',
+ pvpSug:'Indicative retail price', porPersona:'per person',
+ formas:{dia:['day','days','days','days'], noche:['night','nights','nights','nights'],
+   hab:['room','rooms','rooms','rooms'], pers:['pax','pax','pax','pax'],
+   billete:['ticket','tickets','tickets','tickets'],
+   pernocta:['overnight','overnights','overnights','overnights']},
+ noAplica:'not applicable',
+ dato:'published tariff', observado:'observed price', supuesto:'our assumption',
+ mesesC:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+ mesesL:['January','February','March','April','May','June','July','August','September','October','November','December'],
+ avBueno:'Good month. Gulf demand is above its annual average and the Spanish-speaking market is not competing for the same diary.',
+ avMedio:'Workable month, but with internal competition: the Spanish-speaking market is also strong and you must choose who you serve.',
+ avMalo:'Weak month for the Gulf. It can be operated, but this is not where the money is.',
+ avRamadan:'Ramadan covers much of this month. Demand falls predictably every year: this is a month to prepare in, not to sell in.',
+ avFitr:'Eid al-Fitr falls here. Historically the month after Ramadan multiplies arrivals: it is the best window of the year.',
+ avAdha:'Eid al-Adha falls here, the second great feast. A short, high-ticket window.',
+ sinRuta:'no direct route to Japan', porSemana:'flights/week', anunciada:'announced',
+ operativa:'operating', viaKix:'arrives via Kansai', mezquitas:'Mosques',
+ salas_oracion:'Prayer rooms', restaurantes:'Restaurants', hoteles:'Hotels'};
+DIC.ar={
+ prods:{kansai4:['كانساي الأساسية','أوساكا وكيوتو ونارا دون تغيير الفندق'],
+   clasica8:['المسار الكلاسيكي في ثمانية أيام','الدخول من طوكيو والخروج من كانساي — أو العكس'],
+   familia12:['العائلة الممتدة، اثنا عشر يوماً','ثلاثة أجيال، وإيقاع واحد، وتسعة أفراد']},
+ hora:'س',_dir:'rtl',_lang:'ar',_loc:'ar-u-nu-arab',
+ donde:'مكتب التسعير', rot:'لوكالات السفر المُصدِّرة في الخليج',
+ h1:'سعِّر رحلة إلى كانساي في ثلاثين ثانية، وشاهد من أين يأتي كل ين.',
+ lede:'يحسب هذا المكتب بالتعريفات نفسها التي يقوم عليها تقرير الجدوى: تعريفة نقابة المرشدين المرخّصين، والسعر المنشور لشركة المركبات، والأجرة الرسمية لسكك حديد اليابان، وأسعار فنادق مُستعلَم عنها بتاريخ محدّد. وكل بند مُعلَّم بما إذا كان تعريفة منشورة أم سعراً مرصوداً أم افتراضاً من عندنا. لا شيء مُقرَّب بالنظر.',
+ mTit:'الطلب', mSub:'غيّر ما تشاء: يُعاد الحساب فوراً.',
+ lProd:'البرنامج', lPax:'المسافرون', lHab:'الغرف', lMes:'شهر السفر · ٢٠٢٧',
+ lHotel:'مستوى الإقامة', lOrigen:'مدينة المغادرة',
+ hotSuelo:'أدنى سعر مرصود في كيوتو · ١٠٬٣٠٠ ين', hotCert:'فندق معتمد في أوساكا · ٢٦٬٤٠٠ ين',
+ hotAlta:'موسم أزهار الكرز · ٤١٬٠٠٠ ين',
+ pistaMes:'ارتفاع كل عمود هو مؤشّر القادمين من الخليج إلى اليابان، محسوباً من البيانات الشهرية للمنظمة اليابانية الوطنية للسياحة بين ٢٠٢٣ و٢٠٢٥.',
+ pistaHotel:'السعر لكل غرفة في الليلة. القيم الثلاث مرصودة لا مُختلقة: انظر الحواشي.',
+ vTit:'الشهر الذي اخترته', vSobre:'من ١٠٠', vGolfo:'الطلب الخليجي', vEspana:'التزاحم مع السوق الإسباني',
+ cTit:'عرض السعر', cConcepto:'البند', cImporte:'المبلغ',
+ fTit:'كيف يصلون', hTit:'ما يجعل الرحلة قابلة للتنفيذ',
+ hIntro:'كل مُدخَل يحمل درجة التحقّق منه. «مؤسسي» يعني الجهة نفسها أو هيئة عامة، و«قطاعي» يعني مصدراً من داخل القطاع. ولا نسمّي مُعتمَداً ما هو مجرّد «خالٍ من لحم الخنزير».',
+ bCopiar:'نسخ عرض السعر', bImprimir:'طباعة أو حفظ بصيغة PDF', bCopiado:'تم النسخ',
+ fuTit:'من أين يأتي كل رقم',
+ guia:'مرشد مرخّص ناطق بالعربية', vehiculo:'مركبة مع سائق', traslado:'التنقّلات من المطار وإليه',
+ tren:'قطار شينكانسن', hotel:'الإقامة', comida:'الإطعام الحلال',
+ entradas:'التذاكر والتنقّل المحلي', extras:'شريحة eSIM وحفظ الأمتعة والطوارئ',
+ costeDirecto:'التكلفة المباشرة', margenOp:'هامش المشغّل', tarifaNeta:'السعر الصافي للوكالة',
+ pvpSug:'سعر البيع الاسترشادي', porPersona:'للفرد',
+ formas:{dia:['يوم','يومان','أيام','يوماً'], noche:['ليلة','ليلتان','ليالٍ','ليلة'],
+   hab:['غرفة','غرفتان','غرف','غرفة'], pers:['فرد','فردان','أفراد','فرداً'],
+   billete:['تذكرة','تذكرتان','تذاكر','تذكرة'],
+   pernocta:['ليلة مبيت','ليلتا مبيت','ليالي مبيت','ليلة مبيت']},
+ noAplica:'لا ينطبق',
+ dato:'تعريفة منشورة', observado:'سعر مرصود', supuesto:'افتراض من عندنا',
+ mesesC:['ينا','فبر','مار','أبر','ماي','يون','يول','أغس','سبت','أكت','نوف','ديس'],
+ mesesL:['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'],
+ avBueno:'شهر جيّد. الطلب الخليجي فوق متوسّطه السنوي، والسوق الناطق بالإسبانية لا يزاحم على المفكّرة نفسها.',
+ avMedio:'شهر صالح للعمل لكن فيه مزاحمة داخلية: السوق الناطق بالإسبانية قوي أيضاً، ويجب اختيار مَن تخدم.',
+ avMalo:'شهر ضعيف خليجياً. يمكن التشغيل فيه، لكن المال ليس هنا.',
+ avRamadan:'رمضان يغطّي جزءاً كبيراً من هذا الشهر. ينخفض الطلب انخفاضاً متوقَّعاً كل سنة: هذا شهر إعداد لا شهر بيع.',
+ avFitr:'يقع فيه عيد الفطر. تاريخياً يضاعف الشهر التالي لرمضان أعداد القادمين: وهو أفضل نافذة في السنة.',
+ avAdha:'يقع فيه عيد الأضحى، ثاني العيدين. نافذة قصيرة وذات قيمة عالية.',
+ sinRuta:'لا رحلة مباشرة إلى اليابان', porSemana:'رحلة أسبوعياً', anunciada:'مُعلَنة',
+ operativa:'عاملة', viaKix:'يدخل عبر كانساي', mezquitas:'المساجد',
+ salas_oracion:'مصلّيات', restaurantes:'مطاعم', hoteles:'فنادق'};
+
+let L = DIC.es;
+const T = k => L[k] || DIC.es[k] || k;
+/* El nombre del programa vive en el diccionario, no en los datos: los datos
+   son del informe y están en español. */
+/* Concordancia de número. En árabe no basta con pegar la cifra delante de la
+   palabra: 1 va en singular, 2 en dual, de 3 a 10 en plural de poquedad y de
+   11 en adelante vuelve al singular en acusativo. Escribir «٦ تذكرة» en vez de
+   «٦ تذاكر» es exactamente lo que delata una traducción hecha por encima.
+   El español y el inglés declaran las mismas cuatro casillas aunque sólo usen
+   dos, para que la función sea una y no tres. */
+function pl(c, clave){
+  const f = (L.formas && L.formas[clave]) || DIC.es.formas[clave];
+  const k = Math.abs(Math.round(c));
+  return k === 1 ? f[0] : k === 2 ? f[1] : (k >= 3 && k <= 10) ? f[2] : f[3];
+}
+const nombreProd = p => (L.prods && L.prods[p.clave]) ? L.prods[p.clave][0] : p.nombre;
+
+/* ── Pintado ───────────────────────────────────────────────────────────── */
+let mesSel = 3;   // abril: una de las dos ventanas del año
+
+function pintaMeses(){
+  const max = Math.max(...D.idxG);
+  $('#meses').innerHTML = D.idxG.map((v,i) =>
+    `<button type="button" data-m="${i}" aria-pressed="${i===mesSel}"
+       title="${T('mesesL')[i]} · ${Math.round(v)}">${T('mesesC')[i]}
+       <i style="height:${Math.round(v/max*100*.42)}%"></i></button>`).join('');
+}
+
+function pintaVeredicto(){
+  const g = D.idxG[mesSel], e = D.idxE[mesSel];
+  $('#nG').textContent = n(Math.round(g));
+  $('#nE').textContent = n(Math.round(e));
+  $('#bG').style.width = Math.min(100, g/1.6) + '%';
+  $('#bE').style.width = Math.min(100, e/1.6) + '%';
+  $('#vNota').textContent = n(Math.round(g));
+  $('#vApunte').textContent = T('mesesL')[mesSel];
+
+  let clase = 'medio', txt;
+  if (MESES_RAMADAN.has(mesSel))      { clase='malo';  txt = T('avRamadan'); }
+  else if (mesSel === MES_FITR)       { clase='';      txt = T('avFitr'); }
+  else if (mesSel === MES_ADHA)       { clase='';      txt = T('avAdha'); }
+  else if (g >= 110 && e <= 110)      { clase='';      txt = T('avBueno'); }
+  else if (g < 90)                    { clase='malo';  txt = T('avMalo'); }
+  else                                { clase='medio'; txt = T('avMedio'); }
+  const av = $('#vAviso');
+  av.className = 'aviso-mes ' + clase;
+  av.innerHTML = txt;
+}
+
+function pintaCotizacion(){
+  const p = D.prod.find(x => x.clave === $('#producto').value);
+  const pax = +$('#pax').value || p.pax;
+  const hab = +$('#hab').value || p.habitaciones;
+  const hotel = +$('#hotel').value;
+  const r = presupuesto(p, pax, hab, hotel);
+
+  $('#cApunte').textContent = `${n(p.dias)} ${pl(p.dias,'dia')} · ${n(pax)} ${pl(pax,'pers')}`;
+  $('#lineas').innerHTML = r.lineas.map(([k, ins, v, det]) =>
+    `<tr><td>${T(k)}<span class="origen ${ins.t}">${T(ins.t)}</span>
+       <span class="detalle">${det}</span></td>
+     <td class="n">${yen(v)}</td></tr>`).join('')
+   + `<tr class="sub"><td>${T('costeDirecto')}</td><td class="n">${yen(r.coste)}</td></tr>`
+   + `<tr><td>${T('margenOp')} <span class="detalle">${n(Math.round(D.estr.margen_operador_paquete*100))} %</span></td>
+        <td class="n">${yen(r.margen)}</td></tr>`
+   + `<tr class="total"><td>${T('tarifaNeta')}</td><td class="n">${yen(r.neto)}</td></tr>`;
+
+  $('#monedas').innerHTML = `
+    <div class="moneda"><span class="et">${T('tarifaNeta')} · ${T('porPersona')}</span>
+      <span class="v">${yen(r.netoPax)}</span></div>
+    <div class="moneda destaca"><span class="et">${T('pvpSug')} · ${T('porPersona')}</span>
+      <span class="v">${yen(r.pvpPax)}</span></div>
+    <div class="moneda"><span class="et">AED · ${T('porPersona')}</span>
+      <span class="v ltr">${div(r.pvpPax, D.cambio.aed_jpy)} AED</span></div>
+    <div class="moneda"><span class="et">USD · ${T('porPersona')}</span>
+      <span class="v ltr">${div(r.pvpPax, D.cambio.usd_jpy)} USD</span></div>`;
+  return r;
+}
+
+function pintaVuelos(){
+  const o = $('#origen').value;
+  const mias = D.rutas.filter(r => r.origen.includes(o));
+  $('#fApunte').textContent = o;
+  if (!mias.length){
+    $('#rutas').innerHTML = `<div class="ruta sin"><span class="pastilla">—</span>
+      <span>${T('sinRuta')}</span><span class="frec">0</span></div>`;
+    return;
+  }
+  $('#rutas').innerHTML = mias.map(r => {
+    const kix = r.puerta === 'KIX';
+    const fut = r.estado === 'anunciada';
+    if (!r.frecuencia) return `<div class="ruta sin"><span class="pastilla">—</span>
+      <span>${r.aerolinea} · ${T('sinRuta')}</span><span class="frec">0</span></div>`;
+    return `<div class="ruta ${kix?'kix':''}">
+      <span class="pastilla ${fut?'futuro':'ok'}">${fut?T('anunciada'):T('operativa')}</span>
+      <span><b>${r.aerolinea}</b> <span class="via">${r.destino}${kix?' · '+T('viaKix'):''}</span></span>
+      <span class="frec">${n(r.frecuencia)} <span class="via">${T('porSemana')}</span></span></div>`;
+  }).join('');
+}
+
+function pintaHalal(){
+  const bloques = ['mezquitas','salas_oracion','restaurantes','hoteles'];
+  const tot = bloques.reduce((a,k)=>a+D.halal[k].length,0);
+  $('#hApunte').textContent = n(tot);
+  $('#halal').innerHTML = bloques.flatMap(k =>
+    D.halal[k].slice(0,3).map(x =>
+      `<div class="ficha"><b>${x.nombre}</b>
+        <span class="zona">${T(k)} · ${x.zona}</span>
+        <span class="origen ${x.verificacion==='institucional'?'dato':'supuesto'}">${x.verificacion}</span>
+      </div>`)).join('');
+}
+
+function pintaFuentes(){
+  const vistos = new Set(), li = [];
+  for (const k in D.ins){ const i = D.ins[k];
+    if (vistos.has(i.f)) continue; vistos.add(i.f); li.push(i.f); }
+  li.push(`${D.cambio.fuente}`);
+  li.push('JNTO, llegadas mensuales por nacionalidad 2023-2025 (índice de estacionalidad).');
+  $('#fuentes').innerHTML = li.map(x => `<li>${x}</li>`).join('');
+}
+
+/* ── Idioma ────────────────────────────────────────────────────────────── */
+function idioma(k){
+  L = DIC[k];
+  const H = document.documentElement;
+  H.lang = L._lang; H.dir = L._dir;
+  document.querySelectorAll('[data-t]').forEach(el => {
+    const v = L[el.dataset.t]; if (v !== undefined) el.textContent = v;
+  });
+  document.querySelectorAll('#idiomasAria,[data-lang]').forEach(b => {
+    if (b.dataset.lang) b.setAttribute('aria-pressed', b.dataset.lang === k);
+  });
+  document.title = 'MARSA · ' + L.donde;
+  try { localStorage.setItem('marsa_mesa_lang', k); } catch(e){}
+  todo();
+}
+
+/* ── El presupuesto en texto plano, para pegarlo en un correo ──────────── */
+function comoTexto(){
+  const p = D.prod.find(x => x.clave === $('#producto').value);
+  const pax = +$('#pax').value, hab = +$('#hab').value;
+  const r = presupuesto(p, pax, hab, +$('#hotel').value);
+  const li = r.lineas.map(([k,ins,v,det]) =>
+    `  ${T(k).padEnd(34)} ${yen(v).padStart(14)}   [${T(ins.t)}] ${det}`);
+  return [
+    `MARSA — ${L.cTit}`,
+    `${nombreProd(p)} · ${p.dias} ${T('dias')} · ${n(pax)} ${T('pers')} · ${n(hab)} ${T('habs')}`,
+    `${T('lMes')}: ${T('mesesL')[mesSel]}`,
+    '', ...li, '',
+    `  ${T('costeDirecto').padEnd(34)} ${yen(r.coste).padStart(14)}`,
+    `  ${T('margenOp').padEnd(34)} ${yen(r.margen).padStart(14)}`,
+    `  ${T('tarifaNeta').padEnd(34)} ${yen(r.neto).padStart(14)}`,
+    `  ${(T('pvpSug')+' · '+T('porPersona')).padEnd(34)} ${yen(r.pvpPax).padStart(14)}`,
+    '',
+    `${D.cambio.fuente}`
+  ].join('\n');
+}
+
+/* ── Arranque ──────────────────────────────────────────────────────────── */
+function todo(){ productos(); pintaMeses(); pintaVeredicto(); pintaCotizacion(); pintaVuelos(); pintaHalal(); pintaFuentes(); }
+
+function productos(){
+  const sel = $('#producto').value;
+  $('#producto').innerHTML = D.prod.map(p =>
+    `<option value="${p.clave}">${nombreProd(p)}</option>`).join('');
+  if (sel) $('#producto').value = sel;
+  $('#producto').value = 'clasica8';
+  sincroniza();
+}
+function sincroniza(){
+  const p = D.prod.find(x => x.clave === $('#producto').value);
+  $('#pax').value = p.pax; $('#hab').value = p.habitaciones;
+  $('#pistaProd').textContent = (L.prods && L.prods[p.clave]) ? L.prods[p.clave][1] : (p.subtitulo||'');
+}
+
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-lang]');
+  if (b){ idioma(b.dataset.lang); return; }
+  const m = e.target.closest('[data-m]');
+  if (m){ mesSel = +m.dataset.m; pintaMeses(); pintaVeredicto(); }
+});
+$('#mandos').addEventListener('input', e => {
+  if (e.target.id === 'producto') sincroniza();
+  if (e.target.id === 'origen') { pintaVuelos(); return; }
+  pintaCotizacion();
+});
+$('#copiar').addEventListener('click', async () => {
+  try { await navigator.clipboard.writeText(comoTexto()); }
+  catch(e){ const t=document.createElement('textarea'); t.value=comoTexto();
+    document.body.appendChild(t); t.select(); document.execCommand('copy'); t.remove(); }
+  const c = $('#copiado'); c.classList.add('ver'); setTimeout(()=>c.classList.remove('ver'), 1800);
+});
+$('#imprimir').addEventListener('click', () => window.print());
+
+productos();
+let guardado = 'es';
+try { guardado = localStorage.getItem('marsa_mesa_lang') || 'es'; } catch(e){}
+idioma(DIC[guardado] ? guardado : 'es');
+</script>

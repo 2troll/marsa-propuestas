@@ -396,6 +396,48 @@ html[dir="rtl"] .panel-foto figcaption{font-style:normal;}
   [data-lang]{display:inline-flex;align-items:center;justify-content:center;
     min-inline-size:2.75rem;min-block-size:2.75rem;}
 }
+
+/* ─── Relieve: el papel ────────────────────────────────────────────────────
+   Una lámina montada sobre una hoja no flota: se apoya. La sombra es corta,
+   cálida y muy cerrada, del color de la tinta y no un gris de interfaz, y
+   lleva el filete de montaje de un pliego encuadernado. Nada de sombras
+   largas y difusas: eso es lenguaje de tarjeta flotante, no de manuscrito. */
+.panel-foto img{
+  box-shadow:
+    0 1px 0 rgba(35,38,43,.22),
+    0 2px 3px rgba(35,38,43,.10),
+    0 8px 14px -8px rgba(35,38,43,.30);
+}
+/* El filete de montaje, dibujado y no simulado. */
+.panel-foto{position:relative;}
+.panel-foto::after{
+  content:"";position:absolute;inset-inline:0;top:0;height:var(--h-lam,0);
+  pointer-events:none;
+}
+/* La caja de texto se apoya en la hoja con una sombra de encuadernación en el
+   margen interior, que es donde la tiene un libro abierto. */
+.caja{position:relative;}
+.caja::before{
+  content:"";position:absolute;inset-block:0;inset-inline-start:-1.4rem;width:1.4rem;
+  background:linear-gradient(to right, rgba(35,38,43,.055), transparent);
+  pointer-events:none;
+}
+html[dir="rtl"] .caja::before{
+  inset-inline-start:auto;inset-inline-end:-1.4rem;
+  background:linear-gradient(to left, rgba(35,38,43,.055), transparent);
+}
+/* Interacción: la rúbrica del copista. Al pasar por una entrada del índice o
+   del menú, aparece el trazo rojo que marcaría a mano. */
+nav a,.entrada{transition:color .18s ease, background-color .18s ease;}
+nav a{position:relative;}
+nav a::after{
+  content:"";position:absolute;inset-inline:0;bottom:-.22em;height:1px;
+  background:var(--rubrica);transform:scaleX(0);transform-origin:inline-start;
+  transition:transform .22s cubic-bezier(.4,0,.2,1);
+}
+nav a:hover::after,nav a:focus-visible::after{transform:scaleX(1);}
+.entrada:hover{background:color-mix(in srgb,var(--rubrica) 4%,transparent);}
+@media (prefers-reduced-motion:reduce){nav a::after{transition:none;}}
 </style>
 <style>
 /* Lámina: en un manuscrito la imagen va encajada en la caja de texto, con su

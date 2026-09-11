@@ -405,6 +405,46 @@ html[dir="rtl"] .panel-foto figcaption{letter-spacing:0;text-transform:none;
   [data-lang]{display:inline-flex;align-items:center;justify-content:center;
     min-inline-size:2.75rem;min-block-size:2.75rem;}
 }
+
+/* ─── Relieve: la imprenta ─────────────────────────────────────────────────
+   Aquí una sombra difusa sería una traición: la escuela suiza compone en
+   plano. Lo que sí existe en imprenta es el REGISTRO —las planchas de color
+   no caen exactamente una sobre otra— y el grosor del propio pliego. Así que
+   la profundidad se hace con un desplazamiento nítido de 2 px en la tinta de
+   señal, sin difuminar, más un filete duro. Se lee como impreso, no como
+   interfaz. */
+.cifra{
+  box-shadow:
+    0 0 0 1px var(--regla),
+    2px 2px 0 0 color-mix(in srgb, var(--senal) 16%, transparent);
+  transition:box-shadow .18s ease, transform .18s ease;
+}
+.cifra:hover{
+  box-shadow:
+    0 0 0 1px var(--tinta),
+    4px 4px 0 0 color-mix(in srgb, var(--senal) 28%, transparent);
+  transform:translate(-1px,-1px);
+}
+.huso{
+  box-shadow:inset 0 0 0 1px var(--regla-2);
+  transition:box-shadow .18s ease;
+}
+.huso:hover{box-shadow:inset 0 0 0 1px var(--senal);}
+.panel-foto img{box-shadow:0 0 0 1px var(--regla);}
+/* Las filas del proceso: la barra de señal entra por el margen, como la
+   marca de corrección de un corrector de pruebas. */
+.linea{position:relative;transition:background-color .18s ease;}
+.linea::before{
+  content:"";position:absolute;inset-block:0;inset-inline-start:-1rem;width:3px;
+  background:var(--senal);transform:scaleY(0);transform-origin:top;
+  transition:transform .22s cubic-bezier(.4,0,.2,1);
+}
+.linea:hover::before{transform:scaleY(1);}
+.linea:hover{background:color-mix(in srgb,var(--senal) 3%,transparent);}
+@media (prefers-reduced-motion:reduce){
+  .cifra,.linea::before,.huso{transition:none;}
+  .cifra:hover{transform:none;}
+}
 </style>
 </head>
 <body>

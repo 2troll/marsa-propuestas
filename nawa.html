@@ -341,6 +341,40 @@ html[dir="rtl"] .panel-foto figcaption{letter-spacing:0;}
   [data-lang]{display:inline-flex;align-items:center;justify-content:center;
     min-inline-size:2.75rem;min-block-size:2.75rem;}
 }
+
+/* ─── Relieve: la noche ────────────────────────────────────────────────────
+   En un cielo no hay sombras proyectadas: no hay una fuente de luz encima.
+   Lo que hay es LUZ PROPIA. Así que la profundidad se hace al revés que en
+   las otras dos: los objetos no proyectan, emiten. Una placa iluminada
+   levanta un halo tenue del color de la duna, y al acercarse crece, como
+   una estrella que gana magnitud cuando la vista se acostumbra. */
+.panel-foto img{
+  box-shadow:
+    0 0 0 1px rgba(238,241,247,.10),
+    0 0 34px -10px rgba(224,184,114,.28),
+    0 18px 40px -22px rgba(0,0,0,.9);
+  transition:box-shadow .3s ease;
+}
+.panel-foto:hover img{
+  box-shadow:
+    0 0 0 1px rgba(238,241,247,.20),
+    0 0 52px -8px rgba(224,184,114,.42),
+    0 18px 40px -22px rgba(0,0,0,.9);
+}
+/* Los bloques de texto reciben un filo de luz por arriba, que es como se ve
+   un objeto bajo el cielo abierto: iluminado desde la bóveda, no de lado. */
+.panel,.bq{
+  box-shadow:inset 0 1px 0 rgba(238,241,247,.07);
+}
+/* La navegación enciende, no subraya. */
+nav a,.barra a{transition:color .2s ease, text-shadow .2s ease;}
+nav a:hover,.barra a:hover{
+  color:var(--arena);
+  text-shadow:0 0 14px rgba(224,184,114,.5);
+}
+@media (prefers-reduced-motion:reduce){
+  .panel-foto img,nav a,.barra a{transition:none;}
+}
 </style>
 <style>
 /* La portada de NAWA es el mapa de estrellas dibujado en canvas; una foto
