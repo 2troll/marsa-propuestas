@@ -302,21 +302,14 @@ html[dir="rtl"] footer.casa .razon{letter-spacing:0;}
 
 /* Rejilla de doce columnas: es lo que rompe la columna única. */
 .rej12{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));
-  gap:clamp(.9rem,1.6vw,1.4rem);}
-.c3{grid-column:span 3}.c4{grid-column:span 4}.c5{grid-column:span 5}
-.c6{grid-column:span 6}.c7{grid-column:span 7}.c8{grid-column:span 8}
-.c9{grid-column:span 9}.c12{grid-column:span 12}
-@media(max-width:1100px){.c3,.c4,.c5{grid-column:span 6}.c7,.c8,.c9{grid-column:span 12}}
+  gap:clamp(.9rem,1.6vw,1.4rem);}.c4{grid-column:span 4}
+.c6{grid-column:span 6}.c12{grid-column:span 12}
+@media(max-width:1100px){.c4{grid-column:span 6}}
 @media(max-width:640px){.rej12 > *{grid-column:span 12 !important}}
 
 /* Panel: la unidad de la interfaz. Caja de información, no adorno. */
 .panel{background:var(--kit-panel);border:1px solid var(--kit-linea);border-radius:6px;
   overflow:hidden;display:flex;flex-direction:column;min-width:0;}
-.panel-cab{display:flex;align-items:center;gap:.6rem;justify-content:space-between;
-  padding:.7rem .9rem;border-block-end:1px solid var(--kit-linea);
-  font-size:0.76rem;letter-spacing:.12em;text-transform:uppercase;color:var(--kit-texto-3);}
-html[dir="rtl"] .panel-cab{letter-spacing:0;text-transform:none;font-size:.84rem;}
-.panel-cuerpo{padding:.9rem;flex:1;min-width:0;}
 /* La proporción va en la imagen y no en el marco: si la proporción se pone en
    el marco, Chrome deja de estirarlo dentro de la fila de la rejilla y la
    fotografía queda flotando arriba con un hueco gris debajo. */
@@ -334,56 +327,20 @@ html[dir="rtl"] .panel-cab{letter-spacing:0;text-transform:none;font-size:.84rem
 .panel-foto figcaption{position:absolute;inset-inline:0;bottom:0;padding:.7rem .9rem;
   background:linear-gradient(to top,rgba(6,12,16,.9),rgba(6,12,16,.55) 60%,transparent);
   color:#f2efe9;font-size:.8rem;line-height:1.4;}
-.etq{font-size:0.76rem;letter-spacing:.1em;text-transform:uppercase;
-  padding:.15rem .45rem;border-radius:3px;background:var(--kit-acento);
-  color:var(--kit-fondo);white-space:nowrap;}
-html[dir="rtl"] .etq{letter-spacing:0;text-transform:none;font-size:.76rem;}
 .panel .dato-g{font-family:var(--display,var(--disp,inherit));font-size:clamp(1.8rem,3.4vw,2.6rem);
   line-height:1;font-variant-numeric:tabular-nums;}
 .panel .dato-p{font-size:.82rem;color:var(--kit-texto-2);margin-top:.4rem;line-height:1.45;}
-.panel-cuerpo h3{font-size:1.1rem;margin:0 0 .5rem;line-height:1.2;}
-.panel-cuerpo h3 + p{color:var(--kit-texto-2);font-size:1rem;margin:0;}
 
 /* Panel de portada: el titular manda, pero sigue siendo un panel del tablero
    y no una franja aparte a todo lo ancho. */
 .panel.horizonte{padding-block:0;}
-.panel-portada{background:var(--kit-hondo);color:var(--kit-hondo-texto);
-  border-color:var(--kit-hondo-linea);justify-content:center;}
-.panel-portada .rot{color:var(--kit-acento);}
 .panel-portada .entrada{color:var(--kit-hondo-texto);opacity:.85;}
-.panel-portada .panel-cuerpo{padding:clamp(1.2rem,2.6vw,2.2rem);}
-.panel-portada h1{font-size:clamp(1.7rem,3.6vw,2.7rem);line-height:1.12;margin:.5rem 0 .8rem;}
 .panel-portada .entrada{color:var(--kit-texto-2);max-width:46ch;}
-.panel-portada .acciones{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.2rem;}
-/* Los botones dentro del panel oscuro. No se puede dar por buena la clase de
-   ningún sitio —uno los llama `.solido` y otro `.sol`—, así que el kit los
-   repinta por su cuenta: sobre la franja oscura, cualquier botón se ve. */
-.panel-portada .btn,.panel-portada .acc a{
-  background:transparent;color:var(--kit-hondo-texto);
-  border:1px solid var(--kit-hondo-texto);}
-.panel-portada .btn.sol,.panel-portada .btn.solido,.panel-portada .acc a.sol{
-  background:var(--kit-hondo-texto);color:var(--kit-hondo);}
-.panel-portada .btn:hover,.panel-portada .acc a:hover{
-  background:var(--kit-hondo-texto);color:var(--kit-hondo);}
-.panel-portada .btn.sol:hover,.panel-portada .btn.solido:hover,.panel-portada .acc a.sol:hover{
-  background:transparent;color:var(--kit-hondo-texto);}
-/* Y el texto suelto: párrafos, listas y rótulos secundarios. */
-.panel-portada p,.panel-portada li,.panel-portada dd{color:var(--kit-hondo-texto);}
-.panel-portada .metodo,.panel-portada .dato-p{
+.panel-portada .metodo{
   color:color-mix(in srgb,var(--kit-hondo-texto) 66%,transparent);}
 /* Rótulo suelto entre bloques del tablero: sin caja, sólo el letrero. */
 .panel.sin-fondo{background:none;border:0;border-radius:0;}
 .panel.sin-fondo .rot{margin:.6rem 0 0;}
-.tablero{padding-block:clamp(1.2rem,2.4vw,2rem);}
-.tablero .cifras-fuente{font-size:0.76rem;color:var(--kit-texto-3);line-height:1.5;margin:0;}
-/* Una tabla ancha no debe empujar la página: se desliza dentro de su panel. */
-.desliza{overflow-x:auto;-webkit-overflow-scrolling:touch;}
-.desliza table{min-width:34rem;}
-/* Formulario a dos columnas dentro de su panel: los campos cortos comparten
-   fila y sólo las fechas y el mensaje ocupan el ancho entero. */
-.rej-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.9rem 1rem;}
-.rej-form .ancho2{grid-column:1 / -1;}
-@media(max-width:640px){.rej-form{grid-template-columns:1fr}}
 /* ══ kit-tablero: final ══ */
 
 /* ══════════════════════════════════════════════════════════════════
@@ -403,7 +360,6 @@ html[dir="rtl"] .etq{letter-spacing:0;text-transform:none;font-size:.76rem;}
 .panel{background:none;border:0;border-radius:0;
   border-block:1px solid var(--filete);padding-block:.2rem;}
 .panel .folio{color:var(--rubrica);font-family:var(--display);}
-.panel-cuerpo{padding-inline:0;}
 .panel-foto{border-radius:0;border-block:0;}
 
 </style>
