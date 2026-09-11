@@ -155,9 +155,11 @@ html[dir="rtl"] .portada h1{max-width:20ch;}
 .huso{background:var(--papel); padding:1rem 1.1rem;}
 .huso .ciudad{font-family:var(--mono); font-size:0.76rem; letter-spacing:.14em; text-transform:uppercase; color:var(--gris);}
 html[dir="rtl"] .huso .ciudad{letter-spacing:0; text-transform:none; font-size:.85rem;}
-.huso .hora{font-family:var(--disp); font-size:clamp(1.5rem,2.4vw,2rem); font-weight:500; letter-spacing:-.03em; margin-top:.3rem;}
+/* El reloj apilaba ciudad, hora y huso con 4,8 px y 2,4 px entre medias:
+   tres tamaños distintos amontonados. */
+.huso .hora{font-family:var(--disp); font-size:clamp(1.5rem,2.4vw,2rem); font-weight:500; letter-spacing:-.03em; margin-top:.55rem; line-height:1.05;}
 html[dir="rtl"] .huso .hora{letter-spacing:0;}
-.huso .off{font-family:var(--mono); font-size:0.76rem; color:var(--gris-2); margin-top:.15rem;}
+.huso .off{font-family:var(--mono); font-size:0.76rem; color:var(--gris-2); margin-top:.4rem;}
 html[dir="rtl"] .huso .off{font-size:.8rem;}
 .huso.aqui .hora{color:var(--senal);}
 
@@ -177,10 +179,13 @@ html[dir="rtl"] .linea .num{font-size:.9rem;}
 /* ── Datos ───────────────────────────────────────────────────────── */
 .cifras{display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:1px;
   background:var(--regla); border:1px solid var(--regla);}
-.cifra{background:var(--papel); padding:1.5rem 1.2rem;}
-.cifra .val{font-family:var(--disp); font-size:clamp(2.2rem,4.5vw,3.4rem); font-weight:500; letter-spacing:-.04em; line-height:1;}
+.cifra{background:var(--papel); padding:1.7rem 1.4rem 1.8rem;}
+/* Una cifra de 54 px a interlínea 1,0 se come su propio hueco y el rótulo
+   de abajo arranca demasiado pronto. La cifra es el argumento de la ficha:
+   se le da caja propia y separación proporcional a su tamaño. */
+.cifra .val{font-family:var(--disp); font-size:clamp(2.2rem,4.5vw,3.4rem); font-weight:500; letter-spacing:-.04em; line-height:1.06;}
 html[dir="rtl"] .cifra .val{letter-spacing:0;}
-.cifra .pie{font-family:var(--mono); font-size:0.76rem; letter-spacing:.1em; text-transform:uppercase; color:var(--gris); margin-top:.7rem;}
+.cifra .pie{font-family:var(--mono); font-size:0.76rem; letter-spacing:.1em; text-transform:uppercase; color:var(--gris); margin-top:1rem;}
 html[dir="rtl"] .cifra .pie{letter-spacing:0; text-transform:none; font-size:.85rem;}
 
 /* ── Formulario ──────────────────────────────────────────────────── */
