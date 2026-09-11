@@ -11,7 +11,7 @@ claves de API.
 |---|---|---|
 | [**MARSA**](marsa.html) | Diez páginas, con tres herramientas que funcionan: calendario hiyrí calculado en el navegador, una jornada comparada y los niveles reales de «halal» | Bodoni Moda · Karla · Reem Kufi · IBM Plex Sans Arabic |
 | [**DIWAN**](diwan.html) | Página de manuscrito: caja centrada, epígrafes rubricados en rojo y friso de estrellas de ocho puntas generado por trigonometría | Spectral · Amiri |
-| [**MERIDIANO**](meridiano.html) | Retícula suiza de doce columnas a la vista, cifras tabulares, reloj de husos en vivo y ni una sola fotografía | Archivo · IBM Plex Mono · IBM Plex Sans Arabic |
+| [**MERIDIANO**](meridiano.html) | Retícula suiza de doce columnas a la vista, cifras tabulares, reloj de husos en vivo y fotografía a sangre en la banda inferior | Archivo · IBM Plex Mono · IBM Plex Sans Arabic |
 | [**NAWA**](nawa.html) | Nocturna. Mapa de estrellas calculado en canvas con posiciones deterministas y líneas de constelación | Fraunces · Manrope · Aref Ruqaa · Tajawal |
 
 ## Cada una resuelve el bilingüismo por una vía distinta
