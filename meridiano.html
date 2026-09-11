@@ -445,6 +445,12 @@ html[dir="rtl"] .panel-foto figcaption{letter-spacing:0;text-transform:none;
   .cifra,.linea::before,.huso{transition:none;}
   .cifra:hover{transform:none;}
 }
+
+/* El rótulo de sección era un <p>: correcto de aspecto y falso de
+   estructura, porque dejaba los h3 de las fichas colgando de un h1 sin
+   nivel intermedio. Al pasarlo a <h2> hay que devolverle lo que el grupo
+   de titulares le impondría y no le toca. */
+h2.etq{font-weight:400;line-height:1.5}
 </style>
 </head>
 <body>
@@ -473,14 +479,14 @@ html[dir="rtl"] .panel-foto figcaption{letter-spacing:0;text-transform:none;
 <main>
 
   <section class="marco rej portada">
-    <p class="etq" style="grid-column:1/-1"><span class="clave">001</span> <span data-t="rPortada">Consultoría de viajes privados</span></p>
+    <h2 class="etq" style="grid-column:1/-1"><span class="clave">001</span> <span data-t="rPortada">Consultoría de viajes privados</span></h2>
     <h1 data-t="h1">Un viaje es una cadena de decisiones. Nos ocupamos de todas.</h1>
     <p class="sub" data-t="sub">Sin catálogo, sin comisiones de proveedor y sin paquetes de terceros. Honorarios acordados por escrito y el coste real de cada reserva, a la vista.</p>
     <div class="husos" id="husos"></div>
   </section>
 
   <section class="marco bloque" id="mandato">
-    <p class="etq"><span class="clave">002</span> <span data-t="rMandato">Mandato</span></p>
+    <h2 class="etq"><span class="clave">002</span> <span data-t="rMandato">Mandato</span></h2>
     <div class="indice">
       <article class="linea">
         <div class="num">01</div>
@@ -501,7 +507,7 @@ html[dir="rtl"] .panel-foto figcaption{letter-spacing:0;text-transform:none;
   </section>
 
   <section class="marco bloque">
-    <p class="etq"><span class="clave">002b</span> <span data-t="rLamina">Sobre el terreno</span></p>
+    <h2 class="etq"><span class="clave">002b</span> <span data-t="rLamina">Sobre el terreno</span></h2>
     <div class="rej12">
       <figure class="panel c4 panel-foto">
         <img src="img/torii-fushimi.jpg" loading="lazy" decoding="async"
@@ -522,7 +528,7 @@ html[dir="rtl"] .panel-foto figcaption{letter-spacing:0;text-transform:none;
   </section>
 
   <section class="marco bloque" id="terminos">
-    <p class="etq"><span class="clave">003</span> <span data-t="rTerminos">Términos</span></p>
+    <h2 class="etq"><span class="clave">003</span> <span data-t="rTerminos">Términos</span></h2>
     <div class="cifras">
       <div class="cifra"><div class="val" data-t="c1v">3</div><div class="pie" data-t="c1p">Lenguas de trabajo</div></div>
       <div class="cifra"><div class="val" data-t="c2v">24 h</div><div class="pie" data-t="c2p">Plazo máximo de respuesta</div></div>
@@ -533,7 +539,7 @@ html[dir="rtl"] .panel-foto figcaption{letter-spacing:0;text-transform:none;
   </section>
 
   <section class="marco bloque" id="proceso">
-    <p class="etq"><span class="clave">004</span> <span data-t="rProceso">Proceso</span></p>
+    <h2 class="etq"><span class="clave">004</span> <span data-t="rProceso">Proceso</span></h2>
     <div class="indice">
       <article class="linea"><div class="num">01</div><h3 data-t="p1t">Llamada</h3><div class="cuerpo" data-t="p1p">Treinta minutos. Sin cuestionario y sin coste.</div></article>
       <article class="linea"><div class="num">02</div><h3 data-t="p2t">Propuesta</h3><div class="cuerpo" data-t="p2p">Documento escrito con presupuesto cerrado. <b>No se reserva nada todavía.</b></div></article>
@@ -543,7 +549,7 @@ html[dir="rtl"] .panel-foto figcaption{letter-spacing:0;text-transform:none;
   </section>
 
   <section class="marco bloque" id="contacto">
-    <p class="etq"><span class="clave">005</span> <span data-t="rContacto">Contacto</span></p>
+    <h2 class="etq"><span class="clave">005</span> <span data-t="rContacto">Contacto</span></h2>
     <h2 style="font-size:clamp(1.8rem,3.6vw,2.7rem);max-width:20ch;margin-bottom:1.8rem" data-t="coH">Escriba y le contestamos una persona, no un formulario.</h2>
     <form id="f" novalidate>
       <div class="form-rej">

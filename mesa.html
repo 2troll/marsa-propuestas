@@ -1,5 +1,14 @@
+<!doctype html>
+<html lang="es" dir="ltr">
+<head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Cotice un viaje a Kansai con las tarifas publicadas del gremio de guías, de JR y de la compañía de vehículos. Cada línea dice si es tarifa publicada, precio observado o supuesto.">
+<meta property="og:title" content="Mesa de cotización · Kansai para el Golfo">
+<meta property="og:description" content="Cotice un viaje a Kansai con las tarifas publicadas del gremio de guías, de JR y de la compañía de vehículos. Cada línea dice si es tarifa publicada, precio observado o supuesto.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_ES">
+<meta name="color-scheme" content="light dark">
 <meta name="robots" content="noindex, nofollow">
 <!-- Maqueta de propuesta. No es el sitio público de la empresa. -->
 <title>MARSA · Mesa de cotización — Kansai para el Golfo</title>
@@ -241,7 +250,8 @@ footer ol{margin:0;padding-inline-start:1.2rem;line-height:1.75;}
   .mesa{grid-template-columns:1fr;}
 }
 </style>
-
+</head>
+<body>
 <header class="cab">
   <div class="marco">
     <a class="logo" href="marsa.html">MARSA</a>
@@ -826,3 +836,5 @@ let guardado = 'es';
 try { guardado = localStorage.getItem('marsa_mesa_lang') || 'es'; } catch(e){}
 idioma(DIC[guardado] ? guardado : 'es');
 </script>
+</body>
+</html>

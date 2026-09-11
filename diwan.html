@@ -438,6 +438,12 @@ nav a::after{
 nav a:hover::after,nav a:focus-visible::after{transform:scaleX(1);}
 .entrada:hover{background:color-mix(in srgb,var(--rubrica) 4%,transparent);}
 @media (prefers-reduced-motion:reduce){nav a::after{transition:none;}}
+
+/* El rótulo de sección era un <p>: correcto de aspecto y falso de
+   estructura, porque dejaba los h3 de las fichas colgando de un h1 sin
+   nivel intermedio. Al pasarlo a <h2> hay que devolverle lo que el grupo
+   de titulares le impondría y no le toca. */
+h2.rubrica{line-height:1.4}
 </style>
 <style>
 /* Lámina: en un manuscrito la imagen va encajada en la caja de texto, con su
@@ -469,7 +475,7 @@ nav a:hover::after,nav a:focus-visible::after{transform:scaleX(1);}
 <main>
 
   <section class="caja portada">
-    <p class="rubrica" data-t="rPortada">Casa de viajes · Dubái</p>
+    <h2 class="rubrica" data-t="rPortada">Casa de viajes · Dubái</h2>
     <h1 data-t="h1">Recibir bien a alguien empieza mucho antes de que llegue.</h1>
     <p class="bajada" data-t="bajada">Un diwán es la sala donde se recibe al huésped. También el volumen donde se reúne, ordenada, la obra de un poeta. Nos gustan las dos cosas.</p>
   </section>
@@ -483,7 +489,7 @@ nav a:hover::after,nav a:focus-visible::after{transform:scaleX(1);}
   <div class="caja doble"><div></div></div>
 
   <section class="caja aire" id="servicios"><div class="rej12">
-    <p class="rubrica c12" data-t="rServicios">Lo que hace la casa</p>
+    <h2 class="rubrica c12" data-t="rServicios">Lo que hace la casa</h2>
     <article class="entrada panel c4">
       <div class="folio" data-t="f1">I</div>
       <div>
@@ -526,7 +532,7 @@ nav a:hover::after,nav a:focus-visible::after{transform:scaleX(1);}
   </div>
 
   <section class="caja aire" id="metodo">
-    <p class="rubrica" data-t="rMetodo">El orden de las cosas</p>
+    <h2 class="rubrica" data-t="rMetodo">El orden de las cosas</h2>
     <article class="entrada">
       <div class="folio" data-t="p1n">1</div>
       <div><h3 data-t="p1t">La conversación</h3><p data-t="p1p">Media hora, sin cuestionario. Basta para saber qué viaje hay que hacer.</p></div>
@@ -548,7 +554,7 @@ nav a:hover::after,nav a:focus-visible::after{transform:scaleX(1);}
   <div class="caja doble"><div></div></div>
 
   <section class="caja aire" id="nosotros">
-    <p class="rubrica" data-t="rColofon">Colofón</p>
+    <h2 class="rubrica" data-t="rColofon">Colofón</h2>
     <div class="colofon">
       <p data-t="col1">Esta casa se fundó en Dubái en 2024 para atender a un puñado de familias que ya nos conocían. No tuvimos web ni anuncios durante dos años, y no nos fue mal.</p>
       <p data-t="col2">Seguimos siendo pocos a propósito. Preferimos veinte viajes que se recuerden a doscientos que se olviden.</p>
@@ -562,7 +568,7 @@ nav a:hover::after,nav a:focus-visible::after{transform:scaleX(1);}
   </section>
 
   <section class="caja aire" id="contacto">
-    <p class="rubrica" data-t="rContacto">Escribirnos</p>
+    <h2 class="rubrica" data-t="rContacto">Escribirnos</h2>
     <h2 style="text-align:center;font-size:clamp(1.7rem,3.4vw,2.4rem);margin-bottom:.6rem" data-t="coH">Cuéntenos qué viaje tiene en la cabeza.</h2>
     <p style="text-align:center;color:var(--tinta-2);max-width:36ch;margin-inline:auto" data-t="coP">Contesta una persona, y siempre antes de veinticuatro horas.</p>
     <form id="f" novalidate>

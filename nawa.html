@@ -375,6 +375,12 @@ nav a:hover,.barra a:hover{
 @media (prefers-reduced-motion:reduce){
   .panel-foto img,nav a,.barra a{transition:none;}
 }
+
+/* El rótulo de sección era un <p>: correcto de aspecto y falso de
+   estructura, porque dejaba los h3 de las fichas colgando de un h1 sin
+   nivel intermedio. Al pasarlo a <h2> hay que devolverle lo que el grupo
+   de titulares le impondría y no le toca. */
+h2.epig{font-family:var(--cuerpo);line-height:1.5}
 </style>
 <style>
 /* La portada de NAWA es el mapa de estrellas dibujado en canvas; una foto
@@ -405,7 +411,7 @@ nav a:hover,.barra a:hover{
   <section class="cielo">
     <canvas id="mapa" aria-hidden="true"></canvas>
     <div class="marco texto">
-      <p class="epig" data-t="epigPortada">Viajes privados · Dubái</p>
+      <h2 class="epig" data-t="epigPortada">Viajes privados · Dubái</h2>
       <h1 data-t="h1">Antes de que hubiera mapas, había quien sabía leer el cielo.</h1>
       <p class="bajo" data-t="bajo">Nawà, en árabe, es proponerse ir a un sitio. La intención antes que el trayecto. Nosotros empezamos ahí y no en un catálogo.</p>
     </div>
@@ -418,7 +424,7 @@ nav a:hover,.barra a:hover{
   </figure>
 
   <section class="marco tramo" id="capitulos"><div class="rej12">
-    <p class="epig c12" data-t="epigCap">Cómo trabajamos</p>
+    <h2 class="epig c12" data-t="epigCap">Cómo trabajamos</h2>
     <article class="cap panel c4">
       <div class="cifra" data-t="n1">I</div>
       <div>
@@ -468,7 +474,7 @@ nav a:hover,.barra a:hover{
   </section>
 
   <section class="marco tramo" id="contacto">
-    <p class="epig" data-t="epigContacto">Escríbanos</p>
+    <h2 class="epig" data-t="epigContacto">Escríbanos</h2>
     <h2 style="font-size:clamp(1.9rem,4vw,3rem);max-width:16ch;margin-bottom:1.6rem" data-t="coH">¿Adónde se ha propuesto ir?</h2>
     <form id="f" novalidate>
       <div><label for="nom" data-t="lNombre">Nombre</label><input id="nom" autocomplete="name"></div>
