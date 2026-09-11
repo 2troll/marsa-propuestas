@@ -42,6 +42,12 @@
   --arena:#e0b872;      /* la única nota cálida: la duna al amanecer */
   --arena-2:#c39a55;
   --hilo:rgba(238,241,247,.14);
+  /* La noche deja de ser un negro plano: la duna al amanecer entra por
+     abajo y el cielo se abre arriba. El mapa de estrellas va encima. */
+  --relieve:
+    radial-gradient(1100px 520px at 50% 112%, rgba(224,184,114,.14), transparent 62%),
+    radial-gradient(900px 620px at 88% -12%, rgba(110,140,210,.12), transparent 58%),
+    linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,0) 36%);
 
   --disp:"Fraunces",Georgia,serif;
   --cuerpo:"Manrope",system-ui,sans-serif;
@@ -57,9 +63,9 @@ html[dir="rtl"]{ --disp:"Aref Ruqaa",serif; --cuerpo:"Tajawal",system-ui,sans-se
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;}}
 
 body{
-  margin:0; background:var(--noche); color:var(--luz);
+  margin:0; background:var(--noche); background-image:var(--relieve); background-attachment:fixed; color:var(--luz);
   font-family:var(--cuerpo); font-weight:300;
-  font-size:clamp(15px,1.05vw,17px); line-height:1.72;
+  font-size:clamp(16px,1.05vw,17.5px); line-height:1.72;
   -webkit-font-smoothing:antialiased; overflow-x:hidden;
 }
 html[dir="rtl"] body{line-height:2;}
@@ -74,7 +80,7 @@ a{color:inherit;}
 .tramo{padding-block:clamp(4rem,9vw,7.5rem);}
 
 .epig{
-  font-size:.7rem; letter-spacing:.34em; text-transform:uppercase;
+  font-size:0.76rem; letter-spacing:.34em; text-transform:uppercase;
   color:var(--arena); margin:0 0 1.4rem; font-weight:500;
 }
 /* Ni versales ni espaciado en árabe: descosería las ligaduras. */
@@ -91,7 +97,7 @@ html[dir="rtl"] .marca{letter-spacing:normal; font-size:1.9rem;}
 nav.n{display:flex; gap:1.6rem; margin-inline-start:auto; font-size:.82rem;}
 nav.n a{text-decoration:none; color:var(--luz-2);}
 nav.n a:hover{color:var(--arena);}
-.leng{display:flex; gap:.45rem; font-size:.75rem;}
+.leng{display:flex; gap:.45rem; font-size:0.76rem;}
 .leng button{background:none; border:0; cursor:pointer; font:inherit; font-family:var(--cuerpo);
   color:var(--luz-3); padding:.2rem 0;}
 .leng button[aria-pressed="true"]{color:var(--arena);}
@@ -137,9 +143,9 @@ html[dir="rtl"] .cita cite{letter-spacing:0; text-transform:none; font-size:.92r
 
 /* ── Formulario ──────────────────────────────────────────────────── */
 form{display:grid; gap:1.5rem; max-width:32rem;}
-label{display:block; font-size:.7rem; letter-spacing:.2em; text-transform:uppercase;
+label{display:block; font-size:0.76rem; letter-spacing:.2em; text-transform:uppercase;
   color:var(--luz-3); margin-bottom:.45rem;}
-html[dir="rtl"] label{letter-spacing:0; text-transform:none; font-size:.9rem;}
+html[dir="rtl"] label{letter-spacing:0; text-transform:none; font-size:1rem;}
 input,textarea,select{
   width:100%; font:inherit; font-family:var(--cuerpo); color:var(--luz);
   background:transparent; border:0; border-bottom:1px solid var(--hilo);
@@ -163,7 +169,7 @@ select option{background:var(--noche-2); color:var(--luz);}
 }
 html[dir="rtl"] .partir{letter-spacing:0; text-transform:none; font-size:.95rem;}
 .partir:hover{background:transparent; color:var(--arena);}
-.senal{margin:.8rem 0 0; color:var(--arena); font-size:.9rem; min-height:1.4em;}
+.senal{margin:.8rem 0 0; color:var(--arena); font-size:1rem; min-height:1.4em;}
 .menudo{font-size:.78rem; color:var(--luz-3);}
 
 footer.n{border-top:1px solid var(--hilo); padding-block:2rem 2.8rem;
@@ -244,7 +250,7 @@ footer.n{border-top:1px solid var(--hilo); padding-block:2rem 2.8rem;
   overflow:hidden;display:flex;flex-direction:column;min-width:0;}
 .panel-cab{display:flex;align-items:center;gap:.6rem;justify-content:space-between;
   padding:.7rem .9rem;border-block-end:1px solid var(--kit-linea);
-  font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--kit-texto-3);}
+  font-size:0.76rem;letter-spacing:.12em;text-transform:uppercase;color:var(--kit-texto-3);}
 html[dir="rtl"] .panel-cab{letter-spacing:0;text-transform:none;font-size:.84rem;}
 .panel-cuerpo{padding:.9rem;flex:1;min-width:0;}
 /* La proporción va en la imagen y no en el marco: si la proporción se pone en
@@ -264,7 +270,7 @@ html[dir="rtl"] .panel-cab{letter-spacing:0;text-transform:none;font-size:.84rem
 .panel-foto figcaption{position:absolute;inset-inline:0;bottom:0;padding:.7rem .9rem;
   background:linear-gradient(to top,rgba(6,12,16,.9),rgba(6,12,16,.55) 60%,transparent);
   color:#f2efe9;font-size:.8rem;line-height:1.4;}
-.etq{font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;
+.etq{font-size:0.76rem;letter-spacing:.1em;text-transform:uppercase;
   padding:.15rem .45rem;border-radius:3px;background:var(--kit-acento);
   color:var(--kit-fondo);white-space:nowrap;}
 html[dir="rtl"] .etq{letter-spacing:0;text-transform:none;font-size:.76rem;}
@@ -272,7 +278,7 @@ html[dir="rtl"] .etq{letter-spacing:0;text-transform:none;font-size:.76rem;}
   line-height:1;font-variant-numeric:tabular-nums;}
 .panel .dato-p{font-size:.82rem;color:var(--kit-texto-2);margin-top:.4rem;line-height:1.45;}
 .panel-cuerpo h3{font-size:1.1rem;margin:0 0 .5rem;line-height:1.2;}
-.panel-cuerpo h3 + p{color:var(--kit-texto-2);font-size:.9rem;margin:0;}
+.panel-cuerpo h3 + p{color:var(--kit-texto-2);font-size:1rem;margin:0;}
 
 /* Panel de portada: el titular manda, pero sigue siendo un panel del tablero
    y no una franja aparte a todo lo ancho. */
@@ -305,7 +311,7 @@ html[dir="rtl"] .etq{letter-spacing:0;text-transform:none;font-size:.76rem;}
 .panel.sin-fondo{background:none;border:0;border-radius:0;}
 .panel.sin-fondo .rot{margin:.6rem 0 0;}
 .tablero{padding-block:clamp(1.2rem,2.4vw,2rem);}
-.tablero .cifras-fuente{font-size:.74rem;color:var(--kit-texto-3);line-height:1.5;margin:0;}
+.tablero .cifras-fuente{font-size:0.76rem;color:var(--kit-texto-3);line-height:1.5;margin:0;}
 /* Una tabla ancha no debe empujar la página: se desliza dentro de su panel. */
 .desliza{overflow-x:auto;-webkit-overflow-scrolling:touch;}
 .desliza table{min-width:34rem;}

@@ -38,6 +38,12 @@
   --texto-3:#7a8891;
   --acento:#2f6d5e;
   --linea:rgba(14,26,36,.14);
+  /* El puerto al atardecer: verde de la marca arriba, calado del casco
+     abajo. Muy abierto, para que no discuta con el contenido. */
+  --relieve:
+    radial-gradient(1000px 640px at 90% -12%, rgba(47,109,94,.13), transparent 58%),
+    radial-gradient(800px 540px at -6% 104%, rgba(14,26,36,.08), transparent 60%),
+    linear-gradient(180deg, rgba(255,255,255,.8), rgba(255,255,255,0) 30%);
   --hondo:#0e1a24;
   --hondo-texto:#dfe6e4;
   --hondo-linea:rgba(223,230,228,.18);
@@ -58,6 +64,10 @@
     --texto-3:#6f8189;
     --acento:#6fb3a0;
     --linea:rgba(228,233,232,.14);
+  --relieve:
+    radial-gradient(1000px 640px at 90% -12%, rgba(110,190,170,.10), transparent 58%),
+    radial-gradient(800px 540px at -6% 104%, rgba(0,0,0,.38), transparent 60%),
+    linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,0) 34%);
     --hondo:#060d12;
     --hondo-texto:#e4e9e8;
     --hondo-linea:rgba(228,233,232,.16);
@@ -72,6 +82,10 @@
   --texto-3:#6f8189;
   --acento:#6fb3a0;
   --linea:rgba(228,233,232,.14);
+  --relieve:
+    radial-gradient(1000px 640px at 90% -12%, rgba(110,190,170,.10), transparent 58%),
+    radial-gradient(800px 540px at -6% 104%, rgba(0,0,0,.38), transparent 60%),
+    linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,0) 34%);
   --hondo:#060d12;
   --hondo-texto:#e4e9e8;
   --hondo-linea:rgba(228,233,232,.16);
@@ -92,10 +106,12 @@ html[dir="rtl"]{
 body{
   margin:0;
   background:var(--fondo);
+  background-image:var(--relieve);
+  background-attachment:fixed;
   color:var(--texto);
   font-family:var(--texto-f);
-  font-weight:300;
-  font-size:clamp(15px,1.05vw,17px);
+  font-weight:400;
+  font-size:clamp(16px,1.06vw,17.5px);
   line-height:1.7;
   -webkit-font-smoothing:antialiased;
   overflow-x:hidden;
@@ -114,7 +130,7 @@ a{color:inherit;}
 
 .env{width:min(var(--env),100% - var(--paso)*2);margin-inline:auto;}/* ── Eyebrow ─────────────────────────────────────────────────────── */
 .rot{
-  font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;
+  font-size:0.76rem;letter-spacing:.24em;text-transform:uppercase;
   color:var(--acento);font-weight:500;margin:0 0 1.35rem;
   display:flex;align-items:center;gap:.9rem;max-width:none;
 }
@@ -277,7 +293,7 @@ html[dir="rtl"] .pasos > li::before{content:"٠" counter(p,arabic-indic);}
 .destino .banda{position:static;height:5px;background:var(--tono);width:100%;
   border-radius:0;box-shadow:none;}
 .destino h3{font-size:1.6rem;}
-.destino p{color:var(--texto-2);font-size:.96rem;}
+.destino p{color:var(--texto-2);font-size:1rem;}
 .destino .apunte{color:var(--texto-3);font-size:.86rem;}.cita .firma{margin-top:1.6rem;font-size:.8rem;color:color-mix(in srgb,var(--hondo-texto) 55%,transparent);letter-spacing:.12em;}
 html[dir="rtl"] .cita .firma{letter-spacing:0;}
 
@@ -297,7 +313,7 @@ html[dir="rtl"] .faq summary{font-size:1.25rem;}
 
 /* ── Formulario ──────────────────────────────────────────────────── */
 form{display:grid;gap:1.35rem;max-width:34rem;}
-label{display:block;font-size:.71rem;letter-spacing:.17em;text-transform:uppercase;color:var(--texto-2);margin-bottom:.5rem;}
+label{display:block;font-size:0.76rem;letter-spacing:.17em;text-transform:uppercase;color:var(--texto-2);margin-bottom:.5rem;}
 html[dir="rtl"] label{letter-spacing:0;text-transform:none;font-size:.85rem;}
 input,select,textarea{
   width:100%;font:inherit;font-family:var(--texto-f);color:var(--texto);
@@ -318,13 +334,13 @@ select{
    iconos direccionales se reflejan a mano. */
 html[dir="rtl"] select{background-position:left 0 center,left 4px center;}
 .aviso{font-size:.78rem;color:var(--texto-3);}
-.ok{color:var(--acento);font-size:.9rem;min-height:1.4em;margin:.6rem 0 0;}
+.ok{color:var(--acento);font-size:1rem;min-height:1.4em;margin:.6rem 0 0;}
 .ok.mal{color:#b4543f;}
 :root[data-theme="dark"] .ok.mal{color:#e08a72;}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .ok.mal{color:#e08a72;}}
 
 .dato{border-top:1px solid var(--linea);padding-block:1rem;}
-.dato dt{font-size:.71rem;letter-spacing:.17em;text-transform:uppercase;color:var(--texto-3);margin-bottom:.25rem;}
+.dato dt{font-size:0.76rem;letter-spacing:.17em;text-transform:uppercase;color:var(--texto-3);margin-bottom:.25rem;}
 html[dir="rtl"] .dato dt{letter-spacing:0;text-transform:none;font-size:.85rem;}
 .dato dd{margin:0;font-size:1rem;}
 
@@ -384,13 +400,13 @@ footer.sitio{border-top:1px solid var(--linea);padding-block:2.5rem;font-size:.8
   position:absolute;top:.2rem;bottom:.2rem;background:var(--c);
   border-radius:4px;box-shadow:0 0 0 2px var(--fondo);
   display:flex;align-items:center;justify-content:center;
-  font-size:.68rem;color:#fff;white-space:nowrap;overflow:hidden;
+  font-size:0.76rem;color:#fff;white-space:nowrap;overflow:hidden;
 }
 .banda:hover{filter:brightness(1.12);}
 .eje{display:grid;grid-template-columns:var(--col-nom) 1fr;gap:.9rem;margin-top:.35rem;}
-.eje-meses{display:grid;grid-template-columns:repeat(12,1fr);font-size:.66rem;color:var(--texto-3);letter-spacing:.04em;}
+.eje-meses{display:grid;grid-template-columns:repeat(12,1fr);font-size:0.76rem;color:var(--texto-3);letter-spacing:.04em;}
 .eje-meses span{text-align:center;}
-html[dir="rtl"] .eje-meses span{letter-spacing:0;font-size:.72rem;}
+html[dir="rtl"] .eje-meses span{letter-spacing:0;font-size:0.76rem;}
 
 .hallazgo{
   margin:1.8rem 0 0;padding:1.1rem 1.3rem;background:var(--fondo-2);
@@ -465,7 +481,7 @@ html[dir="rtl"] .or-campo label{text-transform:none;letter-spacing:0;}
 .or-tabla table{width:100%;border-collapse:collapse;}
 .or-tabla th,.or-tabla td{text-align:start;padding:.6rem .5rem;
   border-bottom:1px solid var(--linea);}
-.or-tabla th{font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;
+.or-tabla th{font-size:0.76rem;letter-spacing:.08em;text-transform:uppercase;
   color:var(--texto-3);font-weight:400;}
 html[dir="rtl"] .or-tabla th{text-transform:none;letter-spacing:0;}
 .or-tabla td.h{font-variant-numeric:tabular-nums;font-size:1.15rem;
@@ -493,8 +509,8 @@ html[dir="rtl"] .or-choque{padding:.7rem 1rem .7rem 0;}
 .fiestas-rejilla b{display:block;height:52px;position:relative;background:rgba(127,127,127,.13);
   border-radius:2px;overflow:hidden;}
 .fiestas-rejilla b i{position:absolute;inset-inline:0;bottom:0;background:var(--acento);display:block;}
-.fiestas-rejilla span{font-size:.7rem;color:var(--texto-3);display:block;margin-top:.3rem;}
-.fiestas-lista{list-style:none;padding:0;margin:1.2rem 0 0;font-size:.9rem;color:var(--texto-2);}
+.fiestas-rejilla span{font-size:0.76rem;color:var(--texto-3);display:block;margin-top:.3rem;}
+.fiestas-lista{list-style:none;padding:0;margin:1.2rem 0 0;font-size:1rem;color:var(--texto-2);}
 .fiestas-lista li{padding-block:.3rem;border-bottom:1px solid rgba(127,127,127,.16);
   display:flex;gap:1rem;justify-content:space-between;}.portada-plena .fondo{opacity:.42;}.portada-plena .entrada{max-width:44ch;font-size:clamp(1rem,1.6vw,1.22rem);}@keyframes respira{0%,100%{transform:scaleY(.35);opacity:.25}50%{transform:scaleY(1);opacity:.7}}
 @media(prefers-reduced-motion:reduce){
@@ -567,7 +583,7 @@ body > footer{grid-column:2;grid-row:2;}
   display:flex;flex-direction:column;gap:.2rem;z-index:60;
 }
 .app-lateral .marca{display:block;margin-bottom:1.4rem;font-size:1.15rem;}
-.app-eti{font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;
+.app-eti{font-size:0.76rem;letter-spacing:.16em;text-transform:uppercase;
   color:var(--kit-texto-3);margin:1.3rem 0 .45rem;}
 html[dir="rtl"] .app-eti{letter-spacing:0;text-transform:none;font-size:.78rem;}
 .app-nav{display:flex;flex-direction:column;gap:.1rem;}
@@ -613,7 +629,7 @@ html[dir="rtl"] .app-eti{letter-spacing:0;text-transform:none;font-size:.78rem;}
   overflow:hidden;display:flex;flex-direction:column;min-width:0;}
 .panel-cab{display:flex;align-items:center;gap:.6rem;justify-content:space-between;
   padding:.7rem .9rem;border-block-end:1px solid var(--kit-linea);
-  font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--kit-texto-3);}
+  font-size:0.76rem;letter-spacing:.12em;text-transform:uppercase;color:var(--kit-texto-3);}
 html[dir="rtl"] .panel-cab{letter-spacing:0;text-transform:none;font-size:.84rem;}
 .panel-cuerpo{padding:.9rem;flex:1;min-width:0;}
 /* La proporción va en la imagen y no en el marco: si la proporción se pone en
@@ -633,7 +649,7 @@ html[dir="rtl"] .panel-cab{letter-spacing:0;text-transform:none;font-size:.84rem
 .panel-foto figcaption{position:absolute;inset-inline:0;bottom:0;padding:.7rem .9rem;
   background:linear-gradient(to top,rgba(6,12,16,.9),rgba(6,12,16,.55) 60%,transparent);
   color:#f2efe9;font-size:.8rem;line-height:1.4;}
-.etq{font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;
+.etq{font-size:0.76rem;letter-spacing:.1em;text-transform:uppercase;
   padding:.15rem .45rem;border-radius:3px;background:var(--kit-acento);
   color:var(--kit-fondo);white-space:nowrap;}
 html[dir="rtl"] .etq{letter-spacing:0;text-transform:none;font-size:.76rem;}
@@ -641,7 +657,7 @@ html[dir="rtl"] .etq{letter-spacing:0;text-transform:none;font-size:.76rem;}
   line-height:1;font-variant-numeric:tabular-nums;}
 .panel .dato-p{font-size:.82rem;color:var(--kit-texto-2);margin-top:.4rem;line-height:1.45;}
 .panel-cuerpo h3{font-size:1.1rem;margin:0 0 .5rem;line-height:1.2;}
-.panel-cuerpo h3 + p{color:var(--kit-texto-2);font-size:.9rem;margin:0;}
+.panel-cuerpo h3 + p{color:var(--kit-texto-2);font-size:1rem;margin:0;}
 
 /* Panel de portada: el titular manda, pero sigue siendo un panel del tablero
    y no una franja aparte a todo lo ancho. */
@@ -676,7 +692,7 @@ html[dir="rtl"] .etq{letter-spacing:0;text-transform:none;font-size:.76rem;}
 .panel.sin-fondo{background:none;border:0;border-radius:0;}
 .panel.sin-fondo .rot{margin:.6rem 0 0;}
 .tablero{padding-block:clamp(1.2rem,2.4vw,2rem);}
-.tablero .cifras-fuente{font-size:.74rem;color:var(--kit-texto-3);line-height:1.5;margin:0;}
+.tablero .cifras-fuente{font-size:0.76rem;color:var(--kit-texto-3);line-height:1.5;margin:0;}
 /* Una tabla ancha no debe empujar la página: se desliza dentro de su panel. */
 .desliza{overflow-x:auto;-webkit-overflow-scrolling:touch;}
 .desliza table{min-width:34rem;}
@@ -715,7 +731,7 @@ html[dir="rtl"] .panel > .panel-cab{font-style:normal;font-size:1.12rem;}
 /* La etiqueta de procedencia, perfilada y no maciza: pesa menos en una página
    que ya lleva mucha información. */
 .etq{background:none;color:var(--acento);border:1px solid var(--acento);
-  border-radius:2px;font-family:var(--texto-f);font-size:.62rem;
+  border-radius:2px;font-family:var(--texto-f);font-size:0.76rem;
   letter-spacing:.12em;padding:.16rem .5rem;}
 html[dir="rtl"] .etq{letter-spacing:0;font-size:.78rem;}
 .panel-foto{border-radius:2px;}

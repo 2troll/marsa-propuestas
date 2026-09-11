@@ -22,25 +22,45 @@
   --disp:"Newsreader",Georgia,serif;
   --cuerpo:"Inter Tight",system-ui,sans-serif;
   --marco:min(1080px,100% - 2.75rem);
+
+  /* El fondo deja de ser un relleno plano: dos halos muy abiertos y un velo
+     vertical. Ninguno se "ve"; lo que se nota es que el papel tiene fondo y
+     el texto se apoya en algo. */
+  --relieve:
+    radial-gradient(1000px 680px at 92% -14%, rgba(47,109,94,.14), transparent 58%),
+    radial-gradient(820px 560px at -8% 104%, rgba(27,28,26,.10), transparent 60%),
+    linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,0) 30%);
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --f:#101110; --f2:#191a18; --t:#e9eae6; --t2:#a0a49c; --t3:#6e726a;
   --l:rgba(233,234,230,.15); --a:#6fb3a0;
+  /* En oscuro el velo blanco lavaría el papel: se invierte a un halo frío
+     arriba y un pozo más oscuro abajo. */
+  --relieve:
+    radial-gradient(1100px 620px at 88% -10%, rgba(111,179,160,.09), transparent 60%),
+    radial-gradient(900px 520px at -5% 108%, rgba(0,0,0,.35), transparent 62%),
+    linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,0) 42%);
 }}
 :root[data-theme="dark"]{
   --f:#101110; --f2:#191a18; --t:#e9eae6; --t2:#a0a49c; --t3:#6e726a;
   --l:rgba(233,234,230,.15); --a:#6fb3a0;
+  /* En oscuro el velo blanco lavaría el papel: se invierte a un halo frío
+     arriba y un pozo más oscuro abajo. */
+  --relieve:
+    radial-gradient(1100px 620px at 88% -10%, rgba(111,179,160,.09), transparent 60%),
+    radial-gradient(900px 520px at -5% 108%, rgba(0,0,0,.35), transparent 62%),
+    linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,0) 42%);
 }
 html[dir="rtl"]{ --disp:"Noto Kufi Arabic",sans-serif; --cuerpo:"Noto Sans Arabic",sans-serif; }
 
 *,*::before,*::after{box-sizing:border-box;}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;}}
-body{margin:0;background:var(--f);color:var(--t);font-family:var(--cuerpo);
-  font-weight:300;font-size:clamp(15px,1.02vw,16.5px);line-height:1.68;-webkit-font-smoothing:antialiased;}
+body{margin:0;background:var(--f);background-image:var(--relieve);background-attachment:fixed;color:var(--t);font-family:var(--cuerpo);
+  font-weight:400;font-size:clamp(16.5px,1.08vw,18px);line-height:1.68;-webkit-font-smoothing:antialiased;}
 html[dir="rtl"] body{line-height:2;}
 h1,h2,h3{font-family:var(--disp);font-weight:400;margin:0;line-height:1.12;text-wrap:balance;}
 html[dir="rtl"] h1,html[dir="rtl"] h2,html[dir="rtl"] h3{line-height:1.5;font-weight:500;}
-p{margin:0 0 .9em;max-width:64ch;} p:last-child{margin-bottom:0;}
+p{margin:0 0 1em;max-width:64ch;font-size:1rem;} p:last-child{margin-bottom:0;}
 a{color:inherit;} :focus-visible{outline:2px solid var(--a);outline-offset:3px;}
 .marco{width:var(--marco);margin-inline:auto;}
 
@@ -52,9 +72,9 @@ a{color:inherit;} :focus-visible{outline:2px solid var(--a);outline-offset:3px;}
 .idi button:hover{color:var(--a);}
 
 .intro{padding-block:clamp(2.8rem,6vw,4.5rem);border-bottom:1px solid var(--l);}
-.intro h1{font-size:clamp(2rem,4.6vw,3.3rem);max-width:20ch;}
-.intro .p{color:var(--t2);margin-top:1.3rem;}
-.rot{font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--a);margin:0 0 1rem;font-weight:500;}
+.intro h1{font-size:clamp(2.3rem,5.2vw,4.25rem);max-width:17ch;letter-spacing:-.015em;}
+.intro .p{color:var(--t);opacity:.82;margin-top:1.5rem;font-size:clamp(1.05rem,1.25vw,1.2rem);line-height:1.62;max-width:54ch;}
+.rot{font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;color:var(--a);margin:0 0 1rem;font-weight:500;}
 html[dir="rtl"] .rot{letter-spacing:0;text-transform:none;font-size:.86rem;}
 
 .prop{padding-block:clamp(2.4rem,5vw,3.6rem);border-bottom:1px solid var(--l);

@@ -42,6 +42,12 @@
   --gris-2:#9aa09a;
   --senal:#1e3fd8;
   --regla:rgba(18,20,18,.14);
+  /* Papel con fondo: un halo en la señal azul y un pozo frío abajo. En una
+     retícula suiza el fondo no puede llamar la atención, sólo dar cuerpo. */
+  --relieve:
+    radial-gradient(1000px 640px at 94% -12%, rgba(30,63,216,.075), transparent 58%),
+    radial-gradient(760px 520px at -6% 106%, rgba(18,20,18,.075), transparent 60%),
+    linear-gradient(180deg, rgba(255,255,255,.8), rgba(255,255,255,0) 28%);
   --regla-2:rgba(18,20,18,.07);
 
   --disp:"Archivo",system-ui,sans-serif;
@@ -55,12 +61,20 @@
   --tinta:#e8eae6; --gris:#8d938c; --gris-2:#5e645d;
   --senal:#8ea3ff;
   --regla:rgba(232,234,230,.16); --regla-2:rgba(232,234,230,.08);
+  --relieve:
+    radial-gradient(1000px 640px at 94% -12%, rgba(142,163,255,.10), transparent 58%),
+    radial-gradient(760px 520px at -6% 106%, rgba(0,0,0,.4), transparent 60%),
+    linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,0) 34%);
 }}
 :root[data-theme="dark"]{
   --papel:#0c0e0d; --papel-2:#151816;
   --tinta:#e8eae6; --gris:#8d938c; --gris-2:#5e645d;
   --senal:#8ea3ff;
   --regla:rgba(232,234,230,.16); --regla-2:rgba(232,234,230,.08);
+  --relieve:
+    radial-gradient(1000px 640px at 94% -12%, rgba(142,163,255,.10), transparent 58%),
+    radial-gradient(760px 520px at -6% 106%, rgba(0,0,0,.4), transparent 60%),
+    linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,0) 34%);
 }
 
 /* En árabe, IBM Plex Sans Arabic sustituye a Archivo y también a la
@@ -75,9 +89,9 @@ html[dir="rtl"]{
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;}}
 
 body{
-  margin:0; background:var(--papel); color:var(--tinta);
+  margin:0; background:var(--papel); background-image:var(--relieve); background-attachment:fixed; color:var(--tinta);
   font-family:var(--cuerpo); font-weight:400;
-  font-size:clamp(14.5px,.98vw,16px); line-height:1.6;
+  font-size:clamp(16px,1.02vw,17.5px); line-height:1.62;
   -webkit-font-smoothing:antialiased;
   font-variant-numeric:tabular-nums;
 }
@@ -98,7 +112,7 @@ a{color:inherit;}
 
 /* Etiqueta técnica: en monoespaciada y con clave numérica. */
 .etq{
-  font-family:var(--mono); font-size:.68rem; letter-spacing:.14em;
+  font-family:var(--mono); font-size:0.76rem; letter-spacing:.14em;
   text-transform:uppercase; color:var(--gris); margin:0 0 .8rem;
 }
 html[dir="rtl"] .etq{letter-spacing:0; text-transform:none; font-size:.85rem;}
@@ -108,7 +122,7 @@ html[dir="rtl"] .etq{letter-spacing:0; text-transform:none; font-size:.85rem;}
 header.mesa{border-bottom:1px solid var(--tinta);}
 .cinta{
   display:flex; align-items:center; gap:1.5rem; padding-block:.85rem;
-  font-family:var(--mono); font-size:.7rem; letter-spacing:.1em;
+  font-family:var(--mono); font-size:0.76rem; letter-spacing:.1em;
   border-bottom:1px solid var(--regla-2); color:var(--gris);
 }
 html[dir="rtl"] .cinta{letter-spacing:0; font-size:.85rem;}
@@ -121,11 +135,11 @@ html[dir="rtl"] .cinta{letter-spacing:0; font-size:.85rem;}
   letter-spacing:-.03em; text-decoration:none; line-height:1;
 }
 html[dir="rtl"] .logo{letter-spacing:0; font-size:1.45rem;}
-nav.mesa{display:flex; gap:1.5rem; margin-inline-start:auto; font-family:var(--mono); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase;}
+nav.mesa{display:flex; gap:1.5rem; margin-inline-start:auto; font-family:var(--mono); font-size:0.76rem; letter-spacing:.08em; text-transform:uppercase;}
 html[dir="rtl"] nav.mesa{letter-spacing:0; text-transform:none; font-size:.9rem;}
 nav.mesa a{text-decoration:none; color:var(--gris);}
 nav.mesa a:hover{color:var(--senal);}
-.idi{display:flex; gap:.5rem; font-family:var(--mono); font-size:.72rem;}
+.idi{display:flex; gap:.5rem; font-family:var(--mono); font-size:0.76rem;}
 .idi button{background:none; border:0; cursor:pointer; font:inherit; color:var(--gris-2); padding:0;}
 .idi button[aria-pressed="true"]{color:var(--tinta); text-decoration:underline; text-underline-offset:3px;}
 .idi button:hover{color:var(--senal);}
@@ -144,11 +158,11 @@ html[dir="rtl"] .portada h1{max-width:20ch;}
 .husos{grid-column:1/-1; display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
   gap:1px; background:var(--regla); border:1px solid var(--regla); margin-top:2.75rem;}
 .huso{background:var(--papel); padding:1rem 1.1rem;}
-.huso .ciudad{font-family:var(--mono); font-size:.66rem; letter-spacing:.14em; text-transform:uppercase; color:var(--gris);}
+.huso .ciudad{font-family:var(--mono); font-size:0.76rem; letter-spacing:.14em; text-transform:uppercase; color:var(--gris);}
 html[dir="rtl"] .huso .ciudad{letter-spacing:0; text-transform:none; font-size:.85rem;}
 .huso .hora{font-family:var(--disp); font-size:clamp(1.5rem,2.4vw,2rem); font-weight:500; letter-spacing:-.03em; margin-top:.3rem;}
 html[dir="rtl"] .huso .hora{letter-spacing:0;}
-.huso .off{font-family:var(--mono); font-size:.66rem; color:var(--gris-2); margin-top:.15rem;}
+.huso .off{font-family:var(--mono); font-size:0.76rem; color:var(--gris-2); margin-top:.15rem;}
 html[dir="rtl"] .huso .off{font-size:.8rem;}
 .huso.aqui .hora{color:var(--senal);}
 
@@ -159,10 +173,10 @@ html[dir="rtl"] .huso .off{font-size:.8rem;}
   padding-block:1.5rem; border-bottom:1px solid var(--regla-2);
 }
 @media(min-width:901px){ .linea{grid-template-columns:3.5rem 15rem 1fr;} }
-.linea .num{font-family:var(--mono); font-size:.72rem; color:var(--senal); padding-top:.35rem;}
+.linea .num{font-family:var(--mono); font-size:0.76rem; color:var(--senal); padding-top:.35rem;}
 html[dir="rtl"] .linea .num{font-size:.9rem;}
 .linea h3{font-size:1.35rem;}
-.linea .cuerpo{color:var(--gris);}
+.linea .cuerpo{color:var(--gris);max-width:58ch;font-size:1rem;}
 .linea .cuerpo b{color:var(--tinta); font-weight:500;}
 
 /* ── Datos ───────────────────────────────────────────────────────── */
@@ -171,13 +185,13 @@ html[dir="rtl"] .linea .num{font-size:.9rem;}
 .cifra{background:var(--papel); padding:1.5rem 1.2rem;}
 .cifra .val{font-family:var(--disp); font-size:clamp(2.2rem,4.5vw,3.4rem); font-weight:500; letter-spacing:-.04em; line-height:1;}
 html[dir="rtl"] .cifra .val{letter-spacing:0;}
-.cifra .pie{font-family:var(--mono); font-size:.68rem; letter-spacing:.1em; text-transform:uppercase; color:var(--gris); margin-top:.7rem;}
+.cifra .pie{font-family:var(--mono); font-size:0.76rem; letter-spacing:.1em; text-transform:uppercase; color:var(--gris); margin-top:.7rem;}
 html[dir="rtl"] .cifra .pie{letter-spacing:0; text-transform:none; font-size:.85rem;}
 
 /* ── Formulario ──────────────────────────────────────────────────── */
 .form-rej{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:0 1.25rem;}
 .campo{border-bottom:1px solid var(--regla); padding-block:.9rem;}
-label{display:block; font-family:var(--mono); font-size:.66rem; letter-spacing:.13em;
+label{display:block; font-family:var(--mono); font-size:0.76rem; letter-spacing:.13em;
   text-transform:uppercase; color:var(--gris); margin-bottom:.35rem;}
 html[dir="rtl"] label{letter-spacing:0; text-transform:none; font-size:.85rem;}
 input,textarea,select{
@@ -196,7 +210,7 @@ select{appearance:none; cursor:pointer;
 html[dir="rtl"] select{background-position:left 0 center,left 4px center;}
 
 .enviar{
-  font-family:var(--mono); font-size:.72rem; letter-spacing:.14em; text-transform:uppercase;
+  font-family:var(--mono); font-size:0.76rem; letter-spacing:.14em; text-transform:uppercase;
   background:var(--tinta); color:var(--papel); border:1px solid var(--tinta);
   padding:.85rem 2rem; cursor:pointer; margin-top:1.5rem;
 }
@@ -204,12 +218,12 @@ html[dir="rtl"] .enviar{letter-spacing:0; text-transform:none; font-size:.92rem;
 .enviar:hover{background:var(--senal); border-color:var(--senal); color:#fff;}
 .acuse{font-family:var(--mono); font-size:.78rem; color:var(--senal); min-height:1.4em; margin:.9rem 0 0;}
 html[dir="rtl"] .acuse{font-size:.92rem;}
-.legal{font-family:var(--mono); font-size:.66rem; color:var(--gris-2); margin-top:1.2rem;}
+.legal{font-family:var(--mono); font-size:0.76rem; color:var(--gris-2); margin-top:1.2rem;}
 html[dir="rtl"] .legal{font-size:.82rem;}
 
 .bloque{padding-block:clamp(3rem,6vw,5rem);}
 footer.mesa{border-top:1px solid var(--tinta); padding-block:1.4rem 2.4rem;
-  font-family:var(--mono); font-size:.68rem; letter-spacing:.08em; color:var(--gris-2);
+  font-family:var(--mono); font-size:0.76rem; letter-spacing:.08em; color:var(--gris-2);
   display:flex; flex-wrap:wrap; gap:.6rem 2rem;}
 html[dir="rtl"] footer.mesa{letter-spacing:0; font-size:.85rem;}
 .ltr{direction:ltr; unicode-bidi:isolate; display:inline-block;}
@@ -288,7 +302,7 @@ html[dir="rtl"] footer.mesa{letter-spacing:0; font-size:.85rem;}
   overflow:hidden;display:flex;flex-direction:column;min-width:0;}
 .panel-cab{display:flex;align-items:center;gap:.6rem;justify-content:space-between;
   padding:.7rem .9rem;border-block-end:1px solid var(--kit-linea);
-  font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--kit-texto-3);}
+  font-size:0.76rem;letter-spacing:.12em;text-transform:uppercase;color:var(--kit-texto-3);}
 html[dir="rtl"] .panel-cab{letter-spacing:0;text-transform:none;font-size:.84rem;}
 .panel-cuerpo{padding:.9rem;flex:1;min-width:0;}
 /* La proporción va en la imagen y no en el marco: si la proporción se pone en
@@ -308,7 +322,7 @@ html[dir="rtl"] .panel-cab{letter-spacing:0;text-transform:none;font-size:.84rem
 .panel-foto figcaption{position:absolute;inset-inline:0;bottom:0;padding:.7rem .9rem;
   background:linear-gradient(to top,rgba(6,12,16,.9),rgba(6,12,16,.55) 60%,transparent);
   color:#f2efe9;font-size:.8rem;line-height:1.4;}
-.etq{font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;
+.etq{font-size:0.76rem;letter-spacing:.1em;text-transform:uppercase;
   padding:.15rem .45rem;border-radius:3px;background:var(--kit-acento);
   color:var(--kit-fondo);white-space:nowrap;}
 html[dir="rtl"] .etq{letter-spacing:0;text-transform:none;font-size:.76rem;}
@@ -349,7 +363,7 @@ html[dir="rtl"] .etq{letter-spacing:0;text-transform:none;font-size:.76rem;}
 .panel.sin-fondo{background:none;border:0;border-radius:0;}
 .panel.sin-fondo .rot{margin:.6rem 0 0;}
 .tablero{padding-block:clamp(1.2rem,2.4vw,2rem);}
-.tablero .cifras-fuente{font-size:.74rem;color:var(--kit-texto-3);line-height:1.5;margin:0;}
+.tablero .cifras-fuente{font-size:0.76rem;color:var(--kit-texto-3);line-height:1.5;margin:0;}
 /* Una tabla ancha no debe empujar la página: se desliza dentro de su panel. */
 .desliza{overflow-x:auto;-webkit-overflow-scrolling:touch;}
 .desliza table{min-width:34rem;}
@@ -374,10 +388,10 @@ html[dir="rtl"] .etq{letter-spacing:0;text-transform:none;font-size:.76rem;}
   --kit-hondo-linea:rgba(241,242,239,.18);
 }
 .panel{border-radius:0;background:none;border:1px solid var(--regla);}
-.panel-cab{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;}
+.panel-cab{font-family:var(--mono);font-size:0.76rem;letter-spacing:.1em;}
 html[dir="rtl"] .panel-cab{letter-spacing:0;font-size:.82rem;}
 .panel-foto{border-radius:0;}
-.panel-foto figcaption{font-family:var(--mono);font-size:.7rem;letter-spacing:.04em;}
+.panel-foto figcaption{font-family:var(--mono);font-size:0.76rem;letter-spacing:.04em;}
 html[dir="rtl"] .panel-foto figcaption{font-family:var(--cuerpo);letter-spacing:0;font-size:.84rem;}
 
 </style>

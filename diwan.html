@@ -43,6 +43,12 @@
   --rubrica:#7a2b2b;     /* la tinta roja del copista */
   --oro:#8a6a2c;
   --filete:rgba(35,38,43,.16);
+  /* Papel de manuscrito: el tono cálido de la tinta vieja en la esquina y
+     una sombra de encuadernación al pie. Nunca compite con la rúbrica. */
+  --relieve:
+    radial-gradient(900px 600px at 88% -10%, rgba(138,106,44,.13), transparent 58%),
+    radial-gradient(700px 480px at -6% 104%, rgba(122,43,43,.07), transparent 60%),
+    linear-gradient(180deg, rgba(255,255,255,.75), rgba(255,255,255,0) 30%);
 
   --lat:"Spectral",Georgia,serif;
   --ara:"Amiri",serif;
@@ -57,12 +63,20 @@
   --tinta:#e8e6e0; --tinta-2:#9a9d98; --tinta-3:#6d716c;
   --rubrica:#c98b86; --oro:#c2a05e;
   --filete:rgba(232,230,224,.18);
+  --relieve:
+    radial-gradient(900px 600px at 88% -10%, rgba(194,160,94,.10), transparent 58%),
+    radial-gradient(700px 480px at -6% 104%, rgba(0,0,0,.38), transparent 60%),
+    linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,0) 34%);
 }}
 :root[data-theme="dark"]{
   --papel:#1a1c20; --papel-2:#22252a;
   --tinta:#e8e6e0; --tinta-2:#9a9d98; --tinta-3:#6d716c;
   --rubrica:#c98b86; --oro:#c2a05e;
   --filete:rgba(232,230,224,.18);
+  --relieve:
+    radial-gradient(900px 600px at 88% -10%, rgba(194,160,94,.10), transparent 58%),
+    radial-gradient(700px 480px at -6% 104%, rgba(0,0,0,.38), transparent 60%),
+    linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,0) 34%);
 }
 
 /* En árabe el Amiri toma el mando en todo: titulares y cuerpo. Es una
@@ -73,9 +87,9 @@ html[dir="rtl"]{ --display:var(--ara); --cuerpo:var(--ara); --util:var(--ara); }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;}}
 
 body{
-  margin:0; background:var(--papel); color:var(--tinta);
+  margin:0; background:var(--papel); background-image:var(--relieve); background-attachment:fixed; color:var(--tinta);
   font-family:var(--cuerpo); font-weight:300;
-  font-size:clamp(16px,1.08vw,18px); line-height:1.78;
+  font-size:clamp(16.5px,1.1vw,18.5px); line-height:1.78;
   -webkit-font-smoothing:antialiased;
 }
 html[dir="rtl"] body{font-weight:400; line-height:2.1;}
@@ -98,7 +112,7 @@ a{color:inherit;}
 
 /* ── Epígrafes rubricados ────────────────────────────────────────── */
 .rubrica{
-  font-family:var(--util); font-size:.72rem; letter-spacing:.3em;
+  font-family:var(--util); font-size:0.76rem; letter-spacing:.3em;
   text-transform:uppercase; color:var(--rubrica); font-weight:500;
   margin:0 0 1.1rem; text-align:center;
 }
@@ -124,7 +138,7 @@ nav.casa a:hover{color:var(--rubrica); border-bottom-color:var(--rubrica);}
 .lenguas{display:flex; gap:.1rem; align-items:baseline;}
 .lenguas button{
   background:none; border:0; cursor:pointer; font-family:var(--util);
-  font-size:.75rem; color:var(--tinta-3); padding:.3rem .5rem; letter-spacing:.08em;
+  font-size:0.76rem; color:var(--tinta-3); padding:.3rem .5rem; letter-spacing:.08em;
 }
 .lenguas button[aria-pressed="true"]{color:var(--tinta); border-bottom:1px solid var(--rubrica);}
 .lenguas button:hover{color:var(--rubrica);}
@@ -171,7 +185,7 @@ html[dir="rtl"] .entrada .glosa{font-style:normal;}
 }
 html[dir="rtl"] .colofon{font-style:normal; max-width:42ch;}
 .colofon .firma{
-  display:block; margin-top:1.6rem; font-family:var(--util); font-size:.72rem;
+  display:block; margin-top:1.6rem; font-family:var(--util); font-size:0.76rem;
   letter-spacing:.26em; text-transform:uppercase; color:var(--rubrica); font-style:normal;
 }
 html[dir="rtl"] .colofon .firma{letter-spacing:0; text-transform:none; font-size:.95rem;}
@@ -183,7 +197,7 @@ html[dir="rtl"] .colofon .firma{letter-spacing:0; text-transform:none; font-size
 
 /* ── Formulario ──────────────────────────────────────────────────── */
 form{display:grid; gap:1.5rem; margin-top:.6rem;}
-label{display:block; font-family:var(--util); font-size:.7rem; letter-spacing:.2em;
+label{display:block; font-family:var(--util); font-size:0.76rem; letter-spacing:.2em;
   text-transform:uppercase; color:var(--tinta-3); margin-bottom:.45rem;}
 html[dir="rtl"] label{letter-spacing:0; text-transform:none; font-size:.92rem;}
 input,textarea,select{
@@ -290,7 +304,7 @@ html[dir="rtl"] footer.casa .razon{letter-spacing:0;}
   overflow:hidden;display:flex;flex-direction:column;min-width:0;}
 .panel-cab{display:flex;align-items:center;gap:.6rem;justify-content:space-between;
   padding:.7rem .9rem;border-block-end:1px solid var(--kit-linea);
-  font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--kit-texto-3);}
+  font-size:0.76rem;letter-spacing:.12em;text-transform:uppercase;color:var(--kit-texto-3);}
 html[dir="rtl"] .panel-cab{letter-spacing:0;text-transform:none;font-size:.84rem;}
 .panel-cuerpo{padding:.9rem;flex:1;min-width:0;}
 /* La proporción va en la imagen y no en el marco: si la proporción se pone en
@@ -310,7 +324,7 @@ html[dir="rtl"] .panel-cab{letter-spacing:0;text-transform:none;font-size:.84rem
 .panel-foto figcaption{position:absolute;inset-inline:0;bottom:0;padding:.7rem .9rem;
   background:linear-gradient(to top,rgba(6,12,16,.9),rgba(6,12,16,.55) 60%,transparent);
   color:#f2efe9;font-size:.8rem;line-height:1.4;}
-.etq{font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;
+.etq{font-size:0.76rem;letter-spacing:.1em;text-transform:uppercase;
   padding:.15rem .45rem;border-radius:3px;background:var(--kit-acento);
   color:var(--kit-fondo);white-space:nowrap;}
 html[dir="rtl"] .etq{letter-spacing:0;text-transform:none;font-size:.76rem;}
@@ -318,7 +332,7 @@ html[dir="rtl"] .etq{letter-spacing:0;text-transform:none;font-size:.76rem;}
   line-height:1;font-variant-numeric:tabular-nums;}
 .panel .dato-p{font-size:.82rem;color:var(--kit-texto-2);margin-top:.4rem;line-height:1.45;}
 .panel-cuerpo h3{font-size:1.1rem;margin:0 0 .5rem;line-height:1.2;}
-.panel-cuerpo h3 + p{color:var(--kit-texto-2);font-size:.9rem;margin:0;}
+.panel-cuerpo h3 + p{color:var(--kit-texto-2);font-size:1rem;margin:0;}
 
 /* Panel de portada: el titular manda, pero sigue siendo un panel del tablero
    y no una franja aparte a todo lo ancho. */
@@ -351,7 +365,7 @@ html[dir="rtl"] .etq{letter-spacing:0;text-transform:none;font-size:.76rem;}
 .panel.sin-fondo{background:none;border:0;border-radius:0;}
 .panel.sin-fondo .rot{margin:.6rem 0 0;}
 .tablero{padding-block:clamp(1.2rem,2.4vw,2rem);}
-.tablero .cifras-fuente{font-size:.74rem;color:var(--kit-texto-3);line-height:1.5;margin:0;}
+.tablero .cifras-fuente{font-size:0.76rem;color:var(--kit-texto-3);line-height:1.5;margin:0;}
 /* Una tabla ancha no debe empujar la página: se desliza dentro de su panel. */
 .desliza{overflow-x:auto;-webkit-overflow-scrolling:touch;}
 .desliza table{min-width:34rem;}
