@@ -35,7 +35,7 @@
   --sup:#f5f7f6;
   --texto:#0e1a24;
   --texto-2:#4a5a62;
-  --texto-3:#5d6b74;   /* era #7a8891: 3,04:1 sobre el fondo claro, por debajo
+  --texto-3:#58666f;   /* era #7a8891: 3,04:1 sobre el fondo claro, por debajo
                         del 4,5 que exige el texto pequeño que lo usa. */
   --acento:#2f6d5e;
   --linea:rgba(14,26,36,.14);
@@ -665,8 +665,11 @@ html[dir="rtl"] .panel-cab{letter-spacing:0;text-transform:none;font-size:.84rem
   color:var(--kit-fondo);white-space:nowrap;}
 html[dir="rtl"] .etq{letter-spacing:0;text-transform:none;font-size:.76rem;}
 .panel .dato-g{font-family:var(--display,var(--disp,inherit));font-size:clamp(1.8rem,3.4vw,2.6rem);
-  line-height:1;font-variant-numeric:tabular-nums;}
-.panel .dato-p{font-size:.82rem;color:var(--kit-texto-2);margin-top:.4rem;line-height:1.45;}
+  /* Interlínea 1,0 dejaba el ¥ y los descendentes pegados al borde de la
+     caja, y la explicación arrancaba a 6 px de una cifra de 42. El dato es
+     lo primero que se mira: necesita aire propio antes de la letra chica. */
+  line-height:1.08;font-variant-numeric:tabular-nums;}
+.panel .dato-p{font-size:.9rem;color:var(--kit-texto-2);margin-top:.8rem;line-height:1.58;}
 .panel-cuerpo h3{font-size:1.1rem;margin:0 0 .5rem;line-height:1.2;}
 .panel-cuerpo h3 + p{color:var(--kit-texto-2);font-size:1rem;margin:0;}
 
@@ -728,7 +731,7 @@ html[dir="rtl"] .etq{letter-spacing:0;text-transform:none;font-size:.76rem;}
 }
 :root[data-theme="dark"] .panel{background:var(--fondo-2);}
 .panel > .panel-cab{
-  border-block-end:0;padding:.95rem 1rem .1rem;
+  border-block-end:0;padding:1.15rem 1.25rem .35rem;
   font-family:var(--display);font-style:italic;font-weight:400;
   font-size:1.06rem;letter-spacing:0;text-transform:none;
   color:var(--texto-2);align-items:baseline;}
@@ -738,7 +741,7 @@ html[dir="rtl"] .etq{letter-spacing:0;text-transform:none;font-size:.76rem;}
 .panel > .panel-cab > span:first-child::after{content:"";position:absolute;
   inset-inline-start:0;bottom:0;width:1.6rem;height:2px;background:var(--acento);}
 html[dir="rtl"] .panel > .panel-cab{font-style:normal;font-size:1.12rem;}
-.panel-cuerpo{padding:.9rem 1rem 1.1rem;}
+.panel-cuerpo{padding:1.15rem 1.25rem 1.4rem;}
 /* La etiqueta de procedencia, perfilada y no maciza: pesa menos en una página
    que ya lleva mucha información. */
 .etq{background:none;color:var(--acento);border:1px solid var(--acento);
@@ -774,6 +777,30 @@ html[dir="rtl"] .panel-portada .firma{letter-spacing:0;}
 @media (max-width:700px){
   [data-lang]{display:inline-flex;align-items:center;justify-content:center;
     min-inline-size:2.75rem;min-block-size:2.75rem;}
+}
+
+/* La galería iba con spans desiguales —5-4-3 arriba y 4-5-3 abajo— dentro de
+   la rejilla de doce. Sobre el papel es un ritmo editorial; en pantalla las
+   figuras no llegaban a llenar su celda y los huecos salían de 103 px donde
+   la rejilla pide 22, así que las seis fotos se leían desparramadas y no
+   compuestas. Se regularizan a tres iguales por fila con una proporción fija:
+   dos filas limpias, mismo alto, mismo hueco.
+
+   La fotografía de portada lleva .ancha y se queda como está: ésa sí manda. */
+.rej12 > .panel-foto:not(.ancha){
+  grid-column:span 4;
+  aspect-ratio:3/2;
+  padding-block-start:0;
+  align-self:start;
+}
+.rej12 > .panel-foto:not(.ancha) img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+}
+@media (max-width:900px){
+  .rej12 > .panel-foto:not(.ancha){grid-column:span 6;}
+}
+@media (max-width:560px){
+  .rej12 > .panel-foto:not(.ancha){grid-column:span 12;}
 }
 </style>
 </head>
