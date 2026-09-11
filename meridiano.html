@@ -357,6 +357,29 @@ html[dir="rtl"] .etq{letter-spacing:0;text-transform:none;font-size:.76rem;}
 .panel-foto figcaption{font-family:var(--mono);font-size:0.76rem;letter-spacing:.04em;}
 html[dir="rtl"] .panel-foto figcaption{font-family:var(--cuerpo);letter-spacing:0;font-size:.84rem;}
 
+
+/* En una retícula suiza la fotografía no lleva un velo con texto encima: se
+   rotula debajo, con la misma monoespaciada y el mismo filete que el resto
+   de la página, y el rótulo cae en la columna de la imagen. La proporción va
+   en la imagen para que el rótulo fluya detrás. */
+.panel-foto{position:static;padding:0;display:block;overflow:visible;background:none;
+  border:0;border-radius:0;}
+/* La proporción se ha mudado a la imagen, así que el relleno con que el
+   armazón reservaba el hueco sobra: si se queda, la figura mide el alto
+   de la imagen MÁS un 56 % del ancho, y eso es el vacío que aparecía
+   encima de cada fotografía. */
+.panel-foto.ancha,.panel-foto.alta{padding-block-start:0;}
+/* La rejilla estira sus celdas a lo alto de la fila; una lámina no debe
+   estirarse: se ancla arriba y la fila la mide su contenido. */
+.panel-foto{align-self:start;}
+.panel-foto img{position:static;width:100%;height:auto;aspect-ratio:4/3;
+  object-fit:cover;display:block;}
+.panel-foto figcaption{position:static;inset:auto;background:none;padding:.55rem 0 0;
+  border-block-start:1px solid var(--regla);margin-block-start:.55rem;
+  font-family:var(--mono);font-size:0.76rem;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--gris);line-height:1.5;text-shadow:none;}
+html[dir="rtl"] .panel-foto figcaption{letter-spacing:0;text-transform:none;
+  font-family:var(--cuerpo);font-size:.84rem;}
 </style>
 </head>
 <body>
@@ -417,17 +440,17 @@ html[dir="rtl"] .panel-foto figcaption{font-family:var(--cuerpo);letter-spacing:
     <div class="rej12">
       <figure class="panel c4 panel-foto">
         <img src="img/torii-fushimi.jpg" loading="lazy" decoding="async"
-             data-t-attr="alt:altTorii" alt="Sendero de torii en Fushimi Inari">
+             data-t-attr="alt:altTorii" alt="Sendero de torii en Fushimi Inari" width="1600" height="1067">
         <figcaption data-t="pieTorii"></figcaption>
       </figure>
       <figure class="panel c4 panel-foto">
         <img src="img/himeji.jpg" loading="lazy" decoding="async"
-             data-t-attr="alt:altHimeji" alt="El castillo de Himeji">
+             data-t-attr="alt:altHimeji" alt="El castillo de Himeji" width="1200" height="798">
         <figcaption data-t="pieHimeji"></figcaption>
       </figure>
       <figure class="panel c4 panel-foto">
         <img src="img/osaka-noche.jpg" loading="lazy" decoding="async"
-             data-t-attr="alt:altOsaka" alt="Osaka de noche desde el río">
+             data-t-attr="alt:altOsaka" alt="Osaka de noche desde el río" width="1200" height="675">
         <figcaption data-t="pieOsaka"></figcaption>
       </figure>
     </div>

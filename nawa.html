@@ -311,6 +311,25 @@ footer.n{border-top:1px solid var(--hilo); padding-block:2rem 2.8rem;
 .panel .cifra{color:var(--arena);font-family:var(--disp);}
 .panel-foto{border-radius:20px;}
 
+
+/* Una PLACA astronómica se mira sobre fondo negro y sin marco: ni borde, ni
+   esquinas redondeadas, ni velo gris con letra encima, que son lenguaje de
+   tarjeta y no de observatorio.
+
+   Aquí la figura NO cambia de tamaño —vive dentro de una banda alta que da
+   su ritmo a la sección, y sacarle la proporción a la imagen la dejaba
+   flotando—. Lo que cambia es cómo termina: la imagen se disuelve por abajo
+   con una máscara, así que se funde con la noche en vez de cortarse contra
+   ella, y la anotación se apoya en esa zona ya oscurecida sin necesidad de
+   pintarle un degradado debajo. Es como se anota una placa de archivo. */
+.panel-foto{background:none;border:0;border-radius:0;}
+.panel-foto img{
+  -webkit-mask-image:linear-gradient(180deg,#000 62%,transparent 99%);
+          mask-image:linear-gradient(180deg,#000 62%,transparent 99%);}
+.panel-foto figcaption{background:none;padding:0 0 .2rem;
+  inset-inline:0;bottom:0;color:var(--luz-2);
+  font-size:.78rem;letter-spacing:.07em;line-height:1.6;text-shadow:none;}
+html[dir="rtl"] .panel-foto figcaption{letter-spacing:0;}
 </style>
 <style>
 /* La portada de NAWA es el mapa de estrellas dibujado en canvas; una foto
@@ -385,12 +404,12 @@ footer.n{border-top:1px solid var(--hilo); padding-block:2rem 2.8rem;
     <div class="rej12">
       <figure class="panel c7 panel-foto ancha">
         <img src="img/mezquita-kobe.jpg" loading="lazy" decoding="async"
-             data-t-attr="alt:altMezquita" alt="La mezquita de Kobe">
+             data-t-attr="alt:altMezquita" alt="La mezquita de Kobe" width="1000" height="1333">
         <figcaption data-t="pieMezquita"></figcaption>
       </figure>
       <figure class="panel c5 panel-foto ancha">
         <img src="img/jardin-enkoji.jpg" loading="lazy" decoding="async"
-             data-t-attr="alt:altJardin" alt="El jardín del templo Enkōji, Kioto">
+             data-t-attr="alt:altJardin" alt="El jardín del templo Enkōji, Kioto" width="1400" height="933">
         <figcaption data-t="pieJardin"></figcaption>
       </figure>
     </div>

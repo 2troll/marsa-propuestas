@@ -362,6 +362,28 @@ html[dir="rtl"] footer.casa .razon{letter-spacing:0;}
 .panel .folio{color:var(--rubrica);font-family:var(--display);}
 .panel-foto{border-radius:0;border-block:0;}
 
+
+/* La fotografía en un manuscrito es una LÁMINA, y a una lámina no se le
+   escribe encima: el pie va debajo, en cursiva y con su filete, como la
+   glosa de un copista. Por eso aquí se deshace el pie superpuesto del
+   armazón. La proporción se le da a la imagen y no al marco, que es lo que
+   permite que el pie fluya detrás en vez de taparla. */
+.panel-foto{position:static;padding:0;display:block;overflow:visible;background:none;border:0;}
+/* La proporción se ha mudado a la imagen, así que el relleno con que el
+   armazón reservaba el hueco sobra: si se queda, la figura mide el alto
+   de la imagen MÁS un 56 % del ancho, y eso es el vacío que aparecía
+   encima de cada fotografía. */
+.panel-foto.ancha,.panel-foto.alta{padding-block-start:0;}
+/* La rejilla estira sus celdas a lo alto de la fila; una lámina no debe
+   estirarse: se ancla arriba y la fila la mide su contenido. */
+.panel-foto{align-self:start;}
+.panel-foto img{position:static;width:100%;height:auto;aspect-ratio:3/2;
+  object-fit:cover;display:block;}
+.panel-foto figcaption{position:static;inset:auto;background:none;padding:.7rem 0 0;
+  margin-block-start:.7rem;border-block-start:1px solid var(--filete);
+  color:var(--tinta-2);font-family:var(--lat);font-style:italic;
+  font-size:.88rem;line-height:1.6;text-shadow:none;}
+html[dir="rtl"] .panel-foto figcaption{font-style:normal;}
 </style>
 <style>
 /* Lámina: en un manuscrito la imagen va encajada en la caja de texto, con su
@@ -438,12 +460,12 @@ html[dir="rtl"] footer.casa .razon{letter-spacing:0;}
     <div class="rej12">
       <figure class="panel c6 panel-foto ancha">
         <img src="img/bambu-arashiyama.jpg" loading="lazy" decoding="async"
-             data-t-attr="alt:altBambu" alt="El bambudal de Arashiyama">
+             data-t-attr="alt:altBambu" alt="El bambudal de Arashiyama" width="1200" height="799">
         <figcaption data-t="pieBambu"></figcaption>
       </figure>
       <figure class="panel c6 panel-foto ancha">
         <img src="img/nara-ciervos.jpg" loading="lazy" decoding="async"
-             data-t-attr="alt:altNara" alt="Un ciervo entre los arces de Nara">
+             data-t-attr="alt:altNara" alt="Un ciervo entre los arces de Nara" width="1200" height="799">
         <figcaption data-t="pieNara"></figcaption>
       </figure>
     </div>

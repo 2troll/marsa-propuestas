@@ -14,6 +14,26 @@ claves de API.
 | [**MERIDIANO**](meridiano.html) | Retícula suiza de doce columnas a la vista, cifras tabulares, reloj de husos en vivo y fotografía a sangre en la banda inferior | Archivo · IBM Plex Mono · IBM Plex Sans Arabic | La propia retícula de doce columnas, con el mismo `--marco` y `--gap` que el contenido, así que no se pueden desalinear |
 | [**NAWA**](nawa.html) | Nocturna. Mapa de estrellas calculado en canvas con posiciones deterministas y líneas de constelación | Fraunces · Manrope · Aref Ruqaa · Tajawal | Cielo real: banda de la Vía Láctea a 104°, resplandor atmosférico cálido en el horizonte y extinción hacia abajo |
 
+## Y cada una trata la fotografía como la trataría su oficio
+
+El armazón traía una tarjeta de foto igual para las cuatro: esquina redondeada,
+borde y un velo gris con el pie escrito encima. Cuatro sitios distintos no
+pueden enseñar la misma tarjeta.
+
+- **DIWAN** — *lámina*. A una lámina de manuscrito no se le escribe encima: el
+  pie va debajo, en cursiva y separado por un filete, como la glosa del copista.
+- **MERIDIANO** — *rótulo*. Se etiqueta debajo, en la misma monoespaciada
+  versal del resto de la página y alineado a la columna de la imagen. Una
+  retícula suiza no pinta degradados sobre una fotografía.
+- **NAWA** — *placa*. Sin marco y sin velo: la imagen se disuelve por abajo con
+  una máscara y se funde con la noche, y la anotación se apoya en esa zona ya
+  oscurecida. Es como se anota una placa de archivo.
+- **MARSA** — conserva el pie superpuesto. Es la propuesta contemporánea de las
+  cuatro y ahí la tarjeta sí es su idioma.
+
+Las veinticuatro imágenes llevan `width` y `height` con su tamaño real, que es
+lo que evita el salto de maquetación cuando entran diferidas.
+
 Ninguno de los cuatro fondos es una imagen: son tramas CSS, pesan cero bytes
 y no se pixelan. Y ninguno comparte receta con otro, que era el riesgo —cuatro
 degradados con distinto color son una sola idea repetida cuatro veces—.
