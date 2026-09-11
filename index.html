@@ -12,9 +12,18 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,300;6..72,400;6..72,500&family=Inter+Tight:wght@300;400;500&family=Noto+Kufi+Arabic:wght@400;500;700&family=Noto+Sans+Arabic:wght@300;400&display=swap">
 
 <style>
-/* Documento de presentación, no una marca. Deliberadamente neutro: si
-   esta página tuviera personalidad propia competiría con las cuatro
-   propuestas que tiene que dejar hablar. */
+/* Documento de presentación, no una marca. Va sin fondo construido, y se
+   deja escrito porque de otro modo parece un olvido.
+
+   Las cuatro propuestas llevan cada una el suyo, hecho con una técnica
+   distinta y sacada de su propio concepto: la retícula de doce columnas en
+   MERIDIANO, el papel verjurado en DIWAN, las isóbatas de carta náutica en
+   MARSA y la banda de la Vía Láctea en NAWA. Esta página no lleva ninguno.
+
+   No es la identidad de nadie: es la carpeta donde se presentan cuatro que
+   compiten entre sí. Si tuviera fondo propio estaría opinando, y el cliente
+   leería esa opinión como una recomendación encubierta. Papel liso y una
+   buena jerarquía tipográfica es todo lo que le toca hacer. */
 :root{
   --f:#f4f4f2; --f2:#eaeae6; --t:#1b1c1a; --t2:#5f625d; --t3:#8f938c;
   --l:rgba(27,28,26,.13);
@@ -23,39 +32,20 @@
   --cuerpo:"Inter Tight",system-ui,sans-serif;
   --marco:min(1080px,100% - 2.75rem);
 
-  /* El fondo deja de ser un relleno plano: dos halos muy abiertos y un velo
-     vertical. Ninguno se "ve"; lo que se nota es que el papel tiene fondo y
-     el texto se apoya en algo. */
-  --relieve:
-    radial-gradient(1000px 680px at 92% -14%, rgba(47,109,94,.14), transparent 58%),
-    radial-gradient(820px 560px at -8% 104%, rgba(27,28,26,.10), transparent 60%),
-    linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,0) 30%);
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --f:#101110; --f2:#191a18; --t:#e9eae6; --t2:#a0a49c; --t3:#6e726a;
   --l:rgba(233,234,230,.15); --a:#6fb3a0;
-  /* En oscuro el velo blanco lavaría el papel: se invierte a un halo frío
-     arriba y un pozo más oscuro abajo. */
-  --relieve:
-    radial-gradient(1100px 620px at 88% -10%, rgba(111,179,160,.09), transparent 60%),
-    radial-gradient(900px 520px at -5% 108%, rgba(0,0,0,.35), transparent 62%),
-    linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,0) 42%);
 }}
 :root[data-theme="dark"]{
   --f:#101110; --f2:#191a18; --t:#e9eae6; --t2:#a0a49c; --t3:#6e726a;
   --l:rgba(233,234,230,.15); --a:#6fb3a0;
-  /* En oscuro el velo blanco lavaría el papel: se invierte a un halo frío
-     arriba y un pozo más oscuro abajo. */
-  --relieve:
-    radial-gradient(1100px 620px at 88% -10%, rgba(111,179,160,.09), transparent 60%),
-    radial-gradient(900px 520px at -5% 108%, rgba(0,0,0,.35), transparent 62%),
-    linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,0) 42%);
 }
 html[dir="rtl"]{ --disp:"Noto Kufi Arabic",sans-serif; --cuerpo:"Noto Sans Arabic",sans-serif; }
 
 *,*::before,*::after{box-sizing:border-box;}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;}}
-body{margin:0;background:var(--f);background-image:var(--relieve);background-attachment:fixed;color:var(--t);font-family:var(--cuerpo);
+body{margin:0;background:var(--f);color:var(--t);font-family:var(--cuerpo);
   font-weight:400;font-size:clamp(16.5px,1.08vw,18px);line-height:1.68;-webkit-font-smoothing:antialiased;}
 html[dir="rtl"] body{line-height:2;}
 h1,h2,h3{font-family:var(--disp);font-weight:400;margin:0;line-height:1.12;text-wrap:balance;}

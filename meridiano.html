@@ -42,18 +42,14 @@
   --gris-2:#9aa09a;
   --senal:#1e3fd8;
   --regla:rgba(18,20,18,.14);
-  /* Papel con fondo: un halo en la señal azul y un pozo frío abajo. En una
-     retícula suiza el fondo no puede llamar la atención, sólo dar cuerpo. */
-  --relieve:
-    radial-gradient(1000px 640px at 94% -12%, rgba(30,63,216,.075), transparent 58%),
-    radial-gradient(760px 520px at -6% 106%, rgba(18,20,18,.075), transparent 60%),
-    linear-gradient(180deg, rgba(255,255,255,.8), rgba(255,255,255,0) 28%);
   --regla-2:rgba(18,20,18,.07);
 
   --disp:"Archivo",system-ui,sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,monospace;
   --cuerpo:"Archivo",system-ui,sans-serif;
   --marco:min(1320px, 100% - 3rem);
+  --gap:clamp(.9rem,1.6vw,1.4rem);
+  --columna:rgba(18,20,18,.030);
 }
 
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
@@ -61,20 +57,14 @@
   --tinta:#e8eae6; --gris:#8d938c; --gris-2:#5e645d;
   --senal:#8ea3ff;
   --regla:rgba(232,234,230,.16); --regla-2:rgba(232,234,230,.08);
-  --relieve:
-    radial-gradient(1000px 640px at 94% -12%, rgba(142,163,255,.10), transparent 58%),
-    radial-gradient(760px 520px at -6% 106%, rgba(0,0,0,.4), transparent 60%),
-    linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,0) 34%);
+  --columna:rgba(232,234,230,.038);
 }}
 :root[data-theme="dark"]{
   --papel:#0c0e0d; --papel-2:#151816;
   --tinta:#e8eae6; --gris:#8d938c; --gris-2:#5e645d;
   --senal:#8ea3ff;
   --regla:rgba(232,234,230,.16); --regla-2:rgba(232,234,230,.08);
-  --relieve:
-    radial-gradient(1000px 640px at 94% -12%, rgba(142,163,255,.10), transparent 58%),
-    radial-gradient(760px 520px at -6% 106%, rgba(0,0,0,.4), transparent 60%),
-    linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,0) 34%);
+  --columna:rgba(232,234,230,.038);
 }
 
 /* En árabe, IBM Plex Sans Arabic sustituye a Archivo y también a la
@@ -89,7 +79,7 @@ html[dir="rtl"]{
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;}}
 
 body{
-  margin:0; background:var(--papel); background-image:var(--relieve); background-attachment:fixed; color:var(--tinta);
+  margin:0; background:var(--papel); color:var(--tinta);
   font-family:var(--cuerpo); font-weight:400;
   font-size:clamp(16px,1.02vw,17.5px); line-height:1.62;
   -webkit-font-smoothing:antialiased;
@@ -288,9 +278,28 @@ html[dir="rtl"] footer.mesa{letter-spacing:0; font-size:.85rem;}
 }
 
 
+/* El fondo de esta propuesta no es una textura aplicada por encima: es la
+   propia retícula de doce columnas, la superficie sobre la que se compone.
+   Usa el mismo --marco y el mismo --gap que .rej12, así que las bandas caen
+   exactamente bajo las columnas del contenido y no pueden desincronizarse.
+   El periodo de la repetición es (ancho + gap)/12 y la banda mide eso menos
+   el gap: lo que queda sin teñir son los medianiles. */
+body::before{
+  content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
+  width:var(--marco); margin-inline:auto;
+  background:repeating-linear-gradient(to right,
+    var(--columna) 0,
+    var(--columna) calc((100% + var(--gap))/12 - var(--gap)),
+    transparent     calc((100% + var(--gap))/12 - var(--gap)),
+    transparent     calc((100% + var(--gap))/12));
+}
+/* Por debajo de la tableta la retícula ya no manda en el contenido, así que
+   enseñarla sería decorar. */
+@media (max-width:700px){ body::before{display:none;} }
+
 /* Rejilla de doce columnas: es lo que rompe la columna única. */
 .rej12{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));
-  gap:clamp(.9rem,1.6vw,1.4rem);}
+  gap:var(--gap);}
 .c3{grid-column:span 3}.c4{grid-column:span 4}.c5{grid-column:span 5}
 .c6{grid-column:span 6}.c7{grid-column:span 7}.c8{grid-column:span 8}
 .c9{grid-column:span 9}.c12{grid-column:span 12}

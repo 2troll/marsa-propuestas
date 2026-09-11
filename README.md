@@ -7,12 +7,21 @@ claves de API.
 
 **Ver online:** https://2troll.github.io/marsa-propuestas/
 
-| Propuesta | Concepto | Tipografía |
-|---|---|---|
-| [**MARSA**](marsa.html) | Diez páginas, con tres herramientas que funcionan: calendario hiyrí calculado en el navegador, una jornada comparada y los niveles reales de «halal» | Bodoni Moda · Karla · Reem Kufi · IBM Plex Sans Arabic |
-| [**DIWAN**](diwan.html) | Página de manuscrito: caja centrada, epígrafes rubricados en rojo y friso de estrellas de ocho puntas generado por trigonometría | Spectral · Amiri |
-| [**MERIDIANO**](meridiano.html) | Retícula suiza de doce columnas a la vista, cifras tabulares, reloj de husos en vivo y fotografía a sangre en la banda inferior | Archivo · IBM Plex Mono · IBM Plex Sans Arabic |
-| [**NAWA**](nawa.html) | Nocturna. Mapa de estrellas calculado en canvas con posiciones deterministas y líneas de constelación | Fraunces · Manrope · Aref Ruqaa · Tajawal |
+| Propuesta | Concepto | Tipografía | Fondo |
+|---|---|---|---|
+| [**MARSA**](marsa.html) | Diez páginas, con tres herramientas que funcionan: calendario hiyrí calculado en el navegador, una jornada comparada y los niveles reales de «halal» | Bodoni Moda · Karla · Reem Kufi · IBM Plex Sans Arabic | Isóbatas de carta náutica: dos tramas radiales de periodo primo entre sí (23 y 37 px), enmascaradas |
+| [**DIWAN**](diwan.html) | Página de manuscrito: caja centrada, epígrafes rubricados en rojo y friso de estrellas de ocho puntas generado por trigonometría | Spectral · Amiri | Papel verjurado: puntizones cada 4 px y corondeles cada 30 px, las dos marcas que deja un molde de papel a mano |
+| [**MERIDIANO**](meridiano.html) | Retícula suiza de doce columnas a la vista, cifras tabulares, reloj de husos en vivo y fotografía a sangre en la banda inferior | Archivo · IBM Plex Mono · IBM Plex Sans Arabic | La propia retícula de doce columnas, con el mismo `--marco` y `--gap` que el contenido, así que no se pueden desalinear |
+| [**NAWA**](nawa.html) | Nocturna. Mapa de estrellas calculado en canvas con posiciones deterministas y líneas de constelación | Fraunces · Manrope · Aref Ruqaa · Tajawal | Cielo real: banda de la Vía Láctea a 104°, resplandor atmosférico cálido en el horizonte y extinción hacia abajo |
+
+Ninguno de los cuatro fondos es una imagen: son tramas CSS, pesan cero bytes
+y no se pixelan. Y ninguno comparte receta con otro, que era el riesgo —cuatro
+degradados con distinto color son una sola idea repetida cuatro veces—.
+
+La portada va **sin fondo construido, a propósito**: es la carpeta donde se
+presentan cuatro identidades que compiten, y si opinara con un fondo propio el
+cliente lo leería como una recomendación encubierta. Está razonado en el
+comentario de cabecera de `index.html`.
 
 ## Cada una resuelve el bilingüismo por una vía distinta
 

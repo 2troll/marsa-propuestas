@@ -38,12 +38,7 @@
   --texto-3:#7a8891;
   --acento:#2f6d5e;
   --linea:rgba(14,26,36,.14);
-  /* El puerto al atardecer: verde de la marca arriba, calado del casco
-     abajo. Muy abierto, para que no discuta con el contenido. */
-  --relieve:
-    radial-gradient(1000px 640px at 90% -12%, rgba(47,109,94,.13), transparent 58%),
-    radial-gradient(800px 540px at -6% 104%, rgba(14,26,36,.08), transparent 60%),
-    linear-gradient(180deg, rgba(255,255,255,.8), rgba(255,255,255,0) 30%);
+  --sonda:rgba(47,109,94,.085);   /* la tinta de las isóbatas */
   --hondo:#0e1a24;
   --hondo-texto:#dfe6e4;
   --hondo-linea:rgba(223,230,228,.18);
@@ -64,10 +59,7 @@
     --texto-3:#6f8189;
     --acento:#6fb3a0;
     --linea:rgba(228,233,232,.14);
-  --relieve:
-    radial-gradient(1000px 640px at 90% -12%, rgba(110,190,170,.10), transparent 58%),
-    radial-gradient(800px 540px at -6% 104%, rgba(0,0,0,.38), transparent 60%),
-    linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,0) 34%);
+  --sonda:rgba(126,196,176,.085);
     --hondo:#060d12;
     --hondo-texto:#e4e9e8;
     --hondo-linea:rgba(228,233,232,.16);
@@ -82,10 +74,7 @@
   --texto-3:#6f8189;
   --acento:#6fb3a0;
   --linea:rgba(228,233,232,.14);
-  --relieve:
-    radial-gradient(1000px 640px at 90% -12%, rgba(110,190,170,.10), transparent 58%),
-    radial-gradient(800px 540px at -6% 104%, rgba(0,0,0,.38), transparent 60%),
-    linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,0) 34%);
+  --sonda:rgba(126,196,176,.085);
   --hondo:#060d12;
   --hondo-texto:#e4e9e8;
   --hondo-linea:rgba(228,233,232,.16);
@@ -103,11 +92,32 @@ html[dir="rtl"]{
 *,*::before,*::after{box-sizing:border-box;}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;}}
 
+/* Una carta náutica dibuja el fondo del mar con isóbatas: las curvas que unen
+   los puntos de igual profundidad, cada vez más juntas según sube la costa.
+   Eso es lo que rodea a un fondeadero, que es lo que significa مَرْسى.
+
+   Son dos tramas radiales concéntricas con el centro fuera del lienzo, así que
+   no se ven anillos completos sino arcos, como en una carta de verdad. Los dos
+   periodos son primos entre sí (23 y 37 px): al no coincidir nunca, el dibujo
+   no se repite a la vista y no aparece el efecto de diana que delata a una
+   trama generada. */
+body::before{
+  content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
+  background:
+    repeating-radial-gradient(circle at 14% 112%,
+      var(--sonda) 0 1px, transparent 1px 23px),
+    repeating-radial-gradient(circle at 9% 118%,
+      var(--sonda) 0 1px, transparent 1px 37px);
+  -webkit-mask-image:radial-gradient(120% 95% at 8% 108%, #000 20%, transparent 72%);
+          mask-image:radial-gradient(120% 95% at 8% 108%, #000 20%, transparent 72%);
+}
+/* La sonda se queda en el escritorio: en el móvil los arcos caen tan juntos
+   que se convierten en ruido. */
+@media (max-width:700px){ body::before{display:none;} }
+
 body{
   margin:0;
   background:var(--fondo);
-  background-image:var(--relieve);
-  background-attachment:fixed;
   color:var(--texto);
   font-family:var(--texto-f);
   font-weight:400;

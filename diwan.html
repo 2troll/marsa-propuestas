@@ -43,12 +43,8 @@
   --rubrica:#7a2b2b;     /* la tinta roja del copista */
   --oro:#8a6a2c;
   --filete:rgba(35,38,43,.16);
-  /* Papel de manuscrito: el tono cálido de la tinta vieja en la esquina y
-     una sombra de encuadernación al pie. Nunca compite con la rúbrica. */
-  --relieve:
-    radial-gradient(900px 600px at 88% -10%, rgba(138,106,44,.13), transparent 58%),
-    radial-gradient(700px 480px at -6% 104%, rgba(122,43,43,.07), transparent 60%),
-    linear-gradient(180deg, rgba(255,255,255,.75), rgba(255,255,255,0) 30%);
+  --puntizon:rgba(35,38,43,.040);   /* las líneas finas y juntas */
+  --corondel:rgba(35,38,43,.055);   /* las gruesas y separadas */
 
   --lat:"Spectral",Georgia,serif;
   --ara:"Amiri",serif;
@@ -63,20 +59,16 @@
   --tinta:#e8e6e0; --tinta-2:#9a9d98; --tinta-3:#6d716c;
   --rubrica:#c98b86; --oro:#c2a05e;
   --filete:rgba(232,230,224,.18);
-  --relieve:
-    radial-gradient(900px 600px at 88% -10%, rgba(194,160,94,.10), transparent 58%),
-    radial-gradient(700px 480px at -6% 104%, rgba(0,0,0,.38), transparent 60%),
-    linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,0) 34%);
+  --puntizon:rgba(232,230,224,.035);
+  --corondel:rgba(232,230,224,.05);
 }}
 :root[data-theme="dark"]{
   --papel:#1a1c20; --papel-2:#22252a;
   --tinta:#e8e6e0; --tinta-2:#9a9d98; --tinta-3:#6d716c;
   --rubrica:#c98b86; --oro:#c2a05e;
   --filete:rgba(232,230,224,.18);
-  --relieve:
-    radial-gradient(900px 600px at 88% -10%, rgba(194,160,94,.10), transparent 58%),
-    radial-gradient(700px 480px at -6% 104%, rgba(0,0,0,.38), transparent 60%),
-    linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,0) 34%);
+  --puntizon:rgba(232,230,224,.035);
+  --corondel:rgba(232,230,224,.05);
 }
 
 /* En árabe el Amiri toma el mando en todo: titulares y cuerpo. Es una
@@ -86,8 +78,26 @@ html[dir="rtl"]{ --display:var(--ara); --cuerpo:var(--ara); --util:var(--ara); }
 *,*::before,*::after{box-sizing:border-box;}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;}}
 
+/* El papel verjurado, que es de lo que está hecho un manuscrito. La forma de
+   hacer papel a mano deja dos marcas en la hoja: los PUNTIZONES, los alambres
+   finos y muy juntos del molde, y los CORONDELES, las varillas gruesas y
+   separadas que los sujetan. Al trasluz se ven las dos. Aquí son dos tramas
+   repetidas perpendiculares, no una textura de imagen: pesan cero bytes y no
+   se pixelan al ampliar.
+
+   Las medidas no son inventadas: en el papel europeo de trapo los puntizones
+   caen a unos 25 por pulgada y los corondeles cada 25-30 mm. A la escala de
+   pantalla salen 4 px y 30 px. */
+body::before{
+  content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
+  background:
+    repeating-linear-gradient(to bottom,
+      var(--puntizon) 0 1px, transparent 1px 4px),
+    repeating-linear-gradient(to right,
+      var(--corondel) 0 1px, transparent 1px 30px);
+}
 body{
-  margin:0; background:var(--papel); background-image:var(--relieve); background-attachment:fixed; color:var(--tinta);
+  margin:0; background:var(--papel); color:var(--tinta);
   font-family:var(--cuerpo); font-weight:300;
   font-size:clamp(16.5px,1.1vw,18.5px); line-height:1.78;
   -webkit-font-smoothing:antialiased;

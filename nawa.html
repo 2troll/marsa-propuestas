@@ -42,12 +42,6 @@
   --arena:#e0b872;      /* la única nota cálida: la duna al amanecer */
   --arena-2:#c39a55;
   --hilo:rgba(238,241,247,.14);
-  /* La noche deja de ser un negro plano: la duna al amanecer entra por
-     abajo y el cielo se abre arriba. El mapa de estrellas va encima. */
-  --relieve:
-    radial-gradient(1100px 520px at 50% 112%, rgba(224,184,114,.14), transparent 62%),
-    radial-gradient(900px 620px at 88% -12%, rgba(110,140,210,.12), transparent 58%),
-    linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,0) 36%);
 
   --disp:"Fraunces",Georgia,serif;
   --cuerpo:"Manrope",system-ui,sans-serif;
@@ -62,8 +56,32 @@ html[dir="rtl"]{ --disp:"Aref Ruqaa",serif; --cuerpo:"Tajawal",system-ui,sans-se
 *,*::before,*::after{box-sizing:border-box;}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;}}
 
+/* Un cielo nocturno de verdad no es negro plano ni un degradado de esquina.
+   Tiene tres cosas, y aquí están las tres:
+
+   1. La VÍA LÁCTEA, una banda difusa que cruza en diagonal. Se dibuja con un
+      linear-gradient a 104° —la inclinación con que se ve el brazo galáctico
+      desde una latitud del Golfo a finales de año— y dos paradas suaves.
+   2. El RESPLANDOR ATMOSFÉRICO del horizonte: el aire ilumina los últimos
+      grados sobre el suelo aunque no haya ciudad. Es cálido, no azul.
+   3. La EXTINCIÓN: cerca del horizonte se atraviesa más atmósfera y las
+      estrellas se apagan. Por eso la banda se desvanece antes de llegar abajo.
+
+   Va debajo del canvas del mapa de estrellas, que dibuja las posiciones. */
+body::before{
+  content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
+  background:
+    linear-gradient(104deg,
+      transparent 26%,
+      rgba(150,170,220,.055) 38%,
+      rgba(196,206,235,.085) 46%,
+      rgba(150,170,220,.05) 54%,
+      transparent 66%),
+    radial-gradient(150% 40% at 50% 104%, rgba(224,184,114,.16), transparent 70%),
+    linear-gradient(180deg, rgba(120,150,210,.05), transparent 40%);
+}
 body{
-  margin:0; background:var(--noche); background-image:var(--relieve); background-attachment:fixed; color:var(--luz);
+  margin:0; background:var(--noche); color:var(--luz);
   font-family:var(--cuerpo); font-weight:300;
   font-size:clamp(16px,1.05vw,17.5px); line-height:1.72;
   -webkit-font-smoothing:antialiased; overflow-x:hidden;
