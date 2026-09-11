@@ -86,6 +86,16 @@ html[dir="rtl"] .ver{letter-spacing:0;text-transform:none;font-size:.92rem;}
 
 .pie{padding-block:2rem 3rem;font-size:.8rem;color:var(--t3);}
 .ltr{direction:ltr;unicode-bidi:isolate;display:inline-block;}
+
+/* Zona táctil del conmutador de idioma. La portada se abre en el móvil de quien decide, y el conmutador es lo primero que toca.
+   Medido a 400 px de ancho, los botones daban entre 7 y 15 px de lado, muy por
+   debajo de los 24 px que pide la WCAG 2.2 y de los 44 que recomienda Apple.
+   El texto no cambia de tamaño: crece la caja, y sólo en pantalla pequeña,
+   para no alterar la composición de escritorio. */
+@media (max-width:700px){
+  [data-lang]{display:inline-flex;align-items:center;justify-content:center;
+    min-inline-size:2.75rem;min-block-size:2.75rem;}
+}
 </style>
 </head>
 <body>

@@ -764,6 +764,16 @@ html[dir="rtl"] .panel-portada blockquote{line-height:1.75;}
 .panel-portada .firma{margin-top:1.2rem;font-size:.78rem;letter-spacing:.12em;
   color:color-mix(in srgb,var(--hondo-texto) 55%,transparent);}
 html[dir="rtl"] .panel-portada .firma{letter-spacing:0;}
+
+/* Zona táctil del conmutador de idioma. Diez rutas y tres idiomas: el conmutador se usa mucho y es el control más pequeño de la página.
+   Medido a 400 px de ancho, los botones daban entre 7 y 15 px de lado, muy por
+   debajo de los 24 px que pide la WCAG 2.2 y de los 44 que recomienda Apple.
+   El texto no cambia de tamaño: crece la caja, y sólo en pantalla pequeña,
+   para no alterar la composición de escritorio. */
+@media (max-width:700px){
+  [data-lang]{display:inline-flex;align-items:center;justify-content:center;
+    min-inline-size:2.75rem;min-block-size:2.75rem;}
+}
 </style>
 </head>
 <body>

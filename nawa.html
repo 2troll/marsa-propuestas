@@ -330,6 +330,16 @@ footer.n{border-top:1px solid var(--hilo); padding-block:2rem 2.8rem;
   inset-inline:0;bottom:0;color:var(--luz-2);
   font-size:.78rem;letter-spacing:.07em;line-height:1.6;text-shadow:none;}
 html[dir="rtl"] .panel-foto figcaption{letter-spacing:0;}
+
+/* Zona táctil del conmutador de idioma. Sobre fondo oscuro un objetivo pequeño se falla aún más: no hay borde que oriente el dedo.
+   Medido a 400 px de ancho, los botones daban entre 7 y 15 px de lado, muy por
+   debajo de los 24 px que pide la WCAG 2.2 y de los 44 que recomienda Apple.
+   El texto no cambia de tamaño: crece la caja, y sólo en pantalla pequeña,
+   para no alterar la composición de escritorio. */
+@media (max-width:700px){
+  [data-lang]{display:inline-flex;align-items:center;justify-content:center;
+    min-inline-size:2.75rem;min-block-size:2.75rem;}
+}
 </style>
 <style>
 /* La portada de NAWA es el mapa de estrellas dibujado en canvas; una foto
