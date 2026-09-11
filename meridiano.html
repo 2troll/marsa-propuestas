@@ -39,7 +39,12 @@
   --papel-2:#e7e9e4;
   --tinta:#121412;
   --gris:#6a6f6a;
-  --gris-2:#9aa09a;
+  /* --gris-2 era #9aa09a y daba 2,37:1 sobre el papel. Todos sus usos en esta
+     página son texto de 12 px —el pie, el aviso legal, los husos GMT y el
+     conmutador de idioma inactivo—, así que no había ni un solo sitio donde
+     hiciera falta tan claro. A 4,72:1 pasa el mínimo de la WCAG para texto
+     pequeño y la jerarquía la sigue dando el tamaño, no el desvaído. */
+  --gris-2:#676c65;
   --senal:#1e3fd8;
   --regla:rgba(18,20,18,.14);
   --regla-2:rgba(18,20,18,.07);
@@ -54,14 +59,14 @@
 
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --papel:#0c0e0d; --papel-2:#151816;
-  --tinta:#e8eae6; --gris:#8d938c; --gris-2:#5e645d;
+  --tinta:#e8eae6; --gris:#8d938c; --gris-2:#858b83;
   --senal:#8ea3ff;
   --regla:rgba(232,234,230,.16); --regla-2:rgba(232,234,230,.08);
   --columna:rgba(232,234,230,.038);
 }}
 :root[data-theme="dark"]{
   --papel:#0c0e0d; --papel-2:#151816;
-  --tinta:#e8eae6; --gris:#8d938c; --gris-2:#5e645d;
+  --tinta:#e8eae6; --gris:#8d938c; --gris-2:#858b83;
   --senal:#8ea3ff;
   --regla:rgba(232,234,230,.16); --regla-2:rgba(232,234,230,.08);
   --columna:rgba(232,234,230,.038);
@@ -323,10 +328,15 @@ body::before{
 .panel-foto figcaption{position:absolute;inset-inline:0;bottom:0;padding:.7rem .9rem;
   background:linear-gradient(to top,rgba(6,12,16,.9),rgba(6,12,16,.55) 60%,transparent);
   color:#f2efe9;font-size:.8rem;line-height:1.4;}
-.etq{font-size:0.76rem;letter-spacing:.1em;text-transform:uppercase;
-  padding:.15rem .45rem;border-radius:3px;background:var(--kit-acento);
-  color:var(--kit-fondo);white-space:nowrap;}
-html[dir="rtl"] .etq{letter-spacing:0;text-transform:none;font-size:.76rem;}
+/* La píldora de color del armazón se retira. Pisaba la etiqueta técnica que
+   MERIDIANO define más arriba —monoespaciada gris con la clave numérica en
+   azul señal— y la convertía en un botón azul redondeado, que no es lenguaje
+   suizo sino de panel de control.
+
+   Y tenía un efecto peor: al pintar el fondo con el mismo azul señal que usa
+   .clave, las seis claves numéricas (001, 002, 002b, 003, 004, 005) quedaban
+   escritas en azul sobre azul. Contraste 1,00: invisibles. Ese hueco que se
+   veía a la izquierda del rótulo eran ellas. */
 .panel .dato-g{font-family:var(--display,var(--disp,inherit));font-size:clamp(1.8rem,3.4vw,2.6rem);
   line-height:1;font-variant-numeric:tabular-nums;}
 .panel .dato-p{font-size:.82rem;color:var(--kit-texto-2);margin-top:.4rem;line-height:1.45;}

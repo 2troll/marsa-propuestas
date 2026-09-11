@@ -25,7 +25,7 @@
    leería esa opinión como una recomendación encubierta. Papel liso y una
    buena jerarquía tipográfica es todo lo que le toca hacer. */
 :root{
-  --f:#f4f4f2; --f2:#eaeae6; --t:#1b1c1a; --t2:#5f625d; --t3:#8f938c;
+  --f:#f4f4f2; --f2:#eaeae6; --t:#1b1c1a; --t2:#5f625d; --t3:#6b6f68;
   --l:rgba(27,28,26,.13);
   --a:#2f6d5e;
   --disp:"Newsreader",Georgia,serif;
@@ -34,11 +34,11 @@
 
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --f:#101110; --f2:#191a18; --t:#e9eae6; --t2:#a0a49c; --t3:#6e726a;
+  --f:#101110; --f2:#191a18; --t:#e9eae6; --t2:#a0a49c; --t3:#8a8e86;
   --l:rgba(233,234,230,.15); --a:#6fb3a0;
 }}
 :root[data-theme="dark"]{
-  --f:#101110; --f2:#191a18; --t:#e9eae6; --t2:#a0a49c; --t3:#6e726a;
+  --f:#101110; --f2:#191a18; --t:#e9eae6; --t2:#a0a49c; --t3:#8a8e86;
   --l:rgba(233,234,230,.15); --a:#6fb3a0;
 }
 html[dir="rtl"]{ --disp:"Noto Kufi Arabic",sans-serif; --cuerpo:"Noto Sans Arabic",sans-serif; }
@@ -79,7 +79,12 @@ html[dir="rtl"] .rot{letter-spacing:0;text-transform:none;font-size:.86rem;}
 .tiras i{width:2.1rem;height:2.1rem;display:block;background:var(--c);}
 .tipos{font-size:.82rem;color:var(--t3);margin-top:.7rem;}
 .ver{display:inline-block;margin-top:1.5rem;font-size:.76rem;letter-spacing:.14em;
-  text-transform:uppercase;text-decoration:none;border:1px solid var(--t);padding:.8rem 1.9rem;transition:.2s;}
+  text-transform:uppercase;text-decoration:none;border:1px solid var(--t);padding:.8rem 1.9rem;
+  /* El color se declara en vez de heredarlo. Heredado quedaba a merced de
+     quien envolviera el enlace, y en oscuro salía casi negro sobre negro:
+     contraste 1,11 en los cuatro botones que abren las propuestas, que son
+     el único control de esta página. */
+  color:var(--t);transition:.2s;}
 html[dir="rtl"] .ver{letter-spacing:0;text-transform:none;font-size:.92rem;}
 .ver:hover{background:var(--t);color:var(--f);}
 .riesgo{border-inline-start:2px solid var(--a);padding-inline-start:1rem;margin-top:1.2rem;font-size:.92rem;color:var(--t3);}
